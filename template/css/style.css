@@ -86,7 +86,20 @@ h4 {
     font-family: Ubuntu;
 }
 
+#signup-section {
+    margin-top: 5px;
+}
+
 .signup-footer {
     padding-top: 120px;
     text-align: center;
+}
+
+.signin-footer {
+    padding-top: 200px;
+    text-align: center;
+}
+
+.form-check {
+    text-align: left;
 }
