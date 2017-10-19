@@ -60,3 +60,33 @@ h4 {
 .navbar-brand {
     font-family: Ubuntu;
 }
+
+.form-style {
+    margin-right: 250px;
+    margin-left: 250px;
+    background: white;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.signup-body {
+    background: url('../img/dessert.jpeg') center center no-repeat;
+    background-size: cover;
+    opacity: 0.9;
+}
+
+.card-form {
+    margin-left: 280px;
+    margin-right: 300px;
+    margin-top: 120px;
+    background: #F3F2F7;
+}
+
+.sign-up-h3 {
+    font-family: Ubuntu;
+}
+
+.signup-footer {
+    padding-top: 120px;
+    text-align: center;
+}
