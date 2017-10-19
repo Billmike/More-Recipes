@@ -1,0 +1,62 @@
+body {
+    background: #F0EDED;
+    color: #575252; 
+}
+
+body .navbar {
+    /* border-bottom: #008ed6 3px solid; */
+    background: #fff;
+    background-color: #fff;
+}
+
+h4 {
+    font-family: Ubuntu;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.sizing {
+    width: 2000;
+    height: 800;
+}
+
+.carousel-h3 {
+    font-family: Ubuntu;
+    color: blue;
+    font-size: 2rem;
+    text-shadow: 1px 1px #131212;
+}
+
+.carousel-h3-light {
+    font-family: Ubuntu;
+    color: #E9E9F0;
+    font-size: 2rem;
+    text-shadow: 1px 1px #131212;
+}
+
+.carousel-p-light {
+    font-family: Satisfy;
+    color: #E9E9F0;
+    font-size: 1.5em;
+}
+
+.carousel-p {
+    font-family: Satisfy;
+    color: #19191A;
+    font-size: 1.5em;
+}
+
+.recipe-search {
+    margin-top: 20px;
+}
+
+.footer{
+    text-align: center;
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
+}
+
+.navbar-brand {
+    font-family: Ubuntu;
+}
