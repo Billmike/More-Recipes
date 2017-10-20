@@ -1,0 +1,46 @@
+{
+  "name": "More-Recipes",
+  "version": "1.0.0",
+  "description": "A recipe application that enables users share insightful recipes.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node ./server/bin/www",
+    "start:dev": "nodemon --exec babel-node ./server/bin/www",
+    "test": "mocha --compilers js:babel-core/register server/test/test.js --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Billmike/More-Recipes.git"
+  },
+  "keywords": [],
+  "author": "Bill Michael <billmike1994@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Billmike/More-Recipes/issues"
+  },
+  "homepage": "https://github.com/Billmike/More-Recipes#readme",
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "nodemon": "^1.12.1"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "mocha": "^4.0.1",
+    "morgan": "^1.9.0",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.15.0",
+    "sequelize-cli": "^3.0.0",
+    "supertest": "^3.0.0"
+  }
+}
