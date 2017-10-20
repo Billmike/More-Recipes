@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Billmike/More-Recipes.svg?branch=develop)](https://travis-ci.org/Billmike/More-Recipes)
+
 # More-Recipes
 A recipe application that enables users share insightful recipes.
 
