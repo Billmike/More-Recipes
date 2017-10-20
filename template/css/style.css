@@ -104,3 +104,40 @@ h4 {
 .form-check {
     text-align: left;
 }
+
+#descriptionTextArea {
+    height: 100px;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-top: 55px;
+  }
+  
+  .btns {
+    border: 2px solid #E2E3EB;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+    width: 250px;
+  }
+
+  .btn-add {
+    margin-left: 30px;
+    margin-top: 90px;
+    width: 250px;
+  }
+
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
