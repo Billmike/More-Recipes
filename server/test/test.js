@@ -82,6 +82,7 @@ describe('More-Recipes', () => {
       .send(data)
       .end((err, res) => {
         expect(res.status).to.equal(200);
+        expect(res).to.be.an('object');
         done();
       });
   });
@@ -89,6 +90,7 @@ describe('More-Recipes', () => {
     request.get('/api/v1/recipes')
       .end((err, res) => {
         expect(res).to.be.an('object');
+        expect(res.status).to.equal(200);
         done();
       });
   });
@@ -97,6 +99,7 @@ describe('More-Recipes', () => {
       .send(data)
       .end((err, res) => {
         expect(res.status).to.equal(201);
+        expect(res).to.be.an('object');
         done();
       });
   });
@@ -104,6 +107,7 @@ describe('More-Recipes', () => {
     request.delete('/api/v1/recipes/:recipeId')
       .end((err, res) => {
         expect(res.status).to.equal(201);
+        expect(res).to.be.an('object');
         done();
       });
   });
@@ -112,6 +116,7 @@ describe('More-Recipes', () => {
       .send(rev)
       .end((err, res) => {
         expect(res.status).to.equal(200);
+        expect(res).to.be.an('object');
         done();
       });
   });
@@ -120,6 +125,7 @@ describe('More-Recipes', () => {
       .send(voting)
       .end((err, res) => {
         expect(res.status).to.equal(201);
+        expect(res).to.be.an('object');
         done();
       });
   })
