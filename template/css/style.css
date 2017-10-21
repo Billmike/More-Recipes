@@ -1,0 +1,170 @@
+body {
+    background: #F0EDED;
+    color: #575252; 
+}
+
+body .navbar {
+    /* border-bottom: #008ed6 3px solid; */
+    background: #fff;
+    background-color: #fff;
+}
+
+.title-h2 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-family: Ubuntu;
+}
+
+.title-h3 {
+    font-family: Ubuntu;
+}
+
+.title-h3-comment {
+    font-family: Ubuntu;
+    margin-top: 35px;
+}
+
+h4 {
+    font-family: Ubuntu;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.sizing {
+    width: 2000;
+    height: 800;
+}
+
+.carousel-h3 {
+    font-family: Ubuntu;
+    color: blue;
+    font-size: 2rem;
+    text-shadow: 1px 1px #131212;
+}
+
+.carousel-h3-light {
+    font-family: Ubuntu;
+    color: #E9E9F0;
+    font-size: 2rem;
+    text-shadow: 1px 1px #131212;
+}
+
+.carousel-p-light {
+    font-family: Satisfy;
+    color: #E9E9F0;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.carousel-p {
+    font-family: Satisfy;
+    color: #19191A;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.recipe-search {
+    margin-top: 20px;
+}
+
+.footer{
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+.navbar-brand {
+    font-family: Ubuntu;
+}
+
+.form-style {
+    margin-right: 250px;
+    margin-left: 250px;
+    background: white;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.signup-body {
+    background: url('../img/dessert.jpeg') center center no-repeat;
+    background-size: cover;
+    opacity: 0.9;
+}
+
+.card-form {
+    margin-left: 280px;
+    margin-right: 300px;
+    margin-top: 120px;
+    background: #F3F2F7;
+}
+
+.sign-up-h3 {
+    font-family: Ubuntu;
+}
+
+#signup-section {
+    margin-top: 5px;
+}
+
+.signup-footer {
+    padding-top: 120px;
+    text-align: center;
+}
+
+.signin-footer {
+    padding-top: 200px;
+    text-align: center;
+}
+
+.form-check {
+    text-align: left;
+}
+
+#descriptionTextArea {
+    height: 100px;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-top: 55px;
+  }
+  
+  .btns {
+    border: 2px solid #E2E3EB;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+    width: 250px;
+  }
+
+  .btn-add {
+    margin-left: 30px;
+    margin-top: 90px;
+    width: 250px;
+  }
+
+  .btn-edit {
+    margin-left: 30px;
+    margin-top: 90px;
+    width: 100px;
+  }
+
+  .upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  .img_detail {
+      width: 450px;
+      height: 450px;
+      margin-bottom: 30px;
+  }
