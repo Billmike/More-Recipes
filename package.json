@@ -9,7 +9,8 @@
   "scripts": {
     "start": "nodemon --exec babel-node ./server/bin/www",
     "start:dev": "nodemon --exec babel-node ./server/bin/www",
-    "test": "nyc mocha server/test/test.js"
+    "test": "nyc mocha server/test/test.js",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "nyc": {
     "require": [
