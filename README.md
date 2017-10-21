@@ -8,4 +8,21 @@ A recipe application that enables users share insightful recipes.
 -  cd into More-Recipes
 -  Open ```index.html``` to see the home page and get started.
 
+##  Testing out the routes
+
+-  cd into the More-Recipes folder
+-  run ```npm install``` to install local dependencies
+-  run ```npm start``` to start up the development server. If you have installed nodemon, you can run ```npm run start:dev``` instead.
+-  Open up Postman and test out the following routes
+  -  POST ```localhost:8080/api/v1/recipes```
+  -  GET ```localhost:8080/api/v1/recipes```
+  -  PUT ```localhost:8080/api/v1/recipes/:recipeId```
+  -  DELETE ```localhost:8080/api/v1/recipes/:recipeId```
+  -  POST ```localhost:8080/api/v1/recipes/:recipeId/reviews```
+  -  GET ```localhost:8080/api/v1/recipes/sort/votes```
+
+##  Running tests
+
+-  run ```npm test``` to make sure all tests are passing.
+
 
