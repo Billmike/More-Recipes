@@ -1,54 +1,54 @@
+import exportData from '../controllers';
+
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the lamest API for now',
   }));
+
   app.get('/api/v1/recipes', (req, res) => {
-    res.status(200).json({
-      recipes: [
-        {
-          id: 1,
-          name: 'Shrimp Fried rice',
-          description: 'An italian Dish with the best taste in the world.',
-          category: 'Lunch',
-          ingredients: ['rice', 'shrimp', 'onions', 'olive oil'],
-          instructions: ['Perboil Boil rice', 'Wash shrimp properly', 'Steam for 1 - 3 hrs', 'Fry meat'],
-        },
-      ],
-    });
+    res.status(200).json({ feed: exportData.dataObj });
   });
+
   app.post('/api/v1/recipes', (req, res) => {
-    res.status(200).json({
-      recipes: [
-        {
-          id: 1,
-          name: 'Banana milk shake',
-          description: 'Probably the best milk shake you ever had in your entire life',
-          category: 'Dessert',
-          ingredients: ['Milk', 'Banana', 'Olive oil'],
-          instructions: ['Blend the banana properly', 'Filter and shake'],
-        },
-      ],
+    exportData.dataObj.dataObj.recipes.push({
+      id: exportData.dataObj.dataObj.recipes.length, 
+      name: req.body.name,
+      description: req.body.description,
+      category: req.body.category,
+      ingredients: req.body.ingredients,
+      instructions: req.body.instructions,
     });
+    res.status(200).json({ feed: exportData.dataObj });
   });
+
   app.put('/api/v1/recipes/:recipeId', (req, res) => {
-    res.status(201).json({
-      recipes: [
-        {
-          id: 1,
-          name: 'Something different here',
-          description: 'This resource has been modified recently',
-          category: 'This has probably changed too.',
-          ingredients: ['Modified', 'We modified this too'],
-          instructions: ['Something awesome is cooking and I can feel it in my bones.'],
-        },
-      ],
-    });
+    for (let i = 0; i <= exportData.dataObj.dataObj.recipes[0].id; i++) {
+      if (i == req.params.recipeId) {
+        console.log(exportData.dataObj.dataObj.recipes[i]);
+        exportData.dataObj.dataObj.recipes.splice(i, exportData.dataUpdate.recipes);
+      }
+    }
+    res.status(201).send({ message: 'Updated.', feed: exportData.dataUpdate });
   });
+
   app.delete('/api/v1/recipes/:recipeId', (req, res) => {
+    for (let i = 0; i <= exportData.dataObj.dataObj.recipes.length; i++) {
+
+      if (exportData.dataObj.dataObj.recipes[i].id == req.params.recipeId) {
+
+        console.log(exportData.dataObj.dataObj.recipes[i]);
+        exportData.dataObj.dataObj.recipes.splice(i, 1);
+
+        res.status(201).json({
+          message: 'Recipe has been deleted successfully, so there is nothing for us to return to you',
+        });
+      }
+    }
     res.status(201).json({
-      message: 'Recipe has been deleted successfully, so there is nothing for us to return to you',
+      message: 'Recipe has  not been deleted successfully, so there is nothing for us to return to you',
     });
   });
+
   app.post('/api/v1/recipes/:recipeId/reviews', (req, res) => {
     res.status(200).json({
       reviews: {
@@ -57,53 +57,8 @@ module.exports = (app) => {
       },
     });
   });
+
   app.get('/api/v1/recipes/sort/votes', (req, res) => {
-    res.status(201).json({
-      recipes: [
-        {
-          id: 1,
-          name: 'Shrimp Fried rice',
-          description: 'An italian Dish with the best taste in the world.',
-          category: 'Lunch',
-          ingredients: ['rice', 'shrimp', 'onions', 'olive oil'],
-          instructions: ['Perboil Boil rice', 'Wash shrimp properly', 'Steam for 1 - 3 hrs', 'Fry meat'],
-        },
-      ],
-      votes: [
-        {
-          voteCount: 24,
-        },
-      ],
-      recipe: [
-        {
-          id: 1,
-          name: 'Shrimp Fried rice',
-          description: 'An italian Dish with the best taste in the world.',
-          category: 'Lunch',
-          ingredients: ['rice', 'shrimp', 'onions', 'olive oil'],
-          instructions: ['Perboil Boil rice', 'Wash shrimp properly', 'Steam for 1 - 3 hrs', 'Fry meat'],
-        },
-      ],
-      vote: [
-        {
-          voteCount: 20,
-        },
-      ],
-      recip: [
-        {
-          id: 1,
-          name: 'Shrimp Fried rice',
-          description: 'An italian Dish with the best taste in the world.',
-          category: 'Lunch',
-          ingredients: ['rice', 'shrimp', 'onions', 'olive oil'],
-          instructions: ['Perboil Boil rice', 'Wash shrimp properly', 'Steam for 1 - 3 hrs', 'Fry meat'],
-        },
-      ],
-      vot: [
-        {
-          voteCount: 10,
-        },
-      ],
-    });
+    res.status(201).json({ feed: exportData.voteCount });
   });
 };
