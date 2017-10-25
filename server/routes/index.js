@@ -15,10 +15,10 @@ module.exports = (app) => {
       name: req.body.name,
       description: req.body.description,
       category: req.body.category,
-      ingredients: req.body.ingredients,
-      instructions: req.body.instructions,
+      ingredients: [req.body.ingredients],
+      instructions: [req.body.instructions],
     });
-    res.status(200).json({ feed: exportData.dataObj });
+    res.status(200).json({ feed: exportData.dataObj.dataObj.recipes.slice(-1) });
   });
 
   app.delete('/api/v1/recipes/:recipeId', (req, res) => {
@@ -42,5 +42,28 @@ module.exports = (app) => {
       content: req.body.content,
     });
     res.status(201).json({ status: 'Review posted successful.', feed: exportData.reviewData });
+  });
+
+  app.post('/api/v1/recipes/:recipeId/upVotes', (req, res) => {
+    for (let i = 0; i <= exportData.upVote.vote.length; i++) {
+      if (exportData.upVote.vote[i].id == req.params.recipeId) {
+        const counter = parseInt(req.body.voteCount, 10);
+        exportData.upVote.vote[0].voteCount += counter;
+        console.log(exportData.upVote.vote);
+        res.status(200).send({ status: 'Vote success', message: 'You have voted successfully.' });
+      } else {
+        res.status(400).send({ status: 'Failed.', message: 'An unexpected error occured while you tried to cast a vote.' });
+      }
+    }
+  });
+
+  app.get('/api/v1/recipes/:recipeId/allVotes', (req, res) => {
+    for (let i = 0; i < exportData.upVote.vote.length; i++) {
+      if (exportData.upVote.vote[i].id == req.params.recipeId) {
+        res.status(201).send({ status: true, feed: exportData.upVote.vote[i] });
+      } else {
+        res.status(400).send({ status: false, message: 'Sorry, we could not get the votes for this recipe.' });
+      }
+    }
   });
 };
