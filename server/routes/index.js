@@ -6,12 +6,12 @@ module.exports = (app) => {
   }));
 
   app.get('/api/v1/recipes', (req, res) => {
-    res.status(200).json({ feed: exportData.dataObj });
+    res.status(200).json({ feed: exportData.dataObj.dataObj });
   });
 
   app.post('/api/v1/recipes', (req, res) => {
     exportData.dataObj.dataObj.recipes.push({
-      id: exportData.dataObj.dataObj.recipes.length, 
+      id: exportData.dataObj.dataObj.recipes.length + 1,
       name: req.body.name,
       description: req.body.description,
       category: req.body.category,
@@ -21,44 +21,26 @@ module.exports = (app) => {
     res.status(200).json({ feed: exportData.dataObj });
   });
 
-  app.put('/api/v1/recipes/:recipeId', (req, res) => {
-    for (let i = 0; i <= exportData.dataObj.dataObj.recipes[0].id; i++) {
-      if (i == req.params.recipeId) {
-        console.log(exportData.dataObj.dataObj.recipes[i]);
-        exportData.dataObj.dataObj.recipes.splice(i, exportData.dataUpdate.recipes);
-      }
-    }
-    res.status(201).send({ message: 'Updated.', feed: exportData.dataUpdate });
-  });
-
   app.delete('/api/v1/recipes/:recipeId', (req, res) => {
     for (let i = 0; i <= exportData.dataObj.dataObj.recipes.length; i++) {
-
       if (exportData.dataObj.dataObj.recipes[i].id == req.params.recipeId) {
-
-        console.log(exportData.dataObj.dataObj.recipes[i]);
         exportData.dataObj.dataObj.recipes.splice(i, 1);
-
         res.status(201).json({
           message: 'Recipe has been deleted successfully, so there is nothing for us to return to you',
         });
+      } else {
+        return res.status(400).json({
+          message: 'Recipe has  not been deleted successfully. Something went wrong.',
+        });
       }
     }
-    res.status(201).json({
-      message: 'Recipe has  not been deleted successfully, so there is nothing for us to return to you',
-    });
   });
 
   app.post('/api/v1/recipes/:recipeId/reviews', (req, res) => {
-    res.status(200).json({
-      reviews: {
-        id: 1,
-        content: 'Amazing recipe. I can\'t wait to try it out with my family members!',
-      },
+    exportData.reviewData.reviewData.review.push({
+      id: exportData.reviewData.reviewData.review.length + 1,
+      content: req.body.content,
     });
-  });
-
-  app.get('/api/v1/recipes/sort/votes', (req, res) => {
-    res.status(201).json({ feed: exportData.voteCount });
+    res.status(201).json({ status: 'Review posted successful.', feed: exportData.reviewData });
   });
 };
