@@ -3,6 +3,10 @@ import validators from '../validators';
 
 const recipesDB = [...recipes];
 
+/**
+ *Represents a Recipe class.
+ */
+
 class Recipes {
   static getRecipes(req, res) {
     return res.status(200).json({
@@ -10,6 +14,11 @@ class Recipes {
     });
   }
 
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   */
   static createRecipe(req, res) {
     const validate = validators(req.body);
     const recipe = Object.assign({}, req.body, { id: recipesDB.length + 1 });
@@ -20,6 +29,12 @@ class Recipes {
       res.status(400).send({ status: false, message: 'All fields are required. Check your input again.' });
     }
   }
+
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   */
 
   static updateRecipe(req, res) {
     for (let i = 0; i <= recipesDB.length; i += 1) {
@@ -32,12 +47,18 @@ class Recipes {
 
         return res.status(201).json({
           message: 'Success',
-          recipes: { recipes: recipesDB },
+          recipes: { recipes: recipesDB[i] },
         });
       }
     }
     return res.status(400).json({ status: false, message: 'Unable to modify recipe. Try again later.' });
   }
+
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   */
 
   static deleteRecipe(req, res) {
     for (let i = 0; i <= recipesDB.length; i += 1) {
