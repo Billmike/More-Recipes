@@ -29,15 +29,6 @@ describe('More-Recipes', () => {
       },
     };
   });
-  it('It should create a new recipe in the application', (done) => {
-    request.post('/api/v1/recipes')
-      .send(data)
-      .end((err, res) => {
-        expect(res.status).to.equal(200);
-        expect(res).to.be.an('object');
-        done();
-      });
-  });
   it('It should get all the recipes in the application', (done) => {
     request.get('/api/v1/recipes')
       .end((err, res) => {
