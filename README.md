@@ -16,11 +16,15 @@ A recipe application that enables users share insightful recipes.
 -  run ```npm start``` to start up the development server. If you have installed nodemon, you can run ```npm run start:dev``` instead.
 -  Open up Postman and test out the following routes
   -  POST ```localhost:8080/api/v1/recipes```
+    -  To add a recipe, click on ```x-www-form-urlencoded```, and enter values for name, description, category, ingredients and instructions.
+
   -  GET ```localhost:8080/api/v1/recipes```
-  -  PUT ```localhost:8080/api/v1/recipes/:recipeId```
+
   -  DELETE ```localhost:8080/api/v1/recipes/:recipeId```
+    -  To delete a recipe, enter the url above and replace ```:recipeId``` with a value (2, 3, etc). 
+  
   -  POST ```localhost:8080/api/v1/recipes/:recipeId/reviews```
-  -  GET ```localhost:8080/api/v1/recipes/sort/votes```
+    -  To post a review, enter the url above and replace ```:recipeId``` with a numeric value.
 
 ##  Running tests
 
