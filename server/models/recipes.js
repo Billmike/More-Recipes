@@ -6,6 +6,14 @@ const recipes = [
     category: 'Dessert',
     ingredients: ['Milk', 'Banana', 'Olive oil'],
     instructions: ['Blend the banana properly', 'Filter and shake'],
+    upVote: 0,
+    downVote: 0,
+    favorite: 0,
+    reviews: [
+      {
+        review: '',
+      },
+    ],
   },
   {
     id: 2,
@@ -14,6 +22,14 @@ const recipes = [
     category: 'Dessert',
     ingredients: ['Milk', 'Banana', 'Olive oil'],
     instructions: ['Blend the banana properly', 'Filter and shake'],
+    upVote: 0,
+    downVote: 0,
+    favorite: 0,
+    reviews: [
+      {
+        review: '',
+      },
+    ],
   },
   {
     id: 3,
@@ -22,6 +38,14 @@ const recipes = [
     category: 'Dessert',
     ingredients: ['Milk', 'Banana', 'Olive oil'],
     instructions: ['Blend the banana properly', 'Filter and shake'],
+    upVote: 0,
+    downVote: 0,
+    favorite: 0,
+    reviews: [
+      {
+        review: '',
+      },
+    ],
   },
 ];
 
