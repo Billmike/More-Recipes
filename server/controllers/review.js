@@ -1,14 +1,13 @@
-const reviewData = {
-  review: [
-    {
-      id: 1,
-      content: 'Amazing recipe. I can\'t wait to try it out with my family members!',
-    },
-    {
-      id: 2,
-      content: 'Second Amazing recipe. I can\'t wait to try it out with my family members!',
-    }
-  ]
-};
+import reviews from '../models/review';
 
-module.exports = { reviewData };
+class Review {
+  static addReview(req, res) {
+    reviews.push({
+      id: req.params.recipeId,
+      content: req.body.content,
+    });
+    res.status(201).json({ status: 'Review success.', feed: reviews });
+  }
+}
+
+export default Review;
