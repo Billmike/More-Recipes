@@ -10,6 +10,13 @@ const recipesDB = [...recipes];
 
 class Recipes {
   static getRecipes(req, res) {
+    if (req.query.sort == 'upVotes') {
+      if (req.query.order == 'desc') {
+        recipesDB.sort((recipe1, recipe2) => recipe2.upVote - recipe1.upVote);
+      } else {
+        recipesDB.sort((recipe1, recipe2) => recipe1.upVote - recipe2.upVote);
+      }
+    }
     return res.status(200).json({
       feed: { recipes: recipesDB },
     });
@@ -64,8 +71,8 @@ class Recipes {
           res.status(401).send({ status: 'Update failed.', message: validate.message });
         }
       }
+      return res.status(404).json({ status: false, message: 'Unable to modify recipe. Something is wrong.' });
     }
-    return res.status(400).json({ status: false, message: 'Unable to modify recipe. Try again later.' });
   }
 
   /**
@@ -99,6 +106,11 @@ class Recipes {
     }
   }
 
+  /**
+   *
+   * @param {*} req
+   * @param {*} res
+   */
   static downVote(req, res) {
     for (let i = 0; i <= recipesDB.length; i += 1) {
       if (recipesDB[i].id == req.params.recipeId) {
