@@ -1,6 +1,5 @@
 import chai from 'chai';
 import supertest from 'supertest';
-import validateFunction from '../validators/validateinput';
 import app from '../app';
 
 const expect = chai.expect;
@@ -88,6 +87,12 @@ describe('API Endpoints testing', () => {
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res).to.be.an('object');
+        });
+    });
+    it('Should return the Home Page', () => {
+      request.get('/api/v1')
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
         });
     });
   });

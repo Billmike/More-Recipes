@@ -9,6 +9,12 @@ const recipesDB = [...recipes];
  */
 
 class Recipes {
+  /**
+   * @returns { Object } getRecipes
+   * @param { String } req - The request being passed.
+   * @param { String } res - The response being returned.
+   */
+
   static getRecipes(req, res) {
     if (req.query.sort == 'upVotes') {
       if (req.query.order == 'desc') {
@@ -23,10 +29,11 @@ class Recipes {
   }
 
   /**
-   *
-   * @param {*} req
-   * @param {*} res
+   * @returns { Object } createRecipe
+   * @param { String } req - The request being passed.
+   * @param { String } res - The response being returned.
    */
+
   static createRecipe(req, res) {
     const validate = validators(req.body);
     const recipe = Object.assign({}, req.body, {
@@ -47,9 +54,9 @@ class Recipes {
   }
 
   /**
-   *
-   * @param {*} req
-   * @param {*} res
+   * @returns { Object } updateRecipe
+   * @param { String } req - The request being passed.
+   * @param { String } res - The response being returned.
    */
 
   static updateRecipe(req, res) {
@@ -75,9 +82,9 @@ class Recipes {
   }
 
   /**
-   *
-   * @param {*} req
-   * @param {*} res
+   * @returns { Object } deleteRecipe
+   * @param { String } req - The request being passed.
+   * @param { String } res - The response being returned.
    */
 
   static deleteRecipe(req, res) {
@@ -90,9 +97,9 @@ class Recipes {
   }
 
   /**
-   *
-   * @param {*} req
-   * @param {*} res
+   * @returns { Object } upVote
+   * @param { String } req - The request being passed.
+   * @param { String } res - The response being returned.
    */
 
   static upVote(req, res) {
@@ -106,10 +113,11 @@ class Recipes {
   }
 
   /**
-   *
-   * @param {*} req
-   * @param {*} res
+   * @returns { Object } downVote
+   * @param { String } req - The request being passed.
+   * @param { String } res - The response being returned.
    */
+
   static downVote(req, res) {
     for (let i = 0; i <= recipesDB.length; i += 1) {
       if (recipesDB[i].id == req.params.recipeId) {
@@ -121,9 +129,9 @@ class Recipes {
   }
 
   /**
-   *
-   * @param {*} req
-   * @param {*} res
+   * @returns { Object } reviews
+   * @param { String } req - The request being passed.
+   * @param { String } res - The response being returned.
    */
 
   static reviews(req, res) {
