@@ -8,6 +8,7 @@ const request = supertest(app);
 let data = {};
 let updateData = {};
 const upVote = '1';
+let review = {};
 
 describe('API Endpoints testing', () => {
   describe('Get all recipes in the application', () => {
@@ -34,6 +35,9 @@ describe('API Endpoints testing', () => {
         category: 'Dessert',
         ingredients: ['Milk', 'Banana', 'Olive oil'],
         instructions: ['Blend the banana properly', 'Filter and shake'],
+      };
+      review = {
+        review: 'Awesome meal. Can\'t wait to try it out.',
       };
     });
     it('Should get all the recipes in the application', () => {
@@ -70,6 +74,20 @@ describe('API Endpoints testing', () => {
         .send(upVote)
         .end((err, res) => {
           expect(res.status).to.equal(201);
+        });
+    });
+    it('Should get recipes based on Upvotes in descending order', () => {
+      request.get('/api/v1/recipes?sort=upVotes&order=desc')
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+        });
+    });
+    it('Should post a review for a recipe', () => {
+      request.post('/api/v1/recipes/:recipeId/reviews')
+        .send(review)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res).to.be.an('object');
         });
     });
   });
