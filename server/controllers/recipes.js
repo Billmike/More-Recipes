@@ -71,7 +71,6 @@ class Recipes {
           res.status(401).send({ status: 'Update failed.', message: validate.message });
         }
       }
-      return res.status(404).json({ status: false, message: 'Unable to modify recipe. Something is wrong.' });
     }
   }
 
