@@ -6,6 +6,7 @@ module.exports = (app) => {
     message: 'Welcome to the lamest API for now',
   }));
   app.post('/api/v1/users/signup', userController.signUp);
+  app.post('/api/v1/users/signin', userController.signIn);
   app.get('/api/v1/recipes', Recipes.getRecipes);
   app.post('/api/v1/recipes', Recipes.createRecipe);
   app.put('/api/v1/recipes/:recipeId', Recipes.updateRecipe);
