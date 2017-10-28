@@ -1,4 +1,4 @@
-import recipes from '../models/recipes';
+import recipes from '../mod/recipes';
 import validators from '../validators/validateinput';
 import validateReview from '../validators/validateReview';
 
@@ -24,7 +24,7 @@ class Recipes {
       }
     }
     return res.status(200).json({
-      feed: { recipes: recipesDB },
+      data: { recipes: recipesDB },
     });
   }
 
@@ -47,7 +47,7 @@ class Recipes {
     });
     if (validate.valid) {
       recipesDB.push(recipe);
-      res.status(201).send({ status: 'Successful.', feed: recipesDB[recipesDB.length - 1] });
+      res.status(201).send({ status: 'Successful.', data: recipesDB[recipesDB.length - 1] });
     } else {
       res.status(400).send({ status: false, message: validate.message });
     }
