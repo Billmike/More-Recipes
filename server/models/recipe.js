@@ -39,6 +39,16 @@ module.exports = (sequelize, DataTypes) => {
         recipe.ingredients = checkArrayData(recipe.ingredients);
         recipe.instructions = checkArrayData(recipe.instructions);
       },
+      beforeUpdate: (recipe) => {
+        const checkData = (field) => {
+          if (Array.isArray(field) === false) {
+            field = [field];
+          }
+          return field;
+        };
+        recipe.ingredients = checkData(recipe.ingredients);
+        recipe.instructions = checkData(recipe.instructions);
+      },
     },
   });
   Recipe.associate = (models) => {
