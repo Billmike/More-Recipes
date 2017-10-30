@@ -1,3 +1,9 @@
+/**
+  * @returns { Object } validateSignup
+  *
+  *
+  */
+
 const validateSignup = ({ email, password, username }) => {
   if ((password === undefined || password === '') && (email === undefined || email === '') && (username === undefined || email === '')) return { valid: false, message: 'username, email and password fields are required', status: 400 };
   if (email === undefined || email === '') return { valid: false, message: 'Please enter an Email Address.', status: 400 };

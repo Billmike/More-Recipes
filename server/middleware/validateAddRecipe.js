@@ -1,3 +1,9 @@
+/**
+  * @returns { Object } validateRecipeAdd
+  *
+  *
+  */
+
 const validateRecipeAdd = (req, res, next) => {
   const {
     name, description, category, ingredients, instructions,
