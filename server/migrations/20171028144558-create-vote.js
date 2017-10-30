@@ -11,7 +11,7 @@ module.exports = {
       allowNull: false,
     },
     voteType: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     createdAt: {

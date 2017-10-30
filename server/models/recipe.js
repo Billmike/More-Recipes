@@ -18,10 +18,27 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     ingredients: {
+      allowNull: false,
       type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: [],
     },
     instructions: {
+      allowNull: false,
       type: DataTypes.ARRAY(DataTypes.TEXT),
+      defaultValue: [],
+    },
+  }, {
+    hooks: {
+      beforeCreate: (recipe) => {
+        const checkArrayData = (field) => {
+          if (Array.isArray(field) === false) {
+            field = [field];
+          }
+          return field;
+        };
+        recipe.ingredients = checkArrayData(recipe.ingredients);
+        recipe.instructions = checkArrayData(recipe.instructions);
+      },
     },
   });
   Recipe.associate = (models) => {
