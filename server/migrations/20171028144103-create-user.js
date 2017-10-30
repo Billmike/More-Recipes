@@ -7,10 +7,11 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     username: {
-      allowNull: true,
+      allowNull: false,
       unique: true,
       validate: {
         max: 15,
+        min: 3,
       },
       type: Sequelize.STRING,
     },

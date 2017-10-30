@@ -24,9 +24,11 @@ module.exports = {
       type: Sequelize.STRING,
     },
     ingredients: {
+      allowNull: false,
       type: Sequelize.ARRAY(Sequelize.STRING),
     },
     instructions: {
+      allowNull: false,
       type: Sequelize.ARRAY(Sequelize.TEXT),
     },
     createdAt: {
@@ -47,5 +49,5 @@ module.exports = {
       },
     },
   }),
-  down: queryInterface => queryInterface.dropTable('Recipes')
+  down: queryInterface => queryInterface.dropTable('Recipes'),
 };
