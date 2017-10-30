@@ -1,9 +1,20 @@
-// import { Recipes } from '../models';
 import db from '../models/index';
 
 const recipes = db.Recipe;
 
+/**
+  * @class { Object } Recipe
+  *
+  *
+  */
+
 class Recipe {
+/**
+  * @returns { Object } addRecipe
+  *@param { String } req takes in the request
+  *@param { String } res takes in the response
+  */
+
   static addRecipe(req, res) {
     const {
       name, description, img_link, category, ingredients, instructions,
@@ -21,6 +32,12 @@ class Recipe {
       .then(recipe => res.status(201).send(recipe))
       .catch(() => res.status(400).send({ status: 'Failed.', error: 'Something here.' }));
   }
+
+  /**
+  * @returns { Object } modifyRecipe
+  *@param { String } req takes in the request
+  *@param { String } res takes in the response
+  */
 
   static modifyRecipe(req, res) {
     return recipes
@@ -48,6 +65,19 @@ class Recipe {
           .catch(error => res.status(400).send({ status: 'Unknown.', message: error.message }));
       })
       .catch(error => res.status(400).send({ status: 'Unknown error.', message: error.message }));
+  }
+
+  /**
+  * @returns { Object } getRecipes
+  *@param { String } req takes in the request
+  *@param { String } res takes in the request
+  */
+
+  static getRecipes(req, res) {
+    return recipes
+      .all()
+      .then(allRecipes => res.status(200).send({ status: 'Success.', data: allRecipes }))
+      .catch(error => res.status(400).send(error.message));
   }
 }
 

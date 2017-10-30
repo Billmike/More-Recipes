@@ -21,7 +21,6 @@ class Users {
       })
       .then(() => res.status(201).send({ status: 'Success', message: 'Sigup Successful!' }))
       .catch((error) => {
-        console.log(error);
         if (error.errors[0].message === 'Validation isEmail on email failed') {
           res.status(400).send({
             message: 'Invalid email format. Email should be in the abc@xyz.com format.',
@@ -35,9 +34,6 @@ class Users {
             message: 'An account has been registered with this Email.',
           });
         }
-        // const err = new Error(error.errors[0].message);
-        // err.status = 400;
-        // return next(err);
       });
   }
 
