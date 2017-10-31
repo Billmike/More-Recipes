@@ -3,6 +3,8 @@ import recipeController from '../controllers/recipes';
 import Login from '../middleware/ensureLogin';
 import User from '../middleware/isuser';
 import recipeAdd from '../middleware/validateAddRecipe';
+import reviewController from '../controllers/reviews';
+import validateReview from '../middleware/validateReview';
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -13,4 +15,5 @@ module.exports = (app) => {
   app.post('/api/v1/recipes/testAdd', Login.ensureLogin, User.isuser, recipeAdd, recipeController.addRecipe);
   app.put('/api/v1/recipe/:recipeId', Login.ensureLogin, User.isuser, recipeAdd, recipeController.modifyRecipe);
   app.get('/api/v1/recipes', recipeController.getRecipes);
+  app.post('/api/v1/recipes/:recipeId', Login.ensureLogin, User.isuser, validateReview, reviewController.addReviews);
 };
