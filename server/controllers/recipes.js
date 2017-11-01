@@ -92,9 +92,10 @@ class Recipe {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).send({ status: 'Not found', message: 'The recipe you are looking for does not exist.' });
-        } else if (recipe.owner !== req.userId) {
-          return res.status(403).send({ status: 'Forbidden.', message: 'You do not have the priviledges to perform this action.' });
-        }
+        } 
+        // else if (recipe.owner !== req.userId) {
+        //   return res.status(403).send({ status: 'Forbidden.', message: 'You do not have the priviledges to perform this action.' });
+        // }
         return recipe
           .destroy()
           .then(() => res.status(200).send({ status: 'Success.', message: 'You have successfully deleted this recipe. Want to add another?' }))
