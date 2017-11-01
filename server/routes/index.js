@@ -17,7 +17,6 @@ module.exports = (app) => {
   app.post('/api/v1/users/signin', userController.signIn);
   app.post('/api/v1/recipes', Login.ensureLogin, User.isuser, recipeAdd, recipeController.addRecipe);
   app.put('/api/v1/recipe/:recipeId', Login.ensureLogin, User.isuser, recipeAdd, recipeController.modifyRecipe);
-  // app.get('/api/v1/recipes', recipeController.getRecipes);
   app.post('/api/v1/recipes/:recipeId', Login.ensureLogin, User.isuser, validateReview, reviewController.addReviews);
   app.delete('/api/v1/recipes/:recipeId', recipeController.deleteRecipe);
   app.post('/api/v1/recipes/:recipeId/favorites', Login.ensureLogin, User.isuser, favorite.addFavorite);
