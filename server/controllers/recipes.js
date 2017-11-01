@@ -64,7 +64,7 @@ class Recipe {
           .then(() => res.status(200).send({ status: 'Update successful.', data: recipe }))
           .catch(error => res.status(400).send({ status: 'Unknown.', message: error.message }));
       })
-      .catch(error => res.status(400).send({ status: 'Unknown error.', message: error.message }));
+      .catch(error => res.status(500).send({ status: 'Unknown error.', message: error.message }));
   }
 
   /**
@@ -100,7 +100,7 @@ class Recipe {
           .then(() => res.status(200).send({ status: 'Success.', message: 'You have successfully deleted this recipe. Want to add another?' }))
           .catch(error => res.status(400).send({ status: error.message }));
       })
-      .catch(error => res.status(400).send({ status: 'Failed', message: error.message }));
+      .catch(error => res.status(500).send({ status: 'Failed', message: error.message }));
   }
 }
 

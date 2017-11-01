@@ -44,7 +44,7 @@ class Favorites {
           .then(() => res.status(200).send({ status: 'Success.', message: 'Recipe added to your favorite.' }))
           .catch(error => res.status(400).send({ message: error.message }));
       })
-      .catch(error => res.status(400).send({ error: error.message }));
+      .catch(error => res.status(500).send({ error: error.message }));
   }
 
   static getFavorites(req, res, next) {
@@ -72,7 +72,8 @@ class Favorites {
           recipes.push(fav.dataValues.Recipe.dataValues);
         });
         return res.status(200).send({ status: 'Success.', message: `${countFavorites} recipe(s) found in user's favorite list`, recipes });
-      });
+      })
+      .catch(error => res.status(500).send({ message: error.message }));
   }
 }
 

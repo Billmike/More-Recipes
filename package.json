@@ -7,7 +7,8 @@
     "node": "6.11.2"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node ./server/bin/www",
+    "build": "babel ./ -d dist",
+    "start": "npm run build && node ./server/dist/app.js",
     "start:dev": "nodemon --exec babel-node ./server/bin/www",
     "test-local": "mocha --compilers js:babel-core/register server/test/test.js --timeout 10000",
     "test": "nyc mocha server/test/test.js",
@@ -54,6 +55,7 @@
     "lodash": "^4.17.4",
     "mocha": "^4.0.1",
     "morgan": "^1.9.0",
+    "nodemailer": "^4.3.1",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.15.0",
