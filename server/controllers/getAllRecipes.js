@@ -6,6 +6,22 @@ const Favorites = db.Favorite;
 const User = db.User;
 
 class GetRecipes {
+/**
+   * @param  {string} name - Recipe name
+   * @param  {string} description - Recipe description
+   * @param  {string} imglink - Recipe image link
+   * @param  {array} ingredients - Recipe ingredients
+   * @param  {array} instructions - Recipe instructions
+   * @param  {object} owner - User information - id, and username.
+   * @param  {array} reviews - Recipe review
+   * @param  {number} favorites - Recipe favorites
+   * @param  {number} viewCount - Recipe view count
+   * @param  {number} upVote - Recipe upvote count
+   * @param  {number} downVote - Recipe downvote count
+   * @param  {number} id - Recipe id
+   * @param  {time} createdAt - Recipe time of creation
+   * @param  {time} updatedAt - Recipe time of update
+   */
   constructor(
     name, description, imglink, ingredients, instructions,
     owner, reviews, favorites, viewCount, upVote, downVote, id,

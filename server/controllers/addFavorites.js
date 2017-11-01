@@ -14,6 +14,8 @@ class Favorites {
       .then((favs) => {
         if (!favs) {
           return res.status(404).send({ status: 'Not found.', message: 'Recipe not found.' });
+        } else if (favs.owner === req.userId) {
+          return res.status(403).send({ status: 'Forbidden.', message: 'Sorry, you cannot favorite your own recipe.' });
         } else if (favs.length === 0) {
           return favorite.create({
             userId: req.userId,
@@ -33,14 +35,14 @@ class Favorites {
         if (arrayFavs.includes(userId)) {
           return favorite.findById(userFavs.dataValues.id)
             .then(favourite => favourite.destroy())
-            .then(() => res.status(200).send({ message: 'Recipe has been removed from your favorites.' }))
+            .then(() => res.status(200).send({ message: 'Recipe has been removed from your favorites.' }));
         }
         favorite.create({
           userId: req.userId,
           recipeId: req.params.recipeId,
         })
-        .then(() => res.status(200).send({ status: 'Success.', message: 'Recipe added to your favorite.' }))
-        .catch(error => res.status(400).send({ message: error.message }));
+          .then(() => res.status(200).send({ status: 'Success.', message: 'Recipe added to your favorite.' }))
+          .catch(error => res.status(400).send({ message: error.message }));
       })
       .catch(error => res.status(400).send({ error: error.message }));
   }
@@ -56,21 +58,21 @@ class Favorites {
       where: {
         userId: parseInt(userId, 10),
       },
-        include: {
-          model: recipe,
+      include: {
+        model: recipe,
       },
     })
-    .then((favorites) => {
-      const countFavorites = favorites.length;
-      if (countFavorites === 0) {
-        return res.status(200).send({ status: 'Success.', recipes: null, message: 'User has no favorites.' });
-      }
-      const recipes = [];
-      favorites.forEach((fav) => {
-        recipes.push(fav.dataValues.Recipe.dataValues);
+      .then((favorites) => {
+        const countFavorites = favorites.length;
+        if (countFavorites === 0) {
+          return res.status(200).send({ status: 'Success.', recipes: null, message: 'User has no favorites.' });
+        }
+        const recipes = [];
+        favorites.forEach((fav) => {
+          recipes.push(fav.dataValues.Recipe.dataValues);
+        });
+        return res.status(200).send({ status: 'Success.', message: `${countFavorites} recipe(s) found in user's favorite list`, recipes });
       });
-      return res.status(200).send({ status: 'Success.', message: `${countFavorites} recipe(s) found in user's favorite list`, recipes });
-    });
   }
 }
 
