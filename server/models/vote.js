@@ -4,9 +4,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER,
     },
-    vote: {
+    voteType: {
       allowNull: false,
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
   });
 
