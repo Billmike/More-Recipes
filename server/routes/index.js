@@ -9,6 +9,7 @@ import favorite from '../controllers/addFavorites';
 import vote from '../controllers/voteRecipe';
 import getSortedRecipes from '../controllers/getAllRecipes';
 
+
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
     message: 'Welcome to the lamest API for now',

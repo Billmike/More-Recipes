@@ -23,13 +23,14 @@ class GetRecipes {
    * @param  {time} updatedAt - Recipe time of update
    */
   constructor(
-    name, description, imglink, ingredients, instructions,
+    name, description, imglink, category, ingredients, instructions,
     owner, reviews, favorites, viewCount, upVote, downVote, id,
     createdAt, updatedAt,
   ) {
     this.name = name;
     this.description = description;
     this.imglink = imglink;
+    this.category = category;
     this.ingredients = ingredients;
     this.instructions = instructions;
     this.owner = owner;
@@ -88,6 +89,7 @@ const getAllRecipes = (req, res, next) => {
           elem.name,
           elem.description,
           elem.imglink,
+          elem.category,
           elem.ingredients,
           elem.instructions,
           { id: elem.User.id, username: elem.User.username },
