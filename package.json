@@ -7,8 +7,8 @@
     "node": "6.11.2"
   },
   "scripts": {
-    "build": "babel ./ -d dist",
-    "start": "npm run build && node ./server/dist/app.js",
+    "build": "babel ./server/ -d dist",
+    "start": "npm run build && node ./dist/bin/www.js",
     "test-local": "mocha --compilers js:babel-core/register server/test/test.js --timeout 10000 --exit",
     "test": "nyc mocha server/test/test.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
