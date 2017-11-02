@@ -1,4 +1,4 @@
-const data = {
+module.exports = {
   development: {
     username: 'postgres',
     password: 'root',
@@ -22,4 +22,3 @@ const data = {
   },
 };
 
-export default data;
