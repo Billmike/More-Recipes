@@ -10,7 +10,7 @@
     "build": "babel ./ -d dist",
     "start": "npm run build && node ./server/dist/app.js",
     "start:dev": "nodemon --exec babel-node ./server/bin/www",
-    "test-local": "mocha --compilers js:babel-core/register server/test/test.js --timeout 10000",
+    "test-local": "mocha --compilers js:babel-core/register server/test/test.js --timeout 10000 --exit",
     "test": "nyc mocha server/test/test.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
