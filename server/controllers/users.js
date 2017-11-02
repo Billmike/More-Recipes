@@ -4,7 +4,8 @@ import { User } from '../models';
 import signupValidator from '../validators/validatesignup';
 import signinValidator from '../validators/validatesignin';
 
-const secret = 'secretkeyishere';
+
+require('dotenv').config();
 
 class Users {
   static signUp(req, res, next) {
@@ -28,12 +29,12 @@ class Users {
           secure: false,
           requireTLS: true,
           auth: {
-            user: 'testingemailapi92@gmail.com',
-            pass: '_testingemail!@#',
+            user: process.env.EMAIL_ADDRESS,
+            pass: process.env.PASSWORD,
           },
         });
         const mailOptions = {
-          from: 'testingemailapi92@gmail.com',
+          from: process.env.EMAIL_ADDRESS,
           to: user.email,
           subject: 'Welcome to More-Recipes',
           text: 'A bouquet of amazing recipes awaits you. Begin your journey <a href="https://billmike.github.io">here</a>',
@@ -78,7 +79,7 @@ class Users {
             message: 'Invalid email or password.',
           });
         }
-        const token = jwt.sign({ id: user.id }, secret, { expiresIn: '60 days' });
+        const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '60 days' });
         return res.status(201).send({ status: 'Success', token: { token } });
       });
     } else {

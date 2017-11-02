@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer';
 import db from '../models/index';
 
+require('dotenv').config();
+
 const reviews = db.Review;
 const recipes = db.Recipe;
 const Users = db.User;
@@ -39,12 +41,12 @@ class Review {
                 secure: false,
                 requireTLS: true,
                 auth: {
-                  user: 'testingemailapi92@gmail.com',
-                  pass: '_testingemail!@#',
+                  user: process.env.EMAIL_ADDRESS,
+                  pass: process.env.PASSWORD,
                 },
               });
               const mailOptions = {
-                from: 'testingemailapi92@gmail.com',
+                from: process.env.EMAIL_ADDRESS,
                 to: user.email,
                 subject: 'Your recipe has been reviewed.',
               };

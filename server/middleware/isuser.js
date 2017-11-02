@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../models';
 
-const secret = 'secretkeyishere';
+require('dotenv').config();
 
 /**
   * @class { Object } SessionControl
@@ -17,7 +17,7 @@ class SessionControl {
   static isuser(req, res, next) {
     let verifiedJWT;
     try {
-      verifiedJWT = jwt.verify(req.token, secret);
+      verifiedJWT = jwt.verify(req.token, process.env.SECRET);
     } catch (error) {
       res.status(400).send({ status: 'failed.', message: 'Provide correct details to access this resource.' });
     }
