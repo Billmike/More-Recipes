@@ -12,7 +12,7 @@ import getSortedRecipes from '../controllers/getAllRecipes';
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the lamest API for now',
+    message: 'Welcome to the More-Recipes API',
   }));
   app.post('/api/v1/users/signup', userController.signUp);
   app.post('/api/v1/users/signin', userController.signIn);
