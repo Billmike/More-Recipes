@@ -15,6 +15,10 @@ body .navbar {
     background-color: #fff;
 }
 
+.index-card {
+    margin-right: 15px;
+}
+
 .title-h2 {
     margin-top: 20px;
     margin-bottom: 30px;
@@ -97,7 +101,6 @@ h4 {
 .signup-body {
     background: url('../img/dessert.jpeg') center center no-repeat;
     background-size: cover;
-    opacity: 0.9;
 }
 
 .card-form {
