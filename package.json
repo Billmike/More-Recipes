@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "babel ./server/ -d dist",
+    "start:dev": "nodemon --exec babel-node ./server/bin/www.js",
     "start": "npm run build && node ./dist/bin/www.js",
     "heroku-postbuild": "npm run migrate",
     "migrate": "node_modules/.bin/sequelize db:migrate",

@@ -22,6 +22,7 @@ class Users {
         username,
       })
       .then((user) => {
+        const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '30 days' });
         const smtpTransport = nodemailer.createTransport({
           service: 'Gmail',
           host: 'smtp.gmail.com',
@@ -39,29 +40,28 @@ class Users {
           subject: 'Welcome to More-Recipes',
           text: 'A bouquet of amazing recipes awaits you. Begin your journey <a href="https://billmike.github.io">here</a>',
         };
-        console.log(mailOptions);
         smtpTransport.sendMail(mailOptions, (err, response) => {
           if (err) {
-            console.log(err);
             res.status(400).send({ message: err.message });
           } else {
-            console.log(`Sent message ${response.message}`);
             res.status(201).send({ status: 'sent', message: response.message });
           }
         });
-        res.status(201).send({ status: 'Success', message: 'Sigup Successful!' });
+        return res.status(201).send({
+          message: 'Sigup Successful!. Check your email for confirmation.', username: user.username, email: user.email, token: { token },
+        });
       })
       .catch((error) => {
         if (error.errors[0].message === 'Validation isEmail on email failed') {
-          res.status(400).send({
+          res.status(409).send({
             message: 'Invalid email format. Email should be in the abc@xyz.com format.',
           });
         } else if (error.errors[0].message === 'username must be unique') {
-          res.status(400).send({
+          res.status(409).send({
             message: 'Username already taken.',
           });
         } else if (error.errors[0].message === 'email must be unique') {
-          res.status(400).send({
+          res.status(409).send({
             message: 'An account has been registered with this Email.',
           });
         }
