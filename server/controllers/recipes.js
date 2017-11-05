@@ -49,17 +49,14 @@ class Recipe {
           return res.status(403).send({ status: 'Forbidden.', message: 'Sorry. You cannot perform this action.' });
         }
 
-        const {
-          name, description, img_link, category, ingredients, instructions,
-        } = req.body;
         return recipe
           .update({
-            name,
-            description,
-            img_link,
-            category,
-            ingredients,
-            instructions,
+            name: req.body.name || recipe.name,
+            description: req.body.description || recipe.description,
+            img_link: req.body.img_link || recipe.img_link,
+            category: req.body.category || recipe.category,
+            ingredients: req.body.ingredients || recipe.ingredients,
+            instructions: req.body.instructions || recipe.instructions,
           })
           .then(() => res.status(200).send({ status: 'Update successful.', data: recipe }))
           .catch(error => res.status(400).send({ status: 'Unknown.', message: error.message }));
