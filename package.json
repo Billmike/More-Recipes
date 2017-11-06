@@ -8,8 +8,9 @@
   },
   "scripts": {
     "build": "babel ./server/ -d dist",
-    "start:dev": "nodemon --exec babel-node ./server/bin/www.js",
-    "start": "npm run build && node ./dist/bin/www.js",
+    "start:dev": "npm run apidoc && nodemon --exec babel-node ./server/bin/www.js",
+    "apidoc": "apidoc -i server/routes -o public/apidoc",
+    "start": "npm run build && npm run apidoc && node ./dist/bin/www.js",
     "heroku-postbuild": "npm run migrate",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "test-local": "mocha --compilers js:babel-core/register server/test/test.js --timeout 10000 --exit",
@@ -20,6 +21,12 @@
     "require": [
       "babel-register"
     ]
+  },
+  "apidoc": {
+    "name": "More-Recipes API documentation",
+    "template": {
+      "forceLanguage": "en"
+    }
   },
   "repository": {
     "type": "git",
@@ -33,6 +40,7 @@
   },
   "homepage": "https://github.com/Billmike/More-Recipes#readme",
   "devDependencies": {
+    "apidoc": "^0.15.1",
     "coveralls": "^3.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
@@ -45,6 +53,7 @@
     "nyc": "^11.2.1"
   },
   "dependencies": {
+    "apidoc": "^0.15.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
