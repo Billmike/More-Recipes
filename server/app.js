@@ -15,7 +15,7 @@ app.set('json spaces', 4);
 require('./routes')(app);
 
 app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of aawesomeness',
+  message: 'Welcome to the beginning of awesomeness',
 }));
 
 module.exports = app;

@@ -62,3 +62,6 @@ dist/
 
 # public folder
 public/
+
+#bundle.js
+client/bundle.js

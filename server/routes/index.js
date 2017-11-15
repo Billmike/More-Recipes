@@ -45,7 +45,7 @@ module.exports = (app) => {
    */
   app.post('/api/v1/users/signup', userController.signUp);
 
-/**
+  /**
  * @api { post } /api/v1/users/signin Users signup
  * @apiGroup User
  * @apiParam { String } email User's email address
@@ -66,7 +66,7 @@ module.exports = (app) => {
  */
   app.post('/api/v1/users/signin', userController.signIn);
 
-/**
+  /**
  * @api { post } /api/v1/recipes Add recipes
  * @apiGroup Recipe
  * @apiParam { String } name Recipe Name
@@ -107,7 +107,7 @@ module.exports = (app) => {
  */
   app.post('/api/v1/recipes', Login.ensureLogin, User.isuser, recipeAdd, recipeController.addRecipe);
 
-/**
+  /**
  * @api { put } /api/v1/recipes/:recipeId/modify Modify a recipe
  * @apiGroup Recipe
  * @apiHeader { String } Authorization token of autheticated user
@@ -141,7 +141,7 @@ module.exports = (app) => {
  */
   app.put('/api/v1/recipes/:recipeId/modify', Login.ensureLogin, User.isuser, recipeController.modifyRecipe);
 
-/**
+  /**
  * @api { post } /api/v1/recipes/:recipeId/reviews Review a recipe
  * @apiGroup Recipe
  * @apiHeader { String } Authorization token of authenticated user
@@ -181,7 +181,7 @@ module.exports = (app) => {
  */
   app.post('/api/v1/recipes/:recipeId/reviews', Login.ensureLogin, User.isuser, validateReview, reviewController.addReviews);
 
-/**
+  /**
  * @api { delete } /api/v1/recipes/:recipeId Delete a recipe
  * @apiGroup Recipe
  * @apiHeader { String } Authorization token of authenticated user
@@ -194,7 +194,7 @@ module.exports = (app) => {
   app.delete('/api/v1/recipes/:recipeId', recipeController.deleteRecipe);
   app.post('/api/v1/recipes/:recipeId/favorites', Login.ensureLogin, User.isuser, favorite.addFavorite);
 
-/**
+  /**
  * @api { get } /api/v1/users/:userId/favorites Get user favorite recipes
  * @apiGroup User
  * @apiParam { id } userId User's Id
