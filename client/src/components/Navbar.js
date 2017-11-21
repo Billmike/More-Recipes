@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-class Navbar extends Component {
-	render () {
+const Navbar = (props) =>  {
 		return(
 			<nav className="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#startupNavbar" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +19,7 @@ class Navbar extends Component {
                 <a className="nav-link" href="#">Top Recipes <span className="sr-only">(current)</span></a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Sign Up</a>
+                <a className="nav-link" href="#" onClick={props.handleOpenModal}>Sign Up</a>
             </li>
             <li className="nav-item">
                     <a className="btn btn-primary" href="#">Sign In</a>
@@ -29,7 +28,6 @@ class Navbar extends Component {
         </div>
 </nav>
 		)
-	}
 }
 
 export default Navbar;
