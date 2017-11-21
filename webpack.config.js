@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './client/app.jsx',
+  entry: './client/App.js',
   output: {
     path: path.join(__dirname, 'client'),
     filename: 'bundle.js',
@@ -9,8 +9,22 @@ module.exports = {
   module: {
     rules: [{
       loader: 'babel-loader',
-      test: /\.jsx$/,
+      test: /\.js$/,
       exclude: /node_modules/,
+    }, {
+      test: /\.s?css$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader',
+      ],
+    }, {
+      test: /\.(png|svg|jpg|gif)$/,
+      use: ['file-loader'],
     }],
+  },
+  devtool: 'cheap-module-eval-source-map,',
+  devServer: {
+    contentBase: path.join(__dirname, 'client'),
   },
 };
