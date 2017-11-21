@@ -22,7 +22,7 @@ const Navbar = (props) =>  {
                 <a className="nav-link" href="#" onClick={props.handleOpenModal}>Sign Up</a>
             </li>
             <li className="nav-item">
-                    <a className="btn btn-primary" href="#">Sign In</a>
+                    <a className="btn btn-primary" href="#" onClick={props.handleOpenSigninModal}>Sign In</a>
             </li>
             </ul>
         </div>

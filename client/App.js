@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom';
 import MoreRecipes from './src/components/MoreRecipes';
+import Signin from './src/components/SigninModal';
 import './src/styles/styles.scss';
 
 class App extends Component {
