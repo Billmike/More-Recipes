@@ -15,6 +15,8 @@ module.exports = (app) => {
     message: 'Welcome to the More-Recipes API',
   }));
 
+  app.get('/api/v1/users/get_user', User.getUser);
+
   /**
    * @api { post } /api/v1/users/signup Users Signup
    * @apiGroup User

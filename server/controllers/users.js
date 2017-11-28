@@ -47,6 +47,7 @@ class Users {
             res.status(201).send({ status: 'sent', message: response.message });
           }
         });
+        res.redirect('/dashboard');
         return res.status(201).send({
           message: 'Sigup Successful!. Check your email for confirmation.', username: user.username, email: user.email, token: { token },
         });

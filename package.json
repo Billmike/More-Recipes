@@ -4,7 +4,8 @@
   "description": "A recipe application that enables users share insightful recipes.",
   "main": "index.js",
   "engines": {
-    "node": "6.11.2"
+    "node": "8.9.1",
+    "npm": "5.5.1"
   },
   "scripts": {
     "build": "babel ./server/ -d dist",
@@ -19,7 +20,10 @@
     "test-jest": "jest",
     "test-local": "mocha --compilers js:babel-core/register server/test/test.js --timeout 10000 --exit",
     "test": "nyc mocha server/test/test.js",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
+    "dev": "nodemon --exec babel-node ./server/bin/www.js",
+    "client": "npm run start --prefix client",
+    "conc": "concurrently \"npm run client\" \"npm run dev\""
   },
   "nyc": {
     "require": [
@@ -47,6 +51,7 @@
     "apidoc": "^0.15.1",
     "babel-loader": "^7.1.2",
     "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.5.1",
     "coveralls": "^3.0.0",
     "css-loader": "^0.28.7",
     "eslint": "^4.9.0",

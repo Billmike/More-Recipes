@@ -32,6 +32,25 @@ class SessionControl {
       })
       .catch(e => res.status(400).send({ status: 'Unknown Error.', message: e.message }));
   }
+
+  static getUser(req, res) {
+    req.token = req.headers.token || req.query.token;
+    let verifiedJWT;
+    try {
+      verifiedJWT = jwt.verify(req.token, process.env.SECRET);
+    } catch (error) {
+      res.status(400).send({ status: 'Failed.', message: 'Provide correct details to access this resource.' });
+    }
+    User.findOne({
+      where: {
+        id: verifiedJWT.id,
+      },
+    })
+      .then(user => res.send({
+        email: user.email,
+        username: user.username,
+      }));
+  }
 }
 
 export default SessionControl;

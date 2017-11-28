@@ -1,9 +1,10 @@
 import React from 'react';
 
-const UserProfile = () => {
-	return (
-		<div className="container">
-		  <h1>User Account</h1>
+const ProfilePage = () => {
+	return(
+		<div>
+			<main className="container">
+              <h1>User Account</h1>
               <form>
                       <fieldset disabled>
                         <div className="form-group">
@@ -16,8 +17,9 @@ const UserProfile = () => {
                             </div>
                       </fieldset>
                     </form>
+            </main>
 		</div>
-	)
+		)
 }
 
-export default UserProfile;
+export default ProfilePage;

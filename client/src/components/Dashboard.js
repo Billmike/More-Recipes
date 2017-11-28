@@ -1,12 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import pizza from '../assets/img/pizzza.jpg';
+import '../assets/css/style.css';
 
-const MyRecipes = () => {
-	return (
-		<div className="container">
-		  <h3> My Recipes </h3>
-			<div className="card-group">
+const Dashboard = () => {
+    return(
+        <div className="container-fluid">
+          <div className="row">
+            <main className="container">
+              <h1>My Recipes</h1>
+        <div className="card-group">
           <div className="card">
-            <a href="./recipe_detail.html"><img className="card-img-top" src="./src/assets/img/pizzza.jpg" alt="Card image cap" /></a>
+            <a href="./recipe_detail.html"><img className="card-img-top" src={pizza} alt="Card image cap" /></a>
             <div className="card-body">
               <a href="./recipe_detail.html"><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4></a>
               <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -20,7 +25,7 @@ const MyRecipes = () => {
             </div>
           </div>
           <div className="card">
-            <a href="./recipe_detail.html"><img className="card-img-top" src="./src/assets/img/pizzza.jpg" alt="Card image cap" /></a>
+            <a href="./recipe_detail.html"><img className="card-img-top" src={pizza} alt="Card image cap" /></a>
             <div className="card-body">
               <a href="./recipe_detail.html"><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4></a>
               <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -34,7 +39,7 @@ const MyRecipes = () => {
             </div>
           </div>
           <div className="card">
-            <a href="./recipe_detail.html"><img className="card-img-top" src="./src/assets/img/pizzza.jpg" alt="Card image cap" /></a>
+            <a href="./recipe_detail.html"><img className="card-img-top" src={pizza} alt="Card image cap" /></a>
             <div className="card-body">
               <a href="./recipe_detail.html"><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4></a>
               <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -48,8 +53,10 @@ const MyRecipes = () => {
             </div>
           </div>
         </div>
-		</div>
-	)
+            </main>
+          </div>
+        </div>
+    )
 }
 
-export default MyRecipes;
+export default Dashboard;
