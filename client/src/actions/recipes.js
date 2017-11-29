@@ -1,0 +1,14 @@
+import uuid from 'uuid';
+
+export const addRecipe = ({ name = '', description = '', img_url = 'no-img-here', category = '', ingredients = [], instructions } = {}) => ({
+  type: 'ADD_RECIPE',
+  recipe: {
+    id: uuid(),
+    name,
+    description,
+    img_url,
+    category,
+    ingredients,
+    instructions,
+  },
+});
