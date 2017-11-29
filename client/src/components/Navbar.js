@@ -71,9 +71,9 @@ class Navbar extends Component {
           <i className="glyphicon glyphicon-user form-control-feedback"></i>
       </div>
       <div className="form-group">
-          <input type="email" class="form-control form-control-lg" placeholder="Email Address" />
+          <input type="email" className="form-control form-control-lg" placeholder="Email Address" />
       </div>
-      <div class="form-group">
+      <div className="form-group">
           <input className="password" className="form-control form-control-lg" placeholder="Password" />
       </div>
       <input type="submit" value="Submit" className="btn btn-outline-success size-bt btn-block" />
