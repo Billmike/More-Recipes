@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 class RecipesForm extends Component {
 	constructor(props) {
 		super(props);
+    console.log(props)
 		this.state = {
-			name: '',
-			description: '',
+			name: props.recipe ? props.recipe.name : '',
+			description: props.recipe ? props.recipe.description : '',
 			img_url: 'no-img-here',
-			category: '',
-			ingredients: [],
-			instructions: [],
+			category: props.recipe ? props.recipe.category : '',
+			ingredients: props.recipe ? props.recipe.ingredients : [],
+			instructions: props.recipe ? props.recipe.instructions : [],
 			error: ''
 		}
 	}

@@ -12,3 +12,14 @@ export const addRecipe = ({ name = '', description = '', img_url = 'no-img-here'
     instructions,
   },
 });
+
+export const editRecipe = (id, updates) => ({
+  type: 'EDIT_RECIPE',
+  id,
+  updates,
+});
+
+export const removeRecipe = ({ id } = {}) => {
+  type: 'REMOVE_RECIPE',
+  id
+}

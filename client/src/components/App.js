@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './Navbar';
 import Homepage from './Hompage';
 import Dashboard from './Dashboard';
+import RecipeDetails from './RecipeDetails';
 import Favorite from './Favorite';
 import AddRecipe from './AddRecipe';
 import EditRecipe from './EditRecipe';
@@ -21,7 +22,8 @@ class App extends Component {
                         <Route path="/dashboard" component={Dashboard} />
                         <Route path="/favorite" component={Favorite} />
                         <Route path="/add" component={AddRecipe} />
-                        <Route path="/edit" component={EditRecipe} />
+                        <Route path="/edit/:id" component={EditRecipe} />
+                        <Route path="/recipe/:id" component={RecipeDetails} />
                         <Route path="/profile" component={ProfilePage} />
                         <Route component={NotFoundPage} />
                     </Switch>

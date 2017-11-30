@@ -1,5 +1,6 @@
 import React from 'react';
 import '../assets/fonts/css/font-awesome.min.css';
+import '../assets/css/style.css';
 import RecipesList from './RecipesList';
 import { connect } from 'react-redux';
 import pancakes from '../assets/img/pancakes.jpeg';
@@ -46,8 +47,14 @@ const Homepage = (props) => (
           <span className="sr-only">Next</span>
         </a>
           </div>
-        {props.recipes.map((recipe) => {
-          return <RecipesList key={recipe.id} {...recipe} />
+        {props.recipes.map((recipe = []) => {
+          console.log(recipe)
+          return (
+            <div className="container">
+              <h2> Top Recipes</h2>
+              <RecipesList key={recipe.id} {...recipe} />
+            </div>
+            )
         })}
   </div>
 );
