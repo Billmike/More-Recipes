@@ -1,6 +1,6 @@
 import uuid from 'uuid';
 
-export const addRecipe = ({ name = '', description = '', img_url = 'no-img-here', category = '', ingredients = [], instructions } = {}) => ({
+export const addRecipe = ({ name = '', description = '', img_url = 'no-img-here', category = '', ingredients = [], instructions = [] } = {}) => ({
   type: 'ADD_RECIPE',
   recipe: {
     id: uuid(),
@@ -19,7 +19,7 @@ export const editRecipe = (id, updates) => ({
   updates,
 });
 
-export const removeRecipe = ({ id } = {}) => {
+export const removeRecipe = ({ id } = {}) => ({
   type: 'REMOVE_RECIPE',
   id
-}
+})

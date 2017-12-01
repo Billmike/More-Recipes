@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should display the list of recipes in the application 1`] = `
+<div
+  className="card-group"
+>
+  <div
+    className="card index-card"
+  >
+    <Link
+      replace={false}
+      to="/recipe/1"
+    >
+      <img
+        alt="Pizza"
+        className="card-img-top"
+      />
+    </Link>
+    <div
+      className="card-body"
+    >
+      <Link
+        replace={false}
+        to="/recipe/1"
+      >
+        <h4
+          className="card-title"
+        >
+          Fried Rice
+        </h4>
+      </Link>
+      <p
+        className="card-text"
+      >
+        Awesome fried rice
+      </p>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+        45 
+        <i
+          aria-hidden="true"
+          className="fa fa-eye"
+        />
+      </Link>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+          89 
+        <i
+          aria-hidden="true"
+          className="fa fa-heart"
+        />
+      </Link>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+         6 
+        <i
+          aria-hidden="true"
+          className="fa fa-comments"
+        />
+      </Link>
+    </div>
+    <div
+      className="card-footer"
+    >
+      <small
+        className="text-muted"
+      >
+        Recipe Category - 
+        Lunch
+      </small>
+    </div>
+  </div>
+  <div
+    className="card index-card"
+  >
+    <Link
+      replace={false}
+      to="/recipe/1"
+    >
+      <img
+        alt="Pizza"
+        className="card-img-top"
+      />
+    </Link>
+    <div
+      className="card-body"
+    >
+      <Link
+        replace={false}
+        to="/recipe/1"
+      >
+        <h4
+          className="card-title"
+        >
+          Fried Rice
+        </h4>
+      </Link>
+      <p
+        className="card-text"
+      >
+        Awesome fried rice
+      </p>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+        45 
+        <i
+          aria-hidden="true"
+          className="fa fa-eye"
+        />
+      </Link>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+          89 
+        <i
+          aria-hidden="true"
+          className="fa fa-heart"
+        />
+      </Link>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+         6 
+        <i
+          aria-hidden="true"
+          className="fa fa-comments"
+        />
+      </Link>
+    </div>
+    <div
+      className="card-footer"
+    >
+      <small
+        className="text-muted"
+      >
+        Recipe Category - 
+        Lunch
+      </small>
+    </div>
+  </div>
+  <div
+    className="card index-card"
+  >
+    <Link
+      replace={false}
+      to="/recipe/1"
+    >
+      <img
+        alt="Pizza"
+        className="card-img-top"
+      />
+    </Link>
+    <div
+      className="card-body"
+    >
+      <Link
+        replace={false}
+        to="/recipe/1"
+      >
+        <h4
+          className="card-title"
+        >
+          Fried Rice
+        </h4>
+      </Link>
+      <p
+        className="card-text"
+      >
+        Awesome fried rice
+      </p>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+        45 
+        <i
+          aria-hidden="true"
+          className="fa fa-eye"
+        />
+      </Link>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+          89 
+        <i
+          aria-hidden="true"
+          className="fa fa-heart"
+        />
+      </Link>
+      <Link
+        className="btn border border-secondary rounded"
+        replace={false}
+        to="/recipe/1"
+      >
+         6 
+        <i
+          aria-hidden="true"
+          className="fa fa-comments"
+        />
+      </Link>
+    </div>
+    <div
+      className="card-footer"
+    >
+      <small
+        className="text-muted"
+      >
+        Recipe Category - 
+        Lunch
+      </small>
+    </div>
+  </div>
+</div>
+`;

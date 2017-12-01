@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import pizza from '../assets/img/pizzza.jpg';
 
-const RecipeList = ({ id, name, description, category }) => {
+export const RecipeList = ({ id, name, description, category }) => {
 	return (
 		<div className="card-group">
         <div className="card index-card">
-            <Link to={`/recipe/${id}`}><img className="card-img-top" src={ pizza } alt="Pizza" /></Link>
+            <Link to={`/recipe/${id}`}><img className="card-img-top" alt="Pizza" /></Link>
             <div className="card-body">
               <Link to={`/recipe/${id}`}><h4 className="card-title">{name}</h4></Link>
               <p className="card-text">{description}</p>
@@ -20,7 +19,7 @@ const RecipeList = ({ id, name, description, category }) => {
             </div>
           </div>
           <div className="card index-card">
-            <Link to={`/recipe/${id}`}><img className="card-img-top" src={ pizza } alt="Pizza" /></Link>
+            <Link to={`/recipe/${id}`}><img className="card-img-top" alt="Pizza" /></Link>
             <div className="card-body">
               <Link to={`/recipe/${id}`}><h4 className="card-title">{name}</h4></Link>
               <p className="card-text">{description}</p>
@@ -33,7 +32,7 @@ const RecipeList = ({ id, name, description, category }) => {
             </div>
           </div>
           <div className="card index-card">
-            <Link to={`/recipe/${id}`}><img className="card-img-top" src={ pizza } alt="Pizza" /></Link>
+            <Link to={`/recipe/${id}`}><img className="card-img-top" alt="Pizza" /></Link>
             <div className="card-body">
               <Link to={`/recipe/${id}`}><h4 className="card-title">{name}</h4></Link>
               <p className="card-text">{description}</p>

@@ -14,7 +14,8 @@ export default (state = recipeDefaultState, action) => {
      				...recipe,
      				...action.updates,
      			};
-     		};
+     		}
+        return recipe;
      	});
     case 'REMOVE_RECIPE':
       return state.filter(({ id }) => {
