@@ -1,0 +1,1124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render the RecipesForm to the screen 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Recipe Title
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Try to keep your description short and interesting.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <button
+            className="btns"
+          >
+            Upload an Image
+          </button>
+          <input
+            name="myfile"
+            type="file"
+          />
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Category
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          placeholder="Breakfast, Dinner, Dessert, Lunch"
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Ingredients
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value={Array []}
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter your recipe ingredients, separated by Commas.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value={Array []}
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+        <div
+          className="form-group col-4"
+        >
+          <button
+            className="btn btn-outline-success btn-add"
+          >
+            Submit Recipe
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`Should render the form with recipes data 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Recipe Title
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value="Fried Rice"
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value="Awesome fried rice"
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Try to keep your description short and interesting.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <button
+            className="btns"
+          >
+            Upload an Image
+          </button>
+          <input
+            name="myfile"
+            type="file"
+          />
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Category
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          placeholder="Breakfast, Dinner, Dessert, Lunch"
+          type="text"
+          value="Lunch"
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Ingredients
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value={
+            Array [
+              "Peppr",
+              "Tomatoes",
+              "Onions",
+            ]
+          }
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter your recipe ingredients, separated by Commas.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value={
+              Array [
+                "COok the food well",
+                "Make no assumptions",
+              ]
+            }
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+        <div
+          className="form-group col-4"
+        >
+          <button
+            className="btn btn-outline-success btn-add"
+          >
+            Submit Recipe
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`Should set Recipe name on Input change 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Recipe Title
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value="Fried Chicken"
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Try to keep your description short and interesting.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <button
+            className="btns"
+          >
+            Upload an Image
+          </button>
+          <input
+            name="myfile"
+            type="file"
+          />
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Category
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          placeholder="Breakfast, Dinner, Dessert, Lunch"
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Ingredients
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value={Array []}
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter your recipe ingredients, separated by Commas.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value={Array []}
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+        <div
+          className="form-group col-4"
+        >
+          <button
+            className="btn btn-outline-success btn-add"
+          >
+            Submit Recipe
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`Should set recipe category on input change 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Recipe Title
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Try to keep your description short and interesting.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <button
+            className="btns"
+          >
+            Upload an Image
+          </button>
+          <input
+            name="myfile"
+            type="file"
+          />
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Category
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          placeholder="Breakfast, Dinner, Dessert, Lunch"
+          type="text"
+          value="Lunch"
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Ingredients
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value={Array []}
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter your recipe ingredients, separated by Commas.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value={Array []}
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+        <div
+          className="form-group col-4"
+        >
+          <button
+            className="btn btn-outline-success btn-add"
+          >
+            Submit Recipe
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`Should set recipe description on input change 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Recipe Title
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value="Amazing Fried Chicken"
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Try to keep your description short and interesting.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <button
+            className="btns"
+          >
+            Upload an Image
+          </button>
+          <input
+            name="myfile"
+            type="file"
+          />
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Category
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          placeholder="Breakfast, Dinner, Dessert, Lunch"
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Ingredients
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value={Array []}
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter your recipe ingredients, separated by Commas.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value={Array []}
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+        <div
+          className="form-group col-4"
+        >
+          <button
+            className="btn btn-outline-success btn-add"
+          >
+            Submit Recipe
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`Should set the instructions on input change 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Recipe Title
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Try to keep your description short and interesting.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <button
+            className="btns"
+          >
+            Upload an Image
+          </button>
+          <input
+            name="myfile"
+            type="file"
+          />
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Category
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          placeholder="Breakfast, Dinner, Dessert, Lunch"
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Ingredients
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value={Array []}
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter your recipe ingredients, separated by Commas.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value={
+              Array [
+                "Parboil the rice for 20mins",
+                "Boil the yam for 1hr.",
+                "Do not set the kitchen on fire.",
+              ]
+            }
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+        <div
+          className="form-group col-4"
+        >
+          <button
+            className="btn btn-outline-success btn-add"
+          >
+            Submit Recipe
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`Should set the recipe ingredients on input change 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Recipe Title
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Try to keep your description short and interesting.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <button
+            className="btns"
+          >
+            Upload an Image
+          </button>
+          <input
+            name="myfile"
+            type="file"
+          />
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Category
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          placeholder="Breakfast, Dinner, Dessert, Lunch"
+          type="text"
+          value=""
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter a short, catchy title for your Recipe.
+        </small>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="recipename"
+        >
+          Ingredients
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          onChange={[Function]}
+          type="text"
+          value={
+            Array [
+              "Curry",
+              "Thyme",
+              "Maggi",
+              "Salt",
+            ]
+          }
+        />
+        <small
+          className="form-text text-muted"
+          id="recipeNameHelp"
+        >
+          Enter your recipe ingredients, separated by Commas.
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            onChange={[Function]}
+            rows="3"
+            value={Array []}
+          />
+          <small
+            className="form-text text-muted"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+        <div
+          className="form-group col-4"
+        >
+          <button
+            className="btn btn-outline-success btn-add"
+          >
+            Submit Recipe
+          </button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+`;

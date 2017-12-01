@@ -1,19 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import RecipesForm from './RecipesForm';
 import { connect } from 'react-redux';
 import { addRecipe } from '../actions/recipes';
 
-const AddRecipe = (props) => {
-    console.log(props)
-	return (
-	   <div>
-       <h1 className="container">Add Recipe</h1>
-        <RecipesForm onSubmit={(recipe) => {
-            props.dispatch(addRecipe(recipe));
-            props.history.push('/')
-        }} />
-       </div>	
-	)
+export class AddRecipe extends Component {
+  onSubmit = (recipe) => {
+    this.props.addRecipe(recipe);
+    this.props.history.push('/');
+  };
+
+  render() {
+    return (
+      <div>
+        <h1> Add Recipe </h1>
+        <RecipesForm
+          onSubmit={this.onSubmit}
+        />
+      </div>
+      );
+  }
 }
 
-export default connect()(AddRecipe);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addRecipe: (recipe) => dispatch(addRecipe(recipe))
+  }
+}
+
+// const AddRecipe = (props) => {
+//     console.log(props)
+// 	return (
+// 	   <div>
+//        <h1 className="container">Add Recipe</h1>
+//         <RecipesForm onSubmit={(recipe) => {
+//             props.dispatch(addRecipe(recipe));
+//             props.history.push('/')
+//         }} />
+//        </div>	
+// 	)
+// }
+
+export default connect(undefined, mapDispatchToProps)(AddRecipe);

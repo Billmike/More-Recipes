@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import pizza from '../assets/img/pizzza.jpg';
-import { removeRecipe } from '../actions/recipes';
 
 const RecipeEdit = ({ id, name, description, category }) => {
 	return (
@@ -18,13 +17,7 @@ const RecipeEdit = ({ id, name, description, category }) => {
             </div>
             <div className="container" style={{ textAlign : 'justify' }}>
             <Link to={`/edit/${id}`} className="btn btn-outline-success" role="button">Edit <i className="fa fa-pencil-square-o"></i></Link>
-            <button
-            className="btn btn-danger"
-            role="button"
-            >
-            Delete
-            <i className="fa fa-pencil-square-o"></i>
-            </button>
+            <Link to={`/edit/${id}`} class="btn btn-danger" role="button">Delete <i class="fa fa-pencil-square-o"></i></Link>
             </div>
             <div className="card-footer">
               <small className="text-muted">Recipe Category - {category}</small>

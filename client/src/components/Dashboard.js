@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import RecipeEdit from './RecipeEdit';
-import pizza from '../assets/img/pizzza.jpg';
 import '../assets/css/style.css';
 
 const Dashboard = (props) => {
