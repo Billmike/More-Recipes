@@ -1,21 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecipesForm from './RecipesForm';
 import { editRecipe } from '../actions/recipes';
 
-const EditRecipe = (props) => {
-    // console.log(props);
-	return (
-		<div>
+export class EditRecipe extends Component {
+    onSubmit = (recipe) => {
+        this.props.editRecipe(this.props.recipe.id, recipe);
+        this.props.history.push('/');
+    };
+
+    render() {
+        return (
+            <div>
   <RecipesForm
-    recipe={props.recipe}
-    onSubmit={(recipe) => {
-    props.dispatch(editRecipe(props.recipe.id, recipe));
-    props.history.push('/');
-                }}
+    recipe={this.props.recipe}
+    onSubmit={this.onSubmit}
             />
-		</div>
-		)
+        </div>
+            )
+    }
 }
 
 const mapStateToProps = (state, props) => {
@@ -26,4 +29,10 @@ const mapStateToProps = (state, props) => {
     }
 }
 
-export default connect(mapStateToProps)(EditRecipe);
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        editRecipe: (id, recipe) => dispatch(editRecipe(id, recipe))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditRecipe);

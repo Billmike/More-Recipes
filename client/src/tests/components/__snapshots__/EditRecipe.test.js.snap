@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render EditRecipe page to the screen 1`] = `
+<div>
+  <RecipesForm
+    onSubmit={[Function]}
+    recipe={
+      Object {
+        "category": "Lunch",
+        "description": "Awesome fried rice",
+        "id": "1",
+        "img_url": "no-img-here",
+        "ingredients": Array [
+          "Peppr",
+          "Tomatoes",
+          "Onions",
+        ],
+        "instructions": Array [
+          "COok the food well",
+          "Make no assumptions",
+        ],
+        "name": "Fried Rice",
+      }
+    }
+  />
+</div>
+`;

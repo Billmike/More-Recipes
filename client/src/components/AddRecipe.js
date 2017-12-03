@@ -12,7 +12,7 @@ export class AddRecipe extends Component {
   render() {
     return (
       <div>
-        <h1> Add Recipe </h1>
+        <h1 className="container"> Add Recipe </h1>
         <RecipesForm
           onSubmit={this.onSubmit}
         />
