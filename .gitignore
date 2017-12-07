@@ -60,7 +60,5 @@ typings/
 # dist folder
 dist/
 
-build/
-
 #bundle.js
 client/bundle.js
