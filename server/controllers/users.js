@@ -5,8 +5,6 @@ import signupValidator from '../validators/validatesignup';
 import signinValidator from '../validators/validatesignin';
 
 
-require('dotenv').config();
-
 class Users {
   static signUp(req, res, next) {
     const validateSignup = signupValidator(req.body);

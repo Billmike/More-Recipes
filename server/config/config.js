@@ -1,8 +1,8 @@
 module.exports = {
   development: {
-    username: 'postgres',
-    password: 'root',
-    database: 'more-recipes',
+    username: 'bill',
+    password: 'rocketmail',
+    database: 'more_recipes',
     host: '127.0.0.1',
     dialect: 'postgres',
   },
