@@ -23,10 +23,6 @@ app.set('json spaces', 4);
 require('./routes')(app);
 
 app.get('*', (req, res) => {
-  res.send({ message: 'Route does not exist. Check your url.' });
-});
-
-app.get('*', (req, res) => {
   res.sendFile(path.join(appPath, 'index.html'));
 });
 
