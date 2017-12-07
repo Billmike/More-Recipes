@@ -7,7 +7,8 @@ import bodyParser from 'body-parser';
 require('dotenv').config();
 
 const app = express();
-const appPath = path.join(__dirname, '..', 'build');
+const appPath = path.join(__dirname, 'build');
+console.log(appPath);
 
 
 app.use(logger('dev'));
