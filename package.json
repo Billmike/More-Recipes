@@ -24,7 +24,8 @@
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "dev": "nodemon --exec babel-node ./server/bin/www.js",
     "client": "npm run start --prefix client",
-    "conc": "concurrently \"npm run client\" \"npm run dev\""
+    "conc": "concurrently \"npm run client\" \"npm run dev\"",
+    "build:client": "npm run build --prefix client"
   },
   "nyc": {
     "require": [
@@ -107,6 +108,7 @@
     "react-redux": "^5.0.6",
     "react-responsive-carousel": "^3.1.28",
     "react-router-dom": "^4.2.2",
+    "react-scripts": "^1.0.17",
     "redux": "^3.7.2",
     "sass-loader": "^6.0.6",
     "sequelize": "^4.15.0",
