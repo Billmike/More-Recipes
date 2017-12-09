@@ -4,13 +4,16 @@ import chai from 'chai';
 import jwt from 'jsonwebtoken';
 import supertest from 'supertest';
 import app from '../app';
+import validateReview from '../middleware/validateReview';
 
-const expect = chai.expect;
+const { expect } = chai.expect;
 const request = supertest(app);
 const userSignup = '/api/v1/users/signup';
 const userSignin = '/api/v1/users/signin';
 let user = {};
 let data = {};
+let dummyUser1 = {};
+let dummyUser2 = {};
 let userToken;
 
 describe('API Endpoints testing', () => {
@@ -191,5 +194,46 @@ describe('API Endpoints testing', () => {
           expect(res.status).to.equal(400);
         });
     });
+  });
+  describe('Modify Recipe', () => {
+    beforeEach(() => {
+      data = {
+        id: '1',
+        name: 'Ghana Jollof',
+        description: 'Best Jollof in the world',
+        category: 'Lunch',
+        ingredients: ['Rice', 'Tomatoes'],
+        instructions: ['Cook this shii well'],
+        owner: '1',
+      };
+      dummyUser1 = {
+        id: '1',
+        username: 'bill',
+        email: 'abc@xyz.com',
+        password: 'sjkajskasjaksja',
+      };
+      dummyUser2 = {
+        id: '2',
+        username: 'sam',
+        email: 'def@xyz.com',
+        password: 'dksjdsdkhskdh',
+      };
+    });
+  });
+  it('Should return a 403 if no token is provided', () => {
+    request.put('/api/v1/recipes/:recipeId/modify')
+      .send(data)
+      .end((err, res) => {
+        expect(res.status).to.equal(403);
+      });
+  });
+  it('Should return 401 if userId does not match ownerId', () => {
+    request.put('/api/v1/recipes/:recipeId/modify')
+      .send(data, dummyUser2)
+      .end((err, res) => {
+        if (data.owner !== dummyUser2.id) {
+          expect(res.status).to.equal(401);
+        }
+      });
   });
 });

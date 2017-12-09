@@ -2,7 +2,9 @@
 
 exports[`Should render Add Recipe page correctly 1`] = `
 <div>
-  <h1>
+  <h1
+    className="container"
+  >
      Add Recipe 
   </h1>
   <RecipesForm

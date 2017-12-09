@@ -7,8 +7,8 @@ module.exports = {
     dialect: 'postgres',
   },
   test: {
-    username: 'postgres',
-    password: 'root',
+    username: 'bill',
+    password: 'rocketmail',
     database: 'more_recipes_test',
     host: '127.0.0.1',
     dialect: 'postgres',
