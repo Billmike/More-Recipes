@@ -4,6 +4,8 @@ node_js:
 services:
   - postgresql
 before_script:
+  - cp database.yml
+  - psql -c 'CREATE ROLE bill with CREATEDB;'
   - psql -c 'create database more_recipes_test;' -U bill 
 install:
   - npm install sequelize
