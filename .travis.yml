@@ -4,7 +4,7 @@ node_js:
 services:
   - postgresql
 before_script:
-  - psql -c 'CREATE ROLE bill WITH LOGIN PASSWORD "rocketmail";' -U postgres
+  - psql -c 'CREATE ROLE bill WITH LOGIN PASSWORD rocketmail;' -U postgres
   - psql -c 'create database more_recipes_test;' -U bill 
 install:
   - npm install sequelize
