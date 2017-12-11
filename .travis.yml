@@ -4,7 +4,7 @@ node_js:
 services:
   - postgresql
 before_script:
-  - cp database.yml
+  - cp config/database.yml.travis config/database.yml.travis
   - psql -c 'CREATE ROLE bill with CREATEDB;'
   - psql -c 'create database more_recipes_test;' -U bill 
 install:
