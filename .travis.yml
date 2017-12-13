@@ -11,7 +11,7 @@ install:
   - npm install pg
   - npm install pg-hstore
   - npm install nyc
-  -npm install cross-env
+  - npm install cross-env
 script:
   - npm run nyc-local
   - npm run coveralls
