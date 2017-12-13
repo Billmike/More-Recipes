@@ -10,7 +10,7 @@ const users = [{
   username: 'someusername',
   tokens: [{
     access: 'auth',
-    token: jwt.sign({ id: userOneId }, process.env.SECRET).toString(),
+    token: jwt.sign({ id: userOneId }, 'djksdwdskjdksdskdksjdklsds').toString(),
   }],
 }, {
   id: userTwoId,
@@ -19,7 +19,7 @@ const users = [{
   username: 'anotherusername',
   tokens: [{
     access: 'auth',
-    token: jwt.sign({ id: userTwoId }, process.env.SECRET).toString(),
+    token: jwt.sign({ id: userTwoId }, 'djksdwdskjdksdskdksjdklsds').toString(),
   }],
 }];
 
