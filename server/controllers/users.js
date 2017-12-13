@@ -51,7 +51,7 @@ class Users {
       })
       .catch((error) => {
         if (error.errors[0].message === 'Validation isEmail on email failed') {
-          res.status(409).send({
+          res.status(400).send({
             message: 'Invalid email format. Email should be in the abc@xyz.com format.',
           });
         } else if (error.errors[0].message === 'username must be unique') {

@@ -4,8 +4,7 @@ node_js:
 services:
   - postgresql
 before_script:
-  - psql -c 'CREATE ROLE bill WITH LOGIN PASSWORD rocketmail;' -U postgres
-  - psql -c 'create database more_recipes_test;' -U bill 
+  - psql -c 'create database recipes_testing_db;' -U postgres 
 install:
   - npm install sequelize
   - npm install sequelize-cli
@@ -13,3 +12,5 @@ install:
   - npm install pg-hstore
 script:
   - sequelize db:migrate --env test
+  - npm run coveralls
+  
