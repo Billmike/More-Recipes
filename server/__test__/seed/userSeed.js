@@ -17,10 +17,6 @@ const users = [{
   email: 'someemailtwo@email.com',
   password: 'somepassword',
   username: 'anotherusername',
-  tokens: [{
-    access: 'auth',
-    token: jwt.sign({ id: userTwoId }, process.env.SECRET).toString(),
-  }],
 }];
 
 export default users;
