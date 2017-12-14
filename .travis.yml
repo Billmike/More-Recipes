@@ -11,8 +11,7 @@ install:
   - npm install pg
   - npm install pg-hstore
   - npm install nyc
-  - npm install cross-env
 script:
-  - npm run nyc-local
+  - sequelize db:migrate --env test
   - npm run coveralls
   
