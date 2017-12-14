@@ -6,7 +6,6 @@ import users from './seed/userSeed';
 const request = supertest(app);
 const userSignup = '/api/v1/users/signup';
 const userSignin = '/api/v1/users/signin';
-let user;
 
 describe('User API testing', () => {
   describe('#Handle User creation', () => {
@@ -96,9 +95,6 @@ describe('User API testing', () => {
     });
   });
   describe('#Handle user sign in', () => {
-    beforeEach(() => {
-      user = users;
-    });
     it('Should sign in a particular user', (done) => {
       request.post(userSignin)
         .send(users[0])
