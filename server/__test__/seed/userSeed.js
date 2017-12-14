@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const userOneId = '1';
 const userTwoId = '2';
+const userThreeId = '3';
 
 const users = [{
   id: userOneId,
@@ -17,6 +18,10 @@ const users = [{
   email: 'someemailtwo@email.com',
   password: 'somepassword',
   username: 'anotherusername',
+}, {
+  id: userTwoId,
+  email: 'someemailtwo@email.com',
+  password: 'somepassword',
 }];
 
 export default users;

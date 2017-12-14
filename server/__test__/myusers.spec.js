@@ -97,7 +97,7 @@ describe('User API testing', () => {
   describe('#Handle user sign in', () => {
     it('Should sign in a particular user', (done) => {
       request.post(userSignin)
-        .send(users[1])
+        .send(users[2])
         .end((err, res) => {
           expect(res.status).to.equal(201);
           done();
