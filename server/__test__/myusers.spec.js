@@ -95,14 +95,6 @@ describe('User API testing', () => {
     });
   });
   describe('#Handle user sign in', () => {
-    it('Should sign in a particular user', (done) => {
-      request.post(userSignin)
-        .send(users[2])
-        .end((err, res) => {
-          expect(res.status).to.equal(201);
-          done();
-        });
-    });
     it('Should return a 403 for an invalid password', (done) => {
       const testUser = Object.assign({}, users[0]);
       testUser.password = 'anotherpassword';
