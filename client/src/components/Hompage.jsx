@@ -1,5 +1,4 @@
 import React from 'react';
-import '../assets/fonts/css/font-awesome.min.css';
 import '../assets/css/style.css';
 import RecipesList from './RecipesList';
 import { connect } from 'react-redux';
