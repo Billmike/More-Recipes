@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RecipeEdit from './RecipeEdit';
-import '../assets/css/style.css';
 
 const Dashboard = (props) => {
-    return(
-        <div className="container-fluid">
-          {props.recipes.map((recipe) => {
+  return (
+    <div className="container-fluid">
+      {props.recipes.map((recipe) => {
           console.log(recipe)
           return (
             <div className="container">
@@ -14,17 +13,13 @@ const Dashboard = (props) => {
               <h4 style={{ textAlign: 'center' }}> My Recipes </h4>
               <RecipeEdit key={recipe.id} {...recipe} />
             </div>
-            )
+            );
         })}
-        </div>
-    )
-}
+    </div>
+  );
+};
 
-const mapStateToProps = (state) => {
-  return {
-    recipes: state.recipes,
-  }
-}
+const mapStateToProps = state => ({ recipes: state.recipes });
 
 
 export default connect(mapStateToProps)(Dashboard);

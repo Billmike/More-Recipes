@@ -26,4 +26,8 @@ store.dispatch(addRecipe({
   instructions: ['Make the food awesome', 'Put it on fire before you cook me well.'],
 }));
 
-ReactDOM.render(<Provider store={store}> <App /></Provider>, document.getElementById('root'));
+ReactDOM
+  .render(
+    <Provider store={store}>
+      <App />
+    </Provider>, document.getElementById('root'));

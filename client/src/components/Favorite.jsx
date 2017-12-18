@@ -1,20 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import pizza from '../assets/img/pizzza.jpg';
 
-const Favorite = () => {
-	return (
-		<div>
-			<main className="container">
-              <h1>My Favorites</h1>
+const Favorite = ({ id }) => {
+  return (
+    <div>
+      <main className="container">
+        <h1>My Favorites</h1>
         <div className="card-group">
           <div className="card">
-            <a href="./recipe_detail.html"><img className="card-img-top" src={pizza} alt="Pizza" /></a>
+            <Link
+              to={`/recipe/${id}`}
+            ><img className="card-img-top" src={pizza} alt="Pizza" />
+            </Link>
             <div className="card-body">
-              <a href="./recipe_detail.html"><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4></a>
-              <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              <a href="recipe_detail.html" className="btn border border-secondary rounded" role="button">View <i className="fa fa-eye" aria-hidden="true"></i></a> 
-              <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
-                Remove <i className="fa fa-trash-o" aria-hidden="true"></i>
+              <Link
+                to={`recipe/${id}`}
+              >
+                <h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4>
+              </Link>
+              <p
+                className="card-text"
+              >This is a wider card with supporting text below as a natural lead-in.
+              This card has even longer content than the first to show that equal height action.
+              </p>
+              <Link
+                to={`recipe/${id}`}
+                className="btn border border-secondary rounded"
+                role="button"
+              >View <i className="fa fa-eye" aria-hidden="true" />
+              </Link> 
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                Remove <i className="fa fa-trash-o" aria-hidden="true" />
               </button>
             </div>
             <div className="card-footer">
@@ -22,13 +45,33 @@ const Favorite = () => {
             </div>
           </div>
           <div className="card">
-            <a href="./recipe_detail.html"><img className="card-img-top" src={pizza} alt="Pizza" /></a>
+            <Link
+              to={`recipe/${id}`}
+            ><img className="card-img-top" src={pizza} alt="Pizza" />
+            </Link>
             <div className="card-body">
-              <a href="./recipe_detail.html"><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4></a>
-              <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              <a href="recipe_detail.html" className="btn border border-secondary rounded" role="button">View <i className="fa fa-eye" aria-hidden="true"></i> </a> 
-              <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
-                Remove <i className="fa fa-trash-o" aria-hidden="true"></i>
+              <Link
+                to={`recipe/${id}`}
+              ><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4>
+              </Link>
+              <p
+                className="card-text"
+              >This is a wider card with supporting text below as a natural lead-in.
+              This card has even longer content than the first to show that equal height action.
+              </p>
+              <Link
+                to={`recipe/${id}`}
+                className="btn border border-secondary rounded"
+                role="button"
+              >View <i className="fa fa-eye" aria-hidden="true" />
+              </Link>
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                Remove <i className="fa fa-trash-o" aria-hidden="true" />
               </button>
             </div>
             <div className="card-footer">
@@ -36,13 +79,33 @@ const Favorite = () => {
             </div>
           </div>
           <div className="card">
-            <a href="./recipe_detail.html"><img className="card-img-top" src={pizza} alt="Pizza" /></a>
+            <Link
+              to={`recipe/${id}`}
+            ><img className="card-img-top" src={pizza} alt="Pizza" />
+            </Link>
             <div className="card-body">
-              <a href="./recipe_detail.html"><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4></a>
-              <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-              <a href="recipe_detail.html" className="btn border border-secondary rounded" role="button">View <i className="fa fa-eye" aria-hidden="true"></i></a> 
-              <button type="button" className="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
-                Remove <i className="fa fa-trash-o" aria-hidden="true"></i>
+              <Link
+                to={`recipe/${id}`}
+              ><h4 className="card-title">Pizza Pepperoni with mushroom toppings.</h4>
+              </Link>
+              <p
+                className="card-text"
+              > This is a wider card with supporting text below as a natural lead-in.
+              This card has even longer content than the first to show that equal height action.
+              </p>
+              <Link
+                to={`recipe/${id}`}
+                className="btn border border-secondary rounded"
+                role="button"
+              >View <i className="fa fa-eye" aria-hidden="true" />
+              </Link>
+              <button
+                type="button"
+                className="btn btn-outline-danger"
+                data-toggle="modal"
+                data-target="#exampleModal"
+              >
+                Remove <i className="fa fa-trash-o" aria-hidden="true" />
               </button>
             </div>
             <div className="card-footer">
@@ -50,9 +113,9 @@ const Favorite = () => {
             </div>
           </div>
         </div>
-            </main>
-		</div>
-		)
-}
+      </main>
+    </div>
+  );
+};
 
-export default Favorite;
+export default connect()(Favorite);
