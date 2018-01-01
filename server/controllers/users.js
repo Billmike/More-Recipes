@@ -1,89 +1,94 @@
 import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
+import bcrypt from 'bcrypt';
 import { User } from '../models';
 import signupValidator from '../validators/validatesignup';
 import signinValidator from '../validators/validatesignin';
 
 
 class Users {
-  static signUp(req, res, next) {
-    const validateSignup = signupValidator(req.body);
-    if (!validateSignup.valid) {
-      const err = res.status(400).send({ message: validateSignup.message });
-      return next(err);
+  static signUp(req, res) {
+    const { errors, valid } = signupValidator(req.body);
+    if (!valid) {
+      return res.status(400).json(errors);
     }
-    const { email, password, username } = req.body;
-    return User
-      .create({
-        email,
-        password,
-        username,
+    User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    }).then((existingUser) => {
+      if (existingUser) {
+        return res.status(409).json({ status: 'Conflict', message: 'Email must be unique.' });
+      }
+      User.create({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
       })
-      .then((user) => {
-        const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '30 days' });
-        const smtpTransport = nodemailer.createTransport({
-          service: 'Gmail',
-          host: 'smtp.gmail.com',
-          port: 587,
-          secure: false,
-          requireTLS: true,
-          auth: {
-            user: process.env.EMAIL_ADDRESS,
-            pass: process.env.PASSWORD,
-          },
-        });
-        const mailOptions = {
-          from: process.env.EMAIL_ADDRESS,
-          to: user.email,
-          subject: 'Welcome to More-Recipes',
-          text: 'A bouquet of amazing recipes awaits you. Begin your journey <a href="https://billmike.github.io">here</a>',
-        };
-        smtpTransport.sendMail(mailOptions, (err, response) => {
-          if (err) {
-            res.status(400).send({ message: err.message });
-          } else {
-            res.status(201).send({ status: 'sent', message: response.message });
+        .then((newUser) => {
+          const token = jwt.sign({ id: newUser.id }, process.env.SECRET, { expiresIn: '30 days' });
+          return res.status(201).json({
+            message: 'Signup Successful.',
+            username: newUser.username,
+            email: newUser.email,
+            token,
+          });
+        })
+        .catch((error) => {
+          if (error.errors[0].message === 'username must be unique') {
+            return res.status(409).json({ message: 'Username must unique.' });
           }
         });
-        return res.status(201).send({
-          message: 'Sigup Successful!. Check your email for confirmation.', username: user.username, email: user.email, token: { token },
-        });
-      })
+    })
       .catch((error) => {
-        if (error.errors[0].message === 'Validation isEmail on email failed') {
-          res.status(400).send({
-            message: 'Invalid email format. Email should be in the abc@xyz.com format.',
-          });
-        } else if (error.errors[0].message === 'username must be unique') {
-          res.status(409).send({
-            message: 'Username already taken.',
-          });
-        } else if (error.errors[0].message === 'email must be unique') {
-          res.status(409).send({
-            message: 'An account has been registered with this Email.',
-          });
-        }
+        return res.status(500).json(error.message);
       });
   }
 
-  static signIn(req, res, next) {
-    const validateSignin = signinValidator(req.body);
-    if (validateSignin.valid) {
+  static signIn(req, res) {
+    const { errors, valid } = signinValidator(req.body);
+    if (!valid) {
+      return res.status(400).json(errors);
+    }
+    if (valid) {
       const { email, password } = req.body;
-      User.authenticate(email, password, (err, user) => {
-        if (err === undefined || !user || err) {
-          return res.status(403).send({
-            status: 'Failed.',
-            message: 'Invalid email or password.',
+      User.findOne({
+        where: { email },
+      }).then((user) => {
+        if (!user) {
+          return res.status(403).json({ status: 'Failed', message: 'Invalid email or password.' });
+        }
+        if (user) {
+          const unHashPassword = bcrypt.compareSync(password, user.password);
+          if (!unHashPassword) {
+            return res.status(403).json({ status: 'Failed.', message: 'Invalid email or password.' });
+          }
+          const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '30 days' });
+          return res.status(201).json({
+            status: 'Success',
+            message: 'Sign in Successfull',
+            username: user.username,
+            email: user.email,
+            token,
           });
         }
-        const token = jwt.sign({ id: user.id }, process.env.SECRET, { expiresIn: '60 days' });
-        return res.status(201).send({ status: 'Success', token: { token } });
-      });
-    } else {
-      const err = res.status(400).send({ status: 'Failed.', message: validateSignin.message });
-      return next(err);
+      })
+        .catch(err => res.status(500).json({ status: 'Server error', message: err.message }));
     }
+  }
+  static editProfile(req, res) {
+    User.findById(req.userId)
+      .then((user) => {
+        if (user) {
+          return user.update({
+            email: req.body.email || user.email,
+            password: req.body.password || user.password,
+            username: req.body.username || user.username,
+          })
+            .then(updatedUser => res.status(200).json({ message: 'Update successful', email: updatedUser.email, username: updatedUser.username }))
+            .catch(err => res.status(400).json({ status: 'An error occured', message: err.message }));
+        }
+      })
+      .catch(err => res.status(500).json({ status: 'Server error', message: err.message }));
   }
 }
 

@@ -4,53 +4,58 @@ const favorite = db.Favorite;
 const recipe = db.Recipe;
 
 class Favorites {
-  static addFavorite(req, res, next) {
+  static addFavorite(req, res) {
     const { userId } = req;
-    favorite.findAll({
+    recipe.findOne({
       where: {
-        recipeId: req.params.recipeId,
+        id: req.params.recipeId,
       },
-    })
-      .then((favs) => {
-        if (!favs) {
-          return res.status(404).send({ status: 'Not found.', message: 'Recipe not found.' });
-        } else if (favs.owner === req.userId) {
-          return res.status(403).send({ status: 'Forbidden.', message: 'Sorry, you cannot favorite your own recipe.' });
-        } else if (favs.length === 0) {
-          return favorite.create({
-            userId: req.userId,
-            recipeId: req.params.recipeId,
-          })
-            .then(() => res.status(200).send({ status: 'Success.', message: 'Recipe added to your favorite.' }))
-            .catch((error) => {
-              const err = res.status(400).send({ status: 'Unknown', message: error.message });
-              return next(err);
-            });
-        }
-        const arrayFavs = [];
-        favs.forEach((fav) => {
-          arrayFavs.push(fav.dataValues.userId);
-        });
-        const userFavs = favs.filter(fav => fav.dataValues.userId === userId)[0];
-        if (arrayFavs.includes(userId)) {
-          return favorite.findById(userFavs.dataValues.id)
-            .then(favourite => favourite.destroy())
-            .then(() => res.status(200).send({ message: 'Recipe has been removed from your favorites.' }));
-        }
-        favorite.create({
-          userId: req.userId,
-          recipeId: req.params.recipeId,
+    }).then((foundRecipe) => {
+      if (!foundRecipe) {
+        return res.status(404).send({ status: 'Not Found.', message: 'Recipe not found.' });
+      } else if (foundRecipe.owner === userId) {
+        return res.status(403).send({ status: 'Forbidden', message: 'Sorry, you cannot perform this action on your own recipe.' });
+      } else if (foundRecipe) {
+        favorite.findAll({
+          where: {
+            recipeId: foundRecipe.id,
+          },
         })
-          .then(() => res.status(200).send({ status: 'Success.', message: 'Recipe added to your favorite.' }))
-          .catch(error => res.status(400).send({ message: error.message }));
-      })
-      .catch(error => res.status(500).send({ error: error.message }));
+          .then((favoriteRecipes) => {
+            if (favoriteRecipes.length === 0) {
+              return favorite.create({
+                userId: req.userId,
+                recipeId: req.params.recipeId,
+              })
+                .then(() => res.status(200).send({ status: 'OK', message: 'Recipe added to your list of favorites.' }))
+                .catch(error => res.status(500).send({ status: 'Server Error', message: error.message }));
+            }
+            const arrayOfUserIDs = [];
+            favoriteRecipes.forEach((singleFavoriteRecipes) => {
+              arrayOfUserIDs.push(singleFavoriteRecipes.dataValues.userId);
+            });
+            const userFavorites = favoriteRecipes.filter(fav => fav.dataValues.userId === userId)[0];
+            if (arrayOfUserIDs.includes(userId)) {
+              return favorite.findById(userFavorites.dataValues.id)
+                .then(existingFavorite => existingFavorite.destroy())
+                .then(() => res.status(200).send({ message: 'Recipe Removed from your favorites.' }))
+                .catch(error => res.status(500).send({ message: error.message }));
+            }
+            return favorite.create({
+              userId: req.userId,
+              recipeId: req.params.recipeId,
+            })
+              .then(() => res.status(200).send({ status: 'OK', message: 'Recipe added to your list of favorites.' }))
+              .catch(error => res.status(500).send({ message: error.message }));
+          }).catch(error => res.status(500).send({ status: 'Server error', message: error.message }));
+      }
+    }).catch(error => res.status(500).send({ status: 'Server Error', message: error.message }));
   }
 
   static getFavorites(req, res, next) {
     const { userId } = req.params;
 
-    if (req.userId !== parseInt(userId, 10)) {
+    if (req.userId !== userId) {
       const err = res.status(403).send({ status: 'Denied.', message: 'Invalid token authorization, or the user doesn\'t exist.' });
       return next(err);
     }

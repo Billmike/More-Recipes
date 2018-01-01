@@ -7,7 +7,6 @@ import users from './seed/userSeed';
 
 const request = supertest(app);
 const recipesApi = '/api/v1/recipes';
-let recipe;
 
 describe('Recipes Endpoint', () => {
   describe('#Test Creating a new Recipe', () => {
@@ -138,16 +137,29 @@ describe('Recipes Endpoint', () => {
       request.post(`${recipesApi}/${recipes[0].id}/reviews?token=${users[0].tokens[0].token}`)
         .send(reviews)
         .end((err, res) => {
-          expect(res.status).to.equal(201);
-          done();
-        });
-    });
-    it('Should return all the recipes in the application', (done) => {
-      request.get(`${recipesApi}`)
-        .end((err, res) => {
           expect(res.status).to.equal(200);
           done();
         });
+    });
+    describe('# Test fetching of recipes', () => {
+      describe('# Fetch a single recipe from the application', () => {
+        it ('Should fetch a single recipe from the application', (done) => {
+          request.get(`${recipesApi}/${recipes[0].id}`)
+            .end((err, res) => {
+              expect(res.status).to.equal(200);
+              done();
+            });
+        });
+      });
+      describe('# Fetch all recipes in the application', () => {
+        it('Should return all the recipes in the application', (done) => {
+          request.get(`${recipesApi}`)
+            .end((err, res) => {
+              expect(res.status).to.equal(200);
+              done();
+            });
+        });
+      });
     });
   });
 });

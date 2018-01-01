@@ -57,25 +57,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  User.authenticate = (email, password, callback) => {
-    User.findOne({
-      where: { email },
-    })
-      .then((user) => {
-        // check if it finds no user
-        if (!user) {
-          const err = new Error('User not found');
-          err.status = 404;
-          return callback(err);
-        }
-        const isMatch = bcrypt.compareSync(password, user.password);
-
-        // check if password matches
-        if (isMatch) return callback(null, user);
-        return callback();
-      })
-      .catch(err => callback(err));
-  };
-
   return User;
 };

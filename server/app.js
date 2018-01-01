@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
 
 
 require('dotenv').config();
@@ -10,6 +11,8 @@ const app = express();
 const appPath = path.join(__dirname, '..', 'dist/public');
 console.log(appPath);
 
+const swaggerDOCS = require('./api-doc/converted.json');
+
 
 app.use(logger('dev'));
 
@@ -17,6 +20,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(appPath));
 app.use(express.static('public'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDOCS));
+
 
 app.set('json spaces', 4);
 

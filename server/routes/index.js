@@ -16,6 +16,8 @@ module.exports = (app) => {
   }));
 
   app.get('/api/v1/users/get_user', User.getUser);
+  app.post('/api/v1/users/profile', Login.ensureLogin, User.isuser, userController.editProfile);
+  app.get('/api/v1/recipes/:recipeId', recipeController.getOneRecipe);
 
   /**
    * @api { post } /api/v1/users/signup Users Signup
@@ -228,7 +230,7 @@ module.exports = (app) => {
  * }
  */
   app.get('/api/v1/users/:userId/favorites', Login.ensureLogin, User.isuser, favorite.getFavorites);
-  app.post('/api/v1/recipes/:id/votes/:vote', Login.ensureLogin, User.isuser, vote.voteRecipe);
+  app.post('/api/v1/recipes/:recipeId/votes/:vote', Login.ensureLogin, User.isuser, vote.voteRecipe);
   /**
    * @api { get } /api/v1/recipes Get all Recipes
    * @apiGroup Recipe

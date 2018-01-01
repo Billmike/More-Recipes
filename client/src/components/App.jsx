@@ -8,6 +8,7 @@ import Favorite from './Favorite';
 import AddRecipe from './AddRecipe';
 import EditRecipe from './EditRecipe';
 import ProfilePage from './ProfilePage';
+import RegistrationPage from './RegistrationPage';
 import NotFoundPage from './NotFoundPage';
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/edit/:id" component={EditRecipe} />
           <Route path="/recipe/:id" component={RecipeDetails} />
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/register" component={RegistrationPage} />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

@@ -155,5 +155,62 @@ describe('User API testing', () => {
         });
     });
   });
+  describe('# Handle Editing user profile', () => {
+    it('Should prevent a user that is not logged in from editing a profile', (done) => {
+      const testUser = Object.assign({}, users[0]);
+      request.post('/api/v1/users/profile')
+        .send(testUser)
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          done();
+        });
+    });
+    it('Should modify the email of an authenticated user', (done) => {
+      const testUser = Object.assign({}, users[0]);
+      testUser.email = 'anewemail@gmail.com';
+      request.post(`/api/v1/users/profile?token=${testUser.tokens[0].token}`)
+        .send(testUser)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+    it('Should modify the password of an authenticated user', (done) => {
+      const testUser = Object.assign({}, users[0]);
+      testUser.password = 'newpasswordforme';
+      request.post(`/api/v1/users/profile?token=${testUser.tokens[0].token}`)
+        .send(testUser)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+    it('Should modify the username of an authenticated user', (done) => {
+      const testUser = Object.assign({}, users[0]);
+      testUser.username = 'newusernameformyfriend';
+      request.post(`/api/v1/users/profile?token=${testUser.tokens[0].token}`)
+        .send(testUser)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+  });
+  describe('# Handle the retrieval of user data from database', () => {
+    it('Should prevent a user that is not logged in from getting details', (done) => {
+      request.get('/api/v1/users/get_user')
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          done();
+        });
+    });
+    it('Should retrieve the details of a signed in user from the database', (done) => {
+      request.get(`/api/v1/users/get_user?token=${users[0].tokens[0].token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+  });
 });
 

@@ -1,57 +1,62 @@
 import db from '../models/index';
 
 const Votes = db.Vote;
+const Recipes = db.Recipe;
 
 class Vote {
-  static voteRecipe(req, res, next) {
-    // const { vote, id } = req.params;
-    //  const { UID } = req;
-
+  static voteRecipe(req, res) {
     if (req.params.vote !== 'downvote' && req.params.vote !== 'upvote') {
-      const err = res.status(404).send({ status: 'Not Found.', message: 'URL not found.' });
-      return next(err);
+      return res.status(404).json({ status: 'Not Found.', message: 'URL not found.' });
     }
-
-    Votes.findAll({
-      where: {
-        recipeId: req.params.id,
-      },
-    })
-      .then((votes) => {
-        if (votes.length === 0) {
-          return Votes.create({
-            userId: req.userId,
-            recipeId: req.params.id,
-            voteType: req.params.vote,
-          })
-            .then(() => res.status(200).send({ status: 'Success.', message: 'Thanks for your feedback!' }))
-            .catch(error => res.status(400).send({ status: 'Failed.', message: error.message }));
+    Recipes.findById(req.params.recipeId)
+      .then((foundRecipe) => {
+        if (!foundRecipe) {
+          return res.status(404).json({ status: 'Not found.', message: 'This recipe does not exist. How \'bout you create one?' });
         }
-        const voteArray = [];
-        votes.forEach((elem) => {
-          voteArray.push(elem.dataValues.userId);
-        });
-        if (voteArray.includes(req.userId)) {
-          const countVote = votes.filter(elem => elem.dataValues.userId === req.userId)[0];
-          if (countVote.dataValues.voteType === req.params.vote) {
-            const err = res.status(403).send({ status: 'Denied.', message: 'You already voted on this recipe.' });
-            return next(err);
-          }
-          return Votes.findById(countVote.dataValues.id)
-            .then(updateVote => updateVote.update({ voteType: req.params.vote }))
-            .then(() => res.status(200).send({ status: 'Success.', message: 'Vote Updated.' }));
+        if (foundRecipe.owner === req.userId) {
+          return res.status(403).json({ status: 'Forbidden.', message: 'You cannot vote on your own recipe.' });
         }
-        Votes.create({
-          userId: req.userId,
-          recipeId: req.params.id,
-          voteType: req.params.vote,
+        return Votes.findAll({
+          where: {
+            recipeId: req.params.recipeId,
+          },
         })
-          .then(() => res.status(200).send({ status: 'Success.', message: 'Vote Recorded.' }))
-          .catch((error) => {
-            const err = res.status(400).send({ message: error.message });
-            return next(err);
-          });
-      });
+          .then((votedRecipes) => {
+            if (votedRecipes.length === 0) {
+              return Votes.create({
+                userId: req.userId,
+                recipeId: req.params.recipeId,
+                voteType: req.params.vote,
+              })
+                .then(() => res.status(200).json({ status: 'Success.', message: `${req.params.vote} successful.` }))
+                .catch(error => res.status(500).json({ status: 'Failed', message: error.message }));
+            }
+            const votersArray = [];
+            votedRecipes.filter(elem => votersArray.push(elem.dataValues.userId));
+
+            if (votersArray.includes(req.userId)) {
+              const checkVoteType = votedRecipes
+                .filter(elem => elem.dataValues.userId === req.userId)[0];
+              if (checkVoteType.dataValues.voteType === req.params.vote) {
+                return res.status(403).json({ status: 'Denied', message: `You already ${req.params.vote}d on this recipe` });
+              }
+              return Votes.findById(checkVoteType.dataValues.id)
+                .then(updateVote => updateVote.update({ voteType: req.params.vote }))
+                .then(() => res.status(200).json({ status: 'OK', message: `${req.params.vote} successful.` }));
+            }
+            return Votes.create({
+              userId: req.userId,
+              recipeId: req.params.recipeId,
+              voteType: req.params.vote,
+            })
+              .then(() => res.status(200).json({ status: 'OK', message: `${req.params.vote} successful.` }))
+              .catch((error) => {
+                return res.status(500).json({ message: error.message });
+              });
+          })
+          .catch(error => res.status(500).json({ message: error.message }));
+      })
+      .catch(error => res.status(500).json({ message: error.message }));
   }
 }
 

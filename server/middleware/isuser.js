@@ -39,7 +39,7 @@ class SessionControl {
     try {
       verifiedJWT = jwt.verify(req.token, process.env.SECRET);
     } catch (error) {
-      res.status(400).send({ status: 'Failed.', message: 'Provide correct details to access this resource.' });
+      res.status(403).send({ status: 'Failed.', message: 'Provide correct details to access this resource.' });
     }
     User.findOne({
       where: {

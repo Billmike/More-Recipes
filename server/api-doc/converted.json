@@ -1,0 +1,517 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "More-Recipes API",
+    "description": "# Introduction\nWelcome to the More-Recipes (v1) API. More-Recipes is an application that enables users from across the globe share insightful and amazing recipes.\n\n# Overview\nThe More-Recipes API was built using NodeJS (v8.9.1) and ExpressJS (v4.16.2). To begin consuming this API, it is strongly recommended that you create a dummy user (or users) which would be authenticated by the API.\n\n# Authentication\nThe More-Recipes API makes use of JSON Web Tokens for authentication.\n\n# Error and Status Codes\n-  200 - OK\n-  201 - Created\n-  400 - Bad Request\n-  401 - Unauthorized\n-  403 - Forbidden\n-  404 - Not Found\n-  500 - Internal Server Error\n\n# Rate limit\n-  No rate limit employed for now.",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1",
+      "variables": {}
+    }
+  ],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/users/signup",
+        "description": "Signs up a  new user and returns a JSON Web Token.",
+        "operationId": "Localhost:8000/api/v1/users/signup",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/signin": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/users/signin",
+        "description": "Signs in an existing user and issues a JSON Web Token on successful sign-in",
+        "operationId": "Localhost:8000/api/v1/users/signin",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes",
+        "description": "Gets all the recipes in the application",
+        "operationId": "Localhost:8000/api/v1/recipes1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes",
+        "description": "Creates a new recipe",
+        "operationId": "Localhost:8000/api/v1/recipes",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes/:recipeId",
+        "description": "Gets on recipe in the application",
+        "operationId": "Localhost:8000/api/v1/recipes/:recipeid",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes/:recipeId",
+        "description": "Deletes an existing recipe in the application",
+        "operationId": "Localhost:8000/api/v1/recipes/:recipeid1",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/modify": {
+      "put": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes/:recipeId/modify",
+        "description": "Modify an existing recipe in the application",
+        "operationId": "Localhost:8000/api/v1/recipes/:recipeid/modify",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/get_user": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/users/get_user",
+        "description": "Gets a logged-in user",
+        "operationId": "Localhost:8000/api/v1/users/getUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/profile": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/users/profile",
+        "description": "Enable a user edit their details",
+        "operationId": "Localhost:8000/api/v1/users/profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/reviews": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes/:recipeId/reviews",
+        "description": "Post reviews on a particular recipe",
+        "operationId": "Localhost:8000/api/v1/recipes/:recipeid/reviews",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/favorites": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes/:recipeId/favorites",
+        "description": "Favorite a single recipe by an authenticated user",
+        "operationId": "Localhost:8000/api/v1/recipes/:recipeid/favorites",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/{userId}/favorites": {
+      "get": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/users/:userId/favorites",
+        "description": "Get all the favorites for a particular user",
+        "operationId": "Localhost:8000/api/v1/users/:userid/favorites",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/votes/{vote}": {
+      "post": {
+        "tags": [
+          "Misc"
+        ],
+        "summary": "localhost:8000/api/v1/recipes/:recipeId/upvote",
+        "description": "Vote (upvote or downvote) on a single recipe",
+        "operationId": "Localhost:8000/api/v1/recipes/:recipeid/upvote",
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          },{
+            "name": "vote",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "security": [],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  }
+}
