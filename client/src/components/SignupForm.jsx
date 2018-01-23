@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import InputFieldGroup from './InputFieldGroup';
+import validateInput from '../../../server/validators/validatesignup';
 import '../assets/css/signup.css';
 
 class SignupForm extends Component {
@@ -10,6 +13,7 @@ class SignupForm extends Component {
       email: '',
       password: '',
       errors: {},
+      isLoading: false,
     };
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
@@ -28,53 +32,91 @@ class SignupForm extends Component {
   onPasswordChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
+
   onSubmit(event) {
     event.preventDefault();
-    this.props.signupRequest(this.state).then(
-      () => {},
-      ({ data }) => this.setState({ errors: data }),
-    );
-    console.log(this.state);
+
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props
+        .signupRequest(this.state)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((errors) => {
+          console.log(errors.response);
+          this.setState({
+            errors: errors.response.data,
+            isLoading: false,
+          });
+        });
+    }
+  }
+
+  isValid() {
+    const { errors, valid } = validateInput(this.state);
+
+    if (!valid) {
+      this.setState({ errors });
+    }
+
+    return valid;
   }
 
   render() {
+    const { errors } = this.state;
     return (
       <form onSubmit={this.onSubmit}>
         <div id="login-box">
           <div className="left">
             <h1>Sign up</h1>
 
-            <input
-              type="text"
-              name="username"
-              value={this.state.username}
-              onChange={this.onUsernameChange}
+            <InputFieldGroup
+              errors={errors.username}
               placeholder="Username"
-            />
-            <input
-              type="text"
-              name="email"
-              value={this.state.email}
-              onChange={this.onEmailChange}
-              placeholder="E-mail"
-            />
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.onPasswordChange}
-              placeholder="Password"
+              onChange={this.onUsernameChange}
+              value={this.state.username}
+              field="username"
             />
 
-            <input type="submit" name="signup_submit" value="Sign up" />
+            <InputFieldGroup
+              errors={errors.email}
+              placeholder="Email Address"
+              onChange={this.onEmailChange}
+              value={this.state.email}
+              field="email"
+            />
+
+            <InputFieldGroup
+              errors={errors.password}
+              placeholder="Password"
+              onChange={this.onPasswordChange}
+              value={this.state.password}
+              field="password"
+            />
+            <input
+              disabled={this.state.isLoading}
+              type="submit"
+              name="signup_submit"
+              value="Sign up"
+            />
           </div>
 
           <div className="right">
-            <span className="loginwith">Sign in with<br />social network</span>
+            <span className="loginwith">
+              Sign in with<br />social network
+            </span>
 
-            <button className="social-signin facebook">Log in with facebook</button>
-            <button className="social-signin twitter">Log in with Twitter</button>
-            <button className="social-signin google">Log in with Google+</button>
+            <button className="social-signin facebook">
+              Log in with facebook
+            </button>
+            <button className="social-signin twitter">
+              Log in with Twitter
+            </button>
+            <button className="social-signin google">
+              Log in with Google+
+            </button>
           </div>
           <div className="or">OR</div>
         </div>

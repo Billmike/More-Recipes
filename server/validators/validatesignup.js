@@ -17,7 +17,7 @@ const validateSignup = (data) => {
   } if (data.password === undefined || data.password.length <= 8 || data.password.trim() === '') {
     errors.password = 'Please provide a password greater than 8 characters.';
   } if (data.username === undefined || data.username.trim() === '') {
-    errors.username = 'Username is required and should be unique.';
+    errors.username = 'Username is required.';
   }
   return {
     errors,

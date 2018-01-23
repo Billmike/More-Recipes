@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build-client": "babel ./client/ -d dist --copy-files && babel ./server/ -d dist --copy-files",
-    "build-test": "npm run build:dev && babel ./client/ -d dist --copy-files && babel ./server/ -d dist",
+    "build-test": "npm run build:dev && babel ./client/ -d dist --copy-files && babel ./server/ -d dist --copy-files",
     "build:prod": "webpack -p --env production",
     "build:dev": "webpack -p --env development",
     "dev-server": "webpack-dev-server",

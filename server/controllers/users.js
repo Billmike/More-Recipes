@@ -26,7 +26,7 @@ class Users {
       })
         .then((newUser) => {
           const token = jwt.sign({ id: newUser.id }, process.env.SECRET, { expiresIn: '30 days' });
-          return res.status(201).json({
+          return res.status(201).send({
             message: 'Signup Successful.',
             username: newUser.username,
             email: newUser.email,

@@ -90,6 +90,12 @@ input[type="submit"]:active {
   transition: 0.1s ease;
 }
 
+.red-errors {
+  color: red;
+  font-size: 12px;
+  margin-top: -25px;
+}
+
 .or {
   position: absolute;
   top: 180px;

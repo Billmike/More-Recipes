@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const signupRequest = (userData) => {
-    return dispatch => {
-        return axios.post('/api/v1/users/signup', userData);
-    }
-}
+export const signupRequest = userData => {
+  return dispatch => {
+    return axios.post("http://localhost:8000/api/v1/users/signup", userData);
+  };
+};
