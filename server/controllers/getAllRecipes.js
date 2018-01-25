@@ -109,7 +109,7 @@ const getAllRecipes = (req, res, next) => {
           return next(err);
         });
       }
-      return res.status(200).send({ status: 'Success.', data: tempStorage });
+      return res.status(201).send({ status: 'Success.', recipeData: tempStorage });
     })
     .catch((error) => {
       const err = res.status(500).send({ status: 'Server error', message: error.message });

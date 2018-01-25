@@ -4,16 +4,21 @@ const recipes = db.Recipe;
 const reviews = db.Review;
 
 /**
-  * @class { Object } Recipe
+  * Represents the Recipe class
   *
+  * @class
   *
   */
 
 class Recipe {
 /**
-  * @returns { Object } addRecipe
-  *@param { String } req takes in the request
-  *@param { String } res takes in the response
+  * Represents the methos that creates a new recipe
+  * @method
+  *
+  * @param { object } req - The request object
+  * @param { object } res - The response object
+  *
+  * @returns { object } The recipe object
   */
 
   static addRecipe(req, res) {
@@ -30,14 +35,25 @@ class Recipe {
         instructions,
         owner: req.userId,
       })
-      .then(recipe => res.status(201).send(recipe))
-      .catch(() => res.status(400).send({ status: 'Failed.', error: 'Something here.' }));
+      .then(recipe => res.status(201).json({
+        message: 'Recipe created successfully',
+        recipeData: recipe,
+      }))
+      .catch(() => res
+        .status(500)
+        .json({
+          message: 'Oops.. Something went wrong. Why not try again later?'
+        }));
   }
 
   /**
-  * @returns { Object } modifyRecipe
-  *@param { String } req takes in the request
-  *@param { String } res takes in the response
+  * Represents the Method that edits the recipe
+  * @method
+  *
+  * @param { object } res - The response object
+  * @param { object } req - The request object
+  *
+  * @returns { object } the modified recipe
   */
 
   static modifyRecipe(req, res) {
@@ -45,9 +61,19 @@ class Recipe {
       .findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).send({ status: 'Not found.', message: 'It seems this recipe does not exist.' });
+          return res
+            .status(404)
+            .json({
+              status: 'Not found.',
+              message: 'It seems this recipe does not exist.'
+            });
         } else if (recipe.owner !== req.userId) {
-          return res.status(403).send({ status: 'Forbidden.', message: 'Sorry. You cannot perform this action.' });
+          return res
+            .status(403)
+            .json({
+              status: 'Forbidden.',
+              message: 'Sorry. You cannot perform this action.'
+            });
         }
 
         return recipe
@@ -59,30 +85,55 @@ class Recipe {
             ingredients: req.body.ingredients || recipe.ingredients,
             instructions: req.body.instructions || recipe.instructions,
           })
-          .then(() => res.status(201).send({ status: 'Update successful.', data: recipe }))
-          .catch(error => res.status(400).send({ status: 'Unknown.', message: error.message }));
+          .then(() => res
+            .status(201)
+            .json({ status: 'Update successful.', recipeData: recipe }));
       })
-      .catch(error => res.status(500).send({ status: 'Unknown error.', message: error.message }));
+      .catch(() => res
+        .status(500)
+        .json({
+          status: 'Unknown error.',
+          message: 'Oops.. Something went wrong. Why not try again later?'
+        }));
   }
 
   /**
-  * @returns { Object } getRecipes
-  *@param { String } req takes in the request
-  *@param { String } res takes in the request
+  * Represents the method that gets all recipes in the application
+  * @method
+  *
+  * @param { object } req - the request object
+  * @param { object } res - the response object
+  *
+  * @returns { object } All recipes in the application
   */
 
   static getRecipes(req, res) {
     return recipes
       .all()
-      .then(allRecipes => res.status(200).send({ status: 'Success.', data: allRecipes }))
-      .catch(error => res.status(400).send(error.message));
+      .then(allRecipes => res
+        .status(201).json({ status: 'Success.', recipeData: allRecipes }))
+      .catch(error => res.status(400).json(error.message));
   }
+
+  /**
+  * Represents the method that gets one recipe in the application
+  * @method
+  *
+  * @param { object } req - the request object
+  * @param { object } res - the response object
+  *
+  * @returns { object } A recipe object
+  */
 
   static getOneRecipe(req, res) {
     return recipes.findById(req.params.recipeId)
       .then((foundRecipe) => {
         if (!foundRecipe) {
-          return res.status(404).send({ status: 'Not Found', message: 'This recipe does not exist.' });
+          return res
+            .status(404)
+            .json({
+              status: 'Not Found', message: 'This recipe does not exist.'
+            });
         }
         return recipes.findOne({
           where: {
@@ -93,16 +144,23 @@ class Recipe {
             as: 'reviews',
           },
         })
-          .then(singleRecipe => res.status(200).send({ status: 'OK', data: singleRecipe }))
-          .catch(error => res.status(400).send(error.message));
+          .then(singleRecipe => res
+            .status(201)
+            .json({ status: 'OK', recipeData: singleRecipe }));
       })
-      .catch(error => res.status(500).send(error.message));
+      .catch(() => res.status(500).json({
+        message: 'Oops.. Something went wrong. Why not try again later?'
+      }));
   }
 
   /**
-  * @returns { Object } deleteRecipes
-  *@param { String } req takes in the request
-  *@param { String } res takes in the request
+  * Represents the method that deletes a recipe in the application
+  * @method
+  *
+  * @param { object } req - the request object
+  * @param { object } res - the response object
+  *
+  * @returns { object } A response with either a success or failure message
   */
 
   static deleteRecipe(req, res) {
@@ -110,16 +168,35 @@ class Recipe {
       .findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res.status(404).send({ status: 'Not found', message: 'The recipe you are looking for does not exist.' });
+          return res
+            .status(404)
+            .json({
+              status: 'Not found',
+              message: 'The recipe you are looking for does not exist.'
+            });
         } else if (recipe.owner !== req.userId) {
-          return res.status(403).send({ status: 'Forbidden.', message: 'You do not have the priviledges to perform this action.' });
+          return res
+            .status(403)
+            .json({
+              status: 'Forbidden.',
+              message: 'You do not have the priviledges to perform this action.'
+            });
         }
         return recipe
           .destroy()
-          .then(() => res.status(200).send({ status: 'Success.', message: 'You have successfully deleted this recipe. Want to add another?' }))
-          .catch(error => res.status(400).send({ status: error.message }));
+          .then(() => res
+            .status(201)
+            .json({
+              status: 'Success.',
+              message: 'You have successfully deleted this recipe. Want to add another?'
+            }));
       })
-      .catch(error => res.status(500).send({ status: 'Failed', message: error.message }));
+      .catch(() => res
+        .status(500)
+        .json({
+          status: 'Failed',
+          message: 'Oops.. Something went wrong. Why not try again later?'
+        }));
   }
 }
 
