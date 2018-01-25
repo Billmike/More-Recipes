@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InputFieldGroup = ({ field, value, type, errors, onChange, placeholder }) => (
+const InputFieldGroup = ({
+  field, value, type, errors, onChange, placeholder,
+}) => (
   <div>
     <input
       type={type}
@@ -24,7 +26,7 @@ InputFieldGroup.propTypes = {
 };
 
 InputFieldGroup.defaultProps = {
-  type: 'text',
+  errors: '',
 };
 
 export default InputFieldGroup;

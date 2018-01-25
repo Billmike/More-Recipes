@@ -1,7 +1,7 @@
 import userController from '../controllers/users';
 import recipeController from '../controllers/recipes';
 import Login from '../middleware/ensureLogin';
-import User from '../middleware/isuser';
+import User from '../middleware/SessionControl';
 import recipeAdd from '../middleware/validateAddRecipe';
 import reviewController from '../controllers/reviews';
 import validateReview from '../middleware/validateReview';
@@ -16,7 +16,6 @@ module.exports = (app) => {
   }));
 
   app.get('/api/v1/users/get_user', User.getUser);
-  app.post('/api/v1/users/profile', Login.ensureLogin, User.isuser, userController.editProfile);
   app.get('/api/v1/recipes/:recipeId', recipeController.getOneRecipe);
 
   /**

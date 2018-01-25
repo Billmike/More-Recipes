@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { browserHistory } from 'react-router-dom';
 import InputFieldGroup from './InputFieldGroup';
 import validateInput from '../../../server/validators/validatesignup';
 import '../assets/css/signup.css';
@@ -41,8 +41,8 @@ class SignupForm extends Component {
       this.setState({ errors: {}, isLoading: true });
       this.props
         .signupRequest(this.state)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          browserHistory.push('/');
         })
         .catch((errors) => {
           console.log(errors.response);
