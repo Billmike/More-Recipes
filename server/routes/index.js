@@ -1,6 +1,6 @@
 import userController from '../controllers/users';
 import recipeController from '../controllers/recipes';
-import Login from '../middleware/EnsureLogin';
+import Login from '../middleware/IsLoggedIn';
 import User from '../middleware/SessionControl';
 import recipeAdd from '../middleware/validateAddRecipe';
 import reviewController from '../controllers/reviews';

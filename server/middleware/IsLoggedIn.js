@@ -4,17 +4,17 @@
   *
   */
 
-class EnsureLogin {
+class IsLoggedIn {
   /**
-  * Represents the method that checks if a use has a token
-  * @method
-  *
-  * @param { object } req - The request object
-  * @param { object } res - The response object
-  * @param { function }next - Callback function
-  *
-  * @returns { object } A token with the userId
-  */
+    * Represents the method that checks if a use has a token
+    * @method
+    *
+    * @param { object } req - The request object
+    * @param { object } res - The response object
+    * @param { function }next - Callback function
+    *
+    * @returns { object } A token with the userId
+    */
 
   static hasToken(req, res, next) {
     req.token = req.headers.token || req.query.token;
@@ -30,4 +30,4 @@ class EnsureLogin {
   }
 }
 
-export default EnsureLogin;
+export default IsLoggedIn;
