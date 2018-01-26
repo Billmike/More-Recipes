@@ -25,7 +25,7 @@
     "test-local": "cross-env NODE_ENV=test npm run test-migrate && cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit",
     "test": "nyc mocha server/__test__/*.spec.js",
     "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
-    "coveralls": "nyc npm run nyc-local && nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "dev": "nodemon --exec babel-node ./server/bin/www.js",
     "client": "npm run start --prefix client",
     "run-prod": "npm run build-client && node ./dist/bin/www.js",

@@ -76,7 +76,7 @@ class SessionControl {
         id: verifiedJWT.id,
       },
     })
-      .then(user => res.send({
+      .then(user => res.status(200).json({
         email: user.email,
         username: user.username,
       }))

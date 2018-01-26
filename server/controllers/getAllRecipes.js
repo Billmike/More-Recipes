@@ -45,21 +45,21 @@ class GetRecipes {
   }
 }
 
-const countRecipes = (arr, key, val) => {
-  if (arr.length === 0) return 0;
-  if (key === null && val === null) return arr.length;
-  return arr.filter(elem => elem[key] === val).length;
+const countRecipes = (recipeArray, itemKey, itemValue) => {
+  if (recipeArray.length === 0) return 0;
+  if (itemKey === null && itemValue === null) return recipeArray.length;
+  return recipeArray.filter(elem => elem[itemKey] === itemValue).length;
 };
 
-const sortRecipes = (arr, dir, callback) => {
-  if (arr.length === 0) return arr;
-  if (dir !== 'ascending' && dir !== 'descending') {
+const sortRecipes = (recipeArray, sortOrder, callback) => {
+  if (recipeArray.length === 0) return recipeArray;
+  if (sortOrder !== 'ascending' && sortOrder !== 'descending') {
     const err = new Error('Invalid sorting order.');
     err.status = 400;
     return callback(err);
   }
-  const sorted = arr.sort((a, b) => {
-    if (dir === 'ascending') {
+  const sorted = recipeArray.sort((a, b) => {
+    if (sortOrder === 'ascending') {
       if (a.upVote === b.upVote) return a.updatedAt - b.updatedAt;
       return a.upVote - b.upVote;
     }
@@ -68,6 +68,17 @@ const sortRecipes = (arr, dir, callback) => {
   });
   callback(null, sorted);
 };
+
+/**
+ * Represents the method for getting all recipes
+ * @method
+ *
+ * @param { object } req - The request object
+ * @param { object } res - The response object
+ * @param { function } next - A callback function
+ *
+ * @returns { object } The recipes object
+ */
 
 const getAllRecipes = (req, res, next) => {
   Recipes.findAll({
@@ -105,14 +116,23 @@ const getAllRecipes = (req, res, next) => {
       });
       if (sort && order) {
         return sortRecipes(tempStorage, order, (err, sorted) => {
-          if (!err) return res.status(200).send({ status: 'Success', data: sorted });
+          if (!err) {
+            return res
+              .status(201).json({ status: 'Success', recipeData: sorted });
+          }
           return next(err);
         });
       }
-      return res.status(201).send({ status: 'Success.', recipeData: tempStorage });
+      return res
+        .status(201).json({ status: 'Success.', recipeData: tempStorage });
     })
-    .catch((error) => {
-      const err = res.status(500).send({ status: 'Server error', message: error.message });
+    .catch(() => {
+      const err = res
+        .status(500)
+        .json({
+          status: 'Server error',
+          message: 'Oops.. Something went wrong. Why not try again later?'
+        });
       return next(err);
     });
 };

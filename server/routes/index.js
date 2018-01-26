@@ -1,6 +1,6 @@
 import userController from '../controllers/users';
 import recipeController from '../controllers/recipes';
-import Login from '../middleware/ensureLogin';
+import Login from '../middleware/EnsureLogin';
 import User from '../middleware/SessionControl';
 import recipeAdd from '../middleware/validateAddRecipe';
 import reviewController from '../controllers/reviews';
@@ -108,7 +108,7 @@ module.exports = (app) => {
  * }
  *
  */
-  app.post('/api/v1/recipes', Login.ensureLogin, User.isuser, recipeAdd, recipeController.addRecipe);
+  app.post('/api/v1/recipes', Login.hasToken, User.isuser, recipeAdd, recipeController.addRecipe);
 
   /**
  * @api { put } /api/v1/recipes/:recipeId/modify Modify a recipe
@@ -142,7 +142,7 @@ module.exports = (app) => {
  * }
  *
  */
-  app.put('/api/v1/recipes/:recipeId/modify', Login.ensureLogin, User.isuser, recipeController.modifyRecipe);
+  app.put('/api/v1/recipes/:recipeId/modify', Login.hasToken, User.isuser, recipeController.modifyRecipe);
 
   /**
  * @api { post } /api/v1/recipes/:recipeId/reviews Review a recipe
@@ -182,7 +182,7 @@ module.exports = (app) => {
  *    "updatedAt": "2017-09-17T23:21:18.057Z",
  * }
  */
-  app.post('/api/v1/recipes/:recipeId/reviews', Login.ensureLogin, User.isuser, validateReview, reviewController.addReviews);
+  app.post('/api/v1/recipes/:recipeId/reviews', Login.hasToken, User.isuser, validateReview, reviewController.addReviews);
 
   /**
  * @api { delete } /api/v1/recipes/:recipeId Delete a recipe
@@ -195,7 +195,7 @@ module.exports = (app) => {
  * HTTP 1.1 204 No Content
  */
   app.delete('/api/v1/recipes/:recipeId', recipeController.deleteRecipe);
-  app.post('/api/v1/recipes/:recipeId/favorites', Login.ensureLogin, User.isuser, favorite.addFavorite);
+  app.post('/api/v1/recipes/:recipeId/favorites', Login.hasToken, User.isuser, favorite.addFavorite);
 
   /**
  * @api { get } /api/v1/users/:userId/favorites Get user favorite recipes
@@ -228,8 +228,8 @@ module.exports = (app) => {
     ],
  * }
  */
-  app.get('/api/v1/users/:userId/favorites', Login.ensureLogin, User.isuser, favorite.getFavorites);
-  app.post('/api/v1/recipes/:recipeId/votes/:vote', Login.ensureLogin, User.isuser, vote.voteRecipe);
+  app.get('/api/v1/users/:userId/favorites', Login.hasToken, User.isuser, favorite.getFavorites);
+  app.post('/api/v1/recipes/:recipeId/votes/:vote', Login.hasToken, User.isuser, vote.voteRecipe);
   /**
    * @api { get } /api/v1/recipes Get all Recipes
    * @apiGroup Recipe

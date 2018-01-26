@@ -12,6 +12,5 @@ install:
   - npm install pg-hstore
   - npm install nyc
 script:
-  - sequelize db:migrate --env test
   - npm run coveralls
   

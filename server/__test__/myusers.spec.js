@@ -223,5 +223,24 @@ describe('User API testing', () => {
           });
       }
     );
+    it('Should get the details of a user that is already logged in', (done) => {
+      const testUser = { ...users[0] };
+      request.get(`/api/v1/users/get_user?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+    it('Should return an error if an attempt is made to get user details without a token', (done) => {
+      request.get('/api/v1/users/get_user')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(403);
+          done();
+        });
+    });
   });
 });

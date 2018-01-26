@@ -1,7 +1,11 @@
 import { isEmpty } from 'lodash';
 /**
-  * @returns { Object } validateSignup
+  * Represents the Signup Validator function
+  * @function
   *
+  * @param { object } data - The request data object
+  *
+  * @returns { object } The error object and isValid Boolean
   *
   */
 
@@ -9,12 +13,17 @@ const validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 
 const validateSignup = (data) => {
   const errors = {};
-  if ((data.password === undefined || data.password.trim() === '') && (data.email === undefined || data.email.trim() === '' || !validEmail.test(data.email)) && (data.username === undefined || data.username.trim() === '')) {
+  if ((data.password === undefined || data.password.trim() === '')
+  && (data.email === undefined || data.email.trim() === ''
+  || !validEmail.test(data.email))
+  && (data.username === undefined || data.username.trim() === '')) {
     errors.requiredFields = 'All fields are required.';
   }
-  if (data.email === undefined || data.email.trim() === '' || !validEmail.test(data.email)) {
+  if (data.email === undefined || data.email.trim() === ''
+  || !validEmail.test(data.email)) {
     errors.email = 'Please provide a valid email address.';
-  } if (data.password === undefined || data.password.length <= 8 || data.password.trim() === '') {
+  } if (data.password === undefined || data.password.length <= 8
+    || data.password.trim() === '') {
     errors.password = 'Please provide a password greater than 8 characters.';
   } if (data.username === undefined || data.username.trim() === '') {
     errors.username = 'Username is required.';

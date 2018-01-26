@@ -1,14 +1,19 @@
 import { isEmpty } from 'lodash';
 
 /**
-  * @returns { Object } validatesignin
+  * Represents the signin Validator function
+  * @function
   *
+  * @param { object } data - The request data object
+  *
+  * @returns { object } The error object and isValid Boolean
   *
   */
 
 const validatesignin = (data) => {
   const errors = {};
-  if ((data.email === undefined || data.email === '') || (data.password === undefined || data.password === '')) {
+  if ((data.email === undefined || data.email === '')
+  || (data.password === undefined || data.password === '')) {
     errors.requiredFields = 'Input an email and password to sign in!';
   }
   if (data.email === undefined || data.email === '') {
