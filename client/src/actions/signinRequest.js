@@ -22,3 +22,11 @@ export const signinRequest = userData => (dispatch) => {
         dispatch(setCurrentUser(jwt.decode(token)))
       })
   };
+
+export const logout = () => {
+  return dispatch => {
+    localStorage.removeItem('authToken');
+    setAuthToken(false);
+    dispatch(setCurrentUser({}));
+  }
+}
