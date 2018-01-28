@@ -21,6 +21,7 @@ class Users {
    */
 
   static signUp(req, res) {
+    console.log(req.body);
     const { errors, valid } = signupValidator(req.body);
     if (!valid) {
       return res.status(400).json(errors);

@@ -49,6 +49,10 @@ module.exports = (env) => {
     resolve: {
       extensions: ['.js', '.jsx'],
     },
+    node: {
+      dns: 'empty',
+      net: 'empty',
+    },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'client/public'),

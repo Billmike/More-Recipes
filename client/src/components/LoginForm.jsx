@@ -1,27 +1,19 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import validateInput from '../../../server/validators/validatesignup';
+import validateInput from '../../../server/validators/validatesignin';
 import '../assets/css/signup.css';
 
-class SignupForm extends Component {
+class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
       email: '',
       password: '',
-      errors: {},
-      isLoading: false,
+      errors: {}
     };
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
+    this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onUsernameChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
   onEmailChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -31,24 +23,16 @@ class SignupForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-
   onSubmit(event) {
     event.preventDefault();
 
-    if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
-      this.props
-        .signupRequest(this.state)
+    if(this.isValid()) {
+      this.props.signinRequest(this.state)
         .then(() => {
-          console.log(this.props);
           this.props.history.push('/dashboard');
         })
-        .catch((errors) => {
-          console.log(errors.response);
-          this.setState({
-            errors: errors.response.data,
-            isLoading: false,
-          });
+        .catch((error) => {
+          console.log('-------', error);
         });
     }
   }
@@ -56,7 +40,7 @@ class SignupForm extends Component {
   isValid() {
     const { errors, valid } = validateInput(this.state);
 
-    if (!valid) {
+    if(!valid) {
       this.setState({ errors });
     }
 
@@ -69,18 +53,7 @@ class SignupForm extends Component {
       <form onSubmit={this.onSubmit}>
         <div id="login-box">
           <div className="left">
-            <h1>Sign up</h1>
-
-            <div>
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.onUsernameChange}
-                placeholder="Username"
-              />
-              {errors.username && <span className="help-block red-errors">{errors.username}</span>}
-            </div>
+            <h1>Sign In</h1>
             <div>
               <input
                 type="text"
@@ -131,8 +104,4 @@ class SignupForm extends Component {
   }
 }
 
-SignupForm.propTypes = {
-  signupRequest: PropTypes.func.isRequired,
-};
-
-export default SignupForm;
+export default LoginForm;

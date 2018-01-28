@@ -1,9 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import jwt from 'jsonwebtoken';
 import { Provider } from 'react-redux';
 import App from './components/App';
 import configureStore from './store/configureStore';
+import setAuthToken from './utils/setAuthToken';
 import { addRecipe } from './actions/recipes';
+import { SET_CURRENT_USER } from './actions/types';
+import { setCurrentUser } from './actions/signinRequest';
 
 const store = configureStore();
 
@@ -25,6 +29,11 @@ store.dispatch(addRecipe({
   ingredients: ['Rice', 'Beans'],
   instructions: ['Make the food awesome', 'Put it on fire before you cook me well.'],
 }));
+
+if (localStorage.authToken) {
+  setAuthToken(localStorage.authToken);
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.authToken)));
+}
 
 ReactDOM
   .render(
