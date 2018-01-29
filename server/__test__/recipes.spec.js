@@ -271,5 +271,32 @@ describe('Recipes Endpoint', () => {
           done();
         });
     });
+    it('Should return all the user\'s recipe in the application', (done) => {
+      const testUser = { ...users[0] };
+      request.get(`/api/v1/users/recipes?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).
+            to.equal(`You currently have ${res
+              .body.userRecipe.length} recipe(s)`);
+          expect(res.body.userRecipe).to.be.an('array');
+          done();
+        });
+    });
+    it('Should return an error if an unauthenticated user attempts fo fetch recipes', (done) => {
+      request.get('/api/v1/users/recipes')
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body.message)
+            .to.equal('You need to be logged in to perform this action.');
+          done();
+        });
+    });
   });
 });

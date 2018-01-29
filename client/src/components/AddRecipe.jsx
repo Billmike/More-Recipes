@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import RecipesForm from './RecipesForm';
 import { connect } from 'react-redux';
-import { addRecipe } from '../actions/recipes';
+import { startAddRecipe } from '../actions/recipes';
 
 export class AddRecipe extends Component {
   onSubmit = (recipe) => {
-    this.props.addRecipe(recipe);
+    this.props.startAddRecipe(recipe);
     this.props.history.push('/dashboard');
   };
 
@@ -23,7 +23,7 @@ export class AddRecipe extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addRecipe: (recipe) => dispatch(addRecipe(recipe))
+    startAddRecipe: (recipe) => dispatch(startAddRecipe(recipe))
   }
 }
 

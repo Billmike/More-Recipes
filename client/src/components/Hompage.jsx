@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../assets/css/style.css';
 import RecipesList from './RecipesList';
+import { startGetAllRecipes } from '../actions/recipes';
 import pancakes from '../assets/img/pancakes.jpeg';
 import cookies from '../assets/img/cookies.jpeg';
 import dessert from '../assets/img/dessert.jpeg';
 
-const Homepage = props => (
-  <div>
+class Homepage extends Component {
+  componentWillMount() {
+    this.props.startGetAllRecipes();
+  };
+
+  componentDidMount() {
+    console.log('Mounted props', this.props);
+  }
+
+  render() {
+    console.log(this.props.recipes)
+    return(
+<div>
     <div
       id="carouselExampleIndicators"
       className="carousel slide"
@@ -102,21 +114,26 @@ const Homepage = props => (
         <span className="sr-only">Next</span>
       </a>
     </div>
-    {props.recipes.map((recipe = []) => {
+    <div>
+    <h2> Top Recipes</h2>
+    {this.props.recipes.map((recipe, i) => {
           return (
             <div className="container">
-              <h2> Top Recipes</h2>
-              <RecipesList key={recipe.id} {...recipe} />
+              <RecipesList key={i} {...recipe} />
             </div>
             );
         })}
+        </div>
   </div>
-);
+    )
+  }
+};
 
 const mapStateToProps = (state) => {
+  console.log('<<<<<<<<<< Current state', state);
   return {
-    recipes: state.recipes,
+    recipes: state.recipes.recipes,
   }
 }
 
-export default connect(mapStateToProps)(Homepage);
+export default connect(mapStateToProps, { startGetAllRecipes })(Homepage);

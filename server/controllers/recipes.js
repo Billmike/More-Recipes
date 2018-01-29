@@ -116,6 +116,41 @@ class Recipe {
   }
 
   /**
+  * Represents the method that gets all user's recipes in the application
+  * @method
+  *
+  * @param { object } req - the request object
+  * @param { object } res - the response object
+  *
+  * @returns { object } All user's recipes in the application
+  */
+
+  static getUserRecipes(req, res) {
+    return recipes
+      .findAll({
+        where: {
+          owner: req.userId
+        }
+      }).then((userRecipe) => {
+        if (userRecipe.length === 0) {
+          return res.status(200)
+            .json({
+              message: 'User currently has no recipes'
+            });
+        }
+        return res.status(200).json({
+          message: `You currently have ${userRecipe.length} recipe(s)`,
+          userRecipe
+        });
+      })
+      .catch(() => {
+        return res.status(500).json({
+          message: 'Oops.. Something went wrong. Why not try again later?'
+        });
+      });
+  }
+
+  /**
   * Represents the method that gets one recipe in the application
   * @method
   *

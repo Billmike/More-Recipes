@@ -17,7 +17,8 @@ class IsLoggedIn {
     */
 
   static hasToken(req, res, next) {
-    req.token = req.headers.token || req.query.token;
+    req.token = req.headers['x-access-token']
+    || req.headers.token || req.query.token;
     if (!req.token) {
       return res
         .status(403)

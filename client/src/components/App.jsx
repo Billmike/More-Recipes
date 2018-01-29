@@ -10,6 +10,7 @@ import EditRecipe from './EditRecipe';
 import ProfilePage from './ProfilePage';
 import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
+import RequireAuth from '../utils/RequireAuth';
 import NotFoundPage from './NotFoundPage';
 
 const App = () => (
@@ -19,10 +20,10 @@ const App = () => (
         <Navbar />
         <Switch>
           <Route exact path="/" component={Homepage} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/favorite" component={Favorite} />
-          <Route path="/add" component={AddRecipe} />
-          <Route path="/edit/:id" component={EditRecipe} />
+          <Route path="/dashboard" component={RequireAuth(Dashboard)} />
+          <Route path="/favorite" component={RequireAuth(Favorite)} />
+          <Route path="/add" component={RequireAuth(AddRecipe)} />
+          <Route path="/edit/:id" component={RequireAuth(EditRecipe)} />
           <Route path="/recipe/:id" component={RecipeDetails} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/login" component={LoginPage} />

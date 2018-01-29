@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import UserLinks from '../components/navlinks/userLinks';
+import GuestLinks from '../components/navlinks/guestLinks';
 import { logout } from '../actions/signinRequest';
 
 class Navbar extends Component {
@@ -13,41 +15,9 @@ class Navbar extends Component {
   logout(event) {
     event.preventDefault();
     this.props.logout();
-    this.props.history.push('/');
   }
   render() {
     const { isAuthenticated } = this.props.auth;
-
-    const userLink = (
-      <ul className="nav navbar-nav ml-auto">
-          <li className="nav-item active">
-            <Link to="/" className="nav-link">Home <span className="sr-only">(current)</span></Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/register" className="nav-link">Add Recipe</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/login" className="nav-link">My Profile</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/" className="nav-link" onClick={this.logout}>Logout</Link>
-          </li>
-      </ul>
-    );
-
-    const guestLinks = (
-      <ul className="nav navbar-nav ml-auto">
-          <li className="nav-item active">
-            <Link to="/" className="nav-link">Home <span className="sr-only">(current)</span></Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/register" className="nav-link">Register</Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/login" className="nav-link">Login</Link>
-          </li>
-      </ul>
-    );
 
     return (
   <nav className="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
@@ -69,7 +39,7 @@ class Navbar extends Component {
         <img src="img/logo.png" alt="More-Recipes" height="26" />
       </Link>
       <div className="collapse navbar-collapse navbar-expand" id="startupNavbar">
-        { isAuthenticated ? userLink : guestLinks }
+        { isAuthenticated ? <UserLinks logout={this.logout}/> : <GuestLinks /> }
       </div>
     </nav>
     )

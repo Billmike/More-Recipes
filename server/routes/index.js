@@ -330,4 +330,5 @@ module.exports = (app) => {
  * }
    */
   app.get('/api/v1/recipes', getSortedRecipes);
+  app.get('/api/v1/users/recipes', Login.hasToken, User.isuser, recipeController.getUserRecipes);
 };
