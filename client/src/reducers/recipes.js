@@ -21,8 +21,9 @@ export default (state = recipeDefaultState, action) => {
         userRecipe: action.userRecipe
       };
     case 'EDIT_RECIPE':
-      return state.map((recipe) => {
-        if (recipe.id === action.id) {
+      console.log('this is the state in the edit recipe reducer', state);
+      return state.userRecipe.map((recipe) => {
+        if (recipe.id == action.id) {
           return {
             ...recipe,
             ...action.updates,
@@ -31,7 +32,8 @@ export default (state = recipeDefaultState, action) => {
         return recipe;
       });
     case 'REMOVE_RECIPE':
-      return state.filter(({ id }) => {
+      console.log('Remove recipe state', state);
+      return state.userRecipe.filter(({ id }) => {
         return id !== action.id;
       });
     default:

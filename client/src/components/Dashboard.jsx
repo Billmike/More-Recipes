@@ -5,22 +5,23 @@ import { startGetUserRecipes } from '../actions/recipes';
 
 class Dashboard extends Component {
   componentWillMount() {
+    console.log('Dashboard props^^^^^^^^', this.props);
     this.props.startGetUserRecipes();
   };
 
   render() {
     return (
       <div className="container-fluid">
-      <h2> Welcom to your Dashboard</h2>
-      <h4 style={{ textAlign: 'center' }}> My Recipes </h4>
-        {this.props.recipes === undefined ? <p> You do not have any recipes yet. Create one now.</p> : this.props.recipes.map((recipe) => {
+      <h2 className="dashboard-h2"> Welcome to your Dashboard</h2>
+      <h4 className="dashboard-h4"> My Recipes </h4>
+        {this.props.recipes !== undefined ? this.props.recipes.map((recipe) => {
             console.log(recipe)
             return (
               <div className="container">
                 <RecipeEdit key={recipe.id} {...recipe} />
               </div>
               );
-          }) }
+          }) : <p> You do not have any recipes yet. Create one now.</p>}
       </div>
     );
   }

@@ -25,7 +25,7 @@ const App = () => (
           <Route path="/add" component={RequireAuth(AddRecipe)} />
           <Route path="/edit/:id" component={RequireAuth(EditRecipe)} />
           <Route path="/recipe/:id" component={RecipeDetails} />
-          <Route path="/profile" component={ProfilePage} />
+          <Route path="/profile" component={RequireAuth(ProfilePage)} />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegistrationPage} />
           <Route component={NotFoundPage} />

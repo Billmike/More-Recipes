@@ -1,18 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Graduate|Karla|Open+Sans+Condensed:300|Raleway|Roboto|Ubuntu+Condensed');
 html {
     position: relative;
     min-height: 100%;
 }
 
 body {
-    background: #F0EDED;
-    color: #575252; 
+    background: white;
+    color: white; 
     margin-bottom: 60px;
 }
 
-body .navbar {
-    /* border-bottom: #008ed6 3px solid; */
-    background: #fff;
-    background-color: #fff;
+.navbar {
+    background-color: white !important;
+}
+
+.logout {
+    border-radius: 5px;
+    color: white !important;
+    font-family: 'Ubuntu';
+}
+
+.custom-link {
+    color: blue !important;
+    font-family: 'Ubuntu';
+    font-size: 20px;
+}
+
+.dashboard-h2 {
+    padding-top: 25px;
+    font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 45px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+.dashboard-h4 {
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    padding-top: 10px;
+    font-size: 30px;
+    text-align: center;
 }
 
 .title-h2 {

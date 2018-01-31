@@ -31,7 +31,7 @@ class Favorites {
         return res
           .status(404)
           .json({ status: 'Not Found.', message: 'Recipe not found.' });
-      } else if (foundRecipe.owner === userId) {
+      } else if (foundRecipe.owner == userId) {
         return res
           .status(403)
           .json({

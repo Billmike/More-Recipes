@@ -56,6 +56,23 @@ describe('User API testing', () => {
           done();
         });
     });
+    it('Should create another user', (done) => {
+      request.post(userSignup)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send(users[2])
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(201);
+          expect(res.body.message).to.equal('Signup Successful.');
+          expect(res.body.username).to.be.a('string');
+          expect(res.body.email).to.be.a('string');
+          expect(res.body.token).to.be.a('string');
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.not.have.property('password');
+          done();
+        });
+    });
     it(
       'Should return an error when a user tries to signup without an email',
       (done) => {

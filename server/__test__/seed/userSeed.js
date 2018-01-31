@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 
 const userOneId = '1';
 const userTwoId = '2';
+const userThree = '3';
 
 const users = [{
   id: userOneId,
@@ -20,6 +21,15 @@ const users = [{
   tokens: [{
     access: 'auth',
     token: jwt.sign({ id: userTwoId }, process.env.SECRET).toString(),
+  }],
+},{
+  id: userThree,
+  email: 'someemailthree@email.com',
+  password: 'somepassword',
+  username: 'someotheremail',
+  tokens: [{
+    access: 'auth',
+    token: jwt.sign({ id: userThree }, process.env.SECRET).toString(),
   }],
 }];
 

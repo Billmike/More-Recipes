@@ -1,6 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const ProfilePage = () => (
+const ProfilePage = (props) => (
   <div>
     <main className="container">
       <h1>User Account</h1>
@@ -30,4 +31,8 @@ const ProfilePage = () => (
   </div>
 );
 
-export default ProfilePage;
+const mapStateToProps = (state) => {
+  console.log(state);
+}
+
+export default connect(mapStateToProps)(ProfilePage);

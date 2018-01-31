@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecipesForm from './RecipesForm';
-import { editRecipe } from '../actions/recipes';
+import { startEditRecipe } from '../actions/recipes';
 
 export class EditRecipe extends Component {
     onSubmit = (recipe) => {
-        this.props.editRecipe(this.props.recipe.id, recipe);
+        console.log('||||||||||||EditRecipe', this.props);
+        this.props.startEditRecipe(this.props.recipe.id, recipe);
         this.props.history.push('/dashboard');
     };
+
+    componentWillMount() {
+        console.log('-------------', this.props.recipe);
+    }
 
     render() {
         return (
@@ -22,16 +27,18 @@ export class EditRecipe extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+    console.log('props here', props);
+    console.log('state here', state)
     return {
-        recipe: state.recipes.find((recipe) => {
-            return recipe.id === props.match.params.id;
+        recipe: state.recipes.userRecipe.find((recipe) => {
+            return recipe.id == props.match.params.id;
         }),
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        editRecipe: (id, recipe) => dispatch(editRecipe(id, recipe))
+        startEditRecipe: (id, recipe) => dispatch(startEditRecipe(id, recipe))
     }
 }
 

@@ -19,6 +19,17 @@ export const getUserRecipe = (userRecipe) => {
   };
 };
 
+export const editRecipe = (id, updates) => ({
+  type: 'EDIT_RECIPE',
+  id,
+  updates,
+});
+
+export const removeRecipe = ({ id } = {}) => ({
+  type: 'REMOVE_RECIPE',
+  id
+});
+
 export const startGetAllRecipes = () => {
   return (dispatch) => {
     axios.get('http://localhost:8000/api/v1/recipes')
@@ -73,13 +84,27 @@ export const startGetUserRecipes = () => {
   };
 };
 
-export const editRecipe = (id, updates) => ({
-  type: 'EDIT_RECIPE',
-  id,
-  updates,
-});
+export const startEditRecipe = (id, updates) => {
+  return (dispatch) => {
+    axios.put(`http://localhost:8000/api/v1/recipes/${id}/modify`, updates)
+      .then(() => {
+        dispatch(editRecipe(id, updates));
+      })
+      .catch((error) => {
+        console.log('_<_<_<_<_<__<_', error);
+      });
+  };
+};
 
-export const removeRecipe = ({ id } = {}) => ({
-  type: 'REMOVE_RECIPE',
-  id
-})
+export const startRemoveRecipe = (id) => {
+  return (dispatch) => {
+    axios.delete(`http://localhost:8000/api/v1/recipes/${id}`)
+      .then(() => {
+        dispatch(removeRecipe(id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+

@@ -179,6 +179,41 @@ describe('Recipes Endpoint', () => {
           });
       }
     );
+    it('Should prevent an unauthenticated user from deleting a recipe', (done) => {
+      request.delete(`${recipesApi}/${recipes[0].id}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body.message).to.equal('You need to be logged in to perform this action.');
+          done();
+        });
+    });
+    it('Should prevent a user from deleting a recipe they do not own', (done) => {
+      const testUser = { ...users[0] };
+      request.delete(`${recipesApi}/${recipes[0].id}?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .end((err, res) => {
+          expect(res.status).to.equal(403);
+          expect(res.body.message).to.equal('You do not have the priviledges to perform this action.');
+          expect(res.body.status).to.equal('Forbidden.');
+          done();
+        });
+    });
+    it('Should return a 404 if the recipe to be deleted does not exist', (done) => {
+      const testUser = { ...users[0] };
+      request.delete(`${recipesApi}/${recipes[1].id}?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        })
+    })
     it(
       'Should prevent a non-logged in user from posting a review on a recipe',
       (done) => {

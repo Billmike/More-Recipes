@@ -194,7 +194,7 @@ module.exports = (app) => {
  * @apiSuccessExample { json } Success
  * HTTP 1.1 204 No Content
  */
-  app.delete('/api/v1/recipes/:recipeId', recipeController.deleteRecipe);
+  app.delete('/api/v1/recipes/:recipeId',Login.hasToken, User.isuser, recipeController.deleteRecipe);
   app.post('/api/v1/recipes/:recipeId/favorites', Login.hasToken, User.isuser, favorite.addFavorite);
 
   /**

@@ -43,8 +43,8 @@ describe('Tests for Favorites API endpoint', () => {
     it(
       'Should successfuly favorite a recipe by an authenticated user',
       (done) => {
-        request.post(`${recipesApi}/${recipe[0].id}/favorites?token=${users[0]
-          .tokens[0].token}`)
+        const testUser = { ...users[1] };
+        request.post(`${recipesApi}/${recipe[0].id}/favorites?token=${testUser.tokens[0].token}`)
           .set('Connection', 'keep alive')
           .set('Content-Type', 'application/json')
           .type('form')
@@ -58,8 +58,8 @@ describe('Tests for Favorites API endpoint', () => {
       }
     );
     it('Should return the favorites of a logged in user', (done) => {
-      request.get(`${favoriteApi}/${users[0].id}/favorites?token=${users[0]
-        .tokens[0].token}`)
+      const testUser = { ...users[1] };
+      request.get(`${favoriteApi}/${testUser.id}/favorites?token=${testUser.tokens[0].token}`)
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
@@ -71,6 +71,18 @@ describe('Tests for Favorites API endpoint', () => {
           done();
         });
     });
+    it('Should return an empty array of favorites for a logged in user without a favorite', (done) => {
+      const testUser = { ...users[2] };
+      request.get(`${favoriteApi}/${testUser.id}/favorites?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.message).to.equal('User has no favorites.');
+          done();
+        })
+    })
     it('Should return a 404 if the recipe does not exist', (done) => {
       request.post(`${recipesApi}/100/favorites?token=${users[0]
         .tokens[0].token}`)
@@ -102,5 +114,18 @@ describe('Tests for Favorites API endpoint', () => {
           });
       }
     );
+    it('Should prevent a user from favoriting his own recipe', (done) => {
+      const testUser = { ...users[0] };
+      const testRecipe = { ...recipes[0] };
+      request.post(`${recipesApi}/${testRecipe.id}/favorites?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application.json')
+        .type('form')
+        .end((err, res) => {
+          console.log('unexpected shiiit', res.body);
+          expect(res.status).to.equal(403);
+          done();
+        })
+    })
   });
 });
