@@ -1,6 +1,7 @@
 const recipeDefaultState = {
   recipes: [],
-  userRecipe: []
+  userRecipe: [],
+  singleRecipe: ''
 };
 
 export default (state = recipeDefaultState, action) => {
@@ -14,6 +15,11 @@ export default (state = recipeDefaultState, action) => {
       return {
         ...state,
         recipes: action.recipes
+      };
+    case 'GET_ONE_RECIPE':
+      return {
+        ...state,
+        singleRecipe: action.recipe
       };
     case 'GET_USER_RECIPES':
       return {

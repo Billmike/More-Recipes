@@ -18,9 +18,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     ingredients: {
-      allowNull: false,
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      defaultValue: [],
+      type: DataTypes.TEXT,
+      defaultValue: '',
     },
     instructions: {
       allowNull: false,
@@ -36,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
           }
           return field;
         };
-        recipe.ingredients = checkArrayData(recipe.ingredients);
         recipe.instructions = checkArrayData(recipe.instructions);
       },
       beforeUpdate: (recipe) => {
@@ -46,7 +44,6 @@ module.exports = (sequelize, DataTypes) => {
           }
           return field;
         };
-        recipe.ingredients = checkData(recipe.ingredients);
         recipe.instructions = checkData(recipe.instructions);
       },
     },

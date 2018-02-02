@@ -20,6 +20,13 @@ body {
     font-family: 'Ubuntu';
 }
 
+.detail-title {
+    font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
+    font-size: 25px;
+}
+
 .custom-link {
     color: blue !important;
     font-family: 'Ubuntu';

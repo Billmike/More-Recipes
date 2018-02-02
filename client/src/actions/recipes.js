@@ -12,6 +12,14 @@ export const getAllRecipes = (recipes) => {
   };
 };
 
+export const getOneRecipe = (recipe) => {
+  return {
+    type: 'GET_ONE_RECIPE',
+    id: recipe.id,
+    recipe
+  };
+};
+
 export const getUserRecipe = (userRecipe) => {
   return {
     type: 'GET_USER_RECIPES',
@@ -49,7 +57,7 @@ export const startAddRecipe = (recipeData = {}) => {
       description = '',
       img_url = 'no-img-here',
       category = '',
-      ingredients = [],
+      ingredients = '',
       instructions = []
     } = recipeData;
 
@@ -108,3 +116,15 @@ export const startRemoveRecipe = (id) => {
   };
 };
 
+export const startGetOneRecipe = (id) => {
+  return (dispatch) => {
+    axios.get(`http://localhost:8000/api/v1/recipes/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getOneRecipe(res.data.recipeData));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};

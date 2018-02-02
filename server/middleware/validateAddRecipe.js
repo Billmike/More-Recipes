@@ -37,7 +37,7 @@ const validateRecipeAdd = (req, res, next) => {
         message: 'Please pick a category.'
       });
     return next(err);
-  } else if (ingredients === undefined || ingredients.length <= 0) {
+  } else if (ingredients === undefined || ingredients.trim() === '') {
     const err = res
       .status(400)
       .send({

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER } from './types';
+import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
 export const setCurrentUser = (user) => {
@@ -10,21 +10,40 @@ export const setCurrentUser = (user) => {
   };
 };
 
-export const signinRequest = userData => (dispatch) => {
-    console.log('--------- sending through user data object', userData);
-    return axios.post("http://localhost:8000/api/v1/users/signin", userData)
-      .then((res) => {
-        const { token } = res.data;
-        localStorage.setItem('authToken', token);
-        setAuthToken(token);
-        dispatch(setCurrentUser(jwt.decode(token)))
-      });
+export const getUserInformation = (user) => {
+  return {
+    type: GET_USER_INFORMATION,
+    user,
   };
+};
+
+export const signinRequest = userData => (dispatch) => {
+  console.log('--------- sending through user data object', userData);
+  return axios.post("http://localhost:8000/api/v1/users/signin", userData)
+    .then((res) => {
+      const { token } = res.data;
+      localStorage.setItem('authToken', token);
+      setAuthToken(token);
+      dispatch(setCurrentUser(jwt.decode(token)));
+    });
+};
 
 export const logout = () => {
-  return dispatch => {
+  return (dispatch) => {
     localStorage.removeItem('authToken');
     setAuthToken(false);
     dispatch(setCurrentUser({}));
-  }
-}
+  };
+};
+
+export const startGetUserInfo = () => {
+  return (dispatch) => {
+    axios.get('http://localhost:8000/api/v1/users/get_user')
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};

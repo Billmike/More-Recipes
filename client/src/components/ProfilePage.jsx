@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { startGetUserInfo } from '../actions/signinRequest';
 
 const ProfilePage = (props) => (
   <div>
@@ -31,8 +32,12 @@ const ProfilePage = (props) => (
   </div>
 );
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   console.log(state);
+  console.log('PROPS', props)
+  return {
+    userInformation: state.auth.user
+  }
 }
 
-export default connect(mapStateToProps)(ProfilePage);
+export default connect(mapStateToProps, { startGetUserInfo })(ProfilePage);
