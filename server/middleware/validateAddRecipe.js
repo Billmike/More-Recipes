@@ -45,7 +45,7 @@ const validateRecipeAdd = (req, res, next) => {
         message: 'Input the ingredients for your recipe.'
       });
     return next(err);
-  } else if (instructions === undefined || instructions.length <= 0) {
+  } else if (instructions === undefined || instructions.trim() === '') {
     const err = res
       .status(400)
       .send({

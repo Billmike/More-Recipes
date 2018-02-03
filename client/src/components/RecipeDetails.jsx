@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Reviews from './Reviews';
 import { startGetOneRecipe } from '../actions/recipes';
 import pizza from '../assets/img/pancakes.jpeg';
 
@@ -11,6 +12,7 @@ class RecipeDetail extends Component {
   render() {
     console.log('Ingredients type', typeof this.props.recipe.ingredients)
     let splitIngredients;
+    let splitInstructions;
     if (this.props.recipe) {
       splitIngredients = this.props.recipe.ingredients.split('\n').map((splitIng, index) => {
         return (
@@ -18,9 +20,16 @@ class RecipeDetail extends Component {
             <li key={index}>{splitIng}</li>
           </ul>
         );
+      });
+      
+      splitInstructions = this.props.recipe.instructions.split('\n').map((splitInstrut, index) => {
+        return (
+          <ul>
+            <li key={index}>{splitInstrut}</li>
+          </ul>
+        )
       })
     };
-    // const splitIngredients = this.props.recipe.ingredients.split(/\r?\n/);
     return (
       <div>
         This is the details of Recipe with name of { this.props.recipe.name }
@@ -50,9 +59,10 @@ class RecipeDetail extends Component {
           </div>
           <div className="col-md-6">
             <h4 className="detail-title"> Instructions </h4>
-            { this.props.recipe.instructions }
+            { splitInstructions }
           </div>
         </div>
+        <Reviews />
       </div>
     );
   }

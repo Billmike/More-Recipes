@@ -27,6 +27,11 @@ body {
     font-size: 25px;
 }
 
+.review-text {
+    height: 200px;
+    float: left;
+}
+
 .custom-link {
     color: blue !important;
     font-family: 'Ubuntu';

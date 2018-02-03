@@ -1,7 +1,9 @@
 const recipeDefaultState = {
   recipes: [],
   userRecipe: [],
-  singleRecipe: ''
+  singleRecipe: '',
+  favoriteRecipes: [],
+  userFavoriteRecipesId: []
 };
 
 export default (state = recipeDefaultState, action) => {
@@ -42,6 +44,22 @@ export default (state = recipeDefaultState, action) => {
       return state.userRecipe.filter(({ id }) => {
         return id !== action.id;
       });
+    case 'ADD_FAVORITE_RECIPE':
+    console.log('acvtion in the add favs', action.favoriteRecipes);
+      return {
+        ...state,
+        ...{
+          userFavoriteRecipesId: action.favoriteRecipes.id
+        },
+        userFavoriteRecipesId: !state.userFavoriteRecipesId
+          .includes(action.favoriteRecipes.id) ?
+          state.userFavoriteRecipesId.concat(action.favoriteRecipes.id) :
+          state.userFavoriteRecipesId
+            .filter((id) => {
+              console.log('bleeding recipe here', id);
+              return id !== action.favoriteRecipes.id;
+            })
+      };
     default:
       return state;
   }

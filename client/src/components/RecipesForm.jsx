@@ -12,7 +12,7 @@ class RecipesForm extends Component {
 			img_url: 'no-img-here',
 			category: this.props.recipe ? this.props.recipe.category : '',
 			ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
-			instructions: this.props.recipe ? this.props.recipe.instructions : [],
+			instructions: this.props.recipe ? this.props.recipe.instructions : '',
 			error: ''
 		}
 	}

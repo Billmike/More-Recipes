@@ -50,11 +50,12 @@ class Favorites {
                 userId: req.userId,
                 recipeId: req.params.recipeId,
               })
-                .then(() => res
+                .then(createdFavs => res
                   .status(200)
                   .json({
                     status: 'OK',
-                    message: 'Recipe added to your list of favorites.'
+                    message: 'Recipe added to your list of favorites.',
+                    id: createdFavs.recipeId
                   }));
             }
             const arrayOfUserIDs = [];
@@ -65,20 +66,24 @@ class Favorites {
               .filter(fav => fav.dataValues.userId === userId)[0];
             if (arrayOfUserIDs.includes(userId)) {
               return favorite.findById(userFavorites.dataValues.id)
-                .then(existingFavorite => existingFavorite.destroy())
-                .then(() => res
-                  .status(201)
-                  .json({ message: 'Recipe Removed from your favorites.' }));
+                .then((existingFavorite) => {
+                  res.status(201).json({
+                    message: 'Recipe removed from your favorites.',
+                    id: existingFavorite.dataValues.recipeId
+                  });
+                  existingFavorite.destroy();
+                });
             }
             return favorite.create({
               userId: req.userId,
               recipeId: req.params.recipeId,
             })
-              .then(() => res
+              .then(createdFavorite => res
                 .status(201)
                 .json({
                   status: 'OK',
-                  message: 'Recipe added to your list of favorites.'
+                  message: 'Recipe added to your list of favorites.',
+                  id: createdFavorite.recipeId
                 }));
           });
       }

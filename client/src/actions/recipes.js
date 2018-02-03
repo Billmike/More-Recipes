@@ -27,6 +27,13 @@ export const getUserRecipe = (userRecipe) => {
   };
 };
 
+export const addFavorites = (favoriteRecipes) => {
+  return {
+    type: 'ADD_FAVORITE_RECIPE',
+    favoriteRecipes
+  };
+};
+
 export const editRecipe = (id, updates) => ({
   type: 'EDIT_RECIPE',
   id,
@@ -58,7 +65,7 @@ export const startAddRecipe = (recipeData = {}) => {
       img_url = 'no-img-here',
       category = '',
       ingredients = '',
-      instructions = []
+      instructions = ''
     } = recipeData;
 
     const recipe = {
@@ -122,6 +129,19 @@ export const startGetOneRecipe = (id) => {
       .then((res) => {
         console.log(res.data);
         dispatch(getOneRecipe(res.data.recipeData));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+};
+
+export const startAddFavoriteRecipes = (id) => {
+  return (dispatch) => {
+    axios.post(`http://localhost:8000/api/v1/recipes/${id}/favorites`)
+      .then((res) => {
+        console.log('Favorite recipes action called', res);
+        return dispatch(addFavorites(res.data));
       })
       .catch((error) => {
         console.log(error);

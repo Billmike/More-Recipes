@@ -23,29 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     instructions: {
       allowNull: false,
-      type: DataTypes.ARRAY(DataTypes.TEXT),
-      defaultValue: [],
-    },
-  }, {
-    hooks: {
-      beforeCreate: (recipe) => {
-        const checkArrayData = (field) => {
-          if (Array.isArray(field) === false) {
-            field = [field];
-          }
-          return field;
-        };
-        recipe.instructions = checkArrayData(recipe.instructions);
-      },
-      beforeUpdate: (recipe) => {
-        const checkData = (field) => {
-          if (Array.isArray(field) === false) {
-            field = [field];
-          }
-          return field;
-        };
-        recipe.instructions = checkData(recipe.instructions);
-      },
+      type: DataTypes.TEXT,
+      defaultValue: '',
     },
   });
   Recipe.associate = (models) => {
