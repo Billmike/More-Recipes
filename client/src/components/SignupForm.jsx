@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import validateInput from '../../../server/validators/validatesignup';
 import '../assets/css/signup.css';
@@ -17,6 +18,13 @@ class SignupForm extends Component {
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentDidUpdate(nextProps) {
+    console.log('updated props', this.props);
+    if (this.props.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
   }
 
   onUsernameChange(event) {
@@ -44,11 +52,9 @@ class SignupForm extends Component {
           this.props.history.push('/dashboard');
         })
         .catch((errors) => {
-          console.log(errors.response);
-          this.setState({
-            errors: errors.response.data,
-            isLoading: false,
-          });
+          if (errors.message === 'Request failed with status code 409') {
+            return toastr.error('Username and email hass to be unique.');
+          }
         });
     }
   }
@@ -135,4 +141,12 @@ SignupForm.propTypes = {
   signupRequest: PropTypes.func.isRequired,
 };
 
-export default SignupForm;
+const mapStateToProps = (state, props) => {
+  console.log('Thi is the login state', state);
+  console.log('this is the props', props);
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps)(SignupForm);

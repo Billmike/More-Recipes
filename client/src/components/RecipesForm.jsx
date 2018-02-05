@@ -75,7 +75,7 @@ class RecipesForm extends Component {
                   	value = {this.state.name}
                   	onChange = { this.onNameChange }
                   />
-                  <small id="recipeNameHelp" class="form-text text-muted">Enter a name for your recipe</small>
+                  <small id="recipeNameHelp" className="form-text text-muted">Enter a name for your recipe</small>
                 </div>
                 <div className="form-row">
                     <div className="form-group col-8">
@@ -87,7 +87,7 @@ class RecipesForm extends Component {
                       	value={ this.state.description }
                       	onChange={ this.onDescriptionChange }
                       />
-                      <small id="descriptionHelp" class="form-text text-muted">Enter a short description for your recipe.</small>
+                      <small id="descriptionHelp" className="form-text text-muted">Enter a short description for your recipe.</small>
                     </div>
                     <div className="form-group col-4 upload-btn-wrapper">
                         <button className="btns">Upload an Image</button>
@@ -106,7 +106,7 @@ class RecipesForm extends Component {
                     value = {this.state.category}
                     onChange = { this.onCategorySet }
                   />
-                  <small id="categoryHelp" class="form-text text-muted">Category could be Breakfast, Lunch, Dessert or any other fun one of your choice.</small>
+                  <small id="categoryHelp" className="form-text text-muted">Category could be Breakfast, Lunch, Dessert or any other fun one of your choice.</small>
                 </div>
 								<div className="form-row">
 									<div className="form-group col-md-6">
@@ -134,7 +134,7 @@ class RecipesForm extends Component {
                     </div>
 								</div>
                     <div className="form-group">
-                        <button className="btn btn-primary button-font btn-lg btn-block">Submit Recipe</button>
+                        <button className="btn btn-primary my-btn button-font btn-lg btn-block">Submit Recipe</button>
                     </div>
               </form>
             </main>

@@ -108,15 +108,15 @@ class Favorites {
   static getFavorites(req, res, next) {
     const { userId } = req.params;
 
-    if (req.userId !== userId) {
-      const err = res
-        .status(403)
-        .json({
-          status: 'Denied.',
-          message: 'Invalid token authorization, or the user doesn\'t exist.'
-        });
-      return next(err);
-    }
+    // if (req.userId !== userId) {
+    //   const err = res
+    //     .status(403)
+    //     .json({
+    //       status: 'Denied.',
+    //       message: 'Invalid token authorization, or the user doesn\'t exist.'
+    //     });
+    //   return next(err);
+    // }
     favorite.findAll({
       where: {
         userId: parseInt(userId, 10),

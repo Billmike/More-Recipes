@@ -12,6 +12,9 @@ const userLinks = (props) => (
     <li className="nav-item">
       <Link to="/add" className="nav-link custom-link">Add Recipe</Link>
     </li>
+    <li>
+      <Link to="/favorites" className="nav-link custom-link"> My Favorites</Link>
+    </li>
     <li className="nav-item">
       <Link to="/profile" className="nav-link custom-link">My Profile</Link>
     </li>

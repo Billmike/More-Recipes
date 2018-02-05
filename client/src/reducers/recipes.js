@@ -60,6 +60,20 @@ export default (state = recipeDefaultState, action) => {
               return id !== action.favoriteRecipes.id;
             })
       };
+    case 'FETCH_FAVORITE_RECIPES':
+    console.log('dhshsjhdsjdjdhjdhjd', state);
+      return {
+        ...state,
+        ...{
+          favoriteRecipes: action.favoriteRecipes.recipes
+        }
+      };
+    case 'ADD_REVIEW':
+      console.log('we got to the reducer for review', state);
+      return {
+        ...state,
+        singleRecipe: state.singleRecipe.reviews.concat(action.review.reviewData)
+      };
     default:
       return state;
   }

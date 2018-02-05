@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import Homepage from './Hompage';
 import Dashboard from './Dashboard';
 import RecipeDetails from './RecipeDetails';
-import Favorite from './Favorite';
+import Favorite from './Favorites';
 import AddRecipe from './AddRecipe';
 import EditRecipe from './EditRecipe';
 import ProfilePage from './ProfilePage';
@@ -21,7 +21,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Homepage} />
           <Route path="/dashboard" component={RequireAuth(Dashboard)} />
-          <Route path="/favorite" component={RequireAuth(Favorite)} />
+          <Route path="/favorites" component={RequireAuth(Favorite)} />
           <Route path="/add" component={RequireAuth(AddRecipe)} />
           <Route path="/edit/:id" component={RequireAuth(EditRecipe)} />
           <Route path="/recipe/:id" component={RecipeDetails} />

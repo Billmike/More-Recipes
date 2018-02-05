@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
 import setAuthToken from '../utils/setAuthToken';
+import './toastrConfig';
 
 export const setCurrentUser = (user) => {
   return {
@@ -23,6 +24,7 @@ export const signinRequest = userData => (dispatch) => {
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('authToken', token);
+      toastr.success('Login Successful.');
       setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
     });
@@ -31,6 +33,7 @@ export const signinRequest = userData => (dispatch) => {
 export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem('authToken');
+    toastr.success('Logout Successful.');
     setAuthToken(false);
     dispatch(setCurrentUser({}));
   };

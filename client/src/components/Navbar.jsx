@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import UserLinks from '../components/navlinks/userLinks';
 import GuestLinks from '../components/navlinks/guestLinks';
 import { logout } from '../actions/signinRequest';
+import logo from '../assets/img/more-recipes-logo.png';
 
 class Navbar extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class Navbar extends Component {
         to="/"
         className="navbar-brand"
       >
-        <img src="img/logo.png" alt="More-Recipes" height="26" />
+        <img src={ logo } alt="More-Recipes" height="80" width="120" />
       </Link>
       <div className="collapse navbar-collapse navbar-expand" id="startupNavbar">
         { isAuthenticated ? <UserLinks logout={this.logout}/> : <GuestLinks /> }

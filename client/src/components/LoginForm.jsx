@@ -25,14 +25,16 @@ class LoginForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-
+    this.setState({ errors: {}, isLoading: true });
     if(this.isValid()) {
       this.props.signinRequest(this.state)
         .then(() => {
           this.props.history.push('/dashboard');
         })
         .catch((error) => {
-          console.log('-------', error);
+          if (error.message === 'Request failed with status code 403') {
+            toastr.error('Invalid login details');
+          }
         });
     }
   }
@@ -78,7 +80,7 @@ class LoginForm extends Component {
               disabled={this.state.isLoading}
               type="submit"
               name="signup_submit"
-              value="Sign up"
+              value="Sign In"
             />
           </div>
 

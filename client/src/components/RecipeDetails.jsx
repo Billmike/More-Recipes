@@ -1,16 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Reviews from './Reviews';
-import { startGetOneRecipe } from '../actions/recipes';
+import { Link } from 'react-router-dom';
+import ReviewForm from './ReviewForm';
+import Review from './Review';
+import { startGetOneRecipe, startUpvoteRecipe, startDownVoteRecipe, startAddReview } from '../actions/recipes';
 import pizza from '../assets/img/pancakes.jpeg';
 
 class RecipeDetail extends Component {
-  componentDidMount() {
-    console.log(this.props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      reviewText: '',
+      reviews: []
+    }
+    this.upVoteRecipe = this.upVoteRecipe.bind(this);
+    this.downVoteRecipe = this.downVoteRecipe.bind(this);
+    this.onReviewFormChange = this.onReviewFormChange.bind(this);
+    this.reviewRecipe = this.reviewRecipe.bind(this);
+  };
+
+  componentWillMount() {
+    console.log('detials props', this.props);
     this.props.startGetOneRecipe(this.props.match.params.id);
   }
+
+  onReviewFormChange(event) {
+    event.preventDefault();
+    this.setState({
+      reviewText: event.target.value
+    });
+  }
+
+  reviewRecipe(event) {
+    event.preventDefault();
+    this.props.startAddReview(this.props.match.params.id, {
+      content: this.state.reviewText
+    });
+    document.getElementById('form').reset();
+  }
+
+  upVoteRecipe(event) {
+    event.preventDefault();
+    this.props.startUpvoteRecipe(this.props.match.params.id);
+  }
+
+  downVoteRecipe(event) {
+    event.preventDefault();
+    this.props.startDownVoteRecipe(this.props.match.params.id);
+  }
+
   render() {
-    console.log('Ingredients type', typeof this.props.recipe.ingredients)
+    console.log('Ingredients type', typeof this.props.recipe.ingredients);
+    let reviews;
     let splitIngredients;
     let splitInstructions;
     if (this.props.recipe) {
@@ -27,6 +68,12 @@ class RecipeDetail extends Component {
           <ul>
             <li key={index}>{splitInstrut}</li>
           </ul>
+        )
+      });
+
+      reviews = this.props.recipe.reviews.map((review) => {
+        return (
+          <Review key={review.id} review={review} />
         )
       })
     };
@@ -53,16 +100,35 @@ class RecipeDetail extends Component {
           </div>
         </div>
         <div className="row container">
-          <div className="col-md-6">
+          <div className="col-sm">
               <h4 className="detail-title"> Ingredients </h4>
               { splitIngredients }
           </div>
-          <div className="col-md-6">
+          <div className="col-sm">
+            <span>
+            <Link to='/' className="btn border border-secondary rounded" onClick={this.upVoteRecipe}> <i className="fa fa-thumbs-up fa-3x" aria-hidden="true" /></Link>
+            <Link to='/' className="btn border border-secondary rounded" onClick={this.downVoteRecipe}> <i className="fa fa-thumbs-down fa-3x" aria-hidden="true" /></Link>
+            </span>
+          </div>
+          <div className="col-sm">
             <h4 className="detail-title"> Instructions </h4>
             { splitInstructions }
           </div>
         </div>
-        <Reviews />
+        <div className="row">
+          <div className="col-md-6">
+            <ReviewForm
+              onChange={this.onReviewFormChange}
+              reviewText={this.state.reviewText}
+              reviewRecipe={this.reviewRecipe}
+            />
+          </div>
+          <div className="col-md-6" />
+              </div><br />
+              <div>
+                <h6 style={{ color: 'orange', margin: '5 0 10 0', fontSize: 16 }} className="text-center">Users Reviews</h6>
+              </div>
+              { reviews }
       </div>
     );
   }
@@ -76,4 +142,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, { startGetOneRecipe })(RecipeDetail);
+export default connect(mapStateToProps, { startGetOneRecipe, startUpvoteRecipe, startDownVoteRecipe, startAddReview })(RecipeDetail);

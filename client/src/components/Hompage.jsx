@@ -19,7 +19,7 @@ class Homepage extends Component {
   render() {
     console.log(this.props.recipes)
     return(
-<div>
+<div className="under-carousel-div">
     <div
       id="carouselExampleIndicators"
       className="carousel slide"
@@ -114,15 +114,21 @@ class Homepage extends Component {
         <span className="sr-only">Next</span>
       </a>
     </div>
-    <div>
-    <h2> Top Recipes</h2>
+    <div className="container">
+    <h2 className="homepage-h2"> Top Recipes</h2>
+    <div class="input-group">
+    <span class="input-group-btn">
+      <button class="btn btn-secondary" type="button">Go!</button>
+    </span>
+    <input class="form-control" placeholder="Search for....." />
+  </div>
+    <div className="row">
     {this.props.recipes.map((recipe, i) => {
           return (
-            <div className="container">
               <RecipesList key={i} {...recipe} />
-            </div>
             );
         })}
+        </div>
         </div>
   </div>
     )
