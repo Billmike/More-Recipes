@@ -1,33 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { startGetUserInfo } from '../actions/signinRequest';
+import cool from '../assets/img/cooll.jpg';
 
 const ProfilePage = (props) => (
   <div>
     <main className="container">
-      <h1>User Account</h1>
-      <form>
-        <fieldset disabled>
-          <div className="form-group">
-            <label htmlFor="disabledTextInput">Username</label>
-            <input
-              type="text"
-              id="usernameInput"
-              className="form-control"
-              placeholder="Billmike"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="disabledTextInput">Email Address</label>
-            <input
-              type="text"
-              id="emailaddressInnput"
-              className="form-control"
-              placeholder="billmike1994@gmail.com"
-            />
-          </div>
-        </fieldset>
-      </form>
+      <h1 className="profile-h1">User Account</h1>
+      <div className="profile-card">
+      <img src={ cool } alt="John" className="profile-image" />
+      <h1 className="profile-random">John Doe</h1>
+      <p className="profile-title">Username</p>
+      <p className="prop-username"> { props.userInformation.username } </p>
+      <p className="profile-email">Email Address</p>
+      <p className="prop-email"> {props.userInformation.emailAddress} </p>
+    </div>
     </main>
   </div>
 );

@@ -17,6 +17,7 @@ module.exports = (app) => {
 
   app.get('/api/v1/users/get_user', User.getUser);
   app.get('/api/v1/recipes/:recipeId', recipeController.getOneRecipe);
+  app.get('/api/v1/recipes/search', recipeController.searchRecipes);
 
   /**
    * @api { post } /api/v1/users/signup Users Signup

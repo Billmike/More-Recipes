@@ -28,6 +28,8 @@ body {
     letter-spacing: 1px;
     font-weight: bold;
     font-size: 25px;
+    display: inline-block;
+    margin-left: 40px;
 }
 
 .under-carousel-div {
@@ -46,6 +48,11 @@ body {
     font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
     letter-spacing: 1px;
     font-size: 25px;
+}
+
+.profile-h1 {
+    text-align: center;
+    margin-top: 40px;
 }
 
 .custom-link {
@@ -330,6 +337,142 @@ h4 {
     text-align: center;
     padding-top: 30px;
 }
+
+.profile-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    margin-top: 70px;
+  }
+
+  .profile-random {
+      padding-bottom: 20px;
+      padding-top: 20px;
+      font-family: 'Open Sans Condensed';
+      letter-spacing: 1px;
+  }
+  
+  .profile-title {
+    color: grey;
+    font-size: 20px;
+    font-family: cursive;
+  }
+
+  .profile-email {
+      font-family: cursive;
+      font-size: 20px;
+  }
+
+  .prop-username {
+    font-family: Open Sans Condensed;
+    letter-spacing: 1px;
+    font-size: 20px;
+  }
+
+  .prop-email {
+    padding-bottom: 40px;
+    font-family: 'Open Sans Condensed';
+    letter-spacing: 1px;
+    font-size: 20px;
+  }
+  
+  .profile-button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  .profile-image {
+      width: 100%;
+  }
+  
+  .profile-button:hover, a:hover {
+    opacity: 0.7;
+  }
+
+  .image-name {
+      text-align: center;
+  }
+
+  .ingredients-div {
+      text-align: center;
+  }
+
+  .form-container {
+      text-align: center;
+  }
+
+  .form-button {
+      margin-top: 10px;
+      background-color: brown;
+  }
+
+  .form-button:hover {
+    background-color: brown;
+  }
+
+  .form-button:active {
+      background-color: brown;
+  }
+
+  .form-h6 {
+      color: brown;
+      font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+      font-size: 20px;
+  }
+
+  .review-form {
+      height: 200px;
+  }
+
+  .brown-thumb {
+      color: brown;
+  }
+
+  .brown-thumb:hover {
+      color: brown;
+  }
+
+  .my-heart {
+      margin-left: 20px;
+      color: brown;
+  }
+
+  .indie-key {
+      padding-right: 80%;
+  }
+
+  .center-emoji {
+      text-align: center;
+      font-family: cursive;
+      padding-bottom: 30px;
+  }
+
+  .section-bck {
+      background: url('../img/tobias-cornille-142864.jpg');
+      height: 100%;
+      padding-bottom: 50%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+
+  .p-section {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    font-family: cursive;
+    font-size: 150%;
+  }
 
 /* 
 .card {

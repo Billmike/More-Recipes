@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Emoji from 'react-emoji-render';
 import pizza from '../assets/img/pizzza.jpg';
 import { startGetUserFavorites, startAddFavoriteRecipes } from '../actions/recipes';
 
@@ -26,7 +27,7 @@ class Favorites extends Component {
   render() {
     return (
       <div className="container">
-      <h2 className="dashboard-h2"> Welcome to your Dashboard</h2>
+      <h2 className="dashboard-h2"> Welcome to your Dashboard, { this.props.user.username }!</h2>
         <h4 className="dashboard-h4"> My favorites </h4>
         <div className="row">
         { this.props.recipes !== null ? this.props.recipes.map((recipe, index) => {
@@ -48,7 +49,7 @@ class Favorites extends Component {
             </div>
             
           )
-        }) : <p className="no-recipes-p"> You currently have no favorites. Checkout some recipes <Link to='/'>here.</Link></p> }
+        }) : <p className="no-recipes-p"> You currently have no <Emoji text="<3" />. Checkout some recipes <Link to='/'>here.</Link></p> }
         </div>
       </div>
     )

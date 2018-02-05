@@ -233,6 +233,29 @@ class Recipe {
           message: 'Oops.. Something went wrong. Why not try again later?'
         }));
   }
+
+  static searchRecipes(req, res) {
+    return recipes.findAll({
+      where: {
+        name: req.query.name,
+      }
+    })
+      .then((foundRecipes) => {
+        if (foundRecipes.length === 0) {
+          return res.status(200).json({
+            message: 'No recipes match this query'
+          });
+        }
+        return res.status(200).json({
+          message: `${foundRecipes.length} recipes found matching this query`,
+          recipeData: foundRecipes
+        });
+      })
+      .catch((err) => res.status(500).json({
+        status: 'Failed',
+        message: err.message
+      }))
+  }
 }
 
 export default Recipe;

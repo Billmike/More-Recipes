@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Emoji from 'react-emoji-render';
 import RecipeEdit from './RecipeEdit';
 import { startGetUserRecipes } from '../actions/recipes';
 
@@ -17,7 +18,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="container">
-      <h2 className="dashboard-h2"> Welcome to your Dashboard</h2>
+      <h2 className="dashboard-h2"> Welcome to your Dashboard, { this.props.user.username }!</h2>
       <h4 className="dashboard-h4"> My Recipes </h4>
       <div className="row">
         {this.props.recipes !== undefined ? this.props.recipes.map((recipe) => {
@@ -27,7 +28,7 @@ class Dashboard extends Component {
               );
           }) :
           <div>
-          <p className="no-recipes-p"> You do not have any recipes yet. <Link to="/add">Create one now.</Link></p>
+          <p className="no-recipes-p">{ this.props.user.username }, you do not have any recipes yet. <Link to="/add">Create one now.</Link><Emoji text=":)" /></p>
           </div>
           }
       </div>
@@ -39,7 +40,8 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
   console.log('Dashboard state<<<<<<<', state);
   return {
-    recipes: state.recipes.userRecipe
+    recipes: state.recipes.userRecipe,
+    user: state.auth.user
   }
 }
 

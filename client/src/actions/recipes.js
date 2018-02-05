@@ -1,21 +1,34 @@
 import axios from 'axios';
+import {
+  ADD_RECIPE,
+  GET_RECIPES,
+  GET_ONE_RECIPE,
+  GET_USER_RECIPES,
+  ADD_FAVORITE_RECIPE,
+  FETCH_FAVORITE_RECIPES,
+  EDIT_RECIPE,
+  REMOVE_RECIPE,
+  ADD_REVIEW,
+  UPVOTE_RECIPE,
+  DOWNVOTE_RECIPE
+} from './types';
 import './toastrConfig';
 
 export const addRecipe = recipe => ({
-  type: 'ADD_RECIPE',
+  type: ADD_RECIPE,
   recipe
 });
 
 export const getAllRecipes = (recipes) => {
   return {
-    type: 'GET_RECIPES',
+    type: GET_RECIPES,
     recipes,
   };
 };
 
 export const getOneRecipe = (recipe) => {
   return {
-    type: 'GET_ONE_RECIPE',
+    type: GET_ONE_RECIPE,
     id: recipe.id,
     recipe
   };
@@ -23,53 +36,53 @@ export const getOneRecipe = (recipe) => {
 
 export const getUserRecipe = (userRecipe) => {
   return {
-    type: 'GET_USER_RECIPES',
+    type: GET_USER_RECIPES,
     userRecipe,
   };
 };
 
 export const addFavorites = (favoriteRecipes) => {
   return {
-    type: 'ADD_FAVORITE_RECIPE',
+    type: ADD_FAVORITE_RECIPE,
     favoriteRecipes
   };
 };
 
 export const fetchFavorites = (favoriteRecipes) => {
   return {
-    type: 'FETCH_FAVORITE_RECIPES',
+    type: FETCH_FAVORITE_RECIPES,
     favoriteRecipes,
   };
 };
 
 export const editRecipe = (id, updates) => ({
-  type: 'EDIT_RECIPE',
+  type: EDIT_RECIPE,
   id,
   updates,
 });
 
 export const removeRecipe = ({ id } = {}) => ({
-  type: 'REMOVE_RECIPE',
+  type: REMOVE_RECIPE,
   id
 });
 
 export const addReview = (review) => {
   return {
-    type: 'ADD_REVIEW',
+    type: ADD_REVIEW,
     review,
   };
 };
 
 export const upVoteRecipe = (id) => {
   return {
-    type: 'UPVOTE_RECIPE',
+    type: UPVOTE_RECIPE,
     id,
   };
 };
 
 export const downVoteRecipe = (id) => {
   return {
-    type: 'DOWNVOTE_RECIPE',
+    type: DOWNVOTE_RECIPE,
     id,
   };
 };
@@ -120,7 +133,6 @@ export const startGetUserRecipes = () => {
   return (dispatch) => {
     axios.get('http://localhost:8000/api/v1/users/recipes')
       .then((res) => {
-        console.log(res.data);
         dispatch(getUserRecipe(res.data.userRecipe));
       })
       .catch((error) => {
@@ -159,7 +171,6 @@ export const startGetOneRecipe = (id) => {
   return (dispatch) => {
     axios.get(`http://localhost:8000/api/v1/recipes/${id}`)
       .then((res) => {
-        console.log(res.data);
         dispatch(getOneRecipe(res.data.recipeData));
       })
       .catch((error) => {
@@ -172,12 +183,17 @@ export const startAddFavoriteRecipes = (id) => {
   return (dispatch) => {
     axios.post(`http://localhost:8000/api/v1/recipes/${id}/favorites`)
       .then((res) => {
-        console.log('Favorite recipes action called', res);
         toastr.success(res.data.message);
         return dispatch(addFavorites(res.data));
       })
-      .catch(() => {
-        toastr.error('Sorry. You cannot perform this action on your own recipe.');
+      .catch((err) => {
+        if (err.response.data
+          .message === 'You need to be logged in to perform this action.') {
+          toastr.error(err.response.data.message);
+        } else if (err.response.data
+          .message === 'Sorry, you cannot perform this action on your own recipe.') {
+          toastr.error(err.response.data.message);
+        }
       });
   };
 };
@@ -186,7 +202,6 @@ export const startGetUserFavorites = (id) => {
   return (dispatch) => {
     axios.get(`http://localhost:8000/api/v1/users/${id}/favorites`)
       .then((res) => {
-        console.log('user favs response', res);
         dispatch(fetchFavorites(res.data));
       })
       .catch((err) => {
@@ -199,10 +214,16 @@ export const startUpvoteRecipe = (id) => {
   return (dispatch) => {
     axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/upvote`)
       .then((res) => {
-        console.log('vote action was called here', res);
+        toastr.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data
+          .message === 'You need to be logged in to perform this action.') {
+          toastr.error(err.response.data.message);
+        } else if (err.response.data
+          .message === 'You already upvoted on this recipe') {
+          toastr.warning(err.response.data.message);
+        }
       });
   };
 };
@@ -211,10 +232,16 @@ export const startDownVoteRecipe = (id) => {
   return (dispatch) => {
     axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/downvote`)
       .then((res) => {
-        console.log('downvote action called here', res);
+        toastr.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data
+          .message === 'You need to be logged in to perform this action.') {
+          toastr.error(err.response.data.message);
+        } else if (err.response.data
+          .message === 'You already downvoted on this recipe') {
+          toastr.warning(err.response.data.message);
+        }
       });
   };
 };
@@ -223,11 +250,16 @@ export const startAddReview = (id, data) => {
   return (dispatch) => {
     axios.post(`http://localhost:8000/api/v1/recipes/${id}/reviews`, data)
       .then((res) => {
-        console.log('Reviews action called here', res);
         dispatch(addReview(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        if (err.response.data
+          .message === 'You need to be logged in to perform this action.') {
+          toastr.error(err.response.data.message);
+        } else if (err.response.data
+          .message === 'You can\'t post an empty review. Please, enter a happy review for this recipe.') {
+          toastr.warning(err.response.data.message);
+        }
       });
   };
 };

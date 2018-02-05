@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import validateAddRecipe from '../../../server/middleware/validateAddRecipe';
 import '../assets/css/addRecipe.css';
 
 class RecipesForm extends Component {
@@ -65,7 +66,7 @@ class RecipesForm extends Component {
 			<div>
 				<main className="container">
 				{this.state.error && <p>{this.state.error}</p>}
-            <form onSubmit={this.onSubmit}>
+            <form className="needs-validation" onSubmit={this.onSubmit}>
                 <div className="form-group">
 								<label className="recipe-name" htmlFor="recipename">Recipe Name</label>
                   <input
@@ -74,6 +75,7 @@ class RecipesForm extends Component {
                   	aria-describedby="recipeNameHelp"
                   	value = {this.state.name}
                   	onChange = { this.onNameChange }
+										required
                   />
                   <small id="recipeNameHelp" className="form-text text-muted">Enter a name for your recipe</small>
                 </div>
@@ -86,6 +88,7 @@ class RecipesForm extends Component {
                       	rows="3"
                       	value={ this.state.description }
                       	onChange={ this.onDescriptionChange }
+												required
                       />
                       <small id="descriptionHelp" className="form-text text-muted">Enter a short description for your recipe.</small>
                     </div>
@@ -105,6 +108,7 @@ class RecipesForm extends Component {
                     aria-describedby="recipeNameHelp"
                     value = {this.state.category}
                     onChange = { this.onCategorySet }
+										required
                   />
                   <small id="categoryHelp" className="form-text text-muted">Category could be Breakfast, Lunch, Dessert or any other fun one of your choice.</small>
                 </div>
@@ -117,6 +121,7 @@ class RecipesForm extends Component {
 												aria-describedby="recipeNameHelp"
 												value={this.state.ingredients}
 												onChange={this.onIngredientsSet}
+												required
 											/>
 											<small id="recipeNameHelp" className="form-text text-muted">Enter your recipe ingredients, separated by Commas.</small>
 									</div>
@@ -128,6 +133,7 @@ class RecipesForm extends Component {
                         	rows="3"
                         	value={this.state.instructions}
                         	onChange={this.onInstructionsSet}
+													required
                         >
                         </textarea>
                         <small id="descriptionHelp" className="form-text text-muted">Enter your step-by-step Instructions.</small>

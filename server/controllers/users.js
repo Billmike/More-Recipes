@@ -44,7 +44,11 @@ class Users {
         .then((newUser) => {
           const token = jwt
             .sign(
-              { id: newUser.id },
+              {
+                id: newUser.id,
+                username: newUser.username,
+                emailAddress: newUser.email
+              },
               process.env.SECRET, { expiresIn: '30 days' }
             );
           return res.status(201).json({
@@ -103,7 +107,11 @@ class Users {
           }
           const token = jwt
             .sign(
-              { id: user.id },
+              {
+                id: user.id,
+                username: user.username,
+                emailAddress: user.email
+              },
               process.env.SECRET, { expiresIn: '30 days' }
             );
           return res.status(201).json({

@@ -40,5 +40,11 @@
           ]
         }
       ]
+    },
+    "globals": {
+      "localStorage": true,
+      "window": true,
+      "document": true,
+      "toastr": true
     }
   }
