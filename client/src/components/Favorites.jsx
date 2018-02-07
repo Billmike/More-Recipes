@@ -25,14 +25,11 @@ class Favorites extends Component {
   }
 
   render() {
-    return (
-      <div className="container">
-      <h2 className="dashboard-h2"> Welcome to your Dashboard, { this.props.user.username }!</h2>
-        <h4 className="dashboard-h4"> My favorites </h4>
-        <div className="row">
-        { this.props.recipes !== null ? this.props.recipes.map((recipe, index) => {
-          return (
-            <div className="col-md-4">
+    let favRecipes;
+    if (this.props.recipes) {
+      favRecipes = this.props.recipes.map((recipe, index) => {
+        return (
+          <div className="col-md-4">
             <div className="card">
               <Link to={`/recipe/${recipe.id}`}><img className="card-img-top" alt="Pizza" src={ pizza } /></Link>
               <div className="card-body">
@@ -46,10 +43,16 @@ class Favorites extends Component {
                 <small className="text-muted small-text">Recipe Category - {recipe.category}</small>
               </div>
             </div>
-            </div>
-            
-          )
-        }) : <p className="no-recipes-p"> You currently have no <Emoji text="<3" />. Checkout some recipes <Link to='/'>here.</Link></p> }
+          </div>
+        )
+      });
+    }
+    return (
+      <div className="container">
+      <h2 className="dashboard-h2"> Welcome to your Dashboard, { this.props.user.username }!</h2>
+        <h4 className="dashboard-h4"> My favorites </h4>
+        <div className="row">
+        { this.props.recipes !== null ? favRecipes : <p className="no-recipes-p"> You currently have no <Emoji text="<3" />. Checkout some recipes <Link to='/'>here.</Link></p> }
         </div>
       </div>
     )

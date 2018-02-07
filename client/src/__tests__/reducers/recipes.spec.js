@@ -33,4 +33,21 @@ describe('Recipes Reducer', () => {
       userFavoriteRecipesId: []
     });
   });
+  it('Should handle GET_USER_RECIPES action', () => {
+    expect(recipeReducers({
+      favoriteRecipes: [],
+      userFavoriteRecipesId: [],
+      recipes: [],
+      singleRecipe: ''
+    }, {
+      type: types.GET_USER_RECIPES,
+      userRecipe: mockRecipesReducers
+    })).toEqual({
+      favoriteRecipes: [],
+      userFavoriteRecipesId: [],
+      recipes: [],
+      singleRecipe: '',
+      userRecipe: mockRecipesReducers
+    });
+  });
 });

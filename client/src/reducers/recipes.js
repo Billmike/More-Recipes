@@ -17,9 +17,10 @@ export default (state = recipeDefaultState, action) => {
     case 'GET_RECIPES':
       return {
         ...state,
-        recipes: action.recipes
+        recipes: [...action.recipes]
       };
     case 'GET_ONE_RECIPE':
+    console.log('summy state', state);
       return {
         ...state,
         singleRecipe: action.recipe

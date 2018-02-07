@@ -19,6 +19,14 @@ class Homepage extends Component {
 
   render() {
     console.log(this.props.recipes)
+    let allRecipes;
+    if (this.props.recipes) {
+      allRecipes = this.props.recipes.map((recipe, i) => {
+        return (
+          <RecipesList key={i} {...recipe} />
+        );
+      })
+    }
     return(
 <div className="under-carousel-div">
     <div
@@ -124,11 +132,7 @@ class Homepage extends Component {
     <input class="form-control" placeholder="Search for....." />
   </div>
     <div className="row">
-    {this.props.recipes.map((recipe, i) => {
-          return (
-              <RecipesList key={i} {...recipe} />
-            );
-        })}
+    { allRecipes }
         </div>
         </div>
   </div>
