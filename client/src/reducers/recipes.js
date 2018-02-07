@@ -9,10 +9,11 @@ const recipeDefaultState = {
 export default (state = recipeDefaultState, action) => {
   switch (action.type) {
     case 'ADD_RECIPE':
-      return [
+      return {
         ...state,
-        action.recipe,
-      ];
+        userRecipe: [...action.recipe],
+        recipes: [...action.recipe]
+      };
     case 'GET_RECIPES':
       return {
         ...state,

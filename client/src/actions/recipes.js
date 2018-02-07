@@ -14,10 +14,28 @@ import {
 } from './types';
 import './toastrConfig';
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } recipe - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and recipe
+ */
+
 export const addRecipe = recipe => ({
   type: ADD_RECIPE,
   recipe
 });
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } recipes - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and recipes
+ */
 
 export const getAllRecipes = (recipes) => {
   return {
@@ -26,13 +44,30 @@ export const getAllRecipes = (recipes) => {
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } recipe - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and recipe
+ */
+
 export const getOneRecipe = (recipe) => {
   return {
     type: GET_ONE_RECIPE,
-    id: recipe.id,
     recipe
   };
 };
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } userRecipe - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and user recipe
+ */
 
 export const getUserRecipe = (userRecipe) => {
   return {
@@ -41,12 +76,30 @@ export const getUserRecipe = (userRecipe) => {
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } favoriteRecipes - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and favorite recipe(s)
+ */
+
 export const addFavorites = (favoriteRecipes) => {
   return {
     type: ADD_FAVORITE_RECIPE,
     favoriteRecipes
   };
 };
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } favoriteRecipes - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and favorite recipe(s)
+ */
 
 export const fetchFavorites = (favoriteRecipes) => {
   return {
@@ -55,16 +108,42 @@ export const fetchFavorites = (favoriteRecipes) => {
   };
 };
 
-export const editRecipe = (id, updates) => ({
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } updates - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and edited recipe
+ */
+
+export const editRecipe = updates => ({
   type: EDIT_RECIPE,
-  id,
   updates,
 });
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
 
 export const removeRecipe = ({ id } = {}) => ({
   type: REMOVE_RECIPE,
   id
 });
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } review - The review object
+ *
+ * @returns { object } - returns an object with an action type and recipe review
+ */
 
 export const addReview = (review) => {
   return {
@@ -73,12 +152,30 @@ export const addReview = (review) => {
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
+
 export const upVoteRecipe = (id) => {
   return {
     type: UPVOTE_RECIPE,
     id,
   };
 };
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
 
 export const downVoteRecipe = (id) => {
   return {
@@ -87,17 +184,31 @@ export const downVoteRecipe = (id) => {
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @returns { object } - returns an object with an action type and all recipes
+ */
+
 export const startGetAllRecipes = () => {
   return (dispatch) => {
-    axios.get('http://localhost:8000/api/v1/recipes')
+    return axios.get('http://localhost:8000/api/v1/recipes')
       .then((res) => {
         dispatch(getAllRecipes(res.data.recipeData));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => Promise.reject(error.response.data.message));
   };
-}
+};
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } recipeData - The recipe object
+ *
+ * @returns { object } - returns an object with an action type and the new recipe object
+ */
 
 export const startAddRecipe = (recipeData = {}) => {
   return (dispatch) => {
@@ -118,70 +229,107 @@ export const startAddRecipe = (recipeData = {}) => {
       ingredients,
       instructions,
     };
-    axios.post('http://localhost:8000/api/v1/recipes', recipe)
+    return axios.post('http://localhost:8000/api/v1/recipes', recipe)
       .then(() => {
         toastr.success('Recipe added successfully.');
         dispatch(addRecipe({
           id: recipe.id,
           ...recipe
         }));
-      });
+      })
+      .catch(error => Promise.reject(error.response.data.message));
   };
 };
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @returns { object } - returns an object with an action type and the user recipe object
+ */
 
 export const startGetUserRecipes = () => {
   return (dispatch) => {
-    axios.get('http://localhost:8000/api/v1/users/recipes')
+    return axios.get('http://localhost:8000/api/v1/users/recipes')
       .then((res) => {
         dispatch(getUserRecipe(res.data.userRecipe));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => Promise.reject(error.response.data.message));
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ * @param { object } updates - The recipe details
+ *
+ * @returns { object } - returns an object with an action type and the new recipe object
+ */
+
 export const startEditRecipe = (id, updates) => {
   return (dispatch) => {
-    axios.put(`http://localhost:8000/api/v1/recipes/${id}/modify`, updates)
+    return axios.put(`http://localhost:8000/api/v1/recipes/${id}/modify`, updates)
       .then(() => {
         toastr.success('Recipe edited successfully.');
         dispatch(editRecipe(id, updates));
       })
-      .catch((error) => {
-        console.log('_<_<_<_<_<__<_', error);
-      });
+      .catch(error => Promise.reject(error.response.data.message));
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
+
 export const startRemoveRecipe = (id) => {
   return (dispatch) => {
-    axios.delete(`http://localhost:8000/api/v1/recipes/${id}`)
+    return axios.delete(`http://localhost:8000/api/v1/recipes/${id}`)
       .then(() => {
         toastr.success('Recipe deleted successfully.');
         dispatch(removeRecipe(id));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => Promise.reject(error.response.data.message));
   };
 };
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
 
 export const startGetOneRecipe = (id) => {
   return (dispatch) => {
-    axios.get(`http://localhost:8000/api/v1/recipes/${id}`)
+    return axios.get(`http://localhost:8000/api/v1/recipes/${id}`)
       .then((res) => {
         dispatch(getOneRecipe(res.data.recipeData));
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => Promise.reject(error.response.data.message));
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
+
 export const startAddFavoriteRecipes = (id) => {
   return (dispatch) => {
-    axios.post(`http://localhost:8000/api/v1/recipes/${id}/favorites`)
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/favorites`)
       .then((res) => {
         toastr.success(res.data.message);
         return dispatch(addFavorites(res.data));
@@ -198,21 +346,37 @@ export const startAddFavoriteRecipes = (id) => {
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
+
 export const startGetUserFavorites = (id) => {
   return (dispatch) => {
-    axios.get(`http://localhost:8000/api/v1/users/${id}/favorites`)
+    return axios.get(`http://localhost:8000/api/v1/users/${id}/favorites`)
       .then((res) => {
         dispatch(fetchFavorites(res.data));
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(error => Promise.reject(error.response.data.message));
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
+
 export const startUpvoteRecipe = (id) => {
   return (dispatch) => {
-    axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/upvote`)
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/upvote`)
       .then((res) => {
         toastr.success(res.data.message);
       })
@@ -228,9 +392,18 @@ export const startUpvoteRecipe = (id) => {
   };
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ *
+ * @returns { object } - returns an object with an action type
+ */
+
 export const startDownVoteRecipe = (id) => {
   return (dispatch) => {
-    axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/downvote`)
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/downvote`)
       .then((res) => {
         toastr.success(res.data.message);
       })
@@ -246,10 +419,21 @@ export const startDownVoteRecipe = (id) => {
   };
 };
 
-export const startAddReview = (id, data) => {
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { number } id - The recipe id
+ * @param { object } reviewData - The review object
+ *
+ * @returns { object } - returns an object with an action type and the new review object
+ */
+
+export const startAddReview = (id, reviewData) => {
   return (dispatch) => {
-    axios.post(`http://localhost:8000/api/v1/recipes/${id}/reviews`, data)
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/reviews`, reviewData)
       .then((res) => {
+        console.log('reviews', res.data);
         dispatch(addReview(res.data));
       })
       .catch((err) => {

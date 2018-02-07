@@ -11,14 +11,13 @@ export const setCurrentUser = (user) => {
 };
 
 export const signupRequest = userData => (dispatch) => {
-    console.log('--------- sending through user data object', userData);
-    return axios.post("http://localhost:8000/api/v1/users/signup", userData)
-      .then((res) => {
-        console.log('?????????', res)
+  return axios.post('http://localhost:8000/api/v1/users/signup', userData)
+    .then((res) => {
       const { token } = res.data;
       localStorage.setItem('authToken', token);
       toastr.success('Login Successful.');
       setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
-      });
-  };
+    })
+    .catch(error => Promise.reject(error.response.data.message));
+};

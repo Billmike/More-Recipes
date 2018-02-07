@@ -10,7 +10,7 @@ class Favorites extends Component {
     super(props);
     this.favoriteRecipes = this.favoriteRecipes.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.startGetUserFavorites(this.props.user.id)
   }
 

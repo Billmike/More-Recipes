@@ -96,24 +96,6 @@ describe('Tests for Favorites API endpoint', () => {
           done();
         });
     });
-    it(
-      'Should return a 403 if the userId in token does not match userId in params',
-      (done) => {
-        request.get(`${favoriteApi}/100/favorites?token=${users[0]
-          .tokens[0].token}`)
-          .set('Connection', 'keep alive')
-          .set('Content-Type', 'application/json')
-          .type('form')
-          .end((err, res) => {
-            expect(res.status).to.equal(403);
-            expect(res.body.status).to.equal('Denied.');
-            expect(res.body.message)
-              .to
-              .equal('Invalid token authorization, or the user doesn\'t exist.');
-            done();
-          });
-      }
-    );
     it('Should prevent a user from favoriting his own recipe', (done) => {
       const testUser = { ...users[0] };
       const testRecipe = { ...recipes[0] };

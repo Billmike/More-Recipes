@@ -5,7 +5,7 @@ const recipes = [{
   category: 'Lunch',
   img_link: 'https://someimgurlhere.com',
   ingredients: '[Tomatoes, Curry, Thyme]',
-  instructions: ['Cook this shii weel, Chop to a million pieces'],
+  instructions: 'Cook this shii weel, Chop to a million pieces',
 }, {
   id: '2',
   name: 'Canda',

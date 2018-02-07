@@ -235,26 +235,52 @@ class Recipe {
   }
 
   static searchRecipes(req, res) {
-    return recipes.findAll({
+    return recipes.findAndCountAll({
       where: {
-        name: req.query.name,
+        $or: [
+          {
+            name: {
+              $iLike: `%${req.query.search}%`
+            },
+          },
+          {
+            ingredients: {
+              $contains: [`${req.quer.search}`]
+            }
+          }
+        ]
       }
     })
-      .then((foundRecipes) => {
-        if (foundRecipes.length === 0) {
-          return res.status(200).json({
-            message: 'No recipes match this query'
+      .then(() => {
+        recipes.findAll({
+          order: [['createdAt', 'DESC']],
+          where: {
+            $or: [
+              {
+                name: {
+                  $iLike: `%${req.query.search}%`
+                },
+              },
+              {
+                ingredients: {
+                  $contains: [`${req.query.search}`]
+                }
+              }
+            ]
+          }
+        })
+          .then((searchedRecipes) => {
+            res.status(200).json({
+              recipeData: searchedRecipes
+            });
           });
-        }
-        return res.status(200).json({
-          message: `${foundRecipes.length} recipes found matching this query`,
-          recipeData: foundRecipes
-        });
       })
-      .catch((err) => res.status(500).json({
-        status: 'Failed',
-        message: err.message
-      }))
+      .catch((err) => {
+        return res.status(500)
+          .json({
+            message: err.message
+          });
+      });
   }
 }
 

@@ -9,11 +9,12 @@ import dessert from '../assets/img/dessert.jpeg';
 
 class Homepage extends Component {
   componentWillMount() {
-    this.props.startGetAllRecipes();
+    
   };
 
   componentDidMount() {
     console.log('Mounted props', this.props);
+    this.props.startGetAllRecipes();
   }
 
   render() {
