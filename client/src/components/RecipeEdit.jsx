@@ -11,7 +11,6 @@ class RecipeEdit extends Component {
   };
 
   onDeleteRecipe() {
-    console.log('On delete recipe', this.props)
     this.props.startRemoveRecipe(this.props.id);
   }
   render() {

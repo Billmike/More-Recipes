@@ -149,8 +149,6 @@ class RecipeDetail extends Component {
 };
 
 const mapStateToProps = (state, props) => {
-  console.log('Recipe details props', props);
-  console.log('Recipe details state', state);
   return {
     recipe: state.recipes.singleRecipe
   }

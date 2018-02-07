@@ -9,7 +9,6 @@ require('dotenv').config();
 
 const app = express();
 const appPath = path.join(__dirname, '..', 'dist/public');
-console.log(appPath);
 
 const swaggerDOCS = require('./api-doc/converted.json');
 

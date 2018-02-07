@@ -36,7 +36,7 @@ describe('Recipes action creators', () => {
 
   describe('Create Recipe Action', () => {
     it('Should dispatch ADD_RECIPE action and add a recipe', async (done) => {
-      moxios.stubRequest('http://localhost:8000/api/v1/recipes', {
+      moxios.stubRequest('/api/v1/recipes', {
         status: 201,
         response: recipeResponse
       });

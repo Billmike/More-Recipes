@@ -20,7 +20,7 @@ describe('Authentication action', () => {
   describe('Signup Action', () => {
     it('Should signup a user and call the SET_CURRENT_USER action', async (done) => {
       const { usersignupData, signupResponse } = mockData;
-      moxios.stubRequest('http://localhost:8000/api/v1/users/signup', {
+      moxios.stubRequest('/api/v1/users/signup', {
         status: 201,
         response: signupResponse
       });
@@ -43,7 +43,7 @@ describe('Authentication action', () => {
     it('Should signin a user and call SET_CURRENT_USER action',
       async (done) => {
         const { userSigninData, signupResponse } = mockData;
-        moxios.stubRequest('http://localhost:8000/api/v1/users/signin', {
+        moxios.stubRequest('/api/v1/users/signin', {
           status: 201,
           response: signupResponse
         });

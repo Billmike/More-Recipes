@@ -5,13 +5,11 @@ import { startEditRecipe } from '../actions/recipes';
 
 export class EditRecipe extends Component {
     onSubmit = (recipe) => {
-        console.log('||||||||||||EditRecipe', this.props);
         this.props.startEditRecipe(this.props.recipe.id, recipe);
         this.props.history.push('/dashboard');
     };
 
     componentWillMount() {
-        console.log('-------------', this.props.recipe);
     }
 
     render() {
@@ -27,8 +25,6 @@ export class EditRecipe extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-    console.log('props here', props);
-    console.log('state here', state)
     return {
         recipe: state.recipes.userRecipe.find((recipe) => {
             return recipe.id == props.match.params.id;

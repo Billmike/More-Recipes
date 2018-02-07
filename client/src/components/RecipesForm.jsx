@@ -6,7 +6,6 @@ import '../assets/css/addRecipe.css';
 class RecipesForm extends Component {
 	constructor(props) {
 		super(props);
-    console.log('recipesformprops', props)
 		this.state = {
 			name: this.props.recipe ? this.props.recipe.name : '',
 			description: this.props.recipe ? this.props.recipe.description : '',

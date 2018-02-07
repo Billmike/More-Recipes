@@ -21,7 +21,6 @@ class SignupForm extends Component {
   }
 
   componentDidUpdate(nextProps) {
-    console.log('updated props', this.props);
     if (this.props.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
@@ -142,8 +141,6 @@ SignupForm.propTypes = {
 };
 
 const mapStateToProps = (state, props) => {
-  console.log('Thi is the login state', state);
-  console.log('this is the props', props);
   return {
     isAuthenticated: state.auth.isAuthenticated
   }

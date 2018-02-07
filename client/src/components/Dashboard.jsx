@@ -7,7 +7,6 @@ import { startGetUserRecipes } from '../actions/recipes';
 
 class Dashboard extends Component {
   componentWillMount() {
-    console.log('Dashboard props^^^^^^^^', this.props);
     this.props.startGetUserRecipes();
   };
 
@@ -40,8 +39,6 @@ class Dashboard extends Component {
 };
 
 const mapStateToProps = (state, props) => {
-  console.log('Dashboard state<<<<<<<', state);
-  console.log('Dashboard state<<<<<<<', props);
   return {
     recipes: state.recipes.userRecipe,
     user: state.auth.user

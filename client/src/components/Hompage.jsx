@@ -8,12 +8,8 @@ import cookies from '../assets/img/cookies.jpeg';
 import dessert from '../assets/img/dessert.jpeg';
 
 class Homepage extends Component {
-  componentWillMount() {
-    
-  };
 
   componentDidMount() {
-    console.log('Mounted props', this.props);
     this.props.startGetAllRecipes();
   }
 
@@ -141,7 +137,6 @@ class Homepage extends Component {
 };
 
 const mapStateToProps = (state) => {
-  console.log('<<<<<<<<<< Current state', state);
   return {
     recipes: state.recipes.recipes,
   }

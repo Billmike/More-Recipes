@@ -7,7 +7,6 @@ import { startAddFavoriteRecipes } from '../actions/recipes';
 export class RecipeList extends Component {
   constructor(props) {
     super(props);
-    console.log('mu props', this.props);
     this.favoriteRecipes = this.favoriteRecipes.bind(this);
   };
 
