@@ -27,7 +27,6 @@
     "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "client-test": "jest ./client/src/__tests__/**/** --config ./jest.config.js --coverage",
-    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "dev": "nodemon --exec babel-node ./server/bin/www.js",
     "client": "npm run start --prefix client",
     "run-prod": "npm run build-client && node ./dist/bin/www.js",

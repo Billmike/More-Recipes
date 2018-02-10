@@ -13,5 +13,5 @@ install:
   - npm install pg-hstore
   - npm install nyc
 script:
-  - npm run coveralls
+  - npm run coverage
   
