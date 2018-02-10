@@ -14,7 +14,6 @@ class Homepage extends Component {
   }
 
   render() {
-    console.log(this.props.recipes)
     let allRecipes;
     if (this.props.recipes) {
       allRecipes = this.props.recipes.map((recipe, i) => {

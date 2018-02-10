@@ -29,7 +29,6 @@ class RecipeDetail extends Component {
   };
 
   componentWillMount() {
-    console.log('detials props', this.props);
     this.props.startGetOneRecipe(this.props.match.params.id);
   }
 
@@ -64,7 +63,6 @@ class RecipeDetail extends Component {
   }
 
   render() {
-    console.log('Ingredients type', typeof this.props.recipe.ingredients);
     let reviews;
     let splitIngredients;
     let splitInstructions;

@@ -20,7 +20,6 @@ class Favorites extends Component {
 
   favoriteRecipes(event) {
     event.preventDefault();
-    console.log('Props called here', this.props);
     this.props.startAddFavoriteRecipes(this.props.recipes[0].id);
   }
 
