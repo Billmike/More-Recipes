@@ -20,8 +20,6 @@ const ProfilePage = (props) => (
 );
 
 const mapStateToProps = (state, props) => {
-  console.log(state);
-  console.log('PROPS', props)
   return {
     userInformation: state.auth.user
   }

@@ -47,12 +47,10 @@ class SignupForm extends Component {
       this.props
         .signupRequest(this.state)
         .then(() => {
-          console.log(this.props);
           this.props.history.push('/dashboard');
         })
         .catch((errors) => {
           this.setState({ isLoading: false });
-          console.log('the error', errors);
           if (errors === 'Username must be unique.') {
             return toastr.error('This username is taken.');
           } else {
