@@ -1,8 +1,17 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
+import { SET_CURRENT_USER } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import './toastrConfig';
+
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } user - The user object
+ *
+ * @returns { object } The action type and a user object
+ */
 
 export const setCurrentUser = (user) => {
   return {
@@ -11,13 +20,14 @@ export const setCurrentUser = (user) => {
   };
 };
 
-// export const getUserInformation = (user) => {
-//   return {
-//     type: GET_USER_INFORMATION,
-//     user,
-//   };
-// };
-
+/**
+ * Represents a function
+ * @function
+ *
+ * @param { object } userData - The user object
+ *
+ * @returns { object } The signed in user and a token
+ */
 export const signinRequest = userData => (dispatch) => {
   return axios.post('/api/v1/users/signin', userData)
     .then((res) => {
@@ -30,6 +40,12 @@ export const signinRequest = userData => (dispatch) => {
     .catch(error => Promise.reject(error.response.data.message));
 };
 
+/**
+ * Represents a function
+ * @function
+ *
+ * @returns { object } An empty object representing a signed out user
+ */
 export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem('authToken');
@@ -38,15 +54,3 @@ export const logout = () => {
     dispatch(setCurrentUser({}));
   };
 };
-
-// export const startGetUserInfo = () => {
-//   return (dispatch) => {
-//     axios.get('http://localhost:8000/api/v1/users/get_user')
-//       .then((res) => {
-//         console.log(res);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-// };

@@ -51,8 +51,12 @@ class SignupForm extends Component {
           this.props.history.push('/dashboard');
         })
         .catch((errors) => {
-          if (errors.message === 'Request failed with status code 409') {
-            return toastr.error('Username and email hass to be unique.');
+          this.setState({ isLoading: false });
+          console.log('the error', errors);
+          if (errors === 'Username must be unique.') {
+            return toastr.error('This username is taken.');
+          } else {
+            return toastr.error('Invalid credentials.');
           }
         });
     }
@@ -104,10 +108,9 @@ class SignupForm extends Component {
                 onChange={this.onPasswordChange}
                 placeholder="Password"
               />
-              {errors.password && <span className="help-block red-errors">{errors.password}</span>}
+              {errors.password && <span className="help-block has-errors">{errors.password}</span>}
             </div>
             <input
-              disabled={this.state.isLoading}
               type="submit"
               name="signup_submit"
               value="Sign up"

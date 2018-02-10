@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 export default (ComposedComponent) => {
+  /**
+   * Represents a class
+   * @class
+   */
   class RequireAuth extends Component {
     componentWillMount() {
       if (!this.props.isAuthenticated) {

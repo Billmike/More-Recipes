@@ -32,8 +32,9 @@ class LoginForm extends Component {
           this.props.history.push('/dashboard');
         })
         .catch((error) => {
-          if (error.message === 'Request failed with status code 403') {
-            toastr.error('Invalid login details');
+          this.setState({ isLoading: false });
+          if (error === 'Invalid email or password.') {
+            return toastr.error('Invalid login details');
           }
         });
     }
@@ -77,7 +78,6 @@ class LoginForm extends Component {
               {errors.password && <span className="help-block red-errors">{errors.password}</span>}
             </div>
             <input
-              disabled={this.state.isLoading}
               type="submit"
               name="signup_submit"
               value="Sign In"

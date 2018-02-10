@@ -20,8 +20,9 @@ export default () => {
       recipes: recipesReducer,
       auth: authReducer
     }),
-    compose(applyMiddleware(...middleWare),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
+    compose(
+      applyMiddleware(...middleWare),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
     ),
   );
 
