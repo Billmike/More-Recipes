@@ -106,7 +106,7 @@ class SignupForm extends Component {
                 onChange={this.onPasswordChange}
                 placeholder="Password"
               />
-              {errors.password && <span className="help-block has-errors">{errors.password}</span>}
+              {errors.password && <span className="help-block red-errors">{errors.password}</span>}
             </div>
             <input
               type="submit"
