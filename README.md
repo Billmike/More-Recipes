@@ -10,7 +10,7 @@ A recipe application that enables users share insightful recipes.
 -  Open ```index.html``` to see the home page and get started.
 
 ##  API docs
-For an indepth look at the API build and up-to-date documentation, visit the [api doumentation website](https://more-recipes-app1.herokuapp.com/apidoc/) to get started.
+For an indepth look at the API build and up-to-date documentation, visit the [api doumentation website](https://more-recipes-app1.herokuapp.com/api-docs/#/) to get started.
 
 ##  Running tests
 
