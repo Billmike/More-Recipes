@@ -20,7 +20,6 @@ export default (state = recipeDefaultState, action) => {
         recipes: [...action.recipes]
       };
     case 'GET_ONE_RECIPE':
-    console.log('summy state', state);
       return {
         ...state,
         singleRecipe: action.recipe
@@ -31,7 +30,6 @@ export default (state = recipeDefaultState, action) => {
         userRecipe: action.userRecipe
       };
     case 'EDIT_RECIPE':
-      console.log('this is the state in the edit recipe reducer', state);
       return state.userRecipe.map((recipe) => {
         if (recipe.id == action.id) {
           return {
@@ -42,12 +40,10 @@ export default (state = recipeDefaultState, action) => {
         return recipe;
       });
     case 'REMOVE_RECIPE':
-      console.log('Remove recipe state', state);
       return state.userRecipe.filter(({ id }) => {
         return id !== action.id;
       });
     case 'ADD_FAVORITE_RECIPE':
-    console.log('acvtion in the add favs', action.favoriteRecipes);
       return {
         ...state,
         ...{
@@ -58,12 +54,10 @@ export default (state = recipeDefaultState, action) => {
           state.userFavoriteRecipesId.concat(action.favoriteRecipes.id) :
           state.userFavoriteRecipesId
             .filter((id) => {
-              console.log('bleeding recipe here', id);
               return id !== action.favoriteRecipes.id;
             })
       };
     case 'FETCH_FAVORITE_RECIPES':
-    console.log('dhshsjhdsjdjdhjdhjd', state);
       return {
         ...state,
         ...{
@@ -71,7 +65,6 @@ export default (state = recipeDefaultState, action) => {
         }
       };
     case 'ADD_REVIEW':
-      console.log('we got to the reducer for review', state);
       return {
         ...state,
         singleRecipe: state.singleRecipe.reviews.concat(action.review.reviewData)

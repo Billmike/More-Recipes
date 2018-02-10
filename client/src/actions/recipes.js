@@ -387,6 +387,9 @@ export const startUpvoteRecipe = (id) => {
         } else if (err.response.data
           .message === 'You already upvoted on this recipe') {
           toastr.warning(err.response.data.message);
+        } else if (err.response.data
+          .message === 'You cannot vote on your own recipe.') {
+          toastr.error(err.response.data.message);
         }
       });
   };
@@ -414,6 +417,9 @@ export const startDownVoteRecipe = (id) => {
         } else if (err.response.data
           .message === 'You already downvoted on this recipe') {
           toastr.warning(err.response.data.message);
+        } else if (err.response.data
+          .message === 'You cannot vote on your own recipe.') {
+          toastr.error(err.response.data.message);
         }
       });
   };
