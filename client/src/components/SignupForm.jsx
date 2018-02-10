@@ -42,6 +42,7 @@ class SignupForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+    console.log('componentnsignup');
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
@@ -52,8 +53,9 @@ class SignupForm extends Component {
           this.props.history.push('/dashboard');
         })
         .catch((errors) => {
-          if (errors.message === 'Request failed with status code 409') {
-            return toastr.error('Username and email hass to be unique.');
+          this.setState({ isLoading: false });
+          if (errors === 'Username must be unique.') {
+            return toastr.error('This username is taken.');
           }
         });
     }
