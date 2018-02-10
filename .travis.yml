@@ -3,8 +3,15 @@ node_js:
    -  "8.9.1"
 services:
   - postgresql
+env:
+  global:
+    - NODE_ENV=test
+    - CC_TEST_REPORTER_ID=1944fd38c05bd77f1f23b769f5e0753618ad880b9317d37b6b8c985d37587594
 before_script:
-  - psql -c 'create database recipes_testing_db;' -U postgres 
+  - psql -c 'create database recipes_testing_db;' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 install:
   - npm install sequelize
   - npm install cross-env
@@ -14,4 +21,7 @@ install:
   - npm install nyc
 script:
   - npm run test
+
+after_success:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   

@@ -23,7 +23,7 @@
     "test-client": "jest --config=jest.config.json",
     "nyc-local": "cross-env NODE_ENV=test npm run test-migrate && cross-env NODE_ENV=test npm run test",
     "test-local": "cross-env NODE_ENV=test npm run test-migrate && cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit",
-    "test": "nyc cross-env NODE_ENV=test npm run test-migrate && cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit && npm run coverage",
+    "test": "NODE_ENV=test npm run test-migrate && NODE_ENV=test nyc mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit && npm run coverage",
     "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "client-test": "jest ./client/src/__tests__/**/** --config ./jest.config.js --coverage",
