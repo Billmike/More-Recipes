@@ -13,8 +13,7 @@ engines:
 ratings:
   paths:
   - "server/**/*.js"
-  - "client/**/*.js"
-  - "client/**/*.jsx"
+  - "client/**/*.{js, jsx}"
 
 exclude_patterns:
   - "webpack.config.*.js"
@@ -26,3 +25,4 @@ exclude_patterns:
   - "server/migrations"
   - "server/models"
   - "server/seeders"
+  

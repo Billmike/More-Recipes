@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import jwt from 'jsonwebtoken';
 import { Provider } from 'react-redux';
 import App from './components/App';
@@ -16,8 +16,9 @@ if (localStorage.authToken) {
   store.dispatch(setCurrentUser(jwt.decode(localStorage.authToken)));
 }
 
-ReactDOM
-.render(
+render(
   <Provider store={store}>
     <App />
-  </Provider>, document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root')
+);

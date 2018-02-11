@@ -8,8 +8,9 @@
   display: inline-block;
   margin-top: 55px;
 }
+
 .btns {
-  border: 2px solid #E2E3EB;
+  border: 2px solid #e2e3eb;
   color: gray;
   background-color: white;
   padding: 8px 20px;
@@ -20,7 +21,7 @@
   width: 250px;
 }
 
-.upload-btn-wrapper input[type=file] {
+.upload-btn-wrapper input[type='file'] {
   font-size: 100px;
   position: absolute;
   left: 0;
@@ -32,13 +33,7 @@
   height: 300px;
 }
 
-.recipe-name {
-  font-family: 'Open Sans Condensed', Roboto, Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
+.recipe-name,
 .recipe-desc {
   font-family: 'Open Sans Condensed', Roboto, Arial, Helvetica, sans-serif;
   font-size: 25px;
@@ -74,4 +69,8 @@
 .text-muted {
   font-family: 'Raleway';
   font-family: 5px;
+}
+
+.review-box {
+  border-radius: 80px;
 }

@@ -6,7 +6,7 @@ const Favorites = db.Favorite;
 const User = db.User;
 
 class GetRecipes {
-/**
+  /**
    * @param  {string} name - Recipe name
    * @param  {string} description - Recipe description
    * @param  {string} imglink - Recipe image link
@@ -23,9 +23,21 @@ class GetRecipes {
    * @param  {time} updatedAt - Recipe time of update
    */
   constructor(
-    name, description, imglink, category, ingredients, instructions,
-    owner, reviews, favorites, viewCount, upVote, downVote, id,
-    createdAt, updatedAt,
+    name,
+    description,
+    imglink,
+    category,
+    ingredients,
+    instructions,
+    owner,
+    reviews,
+    favorites,
+    viewCount,
+    upVote,
+    downVote,
+    id,
+    createdAt,
+    updatedAt
   ) {
     this.name = name;
     this.description = description;
@@ -73,28 +85,32 @@ const sortRecipes = (recipeArray, sortOrder, callback) => {
  * Represents the method for getting all recipes
  * @method
  *
- * @param { object } req - The request object
- * @param { object } res - The response object
+ * @param { object } request - The request object
+ * @param { object } response - The response object
  * @param { function } next - A callback function
  *
  * @returns { object } The recipes object
  */
 
-const getAllRecipes = (req, res, next) => {
+const getAllRecipes = (request, response, next) => {
   Recipes.findAll({
-    include: [{
-      model: Votes,
-      as: 'votes',
-    }, {
-      model: User,
-    }, {
-      model: Favorites,
-      as: 'favorites',
-    }],
+    include: [
+      {
+        model: Votes,
+        as: 'votes'
+      },
+      {
+        model: User
+      },
+      {
+        model: Favorites,
+        as: 'favorites'
+      }
+    ]
   })
     .then((recipes) => {
       const tempStorage = [];
-      const { sort, order } = req.query;
+      const { sort, order } = request.query;
       recipes.forEach((elem) => {
         tempStorage.push(new GetRecipes(
           elem.name,
@@ -111,28 +127,28 @@ const getAllRecipes = (req, res, next) => {
           countRecipes(elem.votes, 'voteType', 'downvote'),
           elem.id,
           elem.createdAt,
-          elem.updatedAt,
+          elem.updatedAt
         ));
       });
       if (sort && order) {
         return sortRecipes(tempStorage, order, (err, sorted) => {
           if (!err) {
-            return res
-              .status(201).json({ status: 'Success', recipeData: sorted });
+            return response
+              .status(201)
+              .json({ status: 'Success', recipeData: sorted });
           }
           return next(err);
         });
       }
-      return res
-        .status(201).json({ status: 'Success.', recipeData: tempStorage });
+      return response
+        .status(201)
+        .json({ status: 'Success.', recipeData: tempStorage });
     })
     .catch(() => {
-      const err = res
-        .status(500)
-        .json({
-          status: 'Server error',
-          message: 'Oops.. Something went wrong. Why not try again later?'
-        });
+      const err = response.status(500).json({
+        status: 'Server error',
+        message: 'Oops.. Something went wrong. Why not try again later?'
+      });
       return next(err);
     });
 };

@@ -4,7 +4,7 @@ const favorite = db.Favorite;
 const recipe = db.Recipe;
 
 /**
- * Represents the Favorites class
+ * Represponseents the Favorites class
  *
  * @class
  */
@@ -14,143 +14,132 @@ class Favorites {
    * Represents the method that handles adding a favorite recipe
    * @method
    *
-   * @param { object } req - The request object
-   * @param { object } res - The response object
+   * @param { object } request - The requestuest object
+   * @param { object } response - The response object
    *
    * @returns { object } The favorited recipe
    */
 
-  static addFavorite(req, res) {
-    const { userId } = req;
-    recipe.findOne({
-      where: {
-        id: req.params.recipeId,
-      },
-    }).then((foundRecipe) => {
-      if (!foundRecipe) {
-        return res
-          .status(404)
-          .json({ status: 'Not Found.', message: 'Recipe not found.' });
-      } else if (foundRecipe.owner == userId) {
-        return res
-          .status(403)
-          .json({
+  static addFavorite(request, response) {
+    const { userId } = request;
+    recipe
+      .findOne({
+        where: {
+          id: request.params.recipeId
+        }
+      })
+      .then((foundRecipe) => {
+        if (!foundRecipe) {
+          return response
+            .status(404)
+            .json({ status: 'Not Found.', message: 'Recipe not found.' });
+        } else if (foundRecipe.owner == userId) {
+          return response.status(403).json({
             status: 'Forbidden',
             message: 'Sorry, you cannot perform this action on your own recipe.'
           });
-      } else if (foundRecipe) {
-        favorite.findAll({
-          where: {
-            recipeId: foundRecipe.id,
-          },
-        })
-          .then((favoriteRecipes) => {
-            if (favoriteRecipes.length === 0) {
-              return favorite.create({
-                userId: req.userId,
-                recipeId: req.params.recipeId,
-              })
-                .then(createdFavs => res
-                  .status(200)
-                  .json({
+        } else if (foundRecipe) {
+          favorite
+            .findAll({
+              where: {
+                recipeId: foundRecipe.id
+              }
+            })
+            .then((favoriteRecipes) => {
+              if (favoriteRecipes.length === 0) {
+                return favorite
+                  .create({
+                    userId: request.userId,
+                    recipeId: request.params.recipeId
+                  })
+                  .then(createdFavs =>
+                    response.status(200).json({
+                      status: 'OK',
+                      message: 'Recipe added to your list of favorites.',
+                      id: createdFavs.recipeId
+                    }));
+              }
+              const arrayOfUserIDs = [];
+              favoriteRecipes.forEach((singleFavoriteRecipes) => {
+                arrayOfUserIDs.push(singleFavoriteRecipes.dataValues.userId);
+              });
+              const userFavorites = favoriteRecipes.filter(fav => fav.dataValues.userId === userId)[0];
+              if (arrayOfUserIDs.includes(userId)) {
+                return favorite
+                  .findById(userFavorites.dataValues.id)
+                  .then((existingFavorite) => {
+                    response.status(201).json({
+                      message: 'Recipe removed from your favorites.',
+                      id: existingFavorite.dataValues.recipeId
+                    });
+                    existingFavorite.destroy();
+                  });
+              }
+              return favorite
+                .create({
+                  userId: request.userId,
+                  recipeId: request.params.recipeId
+                })
+                .then(createdFavorite =>
+                  response.status(201).json({
                     status: 'OK',
                     message: 'Recipe added to your list of favorites.',
-                    id: createdFavs.recipeId
+                    id: createdFavorite.recipeId
                   }));
-            }
-            const arrayOfUserIDs = [];
-            favoriteRecipes.forEach((singleFavoriteRecipes) => {
-              arrayOfUserIDs.push(singleFavoriteRecipes.dataValues.userId);
             });
-            const userFavorites = favoriteRecipes
-              .filter(fav => fav.dataValues.userId === userId)[0];
-            if (arrayOfUserIDs.includes(userId)) {
-              return favorite.findById(userFavorites.dataValues.id)
-                .then((existingFavorite) => {
-                  res.status(201).json({
-                    message: 'Recipe removed from your favorites.',
-                    id: existingFavorite.dataValues.recipeId
-                  });
-                  existingFavorite.destroy();
-                });
-            }
-            return favorite.create({
-              userId: req.userId,
-              recipeId: req.params.recipeId,
-            })
-              .then(createdFavorite => res
-                .status(201)
-                .json({
-                  status: 'OK',
-                  message: 'Recipe added to your list of favorites.',
-                  id: createdFavorite.recipeId
-                }));
-          });
-      }
-    }).catch(() => res
-      .status(500)
-      .json({
-        status: 'Server Error',
-        message: 'Oops.. Something went wrong. Why not try again later?'
-      }));
+        }
+      })
+      .catch(() =>
+        response.status(500).json({
+          status: 'Server Error',
+          message: 'Oops.. Something went wrong. Why not try again later?'
+        }));
   }
 
   /**
    * Represents the method that handles getting the favorite recipes of a user
    * @method
    *
-   * @param { object } req - The request object
-   * @param { object } res - The response object
+   * @param { object } request - The requestuest object
+   * @param { object } response - The responseponse object
    *
    * @returns { object } The user's favorite recipes
    */
 
-  static getFavorites(req, res, next) {
-    const { userId } = req.params;
-
-    // if (req.userId !== userId) {
-    //   const err = res
-    //     .status(403)
-    //     .json({
-    //       status: 'Denied.',
-    //       message: 'Invalid token authorization, or the user doesn\'t exist.'
-    //     });
-    //   return next(err);
-    // }
-    favorite.findAll({
-      where: {
-        userId: parseInt(userId, 10),
-      },
-      include: {
-        model: recipe,
-      },
-    })
+  static getFavorites(request, response) {
+    const { userId } = request.params;
+    favorite
+      .findAll({
+        where: {
+          userId: parseInt(userId, 10)
+        },
+        include: {
+          model: recipe
+        }
+      })
       .then((favorites) => {
         const countFavorites = favorites.length;
         if (countFavorites === 0) {
-          return res
-            .status(201)
-            .json({
-              status: 'Success.',
-              recipes: null,
-              message: 'User has no favorites.'
-            });
+          return response.status(201).json({
+            status: 'Success.',
+            recipes: null,
+            message: 'User has no favorites.'
+          });
         }
         const recipes = [];
         favorites.forEach((fav) => {
           recipes.push(fav.dataValues.Recipe.dataValues);
         });
-        return res
-          .status(201)
-          .json({
-            status: 'Success.',
-            message: `${countFavorites} recipe(s) found in user's favorite list`,
-            recipes
-          });
+        return response.status(201).json({
+          status: 'Success.',
+          message: `${countFavorites} recipe(s) found in user's favorite list`,
+          recipes
+        });
       })
-      .catch(() => res.status(500).json({
-        message: 'Oops.. Something went wrong. Why not try again later?'
-      }));
+      .catch(() =>
+        response.status(500).json({
+          message: 'Oops.. Something went wrong. Why not try again later?'
+        }));
   }
 }
 

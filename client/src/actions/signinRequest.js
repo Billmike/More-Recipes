@@ -2,55 +2,48 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { SET_CURRENT_USER } from './types';
 import setAuthToken from '../utils/setAuthToken';
-import './toastrConfig';
+import '../utils/toastrConfig';
 
 /**
- * Represents a function
- * @function
+ *  Action to set the state of a user
  *
  * @param { object } user - The user object
  *
  * @returns { object } The action type and a user object
  */
 
-export const setCurrentUser = (user) => {
-  return {
-    type: SET_CURRENT_USER,
-    user,
-  };
-};
+export const setCurrentUser = user => ({
+  type: SET_CURRENT_USER,
+  user
+});
 
 /**
- * Represents a function
- * @function
+ * Sign in a registered user
  *
  * @param { object } userData - The user object
  *
  * @returns { object } The signed in user and a token
  */
-export const signinRequest = userData => (dispatch) => {
-  return axios.post('/api/v1/users/signin', userData)
-    .then((res) => {
-      const { token } = res.data;
+export const signinRequest = userData => dispatch =>
+  axios
+    .post('/api/v1/users/signin', userData)
+    .then((response) => {
+      const { token } = response.data;
       localStorage.setItem('authToken', token);
       toastr.success('Login Successful.');
       setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
     })
     .catch(error => Promise.reject(error.response.data.message));
-};
 
 /**
- * Represents a function
- * @function
+ * Logs out the user
  *
  * @returns { object } An empty object representing a signed out user
  */
-export const logout = () => {
-  return (dispatch) => {
-    localStorage.removeItem('authToken');
-    toastr.success('Logout Successful.');
-    setAuthToken(false);
-    dispatch(setCurrentUser({}));
-  };
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('authToken');
+  toastr.success('Logout Successful.');
+  setAuthToken(false);
+  dispatch(setCurrentUser({}));
 };
