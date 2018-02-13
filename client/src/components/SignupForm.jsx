@@ -12,7 +12,7 @@ class SignupForm extends Component {
       email: '',
       password: '',
       errors: {},
-      isLoading: false,
+      isLoading: false
     };
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
@@ -21,7 +21,6 @@ class SignupForm extends Component {
   }
 
   componentDidUpdate(nextProps) {
-    console.log('updated props', this.props);
     if (this.props.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
@@ -39,20 +38,17 @@ class SignupForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-
   onSubmit(event) {
     event.preventDefault();
-    console.log('componentnsignup');
 
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props
         .signupRequest(this.state)
         .then(() => {
-          console.log(this.props);
           this.props.history.push('/dashboard');
         })
-        .catch((errors) => {
+        .catch(errors => {
           this.setState({ isLoading: false });
           if (errors === 'Username must be unique.') {
             return toastr.error('This username is taken.');
@@ -87,7 +83,9 @@ class SignupForm extends Component {
                 onChange={this.onUsernameChange}
                 placeholder="Username"
               />
-              {errors.username && <span className="help-block red-errors">{errors.username}</span>}
+              {errors.username && (
+                <span className="help-block red-errors">{errors.username}</span>
+              )}
             </div>
             <div>
               <input
@@ -97,7 +95,9 @@ class SignupForm extends Component {
                 onChange={this.onEmailChange}
                 placeholder="E-mail"
               />
-              {errors.email && <span className="help-block red-errors">{errors.email}</span>}
+              {errors.email && (
+                <span className="help-block red-errors">{errors.email}</span>
+              )}
             </div>
             <div>
               <input
@@ -107,7 +107,9 @@ class SignupForm extends Component {
                 onChange={this.onPasswordChange}
                 placeholder="Password"
               />
-              {errors.password && <span className="help-block red-errors">{errors.password}</span>}
+              {errors.password && (
+                <span className="help-block red-errors">{errors.password}</span>
+              )}
             </div>
             <input
               disabled={this.state.isLoading}
@@ -140,15 +142,13 @@ class SignupForm extends Component {
 }
 
 SignupForm.propTypes = {
-  signupRequest: PropTypes.func.isRequired,
+  signupRequest: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, props) => {
-  console.log('Thi is the login state', state);
-  console.log('this is the props', props);
   return {
     isAuthenticated: state.auth.isAuthenticated
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(SignupForm);

@@ -2,50 +2,50 @@ module.exports = (sequelize, DataTypes) => {
   const Recipe = sequelize.define('Recipe', {
     name: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     description: {
       allowNull: false,
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT
     },
-    img_link: {
+    imageUrl: {
       allowNull: true,
       defaultValue: 'image-here',
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     category: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
     },
     ingredients: {
       type: DataTypes.TEXT,
-      defaultValue: '',
+      defaultValue: ''
     },
     instructions: {
       allowNull: false,
       type: DataTypes.TEXT,
-      defaultValue: '',
-    },
+      defaultValue: ''
+    }
   });
   Recipe.associate = (models) => {
     Recipe.belongsTo(models.User, {
       foreignKey: 'owner',
-      onDelete: 'CASCADE',
+      onDelete: 'CASCADE'
     });
 
     Recipe.hasMany(models.Vote, {
       foreignKey: 'recipeId',
-      as: 'votes',
+      as: 'votes'
     });
 
     Recipe.hasMany(models.Favorite, {
       foreignKey: 'recipeId',
-      as: 'favorites',
+      as: 'favorites'
     });
 
     Recipe.hasMany(models.Review, {
       foreignKey: 'recipeId',
-      as: 'reviews',
+      as: 'reviews'
     });
   };
   return Recipe;

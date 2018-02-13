@@ -1,4 +1,5 @@
 import db from '../models/index';
+import errorMessage from '../errorHandler/errorMessage';
 
 const favorite = db.Favorite;
 const recipe = db.Recipe;
@@ -52,7 +53,9 @@ class Favorites {
                   .then(createdFavs =>
                     res.status(201).json({
                       message: 'Recipe added to your list of favorites.',
-                      id: createdFavs.recipeId
+                      favoriteRecipe: {
+                        recipeId: createdFavs.recipeId
+                      }
                     }));
               }
               const arrayOfUserIDs = [];
@@ -66,7 +69,9 @@ class Favorites {
                   .then((existingFavorite) => {
                     res.status(200).json({
                       message: 'Recipe removed from your favorites.',
-                      id: existingFavorite.dataValues.recipeId
+                      favoriteRecipe: {
+                        recipeId: existingFavorite.dataValues.recipeId
+                      }
                     });
                     existingFavorite.destroy();
                   });
@@ -78,17 +83,17 @@ class Favorites {
                 })
                 .then(createdFavorite =>
                   res.status(200).json({
-                    status: 'OK',
                     message: 'Recipe added to your list of favorites.',
-                    id: createdFavorite.recipeId
+                    favoriteRecipe: {
+                      recipeId: createdFavorite.recipeId
+                    }
                   }));
             });
         }
       })
-      .catch(() =>
+      .catch(error =>
         res.status(500).json({
-          status: 'Server Error',
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: error.message
         }));
   }
 
@@ -117,7 +122,6 @@ class Favorites {
         const countFavorites = favorites.length;
         if (countFavorites === 0) {
           return res.status(200).json({
-            status: 'Success.',
             recipes: null,
             message: 'User has no favorites.'
           });
@@ -127,14 +131,13 @@ class Favorites {
           recipes.push(fav.dataValues.Recipe.dataValues);
         });
         return res.status(200).json({
-          status: 'Success.',
           message: `${countFavorites} recipe(s) found in user's favorite list`,
           recipes
         });
       })
       .catch(() =>
         res.status(500).json({
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: errorMessage
         }));
   }
 }

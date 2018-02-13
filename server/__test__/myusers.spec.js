@@ -246,7 +246,7 @@ describe('User API testing', () => {
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .end((err, res) => {
-          expect(res.statusCode).to.equal(403);
+          expect(res.statusCode).to.equal(401);
           done();
         });
     });

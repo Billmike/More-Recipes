@@ -37,7 +37,7 @@ describe('Recipes Endpoint', () => {
           expect(res.body.recipeData.id).to.be.a('number');
           expect(res.body.recipeData.description).to.be.a('string');
           expect(res.body.recipeData.category).to.be.a('string');
-          expect(res.body.recipeData.img_link).to.be.a('string');
+          expect(res.body.recipeData.imageUrl).to.be.a('string');
           expect(res.body.recipeData.name).to.be.a('string');
           expect(res.body.recipeData.ingredients).to.be.a('string');
           expect(res.body.recipeData.instructions).to.be.a('string');
