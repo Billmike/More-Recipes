@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
+import { SET_CURRENT_USER } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import './toastrConfig';
 
@@ -11,15 +11,8 @@ export const setCurrentUser = (user) => {
   };
 };
 
-// export const getUserInformation = (user) => {
-//   return {
-//     type: GET_USER_INFORMATION,
-//     user,
-//   };
-// };
-
 export const signinRequest = userData => (dispatch) => {
-  return axios.post('http://localhost:8000/api/v1/users/signin', userData)
+  return axios.post('/api/v1/users/signin', userData)
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('authToken', token);
@@ -38,15 +31,3 @@ export const logout = () => {
     dispatch(setCurrentUser({}));
   };
 };
-
-// export const startGetUserInfo = () => {
-//   return (dispatch) => {
-//     axios.get('http://localhost:8000/api/v1/users/get_user')
-//       .then((res) => {
-//         console.log(res);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
-// };
