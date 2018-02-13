@@ -1,63 +1,53 @@
 import db from '../models/index';
-
+import errorMessage from '../errorHandler/errorMessage';
 
 const reviews = db.Review;
 const recipes = db.Recipe;
 
 /**
-  * Represents the Review class
-  *
-  * @class
-  */
+ * Represents the Review class
+ *
+ * @class
+ */
 
 class Review {
-/**
-  * Represents the method that adds a review
-  * @method
-  *
-  * @param { object } req - The request object
-  * @param { object } res - The response object
-  *
-  * @returns { object } Returns the review object
-  *
-  */
+  /**
+   * Represents the method that adds a review
+   * @method
+   *
+   * @param { object } req - The request object
+   * @param { object } res - The response object
+   *
+   * @returns { object } Returns the review object
+   *
+   */
 
   static addReviews(req, res) {
-    return recipes.findById(req.params.recipeId)
-      .then((foundRecipe) => {
-        if (!foundRecipe) {
-          return res
-            .status(404)
-            .json({ status: 'Not found.', message: 'Recipe not found.' });
-        }
-        if (foundRecipe.owner === req.userId) {
-          return res
-            .status(403)
-            .json({
-              status: 'Forbidden.',
-              message: 'You cannot review your own recipe.'
-            });
-        }
-        return reviews.create({
+    return recipes.findById(req.params.recipeId).then((foundRecipe) => {
+      if (!foundRecipe) {
+        return res.status(404).json({ message: 'Recipe not found.' });
+      }
+      if (foundRecipe.owner === req.userId) {
+        return res.status(403).json({
+          message: 'You cannot review your own recipe.'
+        });
+      }
+      return reviews
+        .create({
           userId: req.userId,
           recipeId: req.params.recipeId,
-          content: req.body.content,
+          content: req.body.content
         })
-          .then((review) => {
-            return res.status(201).json({
-              status: 'OK',
-              message: 'Review successfully posted',
-              reviewData: review.content,
-            });
-          })
-          .catch(() => {
-            return res
-              .status(500)
-              .json({
-                message: 'Oops.. Something went wrong. Why not try again later?'
-              });
-          });
-      });
+        .then(review => res.status(201).json({
+          message: 'Review successfully posted',
+          reviewData: {
+            review: review.content
+          }
+        }))
+        .catch(() => res.status(500).json({
+          message: errorMessage
+        }));
+    });
   }
 }
 
