@@ -1,487 +1,487 @@
-
-@import url('https://fonts.googleapis.com/css?family=Graduate|Karla|Tinos|Tangerine|Open+Sans+Condensed:300|Raleway|Roboto|Ubuntu+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Graduate|Karla|Philosopher|Dosis|Tinos|Tangerine|Open+Sans+Condensed:300|Raleway|Roboto|Ubuntu+Condensed');
 html {
-    position: relative;
-    min-height: 100%;
-    background-color: whitesmoke;
+  position: relative;
+  min-height: 100%;
+  background-color: whitesmoke;
 }
 
 body {
-    background: whitesmoke !important;
-    color: white; 
-    margin-bottom: 120px !important;
+  background: whitesmoke !important;
+  color: white;
+  margin-bottom: 120px !important;
 }
 
 .navbar {
-    background-color: cadetblue !important;
+  background-color: cadetblue !important;
 }
 
 .logout {
-    border-radius: 5px;
-    color: white !important;
-    font-family: cursive;
-    background-color: brown;
-    font-size: 20px;
+  border-radius: 5px;
+  color: white !important;
+  font-family: 'Dosis', Arial, Helvetica, sans-serif;
+  background-color: brown;
+  font-size: 20px;
 }
 
 .detail-title {
-    font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
-    letter-spacing: 1px;
-    font-weight: bold;
-    font-size: 25px;
-    display: inline-block;
-    margin-left: 40px;
+  font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  font-weight: bold;
+  font-size: 25px;
+  display: inline-block;
+  margin-left: 40px;
 }
 
 .under-carousel-div {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 .review-text {
-    height: 200px;
-    float: left;
+  height: 200px;
+  float: left;
 }
 
 .no-recipes-p {
-    text-align: center !important;
-    margin-left: 350px;
-    padding-top: 30px;
-    font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
-    letter-spacing: 1px;
-    font-size: 25px;
+  text-align: center !important;
+  margin-left: 350px;
+  padding-top: 30px;
+  font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
+  letter-spacing: 1px;
+  font-size: 25px;
 }
 
 .profile-h1 {
-    text-align: center;
-    margin-top: 40px;
+  text-align: center;
+  margin-top: 40px;
 }
 
 .custom-link {
-    color: white !important;
-    font-family: cursive;
-    font-size: 20px;
+  color: white !important;
+  font-family: 'Dosis', Arial, Helvetica, sans-serif;
+  font-size: 20px;
 }
 
 .dashboard-h2 {
-    padding-top: 25px;
-    font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 45px;
-    letter-spacing: 1px;
-    text-align: center;
+  padding-top: 25px;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 45px;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .homepage-h2 {
-    padding-top: 25px;
-    text-align: center;
-    font-family: 'Tinos', Arial, Helvetica, sans-serif;
+  padding-top: 25px;
+  text-align: center;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
 }
 
 .dashboard-h4 {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    padding-top: 10px;
-    font-size: 30px;
-    text-align: center;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
+  padding-top: 10px;
+  font-size: 30px;
+  text-align: center;
 }
 
 .title-h2 {
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-family: Ubuntu;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
 }
 
 .border {
-    padding-right: 5px;
-    padding-left: 5px;
-    margin-right: 10px;
-    color: rebeccapurple;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: 10px;
+  color: rebeccapurple;
 }
 
 .border :hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .title-h3 {
-    font-family: Ubuntu;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
 }
 
 .title-h3-comment {
-    font-family: Ubuntu;
-    margin-top: 35px;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
+  margin-top: 35px;
 }
 
 h4 {
-    font-family: Ubuntu;
-    font-size: 25px;
-    font-weight: bold;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .sizing {
-    width: 2000;
-    height: 800;
+  width: 2000;
+  height: 800;
 }
 
 .carousel-h3 {
-    font-family: Ubuntu;
-    color: blue;
-    font-size: 2rem;
-    text-shadow: 1px 1px #131212;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
+  color: blue;
+  font-size: 2rem;
+  text-shadow: 1px 1px #131212;
 }
 
 .carousel-h3-light {
-    font-family: Ubuntu;
-    color: #E9E9F0;
-    font-size: 2rem;
-    text-shadow: 1px 1px #131212;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
+  color: #e9e9f0;
+  font-size: 2rem;
+  text-shadow: 1px 1px #131212;
 }
 
 .carousel-p-light {
-    font-family: Satisfy;
-    color: #E9E9F0;
-    font-size: 1.5em;
-    font-weight: bold;
+  font-family: Satisfy;
+  color: #e9e9f0;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .carousel-p {
-    font-family: Satisfy;
-    color: #19191A;
-    font-size: 1.5em;
-    font-weight: bold;
+  font-family: Satisfy;
+  color: #19191a;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 .recipe-search {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .navbar-brand {
-    font-family: Ubuntu;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
 }
 
 .form-style {
-    margin-right: 250px;
-    margin-left: 250px;
-    background: white;
-    border-radius: 5px;
-    margin-top: 10px;
+  margin-right: 250px;
+  margin-left: 250px;
+  background: white;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
 .signup-body {
-    background: url('../img/dessert.jpeg') center center no-repeat;
-    background-size: cover;
-    opacity: 0.9;
+  background: url('../img/dessert.jpeg') center center no-repeat;
+  background-size: cover;
+  opacity: 0.9;
 }
 
 .card-form {
-    margin-left: 280px;
-    margin-right: 300px;
-    margin-top: 120px;
-    background: #F3F2F7;
+  margin-left: 280px;
+  margin-right: 300px;
+  margin-top: 120px;
+  background: #f3f2f7;
 }
 
 .sign-up-h3 {
-    font-family: Ubuntu;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
 }
 
 #signup-section {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .signup-footer {
-    padding-top: 120px;
-    text-align: center;
+  padding-top: 120px;
+  text-align: center;
 }
 
 .signin-footer {
-    padding-top: 200px;
-    text-align: center;
+  padding-top: 200px;
+  text-align: center;
 }
 
 .form-check {
-    text-align: left;
+  text-align: left;
 }
 
 #descriptionTextArea {
-    height: 100px;
+  height: 100px;
 }
 
 .upload-btn-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-    margin-top: 55px;
-  }
-  
-  .btns {
-    border: 2px solid #E2E3EB;
-    color: gray;
-    background-color: white;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 30px;
-    width: 250px;
-  }
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin-top: 55px;
+}
 
-  .btn-add {
-    margin-left: 30px;
-    margin-top: 90px;
-    width: 250px;
-  }
+.btns {
+  border: 2px solid #e2e3eb;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 30px;
+  width: 250px;
+}
 
-  .btn-edit {
-    margin-left: 30px;
-    margin-top: 90px;
-    width: 100px;
-  }
+.btn-add {
+  margin-left: 30px;
+  margin-top: 90px;
+  width: 250px;
+}
 
-  .upload-btn-wrapper input[type=file] {
-    font-size: 100px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-  }
+.btn-edit {
+  margin-left: 30px;
+  margin-top: 90px;
+  width: 100px;
+}
 
-  .img_detail {
-      width: 450px;
-      height: 450px;
-      margin-bottom: 30px;
-  }
+.upload-btn-wrapper input[type='file'] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
 
-  .instruction-padd {
-      padding-left: 70px;
-      padding-bottom: 40px;
-  }
+.img_detail {
+  width: 450px;
+  height: 450px;
+  margin-bottom: 30px;
+}
 
-  .recipe-padd {
-    padding-left: 70px;
-    padding-bottom: 40px;
-  }
+.instruction-padd {
+  padding-left: 70px;
+  padding-bottom: 40px;
+}
+
+.recipe-padd {
+  padding-left: 70px;
+  padding-bottom: 40px;
+}
 
 .card {
-    margin-top: 20px !important;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
+  margin-top: 20px !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
 }
 
 .card-title {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
-    text-align: center;
-    color: black;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: black;
 }
 
 .card-text {
-    font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    text-align: center;
+  font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  text-align: center;
 }
 
 .group-btn {
-    text-align: center;
+  text-align: center;
 }
 
 .small-text {
-    font-family: 'Tangerine', cursive !important;
-    font-size: 20px !important;
-    color: rebeccapurple !important;
+  font-family: 'Tangerine', cursive !important;
+  font-size: 20px !important;
+  color: rebeccapurple !important;
 }
 
 .text-muted {
-    font-family: cursive !important;
-    font-size: 15px;
-    color: rebeccapurple !important;
+  font-family: cursive !important;
+  font-size: 15px;
+  color: rebeccapurple !important;
 }
 
 .card-footer {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 .card-body {
-    background-color: bisque;
+  background-color: bisque;
 }
 
 .my-btn {
-    color: white;
-    font-family: cursive !important;
-    background-color: brown;
-    border-color: white;
-    border-radius: 10px !important;
+  color: white;
+  font-family: cursive !important;
+  background-color: brown;
+  border-color: white;
+  border-radius: 10px !important;
 }
 
 .action-btn {
-    text-align: center !important;
+  text-align: center !important;
 }
 
 .move-right {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .my-btn:hover {
-    color: white !important;
-    font-family: cursive !important;
-    background-color: brown !important;
-    cursor: pointer;
+  color: white !important;
+  font-family: cursive !important;
+  background-color: brown !important;
+  cursor: pointer;
 }
 
 .add-h1 {
-    text-align: center;
-    padding-top: 30px;
+  text-align: center;
+  padding-top: 30px;
 }
 
 .profile-card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: auto;
-    text-align: center;
-    font-family: arial;
-    margin-top: 70px;
-  }
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+  margin-top: 70px;
+}
 
-  .profile-random {
-      padding-bottom: 20px;
-      padding-top: 20px;
-      font-family: 'Open Sans Condensed';
-      letter-spacing: 1px;
-  }
-  
-  .profile-title {
-    color: grey;
-    font-size: 20px;
-    font-family: cursive;
-  }
+.profile-random {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  font-family: 'Open Sans Condensed';
+  letter-spacing: 1px;
+}
 
-  .profile-email {
-      font-family: cursive;
-      font-size: 20px;
-  }
+.profile-title {
+  color: grey;
+  font-size: 20px;
+  font-family: cursive;
+}
 
-  .prop-username {
-    font-family: Open Sans Condensed;
-    letter-spacing: 1px;
-    font-size: 20px;
-  }
+.profile-email {
+  font-family: cursive;
+  font-size: 20px;
+}
 
-  .prop-email {
-    padding-bottom: 40px;
-    font-family: 'Open Sans Condensed';
-    letter-spacing: 1px;
-    font-size: 20px;
-  }
-  
-  .profile-button {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 8px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
-    font-size: 18px;
-  }
-  
-  .profile-image {
-      width: 100%;
-  }
-  
-  .profile-button:hover, a:hover {
-    opacity: 0.7;
-  }
+.prop-username {
+  font-family: Open Sans Condensed;
+  letter-spacing: 1px;
+  font-size: 20px;
+}
 
-  .image-name {
-      text-align: center;
-  }
+.prop-email {
+  padding-bottom: 40px;
+  font-family: 'Open Sans Condensed';
+  letter-spacing: 1px;
+  font-size: 20px;
+}
 
-  .ingredients-div {
-      text-align: center;
-  }
+.profile-button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
 
-  .form-container {
-      text-align: center;
-  }
+.profile-image {
+  width: 100%;
+}
 
-  .form-button {
-      margin-top: 10px;
-      background-color: brown;
-  }
+.profile-button:hover,
+a:hover {
+  opacity: 0.7;
+}
 
-  .form-button:hover {
-    background-color: brown;
-  }
+.image-name {
+  text-align: center;
+}
 
-  .form-button:active {
-      background-color: brown;
-  }
+.ingredients-div {
+  text-align: center;
+}
 
-  .form-h6 {
-      color: brown;
-      font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
-      font-size: 20px;
-  }
+.form-container {
+  text-align: center;
+}
 
-  .review-form {
-      height: 200px;
-  }
+.form-button {
+  margin-top: 10px;
+  background-color: brown;
+}
 
-  .brown-thumb {
-      color: brown;
-  }
+.form-button:hover {
+  background-color: brown;
+}
 
-  .brown-thumb:hover {
-      color: brown;
-  }
+.form-button:active {
+  background-color: brown;
+}
 
-  .my-heart {
-      margin-left: 20px;
-      color: brown;
-  }
+.form-h6 {
+  color: brown;
+  font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+  font-size: 20px;
+}
 
-  .indie-key {
-      padding-right: 80%;
-  }
+.review-form {
+  height: 200px;
+}
 
-  .center-emoji {
-      text-align: center;
-      font-family: cursive;
-      padding-bottom: 30px;
-  }
+.brown-thumb {
+  color: brown;
+}
 
-  .section-bck {
-      background: url('../img/tobias-cornille-142864.jpg');
-      height: 100%;
-      padding-bottom: 50%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-  }
+.brown-thumb:hover {
+  color: brown;
+}
 
-  .p-section {
-    position: absolute;
-    top: 50%;
-    left: 30%;
-    font-family: cursive;
-    font-size: 150%;
-  }
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 60px;
-    line-height: 60px; /* Vertically center the text there */
-    background-color: #f5f5f5;
-    text-align: center;
-    background: cadetblue;
-  }
-  
-  .footer > .container {
-    padding-right: 15px;
-    padding-left: 15px;
-  }
+.my-heart {
+  margin-left: 20px;
+  color: brown;
+}
 
-  .footer-text {
-      color: white;
-      font-size: 15px;
-  }
+.indie-key {
+  padding-right: 80%;
+}
+
+.center-emoji {
+  text-align: center;
+  font-family: cursive;
+  padding-bottom: 30px;
+}
+
+.section-bck {
+  background: url('../img/tobias-cornille-142864.jpg');
+  height: 100%;
+  padding-bottom: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.p-section {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  font-family: cursive;
+  font-size: 150%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+  text-align: center;
+  background: cadetblue;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.footer-text {
+  color: white;
+  font-size: 15px;
+}
