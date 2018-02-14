@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Footer from './Footer';
 import RecipesForm from './RecipesForm';
 import { startEditRecipe } from '../actions/recipes';
 
@@ -16,6 +17,7 @@ export class EditRecipe extends Component {
       <div>
         <h1 className="container add-h1"> Edit Recipe </h1>
         <RecipesForm recipe={this.props.recipe} onSubmit={this.onSubmit} />
+        <Footer />
       </div>
     );
   }
