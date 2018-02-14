@@ -1,4 +1,5 @@
 import db from '../models/index';
+import errorMessage from '../errorHandler/errorMessage';
 
 const recipes = db.Recipe;
 const reviews = db.Review;
@@ -23,13 +24,13 @@ class Recipe {
 
   static addRecipe(req, res) {
     const {
-      name, description, img_link, category, ingredients, instructions,
+      name, description, imageUrl, category, ingredients, instructions,
     } = req.body;
     return recipes
       .create({
         name,
         description,
-        img_link,
+        imageUrl,
         category,
         ingredients,
         instructions,
@@ -42,7 +43,7 @@ class Recipe {
       .catch(() => res
         .status(500)
         .json({
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: errorMessage
         }));
   }
 
@@ -64,14 +65,12 @@ class Recipe {
           return res
             .status(404)
             .json({
-              status: 'Not found.',
               message: 'It seems this recipe does not exist.'
             });
         } else if (recipe.owner !== req.userId) {
           return res
             .status(403)
             .json({
-              status: 'Forbidden.',
               message: 'Sorry. You cannot perform this action.'
             });
         }
@@ -80,20 +79,19 @@ class Recipe {
           .update({
             name: req.body.name || recipe.name,
             description: req.body.description || recipe.description,
-            img_link: req.body.img_link || recipe.img_link,
+            img_link: req.body.imageUrl || recipe.imageUrl,
             category: req.body.category || recipe.category,
             ingredients: req.body.ingredients || recipe.ingredients,
             instructions: req.body.instructions || recipe.instructions,
           })
           .then(() => res
             .status(201)
-            .json({ status: 'Update successful.', recipeData: recipe }));
+            .json({ message: 'Update successful.', recipeData: recipe }));
       })
       .catch(() => res
         .status(500)
         .json({
-          status: 'Unknown error.',
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: errorMessage
         }));
   }
 
@@ -111,8 +109,10 @@ class Recipe {
     return recipes
       .all()
       .then(allRecipes => res
-        .status(201).json({ status: 'Success.', recipeData: allRecipes }))
-      .catch(error => res.status(400).json(error.message));
+        .status(200).json({ recipeData: allRecipes }))
+      .catch(() => res.status(500).json({
+        message: errorMessage
+      }));
   }
 
   /**
@@ -145,7 +145,7 @@ class Recipe {
       })
       .catch(() => {
         return res.status(500).json({
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: errorMessage
         });
       });
   }
@@ -167,7 +167,7 @@ class Recipe {
           return res
             .status(404)
             .json({
-              status: 'Not Found', message: 'This recipe does not exist.'
+              message: 'This recipe does not exist.'
             });
         }
         return recipes.findOne({
@@ -180,11 +180,11 @@ class Recipe {
           },
         })
           .then(singleRecipe => res
-            .status(201)
-            .json({ status: 'OK', recipeData: singleRecipe }));
+            .status(200)
+            .json({ recipeData: singleRecipe }));
       })
       .catch(() => res.status(500).json({
-        message: 'Oops.. Something went wrong. Why not try again later?'
+        message: errorMessage
       }));
   }
 

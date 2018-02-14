@@ -1,4 +1,5 @@
 import db from '../models/index';
+import errorMessage from '../errorHandler/errorMessage';
 
 
 const reviews = db.Review;
@@ -28,13 +29,12 @@ class Review {
         if (!foundRecipe) {
           return res
             .status(404)
-            .json({ status: 'Not found.', message: 'Recipe not found.' });
+            .json({ message: 'Recipe not found.' });
         }
         if (foundRecipe.owner === req.userId) {
           return res
             .status(403)
             .json({
-              status: 'Forbidden.',
               message: 'You cannot review your own recipe.'
             });
         }
@@ -45,16 +45,17 @@ class Review {
         })
           .then((review) => {
             return res.status(201).json({
-              status: 'OK',
               message: 'Review successfully posted',
-              reviewData: review.content,
+              reviewData: {
+                content: review.content
+              }
             });
           })
           .catch(() => {
             return res
               .status(500)
               .json({
-                message: 'Oops.. Something went wrong. Why not try again later?'
+                message: errorMessage
               });
           });
       });

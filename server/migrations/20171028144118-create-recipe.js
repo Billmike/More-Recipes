@@ -14,7 +14,7 @@ module.exports = {
       allowNull: false,
       type: Sequelize.TEXT,
     },
-    img_link: {
+    imageUrl: {
       allowNull: true,
       defaultValue: 'image-here',
       type: Sequelize.STRING,

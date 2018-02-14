@@ -50,7 +50,6 @@ describe('Tests for Favorites API endpoint', () => {
           .type('form')
           .end((err, res) => {
             expect(res.status).to.equal(200);
-            expect(res.body.status).to.equal('OK');
             expect(res.body.message)
               .to.equal('Recipe added to your list of favorites.');
             done();
@@ -64,8 +63,7 @@ describe('Tests for Favorites API endpoint', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body.status).to.equal('Success.');
+          expect(res.status).to.equal(200);
           expect(res.body.message).to.be.a('string');
           expect(res.body.recipes).to.be.an('array');
           done();
@@ -78,8 +76,8 @@ describe('Tests for Favorites API endpoint', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body.message).to.equal('User has no favorites.');
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal('You currently have no favorites.');
           done();
         })
     })
@@ -91,7 +89,6 @@ describe('Tests for Favorites API endpoint', () => {
         .type('form')
         .end((err, res) => {
           expect(res.status).to.equal(404);
-          expect(res.body.status).to.equal('Not Found.');
           expect(res.body.message).to.equal('Recipe not found.');
           done();
         });
@@ -104,7 +101,6 @@ describe('Tests for Favorites API endpoint', () => {
         .set('Content-Type', 'application.json')
         .type('form')
         .end((err, res) => {
-          console.log('unexpected shiiit', res.body);
           expect(res.status).to.equal(403);
           done();
         })

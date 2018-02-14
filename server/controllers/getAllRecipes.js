@@ -1,4 +1,5 @@
 import db from '../models/index';
+import errorMessage from '../errorHandler/errorMessage';
 
 const Recipes = db.Recipe;
 const Votes = db.Vote;
@@ -9,7 +10,7 @@ class GetRecipes {
 /**
    * @param  {string} name - Recipe name
    * @param  {string} description - Recipe description
-   * @param  {string} imglink - Recipe image link
+   * @param  {string} imageUrl - Recipe image link
    * @param  {array} ingredients - Recipe ingredients
    * @param  {array} instructions - Recipe instructions
    * @param  {object} owner - User information - id, and username.
@@ -23,13 +24,13 @@ class GetRecipes {
    * @param  {time} updatedAt - Recipe time of update
    */
   constructor(
-    name, description, imglink, category, ingredients, instructions,
+    name, description, imageUrl, category, ingredients, instructions,
     owner, reviews, favorites, viewCount, upVote, downVote, id,
     createdAt, updatedAt,
   ) {
     this.name = name;
     this.description = description;
-    this.imglink = imglink;
+    this.imageUrl = imageUrl;
     this.category = category;
     this.ingredients = ingredients;
     this.instructions = instructions;
@@ -99,7 +100,7 @@ const getAllRecipes = (req, res, next) => {
         tempStorage.push(new GetRecipes(
           elem.name,
           elem.description,
-          elem.imglink,
+          elem.imageUrl,
           elem.category,
           elem.ingredients,
           elem.instructions,
@@ -118,20 +119,19 @@ const getAllRecipes = (req, res, next) => {
         return sortRecipes(tempStorage, order, (err, sorted) => {
           if (!err) {
             return res
-              .status(201).json({ status: 'Success', recipeData: sorted });
+              .status(200).json({ recipeData: sorted });
           }
           return next(err);
         });
       }
       return res
-        .status(201).json({ status: 'Success.', recipeData: tempStorage });
+        .status(200).json({ recipeData: tempStorage });
     })
     .catch(() => {
       const err = res
         .status(500)
         .json({
-          status: 'Server error',
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: errorMessage
         });
       return next(err);
     });

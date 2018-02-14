@@ -149,7 +149,6 @@ describe('User API testing', () => {
         .send(users[0])
         .end((err, res) => {
           expect(res.statusCode).to.equal(409);
-          expect(res.body.status).to.equal('Conflict');
           expect(res.body.message).to.equal('Email must be unique.');
           done();
         });
@@ -176,7 +175,6 @@ describe('User API testing', () => {
         .send(users[0])
         .end((err, res) => {
           expect(res.statusCode).to.equal(201);
-          expect(res.body.status).to.equal('Success');
           expect(res.body.message).to.equal('Sign in Successfull');
           expect(res.body).to.be.an('object');
           expect(res.body.username).to.be.a('string');

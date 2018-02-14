@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { User } from '../models';
+import errorMessage from '../errorHandler/errorMessage';
 import signupValidator from '../validators/validatesignup';
 import signinValidator from '../validators/validatesignin';
 
@@ -21,7 +22,6 @@ class Users {
    */
 
   static signUp(req, res) {
-    console.log(req.body);
     const { errors, valid } = signupValidator(req.body);
     if (!valid) {
       return res.status(400).json(errors);
@@ -34,7 +34,7 @@ class Users {
       if (existingUser) {
         return res
           .status(409)
-          .json({ status: 'Conflict', message: 'Email must be unique.' });
+          .json({ message: 'Email must be unique.' });
       }
       User.create({
         username: req.body.username,
@@ -66,7 +66,7 @@ class Users {
         });
     })
       .catch(() => res.status(500).json({
-        message: 'Oops.. Something went wrong. Why not try again later?'
+        message: errorMessage
       }));
   }
 
@@ -93,7 +93,7 @@ class Users {
         if (!user) {
           return res
             .status(403)
-            .json({ status: 'Failed', message: 'Invalid email or password.' });
+            .json({ message: 'Invalid email or password.' });
         }
         if (user) {
           const unHashPassword = bcrypt.compareSync(password, user.password);
@@ -101,7 +101,6 @@ class Users {
             return res
               .status(403)
               .json({
-                status: 'Failed.',
                 message: 'Invalid email or password.'
               });
           }
@@ -115,7 +114,6 @@ class Users {
               process.env.SECRET, { expiresIn: '30 days' }
             );
           return res.status(201).json({
-            status: 'Success',
             message: 'Sign in Successfull',
             username: user.username,
             email: user.email,
@@ -126,8 +124,7 @@ class Users {
         .catch(() => res
           .status(500)
           .json({
-            status: 'Server error',
-            message: 'Oops.. Something went wrong. Why not try again later?'
+            message: errorMessage
           }));
     }
   }

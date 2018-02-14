@@ -39,7 +39,7 @@ describe('Recipes Endpoint', () => {
           expect(res.body.recipeData.id).to.be.a('number');
           expect(res.body.recipeData.description).to.be.a('string');
           expect(res.body.recipeData.category).to.be.a('string');
-          expect(res.body.recipeData.img_link).to.be.a('string');
+          expect(res.body.recipeData.imageUrl).to.be.a('string');
           expect(res.body.recipeData.name).to.be.a('string');
           expect(res.body.recipeData.ingredients).to.be.a('string');
           expect(res.body.recipeData.instructions).to.be.a('string');
@@ -174,7 +174,6 @@ describe('Recipes Endpoint', () => {
             expect(res.status).to.equal(404);
             expect(res.body.message)
               .to.equal('It seems this recipe does not exist.');
-            expect(res.body.status).to.equal('Not found.');
             done();
           });
       }
@@ -260,7 +259,6 @@ describe('Recipes Endpoint', () => {
           .end((err, res) => {
             expect(res.status).to.equal(404);
             expect(res.body.message).to.equal('Recipe not found.');
-            expect(res.body.status).to.equal('Not found.');
             done();
           });
       }
@@ -275,9 +273,9 @@ describe('Recipes Endpoint', () => {
         .send(reviews)
         .end((err, res) => {
           expect(res.status).to.equal(201);
-          expect(res.body.reviewData).to.be.a('string');
+          expect(res.body.reviewData).to.be.an('object');
+          expect(res.body.reviewData.content).to.be.a('string');
           expect(res.body.message).to.equal('Review successfully posted');
-          expect(res.body.status).to.equal('OK');
           done();
         });
     });
@@ -287,10 +285,9 @@ describe('Recipes Endpoint', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
-          expect(res.status).to.equal(201);
+          expect(res.status).to.equal(200);
           expect(res.body.recipeData.reviews).to.be.an('array');
           expect(res.body.recipeData).to.be.an('object');
-          expect(res.body.status).to.equal('OK');
           done();
         });
     });
@@ -300,9 +297,8 @@ describe('Recipes Endpoint', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
-          expect(res.status).to.equal(201);
+          expect(res.status).to.equal(200);
           expect(res.body.recipeData).to.be.an('array');
-          expect(res.body.status).to.equal('Success.');
           done();
         });
     });

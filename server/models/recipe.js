@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    img_link: {
+    imageUrl: {
       allowNull: true,
       defaultValue: 'image-here',
       type: DataTypes.STRING,

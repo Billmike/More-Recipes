@@ -1,4 +1,5 @@
 import db from '../models/index';
+import errorMessage from '../errorHandler/errorMessage';
 
 const favorite = db.Favorite;
 const recipe = db.Recipe;
@@ -30,12 +31,11 @@ class Favorites {
       if (!foundRecipe) {
         return res
           .status(404)
-          .json({ status: 'Not Found.', message: 'Recipe not found.' });
+          .json({ message: 'Recipe not found.' });
       } else if (foundRecipe.owner == userId) {
         return res
           .status(403)
           .json({
-            status: 'Forbidden',
             message: 'Sorry, you cannot perform this action on your own recipe.'
           });
       } else if (foundRecipe) {
@@ -53,9 +53,10 @@ class Favorites {
                 .then(createdFavs => res
                   .status(200)
                   .json({
-                    status: 'OK',
                     message: 'Recipe added to your list of favorites.',
-                    id: createdFavs.recipeId
+                    favoritedRecipe: {
+                      recipeId: createdFavs.recipeId
+                    }
                   }));
             }
             const arrayOfUserIDs = [];
@@ -67,9 +68,11 @@ class Favorites {
             if (arrayOfUserIDs.includes(userId)) {
               return favorite.findById(userFavorites.dataValues.id)
                 .then((existingFavorite) => {
-                  res.status(201).json({
+                  res.status(200).json({
                     message: 'Recipe removed from your favorites.',
-                    id: existingFavorite.dataValues.recipeId
+                    recipeDetails: {
+                      recipeId: existingFavorite.dataValues.recipeId
+                    }
                   });
                   existingFavorite.destroy();
                 });
@@ -79,19 +82,19 @@ class Favorites {
               recipeId: req.params.recipeId,
             })
               .then(createdFavorite => res
-                .status(201)
+                .status(200)
                 .json({
-                  status: 'OK',
                   message: 'Recipe added to your list of favorites.',
-                  id: createdFavorite.recipeId
+                  favoritedRecipe: {
+                    recipeId: createdFavorite.recipeId
+                  }
                 }));
           });
       }
     }).catch(() => res
       .status(500)
       .json({
-        status: 'Server Error',
-        message: 'Oops.. Something went wrong. Why not try again later?'
+        message: errorMessage
       }));
   }
 
@@ -105,18 +108,8 @@ class Favorites {
    * @returns { object } The user's favorite recipes
    */
 
-  static getFavorites(req, res, next) {
+  static getFavorites(req, res) {
     const { userId } = req.params;
-
-    // if (req.userId !== userId) {
-    //   const err = res
-    //     .status(403)
-    //     .json({
-    //       status: 'Denied.',
-    //       message: 'Invalid token authorization, or the user doesn\'t exist.'
-    //     });
-    //   return next(err);
-    // }
     favorite.findAll({
       where: {
         userId: parseInt(userId, 10),
@@ -129,11 +122,9 @@ class Favorites {
         const countFavorites = favorites.length;
         if (countFavorites === 0) {
           return res
-            .status(201)
+            .status(200)
             .json({
-              status: 'Success.',
-              recipes: null,
-              message: 'User has no favorites.'
+              message: 'You currently have no favorites.'
             });
         }
         const recipes = [];
@@ -141,15 +132,14 @@ class Favorites {
           recipes.push(fav.dataValues.Recipe.dataValues);
         });
         return res
-          .status(201)
+          .status(200)
           .json({
-            status: 'Success.',
             message: `${countFavorites} recipe(s) found in user's favorite list`,
             recipes
           });
       })
       .catch(() => res.status(500).json({
-        message: 'Oops.. Something went wrong. Why not try again later?'
+        message: errorMessage
       }));
   }
 }

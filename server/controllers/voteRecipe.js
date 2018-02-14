@@ -1,4 +1,5 @@
 import db from '../models/index';
+import errorMessage from '../errorHandler/errorMessage';
 
 const Votes = db.Vote;
 const Recipes = db.Recipe;
@@ -24,7 +25,7 @@ class Vote {
   static voteRecipe(req, res) {
     if (req.params.vote !== 'downvote' && req.params.vote !== 'upvote') {
       return res
-        .status(404).json({ status: 'Not Found.', message: 'URL not found.' });
+        .status(404).json({ message: 'URL not found.' });
     }
     Recipes.findById(req.params.recipeId)
       .then((foundRecipe) => {
@@ -32,7 +33,6 @@ class Vote {
           return res
             .status(404)
             .json({
-              status: 'Not found.',
               message: 'This recipe does not exist. How \'bout you create one?'
             });
         }
@@ -40,7 +40,6 @@ class Vote {
           return res
             .status(403)
             .json({
-              status: 'Forbidden.',
               message: 'You cannot vote on your own recipe.'
             });
         }
@@ -59,24 +58,23 @@ class Vote {
                 .then(() => res
                   .status(200)
                   .json({
-                    status: 'Success.',
                     message: `${req.params.vote} successful.`
                   }));
             }
             const votersArray = [];
-            votedRecipes.filter(elem => votersArray
+            votedRecipes.forEach(elem => votersArray
               .push(elem.dataValues.userId));
 
             if (votersArray.includes(req.userId)) {
               const checkVoteType = votedRecipes
                 .filter(elem => elem.dataValues.userId === req.userId)[0];
               if (checkVoteType.dataValues.voteType === req.params.vote) {
-                return res
-                  .status(403)
+                res
+                  .status(200)
                   .json({
-                    status: 'Denied',
-                    message: `You already ${req.params.vote}d on this recipe`
+                    message: `Recipe removed from your list of ${req.params.vote}d recipes`
                   });
+                return checkVoteType.destroy();
               }
               return Votes.findById(checkVoteType.dataValues.id)
                 .then(updateVote => updateVote
@@ -84,7 +82,6 @@ class Vote {
                 .then(() => res
                   .status(200)
                   .json({
-                    status: 'OK',
                     message: `${req.params.vote} successful.`
                   }));
             }
@@ -96,7 +93,6 @@ class Vote {
               .then(() => res
                 .status(200)
                 .json({
-                  status: 'OK',
                   message: `${req.params.vote} successful.`
                 }));
           });
@@ -104,7 +100,7 @@ class Vote {
       .catch(() => res
         .status(500)
         .json({
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: errorMessage
         }));
   }
 }
