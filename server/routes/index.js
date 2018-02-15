@@ -74,7 +74,7 @@ module.exports = (app) => {
 
   app.get('/api/v1/recipes/:page', recipeController.getRecipes);
   app.get(
-    '/api/v1/users/recipes/:page',
+    '/api/v1/users/recipes',
     Login.hasToken,
     User.isuser,
     recipeController.getUserRecipes
