@@ -13,7 +13,7 @@ class LoginForm extends Component {
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-  };
+  }
 
   onEmailChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -26,12 +26,13 @@ class LoginForm extends Component {
   onSubmit(event) {
     event.preventDefault();
     this.setState({ errors: {}, isLoading: true });
-    if(this.isValid()) {
-      this.props.signinRequest(this.state)
+    if (this.isValid()) {
+      this.props
+        .signinRequest(this.state)
         .then(() => {
           this.props.history.push('/dashboard');
         })
-        .catch((error) => {
+        .catch(error => {
           this.setState({ isLoading: false });
           if (error === 'Invalid email or password.') {
             return toastr.error('Invalid login details');
@@ -43,7 +44,7 @@ class LoginForm extends Component {
   isValid() {
     const { errors, valid } = validateInput(this.state);
 
-    if(!valid) {
+    if (!valid) {
       this.setState({ errors });
     }
 
@@ -55,7 +56,7 @@ class LoginForm extends Component {
     return (
       <form onSubmit={this.onSubmit}>
         <div id="login-box">
-          <div className="left">
+          <div className="signin-left">
             <h1>Sign In</h1>
             <div>
               <input
@@ -65,7 +66,9 @@ class LoginForm extends Component {
                 onChange={this.onEmailChange}
                 placeholder="E-mail"
               />
-              {errors.email && <span className="help-block red-errors">{errors.email}</span>}
+              {errors.email && (
+                <span className="help-block red-errors">{errors.email}</span>
+              )}
             </div>
             <div>
               <input
@@ -75,13 +78,11 @@ class LoginForm extends Component {
                 onChange={this.onPasswordChange}
                 placeholder="Password"
               />
-              {errors.password && <span className="help-block red-errors">{errors.password}</span>}
+              {errors.password && (
+                <span className="help-block red-errors">{errors.password}</span>
+              )}
             </div>
-            <input
-              type="submit"
-              name="signup_submit"
-              value="Sign In"
-            />
+            <input type="submit" name="signup_submit" value="Sign In" />
           </div>
 
           <div className="right">

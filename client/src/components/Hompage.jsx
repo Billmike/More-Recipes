@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import '../assets/css/style.css';
 import RecipesList from './RecipesList';
 import Footer from './Footer';
+import Pagination from './Pagination';
 import { startGetAllRecipes } from '../actions/recipes';
 import pancakes from '../assets/img/pancakes.jpeg';
 import cookies from '../assets/img/cookies.jpeg';
 import dessert from '../assets/img/dessert.jpeg';
 
 class Homepage extends Component {
+  constructor(props) {
+    super(props);
+    this.handlePaginationChange = this.handlePaginationChange.bind(this);
+  }
   componentDidMount() {
-    this.props.startGetAllRecipes();
+    this.props.startGetAllRecipes(0);
+  }
+
+  handlePaginationChange(data) {
+    const currentView = data.selected  + 1;
+    this.props.startGetAllRecipes(currentView);
   }
 
   render() {
@@ -98,15 +109,21 @@ class Homepage extends Component {
         </div>
         <div className="container">
           <h2 className="homepage-h2"> Top Recipes</h2>
-          <div class="input-group">
-            <span class="input-group-btn">
-              <button class="btn btn-secondary" type="button">
+          <div className="input-group">
+            <span className="input-group-btn">
+              <button className="btn btn-secondary" type="button">
                 Go!
               </button>
             </span>
-            <input class="form-control" placeholder="Search for....." />
+            <input className="form-control" placeholder="Search for....." />
           </div>
+          <Pagination
+            handlePaginationChange={this.handlePaginationChange}
+          />
           <div className="row">{allRecipes}</div>
+          <Pagination
+            handlePaginationChange={this.handlePaginationChange}
+          />
         </div>
         <Footer />
       </div>

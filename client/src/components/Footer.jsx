@@ -2,9 +2,9 @@ import React from 'react';
 
 const Footer = () => (
   <div>
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+    <footer className="footer">
+      <div className="container">
+        <span className="text-muted">&copy; Michael Inc. 2018</span>
       </div>
     </footer>
   </div>

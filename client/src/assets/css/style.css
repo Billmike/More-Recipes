@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Graduate|Karla|Tinos|Tangerine|Open+Sans+Condensed:300|Raleway|Roboto|Ubuntu+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Graduate|Dosis|Philosopher|Open+Sans+Condensed:300');
 html {
     position: relative;
     min-height: 100%;
@@ -8,7 +8,7 @@ html {
 body {
     background: whitesmoke !important;
     color: white; 
-    margin-bottom: 60px;
+    margin-bottom: 120px !important;
 }
 
 .navbar {
@@ -18,7 +18,7 @@ body {
 .logout {
     border-radius: 5px;
     color: white !important;
-    font-family: cursive;
+    font-family: 'Dosis';
     background-color: brown;
     font-size: 20px;
 }
@@ -57,13 +57,13 @@ body {
 
 .custom-link {
     color: white !important;
-    font-family: cursive;
+    font-family: 'Dosis';
     font-size: 20px;
 }
 
 .dashboard-h2 {
     padding-top: 25px;
-    font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
+    font-family: 'Philosopher', Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 45px;
     letter-spacing: 1px;
@@ -73,11 +73,11 @@ body {
 .homepage-h2 {
     padding-top: 25px;
     text-align: center;
-    font-family: 'Tinos', Arial, Helvetica, sans-serif;
+    font-family: 'Philosopher', Arial, Helvetica, sans-serif;
 }
 
 .dashboard-h4 {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-family: 'Philosopher', Arial, Helvetica, sans-serif;
     padding-top: 10px;
     font-size: 30px;
     text-align: center;
@@ -86,31 +86,32 @@ body {
 .title-h2 {
     margin-top: 20px;
     margin-bottom: 30px;
-    font-family: Ubuntu;
+    font-family: 'Open Sans Condensed';
 }
 
 .border {
     padding-right: 5px;
     padding-left: 5px;
     margin-right: 10px;
-    color: rebeccapurple;
+    color: brown;
 }
 
 .border :hover {
     text-decoration: none;
+    color: cadetblue;
 }
 
 .title-h3 {
-    font-family: Ubuntu;
+    font-family: 'Philosopher';
 }
 
 .title-h3-comment {
-    font-family: Ubuntu;
+    font-family: 'Philosopher';
     margin-top: 35px;
 }
 
 h4 {
-    font-family: Ubuntu;
+    font-family: 'Philosopher';
     font-size: 25px;
     font-weight: bold;
 }
@@ -121,28 +122,28 @@ h4 {
 }
 
 .carousel-h3 {
-    font-family: Ubuntu;
+    font-family: 'Philosopher';
     color: blue;
     font-size: 2rem;
     text-shadow: 1px 1px #131212;
 }
 
 .carousel-h3-light {
-    font-family: Ubuntu;
+    font-family: 'Philosopher';
     color: #E9E9F0;
     font-size: 2rem;
     text-shadow: 1px 1px #131212;
 }
 
 .carousel-p-light {
-    font-family: Satisfy;
+    font-family: 'Dosis';
     color: #E9E9F0;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 .carousel-p {
-    font-family: Satisfy;
+    font-family: 'Dosis';
     color: #19191A;
     font-size: 1.5em;
     font-weight: bold;
@@ -153,7 +154,7 @@ h4 {
 }
 
 .navbar-brand {
-    font-family: Ubuntu;
+    font-family: 'Philosopher';
 }
 
 .form-style {
@@ -178,7 +179,7 @@ h4 {
 }
 
 .sign-up-h3 {
-    font-family: Ubuntu;
+    font-family: 'Philosopher';
 }
 
 #signup-section {
@@ -265,7 +266,7 @@ h4 {
 }
 
 .card-title {
-    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-family: 'Philosopher', Arial, Helvetica, sans-serif;
     text-align: center;
     color: black;
 }
@@ -281,28 +282,28 @@ h4 {
 }
 
 .small-text {
-    font-family: 'Tangerine', cursive !important;
+    font-family: 'Dosis', cursive !important;
     font-size: 20px !important;
     color: rebeccapurple !important;
 }
 
 .text-muted {
-    font-family: cursive !important;
+    font-family: 'Dosis' !important;
     font-size: 15px;
-    color: rebeccapurple !important;
+    color: white !important;
 }
 
 .card-footer {
-    background-color: whitesmoke;
+    background-color: cadetblue;
 }
 
 .card-body {
-    background-color: bisque;
+    background-color: white;
 }
 
 .my-btn {
     color: white;
-    font-family: cursive !important;
+    font-family: 'Dosis' !important;
     background-color: brown;
     border-color: white;
     border-radius: 10px !important;
@@ -318,7 +319,7 @@ h4 {
 
 .my-btn:hover {
     color: white !important;
-    font-family: cursive !important;
+    font-family: 'Dosis' !important;
     background-color: brown !important;
     cursor: pointer;
 }
@@ -351,12 +352,12 @@ h4 {
   }
 
   .profile-email {
-      font-family: cursive;
+      font-family: 'Open Sans Condensed';
       font-size: 20px;
   }
 
   .prop-username {
-    font-family: Open Sans Condensed;
+    font-family: 'Open Sans Condensed';
     letter-spacing: 1px;
     font-size: 20px;
   }
@@ -416,7 +417,7 @@ h4 {
 
   .form-h6 {
       color: brown;
-      font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+      font-family: 'Philosopher', Arial, Helvetica, sans-serif;
       font-size: 20px;
   }
 
@@ -443,7 +444,7 @@ h4 {
 
   .center-emoji {
       text-align: center;
-      font-family: cursive;
+      font-family: 'Dosis';
       padding-bottom: 30px;
   }
 
@@ -460,10 +461,39 @@ h4 {
     position: absolute;
     top: 50%;
     left: 30%;
-    font-family: cursive;
+    font-family: 'Dosis';
     font-size: 150%;
   }
 
+  .paginate {
+      padding-top: 20px;
+  }
+
+  .pagination-ul {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0, 0.2)
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+    background-color: cadetblue;
+    text-align: center;
+  }
+  
+  .custom-pagination {
+      justify-content: center;
+      padding-top: 15px;
+  }
+
+  .page-item.active .page-link {
+    z-index: 2;
+    color: black;
+    background-color: cadetblue;
+    border-color: white;
+}
 /* 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);

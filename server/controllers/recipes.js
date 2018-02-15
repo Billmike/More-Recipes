@@ -5,26 +5,31 @@ const recipes = db.Recipe;
 const reviews = db.Review;
 
 /**
-  * Represents the Recipe class
-  *
-  * @class
-  *
-  */
+ * Represents the Recipe class
+ *
+ * @class
+ *
+ */
 
 class Recipe {
-/**
-  * Represents the methos that creates a new recipe
-  * @method
-  *
-  * @param { object } req - The request object
-  * @param { object } res - The response object
-  *
-  * @returns { object } The recipe object
-  */
+  /**
+   * Represents the methos that creates a new recipe
+   * @method
+   *
+   * @param { object } req - The request object
+   * @param { object } res - The response object
+   *
+   * @returns { object } The recipe object
+   */
 
   static addRecipe(req, res) {
     const {
-      name, description, imageUrl, category, ingredients, instructions,
+      name,
+      description,
+      imageUrl,
+      category,
+      ingredients,
+      instructions
     } = req.body;
     return recipes
       .create({
@@ -34,45 +39,41 @@ class Recipe {
         category,
         ingredients,
         instructions,
-        owner: req.userId,
+        owner: req.userId
       })
-      .then(recipe => res.status(201).json({
-        message: 'Recipe created successfully',
-        recipeData: recipe,
-      }))
-      .catch(() => res
-        .status(500)
-        .json({
+      .then(recipe =>
+        res.status(201).json({
+          message: 'Recipe created successfully',
+          recipeData: recipe
+        }))
+      .catch(() =>
+        res.status(500).json({
           message: errorMessage
         }));
   }
 
   /**
-  * Represents the Method that edits the recipe
-  * @method
-  *
-  * @param { object } res - The response object
-  * @param { object } req - The request object
-  *
-  * @returns { object } the modified recipe
-  */
+   * Represents the Method that edits the recipe
+   * @method
+   *
+   * @param { object } res - The response object
+   * @param { object } req - The request object
+   *
+   * @returns { object } the modified recipe
+   */
 
   static modifyRecipe(req, res) {
     return recipes
       .findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res
-            .status(404)
-            .json({
-              message: 'It seems this recipe does not exist.'
-            });
+          return res.status(404).json({
+            message: 'It seems this recipe does not exist.'
+          });
         } else if (recipe.owner !== req.userId) {
-          return res
-            .status(403)
-            .json({
-              message: 'Sorry. You cannot perform this action.'
-            });
+          return res.status(403).json({
+            message: 'Sorry. You cannot perform this action.'
+          });
         }
 
         return recipe
@@ -82,48 +83,68 @@ class Recipe {
             img_link: req.body.imageUrl || recipe.imageUrl,
             category: req.body.category || recipe.category,
             ingredients: req.body.ingredients || recipe.ingredients,
-            instructions: req.body.instructions || recipe.instructions,
+            instructions: req.body.instructions || recipe.instructions
           })
-          .then(() => res
-            .status(201)
-            .json({ message: 'Update successful.', recipeData: recipe }));
+          .then(() =>
+            res
+              .status(201)
+              .json({ message: 'Update successful.', recipeData: recipe }));
       })
-      .catch(() => res
-        .status(500)
-        .json({
+      .catch(() =>
+        res.status(500).json({
           message: errorMessage
         }));
   }
 
   /**
-  * Represents the method that gets all recipes in the application
-  * @method
-  *
-  * @param { object } req - the request object
-  * @param { object } res - the response object
-  *
-  * @returns { object } All recipes in the application
-  */
+   * Represents the method that gets all recipes in the application
+   * @method
+   *
+   * @param { object } req - the request object
+   * @param { object } res - the response object
+   *
+   * @returns { object } All recipes in the application
+   */
 
   static getRecipes(req, res) {
-    return recipes
-      .all()
-      .then(allRecipes => res
-        .status(200).json({ recipeData: allRecipes }))
-      .catch(() => res.status(500).json({
-        message: errorMessage
-      }));
+    let offset;
+    const limit = 9;
+    let singlePage;
+    let pages;
+    recipes
+      .findAndCountAll()
+      .then((foundRecipes) => {
+        pages = Math.ceil(foundRecipes.count / limit);
+        singlePage = parseInt(req.params.page, 10);
+        offset = singlePage * limit;
+
+        return recipes
+          .findAll({
+            limit,
+            offset,
+            pages
+          })
+          .then((allRecipes) => {
+            res.status(200).json({
+              recipeData: allRecipes
+            });
+          });
+      })
+      .catch(error =>
+        res.status(500).json({
+          message: error.message
+        }));
   }
 
   /**
-  * Represents the method that gets all user's recipes in the application
-  * @method
-  *
-  * @param { object } req - the request object
-  * @param { object } res - the response object
-  *
-  * @returns { object } All user's recipes in the application
-  */
+   * Represents the method that gets all user's recipes in the application
+   * @method
+   *
+   * @param { object } req - the request object
+   * @param { object } res - the response object
+   *
+   * @returns { object } All user's recipes in the application
+   */
 
   static getUserRecipes(req, res) {
     return recipes
@@ -131,156 +152,148 @@ class Recipe {
         where: {
           owner: req.userId
         }
-      }).then((userRecipe) => {
+      })
+      .then((userRecipe) => {
         if (userRecipe.length === 0) {
-          return res.status(200)
-            .json({
-              message: 'User currently has no recipes'
-            });
+          return res.status(200).json({
+            message: 'User currently has no recipes'
+          });
         }
         return res.status(200).json({
           message: `You currently have ${userRecipe.length} recipe(s)`,
           userRecipe
         });
       })
-      .catch(() => {
-        return res.status(500).json({
+      .catch(() =>
+        res.status(500).json({
           message: errorMessage
-        });
-      });
+        }));
   }
 
   /**
-  * Represents the method that gets one recipe in the application
-  * @method
-  *
-  * @param { object } req - the request object
-  * @param { object } res - the response object
-  *
-  * @returns { object } A recipe object
-  */
+   * Represents the method that gets one recipe in the application
+   * @method
+   *
+   * @param { object } req - the request object
+   * @param { object } res - the response object
+   *
+   * @returns { object } A recipe object
+   */
 
   static getOneRecipe(req, res) {
-    return recipes.findById(req.params.recipeId)
+    return recipes
+      .findById(req.params.recipeId)
       .then((foundRecipe) => {
         if (!foundRecipe) {
-          return res
-            .status(404)
-            .json({
-              message: 'This recipe does not exist.'
-            });
+          return res.status(404).json({
+            message: 'This recipe does not exist.'
+          });
         }
-        return recipes.findOne({
-          where: {
-            id: foundRecipe.id,
-          },
-          include: {
-            model: reviews,
-            as: 'reviews',
-          },
-        })
-          .then(singleRecipe => res
-            .status(200)
-            .json({ recipeData: singleRecipe }));
+        return recipes
+          .findOne({
+            where: {
+              id: foundRecipe.id
+            },
+            include: {
+              model: reviews,
+              as: 'reviews'
+            }
+          })
+          .then(singleRecipe =>
+            res.status(200).json({ recipeData: singleRecipe }));
       })
-      .catch(() => res.status(500).json({
-        message: errorMessage
-      }));
+      .catch(() =>
+        res.status(500).json({
+          message: errorMessage
+        }));
   }
 
   /**
-  * Represents the method that deletes a recipe in the application
-  * @method
-  *
-  * @param { object } req - the request object
-  * @param { object } res - the response object
-  *
-  * @returns { object } A response with either a success or failure message
-  */
+   * Represents the method that deletes a recipe in the application
+   * @method
+   *
+   * @param { object } req - the request object
+   * @param { object } res - the response object
+   *
+   * @returns { object } A response with either a success or failure message
+   */
 
   static deleteRecipe(req, res) {
     return recipes
       .findById(req.params.recipeId)
       .then((recipe) => {
         if (!recipe) {
-          return res
-            .status(404)
-            .json({
-              status: 'Not found',
-              message: 'The recipe you are looking for does not exist.'
-            });
+          return res.status(404).json({
+            status: 'Not found',
+            message: 'The recipe you are looking for does not exist.'
+          });
         } else if (recipe.owner !== req.userId) {
-          return res
-            .status(403)
-            .json({
-              status: 'Forbidden.',
-              message: 'You do not have the priviledges to perform this action.'
-            });
+          return res.status(403).json({
+            status: 'Forbidden.',
+            message: 'You do not have the priviledges to perform this action.'
+          });
         }
-        return recipe
-          .destroy()
-          .then(() => res
-            .status(201)
-            .json({
-              status: 'Success.',
-              message: 'You have successfully deleted this recipe. Want to add another?'
-            }));
+        return recipe.destroy().then(() =>
+          res.status(201).json({
+            status: 'Success.',
+            message:
+              'You have successfully deleted this recipe. Want to add another?'
+          }));
       })
-      .catch(() => res
-        .status(500)
-        .json({
+      .catch(() =>
+        res.status(500).json({
           status: 'Failed',
           message: 'Oops.. Something went wrong. Why not try again later?'
         }));
   }
 
   static searchRecipes(req, res) {
-    return recipes.findAndCountAll({
-      where: {
-        $or: [
-          {
-            name: {
-              $iLike: `%${req.query.search}%`
-            },
-          },
-          {
-            ingredients: {
-              $contains: [`${req.quer.search}`]
-            }
-          }
-        ]
-      }
-    })
-      .then(() => {
-        recipes.findAll({
-          order: [['createdAt', 'DESC']],
-          where: {
-            $or: [
-              {
-                name: {
-                  $iLike: `%${req.query.search}%`
-                },
-              },
-              {
-                ingredients: {
-                  $contains: [`${req.query.search}`]
-                }
+    return recipes
+      .findAndCountAll({
+        where: {
+          $or: [
+            {
+              name: {
+                $iLike: `%${req.query.search}%`
               }
-            ]
-          }
-        })
+            },
+            {
+              ingredients: {
+                $contains: [`${req.quer.search}`]
+              }
+            }
+          ]
+        }
+      })
+      .then(() => {
+        recipes
+          .findAll({
+            order: [['createdAt', 'DESC']],
+            where: {
+              $or: [
+                {
+                  name: {
+                    $iLike: `%${req.query.search}%`
+                  }
+                },
+                {
+                  ingredients: {
+                    $contains: [`${req.query.search}`]
+                  }
+                }
+              ]
+            }
+          })
           .then((searchedRecipes) => {
             res.status(200).json({
               recipeData: searchedRecipes
             });
           });
       })
-      .catch((err) => {
-        return res.status(500)
-          .json({
-            message: err.message
-          });
-      });
+      .catch(err =>
+        res.status(500).json({
+          message: err.message
+        }));
   }
 }
 

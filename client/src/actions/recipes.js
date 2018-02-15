@@ -37,10 +37,11 @@ export const addRecipe = recipe => ({
  * @returns { object } - returns an object with an action type and recipes
  */
 
-export const getAllRecipes = (recipes) => {
+export const getAllRecipes = (recipes, pagination) => {
   return {
     type: GET_RECIPES,
     recipes,
+    pagination
   };
 };
 
@@ -191,9 +192,9 @@ export const downVoteRecipe = (id) => {
  * @returns { object } - returns an object with an action type and all recipes
  */
 
-export const startGetAllRecipes = () => {
+export const startGetAllRecipes = (page) => {
   return (dispatch) => {
-    return axios.get('/api/v1/recipes')
+    return axios.get(`/api/v1/recipes/${page}`)
       .then((res) => {
         dispatch(getAllRecipes(res.data.recipeData));
       })
@@ -310,7 +311,7 @@ export const startRemoveRecipe = (id) => {
 
 export const startGetOneRecipe = (id) => {
   return (dispatch) => {
-    return axios.get(`/api/v1/recipes/${id}`)
+    return axios.get(`/api/v1/recipe/${id}`)
       .then((res) => {
         dispatch(getOneRecipe(res.data.recipeData));
       })

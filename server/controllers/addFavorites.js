@@ -70,7 +70,7 @@ class Favorites {
                 .then((existingFavorite) => {
                   res.status(200).json({
                     message: 'Recipe removed from your favorites.',
-                    recipeDetails: {
+                    favoritedRecipe: {
                       recipeId: existingFavorite.dataValues.recipeId
                     }
                   });

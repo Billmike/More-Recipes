@@ -77,7 +77,7 @@ class RecipesForm extends Component {
                 onChange={this.onNameChange}
                 required
               />
-              <small id="recipeNameHelp" className="form-text text-muted">
+              <small id="recipeNameHelp" className="form-text">
                 Enter a name for your recipe
               </small>
             </div>
@@ -94,7 +94,7 @@ class RecipesForm extends Component {
                   onChange={this.onDescriptionChange}
                   required
                 />
-                <small id="descriptionHelp" className="form-text text-muted">
+                <small id="descriptionHelp" className="form-text">
                   Enter a short description for your recipe.
                 </small>
               </div>
@@ -115,7 +115,7 @@ class RecipesForm extends Component {
                 onChange={this.onCategorySet}
                 required
               />
-              <small id="categoryHelp" className="form-text text-muted">
+              <small id="categoryHelp" className="form-text">
                 Category could be Breakfast, Lunch, Dessert or any other fun one
                 of your choice.
               </small>
@@ -133,7 +133,7 @@ class RecipesForm extends Component {
                   onChange={this.onIngredientsSet}
                   required
                 />
-                <small id="recipeNameHelp" className="form-text text-muted">
+                <small id="recipeNameHelp" className="form-text">
                   Enter your recipe ingredients, separated by Commas.
                 </small>
               </div>
@@ -152,7 +152,7 @@ class RecipesForm extends Component {
                   onChange={this.onInstructionsSet}
                   required
                 />
-                <small id="descriptionHelp" className="form-text text-muted">
+                <small id="descriptionHelp" className="form-text">
                   Enter your step-by-step Instructions.
                 </small>
               </div>

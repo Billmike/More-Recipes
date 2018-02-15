@@ -46,15 +46,12 @@ export default (state = recipeDefaultState, action) => {
     case 'ADD_FAVORITE_RECIPE':
       return {
         ...state,
-        ...{
-          userFavoriteRecipesId: action.favoriteRecipes.id
-        },
         userFavoriteRecipesId: !state.userFavoriteRecipesId
-          .includes(action.favoriteRecipes.id) ?
-          state.userFavoriteRecipesId.concat(action.favoriteRecipes.id) :
+          .includes(action.favoriteRecipes.recipeId) ?
+          state.userFavoriteRecipesId.concat(action.favoriteRecipes.recipeId) :
           state.userFavoriteRecipesId
             .filter((id) => {
-              return id !== action.favoriteRecipes.id;
+              return id !== action.favoriteRecipes.recipeId;
             })
       };
     case 'FETCH_FAVORITE_RECIPES':
