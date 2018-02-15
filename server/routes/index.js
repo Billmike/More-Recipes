@@ -21,6 +21,8 @@ module.exports = (app) => {
 
   app.post('/api/v1/users/signin', userController.signIn);
 
+  app.post('/api/v1/users/signup', userController.signUp);
+
   app.post(
     '/api/v1/recipes',
     Login.hasToken,
@@ -72,7 +74,7 @@ module.exports = (app) => {
 
   app.get('/api/v1/recipes/:page', recipeController.getRecipes);
   app.get(
-    '/api/v1/users/recipes',
+    '/api/v1/users/recipes/:page',
     Login.hasToken,
     User.isuser,
     recipeController.getUserRecipes
