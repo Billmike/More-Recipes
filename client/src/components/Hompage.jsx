@@ -16,7 +16,7 @@ class Homepage extends Component {
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
   componentDidMount() {
-    this.props.startGetAllRecipes(1);
+    this.props.startGetAllRecipes(0);
   }
 
   handlePaginationChange(data) {
