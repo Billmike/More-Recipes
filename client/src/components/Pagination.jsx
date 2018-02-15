@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 
-const Pagination = (props) => (
+const Pagination = props => (
   <div>
     <ReactPaginate
       previousLabel="Previous"
@@ -9,6 +9,7 @@ const Pagination = (props) => (
       breakLabel={<a href="">...</a>}
       breakClassName="page-link"
       onPageChange={props.handlePaginationChange}
+      pageCount={props.pageCount}
       containerClassName="pagination pagination-lg custom-pagination"
       pageLinkClassName="page-link"
       nextLinkClassName="page-link"

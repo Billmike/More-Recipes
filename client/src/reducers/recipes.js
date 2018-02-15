@@ -1,4 +1,5 @@
 const recipeDefaultState = {
+  pages: 0,
   recipes: [],
   userRecipe: [],
   singleRecipe: '',
@@ -17,6 +18,7 @@ export default (state = recipeDefaultState, action) => {
     case 'GET_RECIPES':
       return {
         ...state,
+        pages: action.pagination,
         recipes: [...action.recipes]
       };
     case 'GET_ONE_RECIPE':
@@ -34,25 +36,19 @@ export default (state = recipeDefaultState, action) => {
         if (recipe.id == action.id) {
           return {
             ...recipe,
-            ...action.updates,
+            ...action.updates
           };
         }
         return recipe;
       });
     case 'REMOVE_RECIPE':
-      return state.userRecipe.filter(({ id }) => {
-        return id !== action.id;
-      });
+      return state.userRecipe.filter(({ id }) => id !== action.id);
     case 'ADD_FAVORITE_RECIPE':
       return {
         ...state,
-        userFavoriteRecipesId: !state.userFavoriteRecipesId
-          .includes(action.favoriteRecipes.recipeId) ?
-          state.userFavoriteRecipesId.concat(action.favoriteRecipes.recipeId) :
-          state.userFavoriteRecipesId
-            .filter((id) => {
-              return id !== action.favoriteRecipes.recipeId;
-            })
+        userFavoriteRecipesId: !state.userFavoriteRecipesId.includes(action.favoriteRecipes.recipeId)
+          ? state.userFavoriteRecipesId.concat(action.favoriteRecipes.recipeId)
+          : state.userFavoriteRecipesId.filter(id => id !== action.favoriteRecipes.recipeId)
       };
     case 'FETCH_FAVORITE_RECIPES':
       return {

@@ -196,7 +196,7 @@ export const startGetAllRecipes = (page) => {
   return (dispatch) => {
     return axios.get(`/api/v1/recipes/${page}`)
       .then((res) => {
-        dispatch(getAllRecipes(res.data.recipeData));
+        dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
       })
       .catch(error => Promise.reject(error.response.data.message));
   };

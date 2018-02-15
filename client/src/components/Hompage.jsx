@@ -16,11 +16,11 @@ class Homepage extends Component {
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
   componentDidMount() {
-    this.props.startGetAllRecipes(0);
+    this.props.startGetAllRecipes(1);
   }
 
   handlePaginationChange(data) {
-    const currentView = data.selected  + 1;
+    const currentView = data.selected + 1;
     this.props.startGetAllRecipes(currentView);
   }
 
@@ -119,10 +119,12 @@ class Homepage extends Component {
           </div>
           <Pagination
             handlePaginationChange={this.handlePaginationChange}
+            pageCount={this.props.pages}
           />
           <div className="row">{allRecipes}</div>
           <Pagination
             handlePaginationChange={this.handlePaginationChange}
+            pageCount={this.props.pages}
           />
         </div>
         <Footer />
@@ -133,7 +135,8 @@ class Homepage extends Component {
 
 const mapStateToProps = state => {
   return {
-    recipes: state.recipes.recipes
+    recipes: state.recipes.recipes,
+    pages: state.recipes.pages
   };
 };
 

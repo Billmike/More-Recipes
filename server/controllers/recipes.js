@@ -108,13 +108,13 @@ class Recipe {
 
   static getRecipes(req, res) {
     let offset;
-    const limit = 9;
+    const limit = 6;
     let singlePage;
     let pages;
     recipes
       .findAndCountAll()
       .then((foundRecipes) => {
-        pages = Math.ceil(foundRecipes.count / limit);
+        pages = Math.floor(foundRecipes.count / limit);
         singlePage = parseInt(req.params.page, 10);
         offset = singlePage * limit;
 
@@ -126,7 +126,8 @@ class Recipe {
           })
           .then((allRecipes) => {
             res.status(200).json({
-              recipeData: allRecipes
+              recipeData: allRecipes,
+              pages
             });
           });
       })
