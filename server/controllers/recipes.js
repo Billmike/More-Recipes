@@ -3,6 +3,7 @@ import errorMessage from '../errorHandler/errorMessage';
 
 const recipes = db.Recipe;
 const reviews = db.Review;
+const favorites = db.Favorite;
 
 /**
  * Represents the Recipe class
@@ -122,7 +123,12 @@ class Recipe {
           .findAll({
             limit,
             offset,
-            pages
+            pages,
+            include: {
+              model: favorites,
+              as: 'favorites',
+              attributes: ['userId']
+            }
           })
           .then((allRecipes) => {
             res.status(200).json({

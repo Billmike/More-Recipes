@@ -4,13 +4,13 @@ import {
   GET_RECIPES,
   GET_ONE_RECIPE,
   GET_USER_RECIPES,
-  ADD_FAVORITE_RECIPE,
   FETCH_FAVORITE_RECIPES,
   EDIT_RECIPE,
   REMOVE_RECIPE,
   ADD_REVIEW,
   UPVOTE_RECIPE,
-  DOWNVOTE_RECIPE
+  DOWNVOTE_RECIPE,
+  TOGGLE_FAVORITE
 } from './types';
 import './toastrConfig';
 
@@ -86,12 +86,14 @@ export const getUserRecipe = (userRecipe) => {
  * @returns { object } - returns an object with an action type and favorite recipe(s)
  */
 
-export const addFavorites = (favoriteRecipes) => {
-  return {
-    type: ADD_FAVORITE_RECIPE,
-    favoriteRecipes
-  };
-};
+export const toggleFavorites =
+  (favoriteRecipes, userId, toggleType = 'add') => ({
+    type: TOGGLE_FAVORITE,
+    favoriteRecipes,
+    userId,
+    toggleType
+  });
+
 
 /**
  * Represents a function
@@ -329,11 +331,18 @@ export const startGetOneRecipe = (id) => {
  */
 
 export const startAddFavoriteRecipes = (id) => {
-  return (dispatch) => {
+  return (dispatch, getstate) => {
     return axios.post(`/api/v1/recipes/${id}/favorites`)
       .then((res) => {
+        const authUserid = getstate().auth.user.id;
         toastr.success(res.data.message);
-        return dispatch(addFavorites(res.data));
+        return dispatch(toggleFavorites(
+          res.data,
+          authUserid,
+          res.data
+            .message === 'Recipe removed from your favorites.' ?
+            'remove' : 'add'
+        ));
       })
       .catch((err) => {
         if (err.response.data

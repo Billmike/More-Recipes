@@ -25,7 +25,7 @@ export class RecipeList extends Component {
           <p className="card-text">{this.props.description}</p>
           <div className="group-btn">
           <Link to={`/recipe/${this.props.id}`} className="btn border border-secondary rounded">45 <i className="fa fa-eye" aria-hidden="true" /></Link>
-          <Link to={`/recipe/${this.props.id}`} className="btn border border-secondary rounded" onClick={this.favoriteRecipes}>  89 <i className="fa fa-heart" aria-hidden="true" /></Link>
+          <Link to={`/recipe/${this.props.id}`} className="btn border border-secondary rounded" onClick={this.favoriteRecipes}> { this.props.favorites.length }<i className="fa fa-heart" aria-hidden="true" /></Link>
           <Link to={`/recipe/${this.props.id}`} className="btn border border-secondary rounded"> 6 <i className="fa fa-comments" aria-hidden="true" /></Link>
           </div>
         </div>
@@ -37,5 +37,6 @@ export class RecipeList extends Component {
     );
   }
 };
+
 
 export default connect(null, { startAddFavoriteRecipes })(RecipeList);

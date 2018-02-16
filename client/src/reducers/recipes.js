@@ -1,5 +1,6 @@
 const recipeDefaultState = {
   pages: 0,
+  voters: 0,
   recipes: [],
   userRecipe: [],
   singleRecipe: '',
@@ -43,12 +44,61 @@ export default (state = recipeDefaultState, action) => {
       });
     case 'REMOVE_RECIPE':
       return state.userRecipe.filter(({ id }) => id !== action.id);
-    case 'ADD_FAVORITE_RECIPE':
+    case 'TOGGLE_FAVORITE':
       return {
         ...state,
-        userFavoriteRecipesId: !state.userFavoriteRecipesId.includes(action.favoriteRecipes.recipeId)
-          ? state.userFavoriteRecipesId.concat(action.favoriteRecipes.recipeId)
-          : state.userFavoriteRecipesId.filter(id => id !== action.favoriteRecipes.recipeId)
+        recipes: state.recipes.map((recipe) => {
+          if (recipe.id !== action.favoriteRecipes.favoritedRecipe.recipeId) {
+            return recipe;
+          }
+
+          return {
+            ...recipe,
+            favorites: action.toggleType === 'add' ? [
+              ...recipe.favorites,
+              { userId: action.userId }
+            ] : recipe.favorites.filter(favorite => favorite.userId !== action.userId)
+          };
+        })
+      };
+    case 'ADD_FAVORITE_RECIPE':
+    console.log('State of the reducer', state);
+      // return {
+      //   ...state,
+      //   userFavoriteRecipesId: !state.userFavoriteRecipesId.includes(action.favoriteRecipes.recipeId)
+      //     ? state.userFavoriteRecipesId.concat(action.favoriteRecipes.recipeId)
+      //     : state.userFavoriteRecipesId.filter(id => id !== action.favoriteRecipes.recipeId),
+      // };
+
+      return {
+        ...state,
+        recipes: state.recipes.map((recipe) => {
+          if (recipe.id !== action.favoriteRecipes.favoritedRecipe.recipeId) {
+            return recipe;
+          }
+
+          return {
+            ...recipe,
+            favorites: [
+              ...recipe.favorites,
+              { userId: action.userId }
+            ]
+          };
+        })
+      };
+    case 'REMOVE_FAVORITE_RECIPE':
+      return {
+        ...state,
+        recipes: state.recipes.map((recipe) => {
+          if (recipe.id !== action.favoriteRecipes.favoritedRecipe.recipeId) {
+            return recipe;
+          }
+
+          return {
+            ...recipe,
+            favorites: recipe.favorites.filter(favorite => favorite.userId !== action.userId)
+          };
+        })
       };
     case 'FETCH_FAVORITE_RECIPES':
       return {

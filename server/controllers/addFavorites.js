@@ -56,7 +56,8 @@ class Favorites {
                     message: 'Recipe added to your list of favorites.',
                     favoritedRecipe: {
                       recipeId: createdFavs.recipeId
-                    }
+                    },
+                    voters: 1
                   }));
             }
             const arrayOfUserIDs = [];
@@ -72,7 +73,8 @@ class Favorites {
                     message: 'Recipe removed from your favorites.',
                     favoritedRecipe: {
                       recipeId: existingFavorite.dataValues.recipeId
-                    }
+                    },
+                    voters: arrayOfUserIDs.length - 1
                   });
                   existingFavorite.destroy();
                 });
@@ -87,7 +89,8 @@ class Favorites {
                   message: 'Recipe added to your list of favorites.',
                   favoritedRecipe: {
                     recipeId: createdFavorite.recipeId
-                  }
+                  },
+                  voters: arrayOfUserIDs.length + 1
                 }));
           });
       }
