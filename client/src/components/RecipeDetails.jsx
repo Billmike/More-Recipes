@@ -32,6 +32,10 @@ class RecipeDetail extends Component {
     this.props.startGetOneRecipe(this.props.match.params.id);
   }
 
+  componentDidUpdate() {
+    this.props.startGetOneRecipe(this.props.match.params.id);
+  }
+
   onReviewFormChange(event) {
     event.preventDefault();
     this.setState({
@@ -66,6 +70,7 @@ class RecipeDetail extends Component {
     let reviews;
     let splitIngredients;
     let splitInstructions;
+    let votes;
     if (this.props.recipe) {
       splitIngredients = this.props.recipe.ingredients.split('\n').map((splitIng, index) => {
         return (
@@ -88,6 +93,8 @@ class RecipeDetail extends Component {
           <Review key={review.id} review={review} />
         )
       }) : <p className="center-emoji"> No reviews for this recipe yet. Want to be the first to review this?<Emoji text="B-)" /></p>
+      
+      votes = this.props.recipe.votes.length;
     };
     return (
       <div>
@@ -118,8 +125,8 @@ class RecipeDetail extends Component {
           </div>
           <div className="col-sm ingredients-div">
             <span>
-            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.upVoteRecipe}> <i className="fa fa-thumbs-up fa-3x" aria-hidden="true" /></Link>
-            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.downVoteRecipe}> <i className="fa fa-thumbs-down fa-3x" aria-hidden="true" /></Link>
+            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.upVoteRecipe}>{ votes } <i className="fa fa-thumbs-up fa" aria-hidden="true" /></Link>
+            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.downVoteRecipe}> <i className="fa fa-thumbs-down fa" aria-hidden="true" /></Link>
             </span>
           </div>
           <div className="col-sm ingredients-div">

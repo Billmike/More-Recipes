@@ -51,54 +51,27 @@ export default (state = recipeDefaultState, action) => {
           if (recipe.id !== action.favoriteRecipes.favoritedRecipe.recipeId) {
             return recipe;
           }
-
           return {
             ...recipe,
             favorites: action.toggleType === 'add' ? [
               ...recipe.favorites,
               { userId: action.userId }
-            ] : recipe.favorites.filter(favorite => favorite.userId !== action.userId)
+            ] : recipe.favorites
+              .filter(favorite => favorite.userId !== action.userId)
           };
         })
       };
-    case 'ADD_FAVORITE_RECIPE':
-    console.log('State of the reducer', state);
-      // return {
-      //   ...state,
-      //   userFavoriteRecipesId: !state.userFavoriteRecipesId.includes(action.favoriteRecipes.recipeId)
-      //     ? state.userFavoriteRecipesId.concat(action.favoriteRecipes.recipeId)
-      //     : state.userFavoriteRecipesId.filter(id => id !== action.favoriteRecipes.recipeId),
-      // };
-
+    case 'UPVOTE_RECIPE':
       return {
         ...state,
-        recipes: state.recipes.map((recipe) => {
-          if (recipe.id !== action.favoriteRecipes.favoritedRecipe.recipeId) {
-            return recipe;
-          }
-
-          return {
-            ...recipe,
-            favorites: [
-              ...recipe.favorites,
-              { userId: action.userId }
-            ]
-          };
-        })
-      };
-    case 'REMOVE_FAVORITE_RECIPE':
-      return {
-        ...state,
-        recipes: state.recipes.map((recipe) => {
-          if (recipe.id !== action.favoriteRecipes.favoritedRecipe.recipeId) {
-            return recipe;
-          }
-
-          return {
-            ...recipe,
-            favorites: recipe.favorites.filter(favorite => favorite.userId !== action.userId)
-          };
-        })
+        singleRecipe: state.singleRecipe.votes.userId !== action.userId ? {
+          ...state.singleRecipe,
+          votes: [
+            ...state.singleRecipe.votes,
+            { userId: action.userId }
+          ]
+        } : state.singleRecipe.votes
+          .filter(vote => vote.userId !== action.userId)
       };
     case 'FETCH_FAVORITE_RECIPES':
       return {

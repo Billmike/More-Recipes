@@ -164,10 +164,11 @@ export const addReview = (review) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const upVoteRecipe = (id) => {
+export const upVoteRecipe = (id, userId) => {
   return {
     type: UPVOTE_RECIPE,
     id,
+    userId
   };
 };
 
@@ -385,10 +386,12 @@ export const startGetUserFavorites = (id) => {
  */
 
 export const startUpvoteRecipe = (id) => {
-  return (dispatch) => {
+  return (dispatch, getstate) => {
     return axios.post(`/api/v1/recipes/${id}/votes/upvote`)
       .then((res) => {
+        const authUserid = getstate().auth.user.id;
         toastr.success(res.data.message);
+        dispatch(upVoteRecipe(res.data, authUserid));
       })
       .catch((err) => {
         if (err.response.data

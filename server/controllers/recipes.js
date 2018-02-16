@@ -4,6 +4,7 @@ import errorMessage from '../errorHandler/errorMessage';
 const recipes = db.Recipe;
 const reviews = db.Review;
 const favorites = db.Favorite;
+const votes = db.Vote;
 
 /**
  * Represents the Recipe class
@@ -201,10 +202,14 @@ class Recipe {
             where: {
               id: foundRecipe.id
             },
-            include: {
+            include: [{
               model: reviews,
               as: 'reviews'
-            }
+            }, {
+              model: votes,
+              as: 'votes',
+              attributes: ['userId']
+            }]
           })
           .then(singleRecipe =>
             res.status(200).json({ recipeData: singleRecipe }));

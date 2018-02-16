@@ -55,10 +55,13 @@ class Vote {
                 recipeId: req.params.recipeId,
                 voteType: req.params.vote,
               })
-                .then(() => res
+                .then(votedRecipe => res
                   .status(200)
                   .json({
-                    message: `${req.params.vote} successful.`
+                    message: `${req.params.vote} successful.`,
+                    votedRecipe: {
+                      recipeId: votedRecipe.recipeId
+                    }
                   }));
             }
             const votersArray = [];
@@ -72,7 +75,10 @@ class Vote {
                 res
                   .status(200)
                   .json({
-                    message: `Recipe removed from your list of ${req.params.vote}d recipes`
+                    message: `Recipe removed from your list of ${req.params.vote}d recipes`,
+                    votedRecipe: {
+                      recipeId: checkVoteType.dataValues.recipeId
+                    }
                   });
                 return checkVoteType.destroy();
               }
@@ -90,10 +96,13 @@ class Vote {
               recipeId: req.params.recipeId,
               voteType: req.params.vote,
             })
-              .then(() => res
+              .then(votedRecipe => res
                 .status(200)
                 .json({
-                  message: `${req.params.vote} successful.`
+                  message: `${req.params.vote} successful.`,
+                  votedRecipe: {
+                    recipeId: votedRecipe.recipeId
+                  }
                 }));
           });
       })
