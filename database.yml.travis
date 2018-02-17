@@ -1,0 +1,5 @@
+test:
+    adapter: postgres
+    database: more_recipes_test
+    username: bill
+    password: rocketmail

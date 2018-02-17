@@ -1,0 +1,28 @@
+engines:
+  csslint:
+    enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "server/**/*.js"
+  - "client/**/*.js"
+  - "client/**/*.jsx"
+
+exclude_patterns:
+  - "webpack.config.*.js"
+  - "node_modules/"
+  - "client/src/__tests__/__mocks__/"
+  - "template/*"
+  - "server/__test__"
+  - "client/src/__tests__"
+  - "server/migrations"
+  - "server/models"
+  - "server/seeders"
