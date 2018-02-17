@@ -16,7 +16,7 @@ module.exports = (app) => {
     }));
 
   app.get('/api/v1/users/get_user', User.getUser);
-  app.get('/api/v1/recipe/:recipeId', recipeController.getOneRecipe);
+  app.get('/api/v1/recipe/:recipeId', getSortedRecipes);
   app.get('/api/v1/recipes/search', recipeController.searchRecipes);
 
   app.post('/api/v1/users/signin', userController.signIn);

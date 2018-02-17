@@ -26,6 +26,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       defaultValue: '',
     },
+    upvoters: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
+    },
+    downvoters: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      defaultValue: []
+    }
   });
   Recipe.associate = (models) => {
     Recipe.belongsTo(models.User, {

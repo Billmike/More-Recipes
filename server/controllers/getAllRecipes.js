@@ -4,6 +4,7 @@ import errorMessage from '../errorHandler/errorMessage';
 const Recipes = db.Recipe;
 const Votes = db.Vote;
 const Favorites = db.Favorite;
+const Review = db.Review;
 const User = db.User;
 
 class GetRecipes {
@@ -83,19 +84,25 @@ const sortRecipes = (recipeArray, sortOrder, callback) => {
 
 const getAllRecipes = (req, res, next) => {
   Recipes.findAll({
+    where: {
+      id: req.params.recipeId
+    },
     include: [{
       model: Votes,
       as: 'votes',
     }, {
       model: User,
     }, {
+      model: Review,
+      as: 'reviews'
+    }, {
       model: Favorites,
       as: 'favorites',
     }],
   })
     .then((recipes) => {
+      console.log('found recipe', recipes);
       const tempStorage = [];
-      const { sort, order } = req.query;
       recipes.forEach((elem) => {
         tempStorage.push(new GetRecipes(
           elem.name,
@@ -105,7 +112,7 @@ const getAllRecipes = (req, res, next) => {
           elem.ingredients,
           elem.instructions,
           { id: elem.User.id, username: elem.User.username },
-          null,
+          elem.reviews,
           countRecipes(elem.favorites),
           null,
           countRecipes(elem.votes, 'voteType', 'upvote'),
@@ -115,25 +122,13 @@ const getAllRecipes = (req, res, next) => {
           elem.updatedAt,
         ));
       });
-      if (sort && order) {
-        return sortRecipes(tempStorage, order, (err, sorted) => {
-          if (!err) {
-            return res
-              .status(200).json({ recipeData: sorted });
-          }
-          return next(err);
-        });
-      }
       return res
         .status(200).json({ recipeData: tempStorage });
     })
-    .catch(() => {
-      const err = res
-        .status(500)
-        .json({
-          message: errorMessage
-        });
-      return next(err);
+    .catch((err) => {
+      res.status(500).json({
+        message: err.message
+      });
     });
 };
 

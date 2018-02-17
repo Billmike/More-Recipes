@@ -197,7 +197,7 @@ export const downVoteRecipe = (id) => {
 
 export const startGetAllRecipes = (page) => {
   return (dispatch) => {
-    return axios.get(`/api/v1/recipes/${page}`)
+    return axios.get(`http://localhost:8000/api/v1/recipes/${page}`)
       .then((res) => {
         dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
       })
@@ -314,7 +314,7 @@ export const startRemoveRecipe = (id) => {
 
 export const startGetOneRecipe = (id) => {
   return (dispatch) => {
-    return axios.get(`/api/v1/recipe/${id}`)
+    return axios.get(`http://localhost:8000/api/v1/recipe/${id}`)
       .then((res) => {
         dispatch(getOneRecipe(res.data.recipeData));
       })
@@ -333,7 +333,7 @@ export const startGetOneRecipe = (id) => {
 
 export const startAddFavoriteRecipes = (id) => {
   return (dispatch, getstate) => {
-    return axios.post(`/api/v1/recipes/${id}/favorites`)
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/favorites`)
       .then((res) => {
         const authUserid = getstate().auth.user.id;
         toastr.success(res.data.message);
@@ -387,7 +387,7 @@ export const startGetUserFavorites = (id) => {
 
 export const startUpvoteRecipe = (id) => {
   return (dispatch, getstate) => {
-    return axios.post(`/api/v1/recipes/${id}/votes/upvote`)
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/upvote`)
       .then((res) => {
         const authUserid = getstate().auth.user.id;
         toastr.success(res.data.message);
@@ -418,10 +418,11 @@ export const startUpvoteRecipe = (id) => {
  */
 
 export const startDownVoteRecipe = (id) => {
-  return (dispatch) => {
-    return axios.post(`/api/v1/recipes/${id}/votes/downvote`)
+  return (dispatch, getstate) => {
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/downvote`)
       .then((res) => {
         toastr.success(res.data.message);
+        const authUserid = getstate().auth.user.id;
       })
       .catch((err) => {
         if (err.response.data

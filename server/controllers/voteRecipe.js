@@ -22,6 +22,41 @@ class Vote {
   *
   */
 
+  static newVote(req, res) {
+    Recipes.findById(req.params.recipeId)
+      .then((foundRecipe) => {
+        const { userId } = req;
+        console.log('The array', userId)
+        if (req.params.vote === 'upvote') {
+          foundRecipe.upvoters.push(userId);
+          console.log('The second array', foundRecipe.upvoters);
+          return Votes.create({
+            userId: req.userId,
+            recipeId: req.params.recipeId,
+            voteType: req.params.vote
+          }).then((votedRec) => {
+            res.status(200).json({
+              message: 'Successfully upvoted'
+            });
+          });
+        }
+        foundRecipe.downvoters.push(req.userId);
+        return Votes.create({
+          userId: req.userId,
+          recipeId: req.params.recipeId,
+          voteType: req.params.vote
+        }).then((votedRec) => {
+          res.status(200).json({
+            message: 'Successfully downvoted'
+          });
+        });
+      }).catch((error) => {
+        res.status(500).json({
+          message: error.message
+        })
+      })
+  }
+
   static voteRecipe(req, res) {
     if (req.params.vote !== 'downvote' && req.params.vote !== 'upvote') {
       return res
@@ -64,6 +99,7 @@ class Vote {
                     }
                   }));
             }
+            
             const votersArray = [];
             votedRecipes.forEach(elem => votersArray
               .push(elem.dataValues.userId));

@@ -70,9 +70,10 @@ class RecipeDetail extends Component {
     let reviews;
     let splitIngredients;
     let splitInstructions;
-    let votes;
+    let upvotes;
+    let downvotes;
     if (this.props.recipe) {
-      splitIngredients = this.props.recipe.ingredients.split('\n').map((splitIng, index) => {
+      splitIngredients = this.props.recipe[0].ingredients.split('\n').map((splitIng, index) => {
         return (
           <ul>
             <li className="indie-key" key={index}>{splitIng}</li>
@@ -80,7 +81,7 @@ class RecipeDetail extends Component {
         );
       });
       
-      splitInstructions = this.props.recipe.instructions.split('\n').map((splitInstrut, index) => {
+      splitInstructions = this.props.recipe[0].instructions.split('\n').map((splitInstrut, index) => {
         return (
           <ul>
             <li className="indie-key" key={index}>{splitInstrut}</li>
@@ -88,13 +89,14 @@ class RecipeDetail extends Component {
         )
       });
 
-      reviews = this.props.recipe.reviews.length > 0 ? this.props.recipe.reviews.map((review) => {
+      reviews = this.props.recipe[0].reviews.length > 0 ? this.props.recipe[0].reviews.map((review) => {
         return (
           <Review key={review.id} review={review} />
         )
       }) : <p className="center-emoji"> No reviews for this recipe yet. Want to be the first to review this?<Emoji text="B-)" /></p>
       
-      votes = this.props.recipe.votes.length;
+      upvotes = this.props.recipe[0].upVote;
+      downvotes = this.props.recipe[0].downVote;
     };
     return (
       <div>
@@ -125,8 +127,8 @@ class RecipeDetail extends Component {
           </div>
           <div className="col-sm ingredients-div">
             <span>
-            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.upVoteRecipe}>{ votes } <i className="fa fa-thumbs-up fa" aria-hidden="true" /></Link>
-            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.downVoteRecipe}> <i className="fa fa-thumbs-down fa" aria-hidden="true" /></Link>
+            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.upVoteRecipe}>{ upvotes } <i className="fa fa-thumbs-up fa" aria-hidden="true" /></Link>
+            <Link to='/' className="btn border border-secondary rounded brown-thumb" onClick={this.downVoteRecipe}> { downvotes } <i className="fa fa-thumbs-down fa" aria-hidden="true" /></Link>
             </span>
           </div>
           <div className="col-sm ingredients-div">
@@ -154,6 +156,7 @@ class RecipeDetail extends Component {
 };
 
 const mapStateToProps = (state, props) => {
+  console.log('my state', state.recipes.singleRecipe)
   return {
     recipe: state.recipes.singleRecipe
   }
