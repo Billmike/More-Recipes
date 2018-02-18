@@ -237,7 +237,7 @@ export const startAddRecipe = (recipeData = {}) => (dispatch) => {
  */
 
 export const startGetUserRecipes = () => dispatch => axios
-  .get('http://localhost:8000/api/v1/users/recipes')
+  .get('/api/v1/users/recipes')
   .then((res) => {
     dispatch(getUserRecipe(res.data.recipeData));
   })
