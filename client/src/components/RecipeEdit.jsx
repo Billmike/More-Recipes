@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Modal from './Modal';
 import { startRemoveRecipe } from '../actions/recipes';
 import pizza from '../assets/img/pizzza.jpg';
 
 class RecipeEdit extends Component {
   constructor(props) {
     super(props);
-    this.onDeleteRecipe = this.onDeleteRecipe.bind(this);
+    this.state = {
+      selectedRecipe: undefined
+    };
+    this.selectRecipe = this.selectRecipe.bind(this);
+    this.handleClearSelectedRecipe = this.handleClearSelectedRecipe.bind(this);
+    this.onRemoveRecipe = this.onRemoveRecipe.bind(this);
   }
 
-  onDeleteRecipe() {
+  handleClearSelectedRecipe() {
+    this.setState(() => ({
+      selectedRecipe: undefined
+    }));
+  }
+
+  selectRecipe() {
+    this.setState(() => ({
+      selectedRecipe: this.props.id
+    }));
+  }
+
+  onRemoveRecipe() {
     this.props.startRemoveRecipe(this.props.id);
   }
+
   render() {
     return (
       <div className="col-md-4">
@@ -39,7 +58,7 @@ class RecipeEdit extends Component {
                   <i className="far fa-edit brown" />{' '}
                 </Link>
                 <button
-                  onClick={this.onDeleteRecipe}
+                  onClick={this.selectRecipe}
                   className="btn user-btn"
                   role="button"
                 >
@@ -67,7 +86,8 @@ class RecipeEdit extends Component {
                   className="btn user-btn user-btn-special"
                   role="button"
                 >
-                  {this.props.recipe[0].favorites} <i className="fa fa-heart crimson" />
+                  {this.props.recipe[0].favorites}{' '}
+                  <i className="fa fa-heart crimson" />
                 </button>
               </div>
             </div>
@@ -78,6 +98,11 @@ class RecipeEdit extends Component {
             </small>
           </div>
         </div>
+        <Modal
+          selectedRecipe={this.state.selectedRecipe}
+          handleClearSelectedRecipe={this.handleClearSelectedRecipe}
+          onRemoveRecipe={this.onRemoveRecipe}
+        />
       </div>
     );
   }

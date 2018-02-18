@@ -558,3 +558,34 @@ a:hover {
 .brown {
   color: brown;
 }
+
+.ReactModalPortal > div {
+  opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transition: opacity 300ms ease-in-out;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.modal-class {
+  background: cadetblue;
+  color: white;
+  padding: 40px;
+  border-radius: 10px;
+  font-family: 'Dosis', Arial, Helvetica, sans-serif;
+}
+
+.modal-ptag {
+  align-content: center;
+}

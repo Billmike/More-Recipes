@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Footer from './Footer';
-import { startGetUserInfo } from '../actions/signinRequest';
+import { getUserInformation } from '../actions/signinRequest';
 import cool from '../assets/img/cooll.jpg';
 
-const ProfilePage = props => (
-  <div>
+class ProfilePage extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    getUserInformation(this.props.userInformation.id)
+  }
+  render() {
+    return (
+    <div>
     <main className="container">
       <h1 className="profile-h1">My Profile</h1>
       <div className="profile-card">
         <img src={cool} alt="John" className="profile-image" />
         <p className="profile-email">Username</p>
-        <p className="prop-username"> {props.userInformation.username} </p>
+        <p className="prop-username"> {this.props.userInformation.username} </p>
         <p className="profile-email">Email Address</p>
-        <p className="prop-email"> {props.userInformation.emailAddress} </p>
+        <p className="prop-email"> {this.props.userInformation.emailAddress} </p>
       </div>
     </main>
     <Footer />
   </div>
-);
+    )
+  }
+};
 
 const mapStateToProps = (state, props) => {
+  console.log('user details', state);
   return {
     userInformation: state.auth.user
   };
 };
 
-export default connect(mapStateToProps, { startGetUserInfo })(ProfilePage);
+
+export default connect(mapStateToProps, { getUserInformation })(ProfilePage);

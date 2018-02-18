@@ -37,13 +37,11 @@ export const addRecipe = recipe => ({
  * @returns { object } - returns an object with an action type and recipes
  */
 
-export const getAllRecipes = (recipes, pagination) => {
-  return {
-    type: GET_RECIPES,
-    recipes,
-    pagination
-  };
-};
+export const getAllRecipes = (recipes, pagination) => ({
+  type: GET_RECIPES,
+  recipes,
+  pagination
+});
 
 /**
  * Represents a function
@@ -54,12 +52,10 @@ export const getAllRecipes = (recipes, pagination) => {
  * @returns { object } - returns an object with an action type and recipe
  */
 
-export const getOneRecipe = (recipe) => {
-  return {
-    type: GET_ONE_RECIPE,
-    recipe
-  };
-};
+export const getOneRecipe = recipe => ({
+  type: GET_ONE_RECIPE,
+  recipe
+});
 
 /**
  * Represents a function
@@ -70,12 +66,10 @@ export const getOneRecipe = (recipe) => {
  * @returns { object } - returns an object with an action type and user recipe
  */
 
-export const getUserRecipe = (userRecipe) => {
-  return {
-    type: GET_USER_RECIPES,
-    userRecipe,
-  };
-};
+export const getUserRecipe = userRecipe => ({
+  type: GET_USER_RECIPES,
+  userRecipe
+});
 
 /**
  * Represents a function
@@ -86,14 +80,16 @@ export const getUserRecipe = (userRecipe) => {
  * @returns { object } - returns an object with an action type and favorite recipe(s)
  */
 
-export const toggleFavorites =
-  (favoriteRecipes, userId, toggleType = 'add') => ({
-    type: TOGGLE_FAVORITE,
-    favoriteRecipes,
-    userId,
-    toggleType
-  });
-
+export const toggleFavorites = (
+  favoriteRecipes,
+  userId,
+  toggleType = 'add'
+) => ({
+  type: TOGGLE_FAVORITE,
+  favoriteRecipes,
+  userId,
+  toggleType
+});
 
 /**
  * Represents a function
@@ -104,12 +100,10 @@ export const toggleFavorites =
  * @returns { object } - returns an object with an action type and favorite recipe(s)
  */
 
-export const fetchFavorites = (favoriteRecipes) => {
-  return {
-    type: FETCH_FAVORITE_RECIPES,
-    favoriteRecipes,
-  };
-};
+export const fetchFavorites = favoriteRecipes => ({
+  type: FETCH_FAVORITE_RECIPES,
+  favoriteRecipes
+});
 
 /**
  * Represents a function
@@ -122,7 +116,7 @@ export const fetchFavorites = (favoriteRecipes) => {
 
 export const editRecipe = updates => ({
   type: EDIT_RECIPE,
-  updates,
+  updates
 });
 
 /**
@@ -148,12 +142,10 @@ export const removeRecipe = ({ id } = {}) => ({
  * @returns { object } - returns an object with an action type and recipe review
  */
 
-export const addReview = (review) => {
-  return {
-    type: ADD_REVIEW,
-    review,
-  };
-};
+export const addReview = review => ({
+  type: ADD_REVIEW,
+  review
+});
 
 /**
  * Represents a function
@@ -164,13 +156,11 @@ export const addReview = (review) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const upVoteRecipe = (id, userId) => {
-  return {
-    type: UPVOTE_RECIPE,
-    id,
-    userId
-  };
-};
+export const upVoteRecipe = (id, userId) => ({
+  type: UPVOTE_RECIPE,
+  id,
+  userId
+});
 
 /**
  * Represents a function
@@ -181,12 +171,10 @@ export const upVoteRecipe = (id, userId) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const downVoteRecipe = (id) => {
-  return {
-    type: DOWNVOTE_RECIPE,
-    id,
-  };
-};
+export const downVoteRecipe = id => ({
+  type: DOWNVOTE_RECIPE,
+  id
+});
 
 /**
  * Represents a function
@@ -195,15 +183,12 @@ export const downVoteRecipe = (id) => {
  * @returns { object } - returns an object with an action type and all recipes
  */
 
-export const startGetAllRecipes = (page) => {
-  return (dispatch) => {
-    return axios.get(`http://localhost:8000/api/v1/recipes/${page}`)
-      .then((res) => {
-        dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
-      })
-      .catch(error => Promise.reject(error.response.data.message));
-  };
-};
+export const startGetAllRecipes = page => dispatch => axios
+  .get(`/api/v1/recipes/${page}`)
+  .then((res) => {
+    dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
+  })
+  .catch(error => Promise.reject(error.response.data.message));
 
 /**
  * Represents a function
@@ -214,35 +199,34 @@ export const startGetAllRecipes = (page) => {
  * @returns { object } - returns an object with an action type and the new recipe object
  */
 
-export const startAddRecipe = (recipeData = {}) => {
-  return (dispatch) => {
-    const {
-      name = '',
-      description = '',
-      img_url = 'no-img-here',
-      category = '',
-      ingredients = '',
-      instructions = ''
-    } = recipeData;
+export const startAddRecipe = (recipeData = {}) => (dispatch) => {
+  const {
+    name = '',
+    description = '',
+    img_url = 'no-img-here',
+    category = '',
+    ingredients = '',
+    instructions = ''
+  } = recipeData;
 
-    const recipe = {
-      name,
-      description,
-      img_url,
-      category,
-      ingredients,
-      instructions,
-    };
-    return axios.post('http://localhost:8000/api/v1/recipes', recipe)
-      .then(() => {
-        toastr.success('Recipe added successfully.');
-        dispatch(addRecipe({
-          id: recipe.id,
-          ...recipe
-        }));
-      })
-      .catch(error => Promise.reject(error.response.data.message));
+  const recipe = {
+    name,
+    description,
+    img_url,
+    category,
+    ingredients,
+    instructions
   };
+  return axios
+    .post('/api/v1/recipes', recipe)
+    .then(() => {
+      toastr.success('Recipe added successfully.');
+      dispatch(addRecipe({
+        id: recipe.id,
+        ...recipe
+      }));
+    })
+    .catch(error => Promise.reject(error.response.data.message));
 };
 
 /**
@@ -252,16 +236,12 @@ export const startAddRecipe = (recipeData = {}) => {
  * @returns { object } - returns an object with an action type and the user recipe object
  */
 
-export const startGetUserRecipes = () => {
-  return (dispatch) => {
-    return axios.get('http://localhost:8000/api/v1/users/recipes')
-      .then((res) => {
-        console.log('user action', res.data);
-        dispatch(getUserRecipe(res.data.recipeData));
-      })
-      .catch(error => Promise.reject(error.response.data.message));
-  };
-};
+export const startGetUserRecipes = () => dispatch => axios
+  .get('http://localhost:8000/api/v1/users/recipes')
+  .then((res) => {
+    dispatch(getUserRecipe(res.data.recipeData));
+  })
+  .catch(error => Promise.reject(error.response.data.message));
 
 /**
  * Represents a function
@@ -273,16 +253,13 @@ export const startGetUserRecipes = () => {
  * @returns { object } - returns an object with an action type and the new recipe object
  */
 
-export const startEditRecipe = (id, updates) => {
-  return (dispatch) => {
-    return axios.put(`/api/v1/recipes/${id}/modify`, updates)
-      .then(() => {
-        toastr.success('Recipe edited successfully.');
-        dispatch(editRecipe(id, updates));
-      })
-      .catch(error => Promise.reject(error.response.data.message));
-  };
-};
+export const startEditRecipe = (id, updates) => dispatch => axios
+  .put(`/api/v1/recipes/${id}/modify`, updates)
+  .then(() => {
+    toastr.success('Recipe edited successfully.');
+    dispatch(editRecipe(id, updates));
+  })
+  .catch(error => Promise.reject(error.response.data.message));
 
 /**
  * Represents a function
@@ -293,16 +270,13 @@ export const startEditRecipe = (id, updates) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const startRemoveRecipe = (id) => {
-  return (dispatch) => {
-    return axios.delete(`/api/v1/recipes/${id}`)
-      .then(() => {
-        toastr.success('Recipe deleted successfully.');
-        dispatch(removeRecipe(id));
-      })
-      .catch(error => Promise.reject(error.response.data.message));
-  };
-};
+export const startRemoveRecipe = id => dispatch => axios
+  .delete(`/api/v1/recipes/${id}`)
+  .then(() => {
+    toastr.success('Recipe deleted successfully.');
+    dispatch(removeRecipe(id));
+  })
+  .catch(error => Promise.reject(error.response.data.message));
 
 /**
  * Represents a function
@@ -313,15 +287,12 @@ export const startRemoveRecipe = (id) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const startGetOneRecipe = (id) => {
-  return (dispatch) => {
-    return axios.get(`http://localhost:8000/api/v1/recipe/${id}`)
-      .then((res) => {
-        dispatch(getOneRecipe(res.data.recipeData));
-      })
-      .catch(error => Promise.reject(error.response.data.message));
-  };
-};
+export const startGetOneRecipe = id => dispatch => axios
+  .get(`/api/v1/recipe/${id}`)
+  .then((res) => {
+    dispatch(getOneRecipe(res.data.recipeData));
+  })
+  .catch(error => Promise.reject(error.response.data.message));
 
 /**
  * Represents a function
@@ -332,31 +303,32 @@ export const startGetOneRecipe = (id) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const startAddFavoriteRecipes = (id) => {
-  return (dispatch, getstate) => {
-    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/favorites`)
-      .then((res) => {
-        const authUserid = getstate().auth.user.id;
-        toastr.success(res.data.message);
-        return dispatch(toggleFavorites(
-          res.data,
-          authUserid,
-          res.data
-            .message === 'Recipe removed from your favorites.' ?
-            'remove' : 'add'
-        ));
-      })
-      .catch((err) => {
-        if (err.response.data
-          .message === 'You need to be logged in to perform this action.') {
-          toastr.error(err.response.data.message);
-        } else if (err.response.data
-          .message === 'Sorry, you cannot perform this action on your own recipe.') {
-          toastr.error(err.response.data.message);
-        }
-      });
-  };
-};
+export const startAddFavoriteRecipes = id => (dispatch, getstate) => axios
+  .post(`/api/v1/recipes/${id}/favorites`)
+  .then((res) => {
+    const authUserid = getstate().auth.user.id;
+    toastr.success(res.data.message);
+    return dispatch(toggleFavorites(
+      res.data,
+      authUserid,
+      res.data.message === 'Recipe removed from your favorites.'
+        ? 'remove'
+        : 'add'
+    ));
+  })
+  .catch((err) => {
+    if (
+      err.response.data.message ===
+          'You need to be logged in to perform this action.'
+    ) {
+      toastr.error(err.response.data.message);
+    } else if (
+      err.response.data.message ===
+          'Sorry, you cannot perform this action on your own recipe.'
+    ) {
+      toastr.error(err.response.data.message);
+    }
+  });
 
 /**
  * Represents a function
@@ -367,15 +339,12 @@ export const startAddFavoriteRecipes = (id) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const startGetUserFavorites = (id) => {
-  return (dispatch) => {
-    return axios.get(`/api/v1/users/${id}/favorites`)
-      .then((res) => {
-        dispatch(fetchFavorites(res.data));
-      })
-      .catch(error => Promise.reject(error.response.data.message));
-  };
-};
+export const startGetUserFavorites = id => dispatch => axios
+  .get(`/api/v1/users/${id}/favorites`)
+  .then((res) => {
+    dispatch(fetchFavorites(res.data));
+  })
+  .catch(error => Promise.reject(error.response.data.message));
 
 /**
  * Represents a function
@@ -386,28 +355,29 @@ export const startGetUserFavorites = (id) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const startUpvoteRecipe = (id) => {
-  return (dispatch, getstate) => {
-    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/upvote`)
-      .then((res) => {
-        const authUserid = getstate().auth.user.id;
-        toastr.success(res.data.message);
-        dispatch(upVoteRecipe(res.data, authUserid));
-      })
-      .catch((err) => {
-        if (err.response.data
-          .message === 'You need to be logged in to perform this action.') {
-          toastr.error(err.response.data.message);
-        } else if (err.response.data
-          .message === 'You already upvoted on this recipe') {
-          toastr.warning(err.response.data.message);
-        } else if (err.response.data
-          .message === 'You cannot vote on your own recipe.') {
-          toastr.error(err.response.data.message);
-        }
-      });
-  };
-};
+export const startUpvoteRecipe = id => (dispatch, getstate) => axios
+  .post(`/api/v1/recipes/${id}/votes/upvote`)
+  .then((res) => {
+    const authUserid = getstate().auth.user.id;
+    toastr.success(res.data.message);
+    dispatch(upVoteRecipe(res.data, authUserid));
+  })
+  .catch((err) => {
+    if (
+      err.response.data.message ===
+          'You need to be logged in to perform this action.'
+    ) {
+      toastr.error(err.response.data.message);
+    } else if (
+      err.response.data.message === 'You already upvoted on this recipe'
+    ) {
+      toastr.warning(err.response.data.message);
+    } else if (
+      err.response.data.message === 'You cannot vote on your own recipe.'
+    ) {
+      toastr.error(err.response.data.message);
+    }
+  });
 
 /**
  * Represents a function
@@ -418,27 +388,27 @@ export const startUpvoteRecipe = (id) => {
  * @returns { object } - returns an object with an action type
  */
 
-export const startDownVoteRecipe = (id) => {
-  return (dispatch, getstate) => {
-    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/votes/downvote`)
-      .then((res) => {
-        toastr.success(res.data.message);
-        const authUserid = getstate().auth.user.id;
-      })
-      .catch((err) => {
-        if (err.response.data
-          .message === 'You need to be logged in to perform this action.') {
-          toastr.error(err.response.data.message);
-        } else if (err.response.data
-          .message === 'You already downvoted on this recipe') {
-          toastr.warning(err.response.data.message);
-        } else if (err.response.data
-          .message === 'You cannot vote on your own recipe.') {
-          toastr.error(err.response.data.message);
-        }
-      });
-  };
-};
+export const startDownVoteRecipe = id => () => axios
+  .post(`/api/v1/recipes/${id}/votes/downvote`)
+  .then((res) => {
+    toastr.success(res.data.message);
+  })
+  .catch((err) => {
+    if (
+      err.response.data.message ===
+          'You need to be logged in to perform this action.'
+    ) {
+      toastr.error(err.response.data.message);
+    } else if (
+      err.response.data.message === 'You already downvoted on this recipe'
+    ) {
+      toastr.warning(err.response.data.message);
+    } else if (
+      err.response.data.message === 'You cannot vote on your own recipe.'
+    ) {
+      toastr.error(err.response.data.message);
+    }
+  });
 
 /**
  * Represents a function
@@ -450,21 +420,22 @@ export const startDownVoteRecipe = (id) => {
  * @returns { object } - returns an object with an action type and the new review object
  */
 
-export const startAddReview = (id, reviewData) => {
-  return (dispatch) => {
-    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/reviews`, reviewData)
-      .then((res) => {
-        toastr.success(res.data.message);
-        dispatch(addReview(res.data));
-      })
-      .catch((err) => {
-        if (err.response.data
-          .message === 'You need to be logged in to perform this action.') {
-          toastr.error(err.response.data.message);
-        } else if (err.response.data
-          .message === 'You can\'t post an empty review. Please, enter a happy review for this recipe.') {
-          toastr.warning(err.response.data.message);
-        }
-      });
-  };
-};
+export const startAddReview = (id, reviewData) => dispatch => axios
+  .post(`/api/v1/recipes/${id}/reviews`, reviewData)
+  .then((res) => {
+    toastr.success(res.data.message);
+    dispatch(addReview(res.data));
+  })
+  .catch((err) => {
+    if (
+      err.response.data.message ===
+          'You need to be logged in to perform this action.'
+    ) {
+      toastr.error(err.response.data.message);
+    } else if (
+      err.response.data.message ===
+          "You can't post an empty review. Please, enter a happy review for this recipe."
+    ) {
+      toastr.warning(err.response.data.message);
+    }
+  });

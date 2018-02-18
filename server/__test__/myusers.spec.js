@@ -257,5 +257,63 @@ describe('User API testing', () => {
           done();
         });
     });
+    it('Should modify the email of a logged in user', (done) => {
+      const testUser = { ...users[0] };
+      testUser.email = 'newemail@gmail.com';
+      request.put(`/api/v1/users/profile?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          console.log('res email here', res.body);
+          expect(res.body.userData).to.be.an('object');
+          expect(res.body.userData).to.have.property('username');
+          expect(res.body.userData).to.have.property('email');
+          expect(res.body.userData).to.not.have.property('password');
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+    it('Should modify the username of a logged in user', (done) => {
+      const testUser = { ...users[0] };
+      testUser.username = 'mynewusername';
+      request.put(`/api/v1/users/profile?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          expect(res.body.userData).to.be.an('object');
+          expect(res.body.userData).to.have.property('username');
+          expect(res.body.userData).to.have.property('email');
+          expect(res.body.userData).to.not.have.property('password');
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+    it('Should modify the password of a logged in user', (done) => {
+      const testUser = { ...users[0] };
+      testUser.password = 'mynewpassword';
+      request.put(`/api/v1/users/profile?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .end((err, res) => {
+          expect(res.body.userData).to.be.an('object');
+          expect(res.body.userData).to.have.property('username');
+          expect(res.body.userData).to.have.property('email');
+          expect(res.body.userData).to.not.have.property('password');
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+    it('Should return a 403 if no token is provided when trying to modify a user detail',
+      (done) => {
+        const testUser = { ...users[0] };
+        testUser.password = 'mynewpassword';
+        request.put('/api/v1/users/profile')
+          .set('Connection', 'keep alive')
+          .set('Content-Type', 'application/json')
+          .end((err, res) => {
+            expect(res.statusCode).to.equal(403);
+            done();
+          });
+      });
   });
 });

@@ -71,12 +71,12 @@ module.exports = (app) => {
     User.isuser,
     vote.voteRecipe
   );
-
   app.get('/api/v1/recipes/:page', recipeController.getRecipes);
-  app.get(
-    '/api/v1/users/recipes',
+  app.get('/api/v1/users/recipes', Login.hasToken, User.isuser, getUserRecipes);
+  app.put(
+    '/api/v1/users/profile',
     Login.hasToken,
     User.isuser,
-    getUserRecipes
+    userController.updateProfile
   );
 };

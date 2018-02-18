@@ -1,6 +1,5 @@
 const recipeDefaultState = {
   pages: 0,
-  voters: 0,
   recipes: [],
   userRecipe: [],
   singleRecipe: '',

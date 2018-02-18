@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Emoji from 'react-emoji-render';
+import FavoriteModal from './FavoriteModal';
 import Footer from './Footer';
 import pizza from '../assets/img/pizzza.jpg';
 import {
@@ -12,19 +13,38 @@ import {
 class Favorites extends Component {
   constructor(props) {
     super(props);
-    this.favoriteRecipes = this.favoriteRecipes.bind(this);
+    this.state = {
+      selectedFavorite: undefined
+    };
+    this.selectFavorite = this.selectFavorite.bind(this);
+    this.handleClearFavoriteRecipe = this.handleClearFavoriteRecipe.bind(this);
+    this.removeFavorite = this.removeFavorite.bind(this);
   }
   componentDidMount() {
     this.props.startGetUserFavorites(this.props.user.id);
+  }
+
+  handleClearFavoriteRecipe() {
+    this.setState(() => ({
+      selectedFavorite: undefined
+    }));
   }
 
   componentDidUpdate() {
     this.props.startGetUserFavorites(this.props.user.id);
   }
 
-  favoriteRecipes(event) {
-    event.preventDefault();
+  selectFavorite() {
+    this.setState(() => ({
+      selectedFavorite: this.props.recipes[0].id
+    }));
+  }
+
+  removeFavorite() {
     this.props.startAddFavoriteRecipes(this.props.recipes[0].id);
+    this.setState(() => ({
+      selectedFavorite: undefined
+    }));
   }
 
   render() {
@@ -47,7 +67,7 @@ class Favorites extends Component {
                   style={{ textAlign: 'justify' }}
                 >
                   <button
-                    onClick={this.favoriteRecipes}
+                    onClick={this.selectFavorite}
                     className="btn btn-danger"
                     role="button"
                   >
@@ -61,6 +81,11 @@ class Favorites extends Component {
                 </small>
               </div>
             </div>
+            <FavoriteModal
+              selectedFavorite={this.state.selectedFavorite}
+              handleClearFavoriteRecipe={this.handleClearFavoriteRecipe}
+              removeFavorite={this.removeFavorite}
+            />
           </div>
         );
       });

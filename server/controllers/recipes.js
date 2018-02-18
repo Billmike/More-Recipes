@@ -82,7 +82,7 @@ class Recipe {
           .update({
             name: req.body.name || recipe.name,
             description: req.body.description || recipe.description,
-            img_link: req.body.imageUrl || recipe.imageUrl,
+            imageUrl: req.body.imageUrl || recipe.imageUrl,
             category: req.body.category || recipe.category,
             ingredients: req.body.ingredients || recipe.ingredients,
             instructions: req.body.instructions || recipe.instructions
@@ -147,50 +147,6 @@ class Recipe {
       .catch(error =>
         res.status(500).json({
           message: error.message
-        }));
-  }
-
-  /**
-   * Represents the method that gets all user's recipes in the application
-   * @method
-   *
-   * @param { object } req - the request object
-   * @param { object } res - the response object
-   *
-   * @returns { object } All user's recipes in the application
-   */
-
-  static getUserRecipes(req, res) {
-    return recipes
-      .findAll({
-        where: {
-          owner: req.userId
-        },
-        include: [{
-          model: favorites,
-          as: 'favorites'
-        }, {
-          model: votes,
-          as: 'votes'
-        }, {
-          model: reviews,
-          as: 'reviews'
-        }]
-      })
-      .then((userRecipe) => {
-        if (userRecipe.length === 0) {
-          return res.status(200).json({
-            message: 'User currently has no recipes'
-          });
-        }
-        return res.status(200).json({
-          message: `You currently have ${userRecipe.length} recipe(s)`,
-          userRecipe
-        });
-      })
-      .catch(() =>
-        res.status(500).json({
-          message: errorMessage
         }));
   }
 

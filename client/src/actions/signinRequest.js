@@ -1,6 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import { SET_CURRENT_USER } from './types';
+import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import './toastrConfig';
 
@@ -17,6 +17,13 @@ export const setCurrentUser = (user) => {
   return {
     type: SET_CURRENT_USER,
     user,
+  };
+};
+
+export const getUserInformationAC = (user) => {
+  return {
+    type: GET_USER_INFORMATION,
+    user
   };
 };
 

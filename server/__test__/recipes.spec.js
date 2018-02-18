@@ -286,13 +286,12 @@ describe('Recipes Endpoint', () => {
         .type('form')
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body.recipeData.reviews).to.be.an('array');
-          expect(res.body.recipeData).to.be.an('object');
+          expect(res.body.recipeData).to.be.an('array');
           done();
         });
     });
     it('Should return all the recipes in the application', (done) => {
-      request.get(`${recipesApi}`)
+      request.get(`${recipesApi}/0`)
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
@@ -309,11 +308,12 @@ describe('Recipes Endpoint', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
+          console.log('last one here', res.body);
           expect(res.status).to.equal(200);
           expect(res.body.message).
             to.equal(`You currently have ${res
-              .body.userRecipe.length} recipe(s)`);
-          expect(res.body.userRecipe).to.be.an('array');
+              .body.recipeData.length} recipe(s)`);
+          expect(res.body.recipeData).to.be.an('array');
           done();
         });
     });

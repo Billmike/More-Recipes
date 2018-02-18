@@ -82,7 +82,7 @@ const sortRecipes = (recipeArray, sortOrder, callback) => {
  * @returns { object } The recipes object
  */
 
-const getAllRecipes = (req, res, next) => {
+const getAllRecipes = (req, res) => {
   Recipes.findAll({
     where: {
       id: req.params.recipeId
@@ -101,7 +101,6 @@ const getAllRecipes = (req, res, next) => {
     }],
   })
     .then((recipes) => {
-      console.log('found recipe', recipes);
       const tempStorage = [];
       recipes.forEach((elem) => {
         tempStorage.push(new GetRecipes(
@@ -151,7 +150,6 @@ export const getUserRecipes = (req, res) => {
     }],
   })
     .then((recipes) => {
-      console.log('found recipe', recipes);
       const tempStorage = [];
       recipes.forEach((elem) => {
         tempStorage.push(new GetRecipes(
@@ -173,7 +171,10 @@ export const getUserRecipes = (req, res) => {
         ));
       });
       return res
-        .status(200).json({ recipeData: tempStorage });
+        .status(200).json({
+          message: `You currently have ${tempStorage.length} recipe(s)`,
+          recipeData: tempStorage
+        });
     })
     .catch((err) => {
       res.status(500).json({

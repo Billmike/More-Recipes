@@ -18,9 +18,18 @@ class Dashboard extends Component {
   render() {
     let availableRecipes;
     if (this.props.recipes) {
-      availableRecipes = this.props.recipes.map(recipe => {
-        return <RecipeEdit key={recipe.id} {...recipe} />;
-      });
+      availableRecipes =
+        this.props.recipes.length > 0 ? (
+          this.props.recipes.map(recipe => {
+            return <RecipeEdit key={recipe.id} {...recipe} />;
+          })
+        ) : (
+          <p className="no-recipes-p">
+            {this.props.user.username}, you do not have any recipes yet.{' '}
+            <Link to="/add">Create one now.</Link>
+            <Emoji text=":)" />
+          </p>
+        );
     }
     return (
       <div>
@@ -30,19 +39,7 @@ class Dashboard extends Component {
             Welcome to your Dashboard, {this.props.user.username}!
           </h2>
           <h4 className="dashboard-h4"> My Recipes </h4>
-          <div className="row">
-            {availableRecipes ? (
-              availableRecipes
-            ) : (
-              <div>
-                <p className="no-recipes-p">
-                  {this.props.user.username}, you do not have any recipes yet.{' '}
-                  <Link to="/add">Create one now.</Link>
-                  <Emoji text=":)" />
-                </p>
-              </div>
-            )}
-          </div>
+          <div className="row">{availableRecipes}</div>
         </div>
         <Footer />
       </div>
