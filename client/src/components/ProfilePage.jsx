@@ -31,7 +31,6 @@ class ProfilePage extends Component {
 };
 
 const mapStateToProps = (state, props) => {
-  console.log('user details', state);
   return {
     userInformation: state.auth.user
   };

@@ -202,7 +202,6 @@ class RecipeDetail extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log('primary state', state);
   return {
     recipe: state.recipes.singleRecipe,
     user: state.auth.user

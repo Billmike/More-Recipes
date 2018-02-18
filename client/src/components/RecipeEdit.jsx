@@ -109,7 +109,6 @@ class RecipeEdit extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state here', state);
   return {
     recipe: state.recipes.userRecipe
   };

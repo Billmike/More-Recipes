@@ -125,7 +125,6 @@ class Homepage extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state', state);
   return {
     recipes: state.recipes.recipes,
     pages: state.recipes.pages

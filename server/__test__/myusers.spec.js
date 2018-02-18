@@ -264,7 +264,6 @@ describe('User API testing', () => {
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .end((err, res) => {
-          console.log('res email here', res.body);
           expect(res.body.userData).to.be.an('object');
           expect(res.body.userData).to.have.property('username');
           expect(res.body.userData).to.have.property('email');
