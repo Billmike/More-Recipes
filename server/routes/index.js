@@ -7,7 +7,7 @@ import reviewController from '../controllers/reviews';
 import validateReview from '../middleware/validateReview';
 import favorite from '../controllers/addFavorites';
 import vote from '../controllers/voteRecipe';
-import getSortedRecipes from '../controllers/getAllRecipes';
+import getSortedRecipes, { getUserRecipes } from '../controllers/getAllRecipes';
 
 module.exports = (app) => {
   app.get('/api', (req, res) =>
@@ -77,6 +77,6 @@ module.exports = (app) => {
     '/api/v1/users/recipes',
     Login.hasToken,
     User.isuser,
-    recipeController.getUserRecipes
+    getUserRecipes
   );
 };

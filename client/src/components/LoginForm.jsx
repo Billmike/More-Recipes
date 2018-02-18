@@ -57,7 +57,7 @@ class LoginForm extends Component {
       <form onSubmit={this.onSubmit}>
         <div id="login-box">
           <div className="signin-left">
-            <h1>Sign In</h1>
+            <h1>Login</h1>
             <div>
               <input
                 type="text"
@@ -82,7 +82,7 @@ class LoginForm extends Component {
                 <span className="help-block red-errors">{errors.password}</span>
               )}
             </div>
-            <input type="submit" name="signup_submit" value="Sign In" />
+            <input type="submit" name="signup_submit" value="Login" />
           </div>
 
           <div className="right">

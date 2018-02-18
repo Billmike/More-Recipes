@@ -125,11 +125,17 @@ class Recipe {
             limit,
             offset,
             pages,
-            include: {
-              model: favorites,
-              as: 'favorites',
-              attributes: ['userId']
-            }
+            include: [
+              {
+                model: favorites,
+                as: 'favorites',
+                attributes: ['userId']
+              },
+              {
+                model: reviews,
+                as: 'reviews'
+              }
+            ]
           })
           .then((allRecipes) => {
             res.status(200).json({
@@ -159,7 +165,17 @@ class Recipe {
       .findAll({
         where: {
           owner: req.userId
-        }
+        },
+        include: [{
+          model: favorites,
+          as: 'favorites'
+        }, {
+          model: votes,
+          as: 'votes'
+        }, {
+          model: reviews,
+          as: 'reviews'
+        }]
       })
       .then((userRecipe) => {
         if (userRecipe.length === 0) {
@@ -202,14 +218,17 @@ class Recipe {
             where: {
               id: foundRecipe.id
             },
-            include: [{
-              model: reviews,
-              as: 'reviews'
-            }, {
-              model: votes,
-              as: 'votes',
-              attributes: ['userId']
-            }]
+            include: [
+              {
+                model: reviews,
+                as: 'reviews'
+              },
+              {
+                model: votes,
+                as: 'votes',
+                attributes: ['userId']
+              }
+            ]
           })
           .then(singleRecipe =>
             res.status(200).json({ recipeData: singleRecipe }));

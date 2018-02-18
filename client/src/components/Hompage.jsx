@@ -6,9 +6,9 @@ import RecipesList from './RecipesList';
 import Footer from './Footer';
 import Pagination from './Pagination';
 import { startGetAllRecipes } from '../actions/recipes';
-import pancakes from '../assets/img/pancakes.jpeg';
-import cookies from '../assets/img/cookies.jpeg';
-import dessert from '../assets/img/dessert.jpeg';
+import strawberry from '../assets/img/strawberry.jpg';
+import dark from '../assets/img/dark.jpg';
+import noodles from '../assets/img/noodles.jpg';
 
 class Homepage extends Component {
   constructor(props) {
@@ -50,41 +50,36 @@ class Homepage extends Component {
           <div className="carousel-inner">
             <div className="carousel-item active">
               <img
-                className="d-block w-100 sizing"
-                src={pancakes}
+                className="d-block w-100 sizing carousel-slide-image"
+                src={strawberry}
                 alt="First slide"
               />
               <div className="carousel-caption d-none d-md-block">
                 <h3 className="carousel-h3">
                   Handcrafted recipes made by local chefs
                 </h3>
-                <p className="carousel-p">... the little things matter</p>
               </div>
             </div>
             <div className="carousel-item">
               <img
-                className="d-block w-100 sizing"
-                src={cookies}
+                className="d-block w-100 sizing carousel-slide-image"
+                src={dark}
                 alt="Second slide"
               />
               <div className="carousel-caption d-none d-md-block">
-                <h3 className="carousel-h3-light">
+                <h3 className="carousel-h3">
                   Tasty recipes to spice up your dinner table.
                 </h3>
-                <p className="carousel-p-light">
-                  ... you really cannot resist these delights.
-                </p>
               </div>
             </div>
             <div className="carousel-item">
               <img
-                className="d-block w-100 sizing"
-                src={dessert}
+                className="d-block w-100 sizing carousel-slide-image"
+                src={noodles}
                 alt="Third slide"
               />
               <div className="carousel-caption d-none d-md-block">
                 <h3 className="carousel-h3">Make every meal memorable.</h3>
-                <p className="carousel-p">... no more boring nights at home.</p>
               </div>
             </div>
           </div>
@@ -117,10 +112,6 @@ class Homepage extends Component {
             </span>
             <input className="form-control" placeholder="Search for....." />
           </div>
-          <Pagination
-            handlePaginationChange={this.handlePaginationChange}
-            pageCount={this.props.pages}
-          />
           <div className="row">{allRecipes}</div>
           <Pagination
             handlePaginationChange={this.handlePaginationChange}
@@ -134,9 +125,10 @@ class Homepage extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log('state', state);
   return {
     recipes: state.recipes.recipes,
-    pages: state.recipes.pages,
+    pages: state.recipes.pages
   };
 };
 

@@ -233,7 +233,7 @@ export const startAddRecipe = (recipeData = {}) => {
       ingredients,
       instructions,
     };
-    return axios.post('/api/v1/recipes', recipe)
+    return axios.post('http://localhost:8000/api/v1/recipes', recipe)
       .then(() => {
         toastr.success('Recipe added successfully.');
         dispatch(addRecipe({
@@ -254,9 +254,10 @@ export const startAddRecipe = (recipeData = {}) => {
 
 export const startGetUserRecipes = () => {
   return (dispatch) => {
-    return axios.get('/api/v1/users/recipes')
+    return axios.get('http://localhost:8000/api/v1/users/recipes')
       .then((res) => {
-        dispatch(getUserRecipe(res.data.userRecipe));
+        console.log('user action', res.data);
+        dispatch(getUserRecipe(res.data.recipeData));
       })
       .catch(error => Promise.reject(error.response.data.message));
   };
@@ -451,8 +452,9 @@ export const startDownVoteRecipe = (id) => {
 
 export const startAddReview = (id, reviewData) => {
   return (dispatch) => {
-    return axios.post(`/api/v1/recipes/${id}/reviews`, reviewData)
+    return axios.post(`http://localhost:8000/api/v1/recipes/${id}/reviews`, reviewData)
       .then((res) => {
+        toastr.success(res.data.message);
         dispatch(addReview(res.data));
       })
       .catch((err) => {

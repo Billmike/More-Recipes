@@ -132,4 +132,54 @@ const getAllRecipes = (req, res, next) => {
     });
 };
 
+export const getUserRecipes = (req, res) => {
+  Recipes.findAll({
+    where: {
+      owner: req.userId
+    },
+    include: [{
+      model: Votes,
+      as: 'votes',
+    }, {
+      model: User,
+    }, {
+      model: Review,
+      as: 'reviews'
+    }, {
+      model: Favorites,
+      as: 'favorites',
+    }],
+  })
+    .then((recipes) => {
+      console.log('found recipe', recipes);
+      const tempStorage = [];
+      recipes.forEach((elem) => {
+        tempStorage.push(new GetRecipes(
+          elem.name,
+          elem.description,
+          elem.imageUrl,
+          elem.category,
+          elem.ingredients,
+          elem.instructions,
+          { id: elem.User.id, username: elem.User.username },
+          elem.reviews,
+          countRecipes(elem.favorites),
+          null,
+          countRecipes(elem.votes, 'voteType', 'upvote'),
+          countRecipes(elem.votes, 'voteType', 'downvote'),
+          elem.id,
+          elem.createdAt,
+          elem.updatedAt,
+        ));
+      });
+      return res
+        .status(200).json({ recipeData: tempStorage });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: err.message
+      });
+    });
+};
+
 export default getAllRecipes;

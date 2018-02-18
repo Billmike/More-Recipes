@@ -29,7 +29,7 @@ export const setCurrentUser = (user) => {
  */
 
 export const signupRequest = userData => (dispatch) => {
-  return axios.post('/api/v1/users/signup', userData)
+  return axios.post('http://localhost:8000/api/v1/users/signup', userData)
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('authToken', token);

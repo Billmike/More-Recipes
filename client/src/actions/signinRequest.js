@@ -29,7 +29,7 @@ export const setCurrentUser = (user) => {
  * @returns { object } The signed in user and a token
  */
 export const signinRequest = userData => (dispatch) => {
-  return axios.post('/api/v1/users/signin', userData)
+  return axios.post('http://localhost:8000/api/v1/users/signin', userData)
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('authToken', token);
