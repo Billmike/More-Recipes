@@ -17,58 +17,58 @@ describe('Authentication action', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
-  describe('Signup Action', () => {
-    it('Should signup a user and call the SET_CURRENT_USER action', async (done) => {
-      const { usersignupData, signupResponse } = mockData;
-      moxios.stubRequest('/api/v1/users/signup', {
-        status: 201,
-        response: signupResponse
-      });
-
-      const returnedAction = [{
-        type: SET_CURRENT_USER,
-        user: jwt.decode(signupResponse.token)
-      }];
-
-      const store = mockStore({});
-      await store.dispatch(signupRequest(usersignupData))
-        .then(() => {
-          expect(store.getActions()).toEqual(returnedAction);
+  describe('Signup action', () => {
+    it('Should sign up a user and dispatch the SET_CURRENT_USER action', async (done) => {
+      const { usersignupData, Response } = mockData;
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 201,
+          response: Response
         });
+      });
+      const returnedAction = [
+        {
+          type: SET_CURRENT_USER,
+          user: jwt.decode(Response.token)
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(signupRequest(usersignupData));
+      expect(store.getActions()).toEqual(returnedAction);
       done();
     });
   });
-
   describe('Signin Action', () => {
-    it('Should signin a user and call SET_CURRENT_USER action',
-      async (done) => {
-        const { userSigninData, signupResponse } = mockData;
-        moxios.stubRequest('/api/v1/users/signin', {
+    it('Should sign in a registered user and dispatch SET_CURRENT_USER action', async (done) => {
+      const { userSigninData, Response } = mockData;
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
           status: 201,
-          response: signupResponse
+          response: Response
         });
-
-        const returnedAction = [{
+      });
+      const returnedAction = [
+        {
           type: SET_CURRENT_USER,
-          user: jwt.decode(signupResponse.token)
-        }];
-
-        const store = mockStore({});
-        await store.dispatch(signinRequest(userSigninData))
-          .then(() => {
-            expect(store.getActions()).toEqual(returnedAction);
-          });
-        done();
-      }
-    );
+          user: jwt.decode(Response.token)
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(signinRequest(userSigninData));
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
+    });
   });
-
-  describe('Logout Action', () => {
-    it('Should logout a user and clear their information', async (done) => {
-      const returnedAction = [{
-        type: SET_CURRENT_USER,
-        user: {}
-      }];
+  describe('Sign out Action', () => {
+    it('Should signout a user and clear their information', async (done) => {
+      const returnedAction = [
+        {
+          type: SET_CURRENT_USER,
+          user: {}
+        }
+      ];
       const store = mockStore({});
       await store.dispatch(logout({}));
       expect(store.getActions()).toEqual(returnedAction);

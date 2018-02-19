@@ -1,6 +1,6 @@
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
+import configureStore from 'redux-mock-store';
 import expect from 'expect';
 import {
   startAddRecipe,
@@ -11,12 +11,15 @@ import {
   startGetUserRecipes,
   startGetUserFavorites,
   startAddFavoriteRecipes,
+  startUpvoteRecipe,
+  startDownVoteRecipe
 } from '../../actions/recipes';
 import {
   recipeResponse,
   deleteRecipeResponse,
-  mockFavoriteRecipes,
+  mockFavoriteRecipes
 } from '../__mocks__/actions/recipes';
+import voteResponse from '../__mocks__/actions/votes';
 import {
   ADD_RECIPE,
   EDIT_RECIPE,
@@ -25,39 +28,40 @@ import {
   GET_ONE_RECIPE,
   GET_USER_RECIPES,
   FETCH_FAVORITE_RECIPES,
-  ADD_FAVORITE_RECIPE,
+  TOGGLE_FAVORITE,
+  UPVOTE_RECIPE,
+  DOWNVOTE_RECIPE
 } from '../../actions/types';
 
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureStore([thunk]);
 
-describe('Recipes action creators', () => {
+describe('Recipes actions', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
-  describe('Create Recipe Action', () => {
-    it('Should dispatch ADD_RECIPE action and add a recipe', async (done) => {
+  describe('Create recipe Action', () => {
+    it('Should create a recipe and dispatch the ADD_RECIPE action', async (done) => {
       moxios.stubRequest('/api/v1/recipes', {
         status: 201,
         response: recipeResponse
       });
-      const returnedAction = [{
-        type: ADD_RECIPE,
-        recipe: recipeResponse.recipeData
-      }];
+
+      const returnedAction = [
+        {
+          type: ADD_RECIPE,
+          recipe: recipeResponse.recipeData
+        }
+      ];
 
       const store = mockStore({});
-      await store.dispatch(startAddRecipe({
-        ...recipeResponse.recipeData
-      }))
-        .then(() => {
-          expect(store.getActions()).toEqual(returnedAction);
-        });
+      await store.dispatch(startAddRecipe({ ...recipeResponse.recipeData }));
+      expect(store.getActions()).toEqual(returnedAction);
       done();
     });
   });
 
-  describe('Edit recipe Action', () => {
-    it('Should edit a recipe and call the EDIT_RECIPE action', () => {
+  describe('Edit recipe action', () => {
+    it('Should edit a recipe and dispatch the EDIT_RECIPE action', async (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -65,167 +69,179 @@ describe('Recipes action creators', () => {
           response: recipeResponse
         });
       });
-
-      const returnedAction = [{
-        type: EDIT_RECIPE,
-        updates: recipeResponse.recipeData
-      }];
-
+      const returnedAction = [
+        {
+          type: EDIT_RECIPE,
+          updates: recipeResponse.recipeData
+        }
+      ];
       const store = mockStore({});
-      return store.dispatch(startEditRecipe({ ...recipeResponse.recipeData }))
-        .then(() => {
-          expect(store.getActions()).toEqual(returnedAction);
-        });
+      await store.dispatch(startEditRecipe({ ...recipeResponse.recipeData }));
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
     });
   });
 
-  describe('Delete recipe Action', () => {
-    it('Should delete a recipe and dispatch the REMOVE_RECIPE action', () => {
+  describe('Delete recipe action', () => {
+    it('Should delete recipe and dispatch the REMOVE_RECIPE action', async (done) => {
       moxios.wait(() => {
-        const deleteRequest = moxios.requests.mostRecent();
-        deleteRequest.respondWith({
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
           status: 201,
           response: deleteRecipeResponse
         });
       });
 
-      const returnedAction = [{
-        type: REMOVE_RECIPE,
-        id: recipeResponse.id
-      }];
+      const returnedAction = [
+        {
+          type: REMOVE_RECIPE,
+          id: recipeResponse.id
+        }
+      ];
 
       const store = mockStore({});
-      return store.dispatch(startRemoveRecipe(recipeResponse.id))
-        .then(() => {
-          expect(store.getActions()).toEqual(returnedAction);
-        });
+      await store.dispatch(startRemoveRecipe(recipeResponse.id));
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
     });
   });
 
-  describe('Get all recipes action', () => {
-    it('Should fetch all the recipes in the app and dispatch the GET_RECIPES action',
-      () => {
-        const allRecipes = {
-          recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
-        };
-        moxios.wait(() => {
-          const getRecipesRequest = moxios.requests.mostRecent();
-          getRecipesRequest.respondWith({
-            status: 201,
-            response: allRecipes
-          });
+  describe('Get All recipes Action', () => {
+    it('Should fetch all recipes in the application and dispatch the GET_RECIPES action', async (done) => {
+      const allRecipes = {
+        recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
+      };
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: allRecipes
         });
-
-        const returnedAction = [{
+      });
+      const returnedAction = [
+        {
           type: GET_RECIPES,
           recipes: allRecipes.recipeData
-        }];
-
-        const store = mockStore({});
-        return store.dispatch(startGetAllRecipes())
-          .then(() => {
-            expect(store.getActions()).toEqual(returnedAction);
-          });
-      });
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(startGetAllRecipes());
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
+    });
   });
 
   describe('Get one recipe action', () => {
-    it('Should fetch one recipe from the application and dispatch the GET_ONE_RECIPE action',
-      () => {
-        moxios.wait(() => {
-          const getRecipeResponse = moxios.requests.mostRecent();
-          getRecipeResponse.respondWith({
-            status: 201,
-            response: recipeResponse
-          });
+    it('Should fetch on recipe from the application and dispatch the GET_ONE_RECIPE action', async (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: recipeResponse
         });
-
-        const returnedAction = [{
+      });
+      const returnedAction = [
+        {
           type: GET_ONE_RECIPE,
           recipe: recipeResponse.recipeData
-        }];
-
-        const store = mockStore({});
-        return store.dispatch(startGetOneRecipe())
-          .then(() => {
-            expect(store.getActions()).toEqual(returnedAction);
-          });
-      }
-    );
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(startGetOneRecipe());
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
+    });
   });
 
-  describe('Get user recipe action', () => {
-    it('Should fetch a user\'s recipe from the application', () => {
+  describe("Get user's recipe action", () => {
+    it("Should return the user's recipe and dispatch the GET_USER_RECIPES action", async (done) => {
       const userRecipes = {
         userRecipe: [recipeResponse.recipeData, recipeResponse.recipeData]
       };
       moxios.wait(() => {
-        const getUserRecipeRequest = moxios.requests.mostRecent();
-        getUserRecipeRequest.respondWith({
-          status: 201,
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
           response: userRecipes
         });
       });
-
-      const returnedAction = [{
-        type: GET_USER_RECIPES,
-        userRecipe: userRecipes.userRecipe
-      }];
-
+      const returnedAction = [
+        {
+          type: GET_USER_RECIPES,
+          userRecipe: userRecipes.userRecipe
+        }
+      ];
       const store = mockStore({});
-      return store.dispatch(startGetUserRecipes())
-        .then(() => {
-          expect(store.getActions()).toEqual(returnedAction);
-        });
+      await store.dispatch(startGetUserRecipes());
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
     });
   });
 
-  describe('Get favorite recipes action', () => {
-    it('Should return the favorite recipes of a user and dispatch the FETCH_FAVORITE_RECIPES action',
-      () => {
-        moxios.wait(() => {
-          const getFavoritesRequest = moxios.requests.mostRecent();
-          getFavoritesRequest.respondWith({
-            status: 201,
-            response: recipeResponse
-          });
-        });
-
-        const returnedAction = [{
-          type: FETCH_FAVORITE_RECIPES,
-          favoriteRecipes: mockFavoriteRecipes
-        }];
-
-        const store = mockStore({});
-        return store.dispatch(startGetUserFavorites())
-          .then(() => {
-            expect(store.getActions()).toEqual(returnedAction);
-          });
-      }
-    );
-  });
-
-  describe('Add favorite recipe action', () => {
-    it('Should add or remove user favorite and dispatch ADD_FAVORITE_RECIPE action', () => {
+  describe('Get user favorites action', () => {
+    it("Should get user's favorite and dispatch the FETCH_FAVORITE_RECIPES", async (done) => {
       moxios.wait(() => {
-        const addFavsResponse = moxios.requests.mostRecent();
-        addFavsResponse.respondWith({
-          status: 201,
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
           response: recipeResponse
         });
       });
-
-      const returnedAction = [{
-        type: ADD_FAVORITE_RECIPE,
-        favoriteRecipes: mockFavoriteRecipes
-      }];
-
+      const returnedAction = [
+        {
+          type: FETCH_FAVORITE_RECIPES,
+          favoriteRecipes: mockFavoriteRecipes
+        }
+      ];
       const store = mockStore({});
-      return store.dispatch(startAddFavoriteRecipes())
-        .then(() => {
-          expect(store.getActions()).toEqual(returnedAction);
-        });
+      await store.dispatch(startGetUserFavorites());
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
     });
   });
 
+  describe('Toggle favorites action', () => {
+    it("Should add/remove from a user's favorite list and dispatch the TOGGLE_FAVORITE action", async (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: recipeResponse
+        });
+      });
+      const returnedAction = [
+        {
+          type: TOGGLE_FAVORITE,
+          favoriteRecipes: mockFavoriteRecipes,
+          toggleType: 'add'
+        }
+      ];
+      const store = mockStore({ auth: { user: { token: '' } } });
+      await store.dispatch(startAddFavoriteRecipes());
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
+    });
+  });
+
+  describe('Should upvote a recipe', () => {
+    it('Should upvote a recipe and dispatch the UPVOTE_RECIPE action', async (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: voteResponse.votedRecipe.recipeId
+        });
+      });
+      const returnedAction = [
+        {
+          type: UPVOTE_RECIPE,
+          id: voteResponse.votedRecipe.recipeId
+        }
+      ];
+      const store = mockStore({ auth: { user: { token: '' } } });
+      await store.dispatch(startUpvoteRecipe({}));
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
+    });
+  });
 });
