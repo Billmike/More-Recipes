@@ -246,7 +246,7 @@ class Recipe {
             },
             {
               ingredients: {
-                $contains: [`${req.quer.search}`]
+                $contains: [`${req.query.search}`]
               }
             }
           ]

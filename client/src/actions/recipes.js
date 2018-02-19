@@ -184,7 +184,7 @@ export const downVoteRecipe = id => ({
  */
 
 export const startGetAllRecipes = page => dispatch => axios
-  .get(`/api/v1/recipes/${page}`)
+  .get(`http://localhost:8000/api/v1/recipes/${page}`)
   .then((res) => {
     dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
   })
@@ -237,7 +237,7 @@ export const startAddRecipe = (recipeData = {}) => (dispatch) => {
  */
 
 export const startGetUserRecipes = () => dispatch => axios
-  .get('/api/v1/users/recipes')
+  .get('http://localhost:8000/api/v1/users/recipes')
   .then((res) => {
     dispatch(getUserRecipe(res.data.recipeData));
   })

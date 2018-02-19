@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+/* @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
 *:focus {
   outline: none;
 }
@@ -127,8 +127,6 @@ input[type='submit']:active {
   box-sizing: border-box;
   padding: 40px;
   width: 300px;
-  /* height: 400px;
-  background: url('https://goo.gl/YbktSj'); */
   background-size: cover;
   background-position: center;
   border-radius: 0 2px 2px 0;
@@ -250,4 +248,4 @@ button.social-signin.google {
     cursor: pointer;
     margin-left: 10px;
   }
-}
+} */

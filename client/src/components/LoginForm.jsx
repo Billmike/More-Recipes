@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import validateInput from '../../../server/validators/validatesignin';
 import '../assets/css/signup.css';
 
@@ -54,55 +55,41 @@ class LoginForm extends Component {
   render() {
     const { errors } = this.state;
     return (
+      <div className="container">
+      <div className="card text-center card-form has-feedback">
+      <div className="card-body">
       <form onSubmit={this.onSubmit}>
-        <div id="login-box">
-          <div className="signin-left">
-            <h1>Login</h1>
-            <div>
+            <h1 className="sign-up-h3">Login</h1>
+
+            <div className="form-group">
               <input
-                type="text"
-                name="email"
-                value={this.state.email}
-                onChange={this.onEmailChange}
-                placeholder="E-mail"
-              />
+              type="email"
+              name="email"
+              value={this.state.email}
+              onChange={this.onEmailChange}
+              className={classNames("form-control form-control-lg", { "has-errors": errors.email })}
+              placeholder="Email Address" />
               {errors.email && (
-                <span className="help-block red-errors">{errors.email}</span>
-              )}
+                <span className="help-block has-errors">{errors.email}</span>)}
             </div>
-            <div>
+            <div className="form-group">
               <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.onPasswordChange}
-                placeholder="Password"
-              />
+              type="password"
+              name="password"
+              value={this.state.password}
+              onChange={this.onPasswordChange}
+              className={classNames("form-control form-control-lg", { "has-errors": errors.password })}
+              placeholder="Password" />
               {errors.password && (
-                <span className="help-block red-errors">{errors.password}</span>
+                <span className="help-block has-errors">{errors.password}</span>
               )}
             </div>
-            <input type="submit" name="signup_submit" value="Login" />
-          </div>
-
-          <div className="right">
-            <span className="loginwith">
-              Sign in with<br />social network
-            </span>
-
-            <button className="social-signin facebook">
-              Log in with facebook
-            </button>
-            <button className="social-signin twitter">
-              Log in with Twitter
-            </button>
-            <button className="social-signin google">
-              Log in with Google+
-            </button>
-          </div>
-          <div className="or">OR</div>
-        </div>
+            <input type="submit" value="Submit" className="btn submit-btn size-bt btn-block" />
       </form>
+      <p className="signin-pad"> Not yet registered? <a className="account" href="/register"> Let's hook you up with an account. </a> </p>
+      </div>
+      </div>
+      </div>
     );
   }
 }
