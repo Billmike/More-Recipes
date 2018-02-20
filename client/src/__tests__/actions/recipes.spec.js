@@ -11,8 +11,7 @@ import {
   startGetUserRecipes,
   startGetUserFavorites,
   startAddFavoriteRecipes,
-  startUpvoteRecipe,
-  startDownVoteRecipe
+  startUpvoteRecipe
 } from '../../actions/recipes';
 import {
   recipeResponse,
@@ -29,8 +28,7 @@ import {
   GET_USER_RECIPES,
   FETCH_FAVORITE_RECIPES,
   TOGGLE_FAVORITE,
-  UPVOTE_RECIPE,
-  DOWNVOTE_RECIPE
+  UPVOTE_RECIPE
 } from '../../actions/types';
 
 const mockStore = configureStore([thunk]);
