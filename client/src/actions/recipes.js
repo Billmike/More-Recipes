@@ -185,7 +185,7 @@ export const downVoteRecipe = id => ({
 
 export const startGetAllRecipes = page => dispatch =>
   axios
-    .get(`http://localhost:8000/api/v1/recipes/${page}`)
+    .get(`/api/v1/recipes/${page}`)
     .then((res) => {
       dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
     })
@@ -241,7 +241,7 @@ export const startGetUserRecipes = () => dispatch =>
   axios
     .get('/api/v1/users/recipes')
     .then((res) => {
-      dispatch(getUserRecipe(res.data.userRecipe));
+      dispatch(getUserRecipe(res.data.recipeData));
     })
     .catch(error => Promise.reject(error.response.message));
 
@@ -293,7 +293,7 @@ export const startRemoveRecipe = id => dispatch =>
 
 export const startGetOneRecipe = id => dispatch =>
   axios
-    .get(`http://localhost:8000/api/v1/recipe/${id}`)
+    .get(`/api/v1/recipe/${id}`)
     .then((res) => {
       dispatch(getOneRecipe(res.data.recipeData));
     })
@@ -363,7 +363,7 @@ export const startGetUserFavorites = id => dispatch =>
 
 export const startUpvoteRecipe = id => (dispatch, getstate) =>
   axios
-    .post(`http://localhost:8000/api/v1/recipes/${id}/votes/upvote`)
+    .post(`/api/v1/recipes/${id}/votes/upvote`)
     .then((res) => {
       const authUserid = getstate().auth.user.id;
       toastr.success(res.data.message);
@@ -397,7 +397,7 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
 
 export const startDownVoteRecipe = id => () =>
   axios
-    .post(`http://localhost:8000/api/v1/recipes/${id}/votes/downvote`)
+    .post(`/api/v1/recipes/${id}/votes/downvote`)
     .then((res) => {
       toastr.success(res.data.message);
     })

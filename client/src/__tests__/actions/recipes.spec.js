@@ -156,7 +156,7 @@ describe('Recipes actions', () => {
   describe("Get user's recipe action", () => {
     it("Should return the user's recipe and dispatch the GET_USER_RECIPES action", async (done) => {
       const userRecipes = {
-        userRecipe: [recipeResponse.recipeData, recipeResponse.recipeData]
+        recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
       };
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
@@ -168,7 +168,7 @@ describe('Recipes actions', () => {
       const returnedAction = [
         {
           type: GET_USER_RECIPES,
-          userRecipe: userRecipes.userRecipe
+          userRecipe: userRecipes.recipeData
         }
       ];
       const store = mockStore({});

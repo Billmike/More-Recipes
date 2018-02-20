@@ -32,18 +32,24 @@ export default (state = recipeDefaultState, action) => {
         userRecipe: action.userRecipe
       };
     case 'EDIT_RECIPE':
-      return state.userRecipe.map((recipe) => {
-        if (recipe.id == action.id) {
-          return {
-            ...recipe,
-            ...action.updates
-          };
-        }
-        return recipe;
-      });
+      return {
+        ...state,
+        recipes: state.recipes.map((recipe) => {
+          if (recipe.id == action.id) {
+            return {
+              ...recipe,
+              ...action.updates
+            };
+          }
+        })
+      };
     case 'REMOVE_RECIPE':
-      return state.userRecipe.filter(({ id }) => id !== action.id);
+      return {
+        ...state,
+        recipes: state.recipes.filter(({ id }) => id !== action.id)
+      };
     case 'TOGGLE_FAVORITE':
+      console.log('toggle', action);
       return {
         ...state,
         recipes: state.recipes.map((recipe) => {
@@ -52,37 +58,36 @@ export default (state = recipeDefaultState, action) => {
           }
           return {
             ...recipe,
-            favorites: action.toggleType === 'add' ? [
-              ...recipe.favorites,
-              { userId: action.userId }
-            ] : recipe.favorites
-              .filter(favorite => favorite.userId !== action.userId)
+            favorites:
+              action.toggleType === 'add'
+                ? [...recipe.favorites, { userId: action.userId }]
+                : recipe.favorites.filter(favorite => favorite.userId !== action.userId)
           };
         })
       };
     case 'UPVOTE_RECIPE':
       return {
         ...state,
-        singleRecipe: state.singleRecipe.votes.userId !== action.userId ? {
-          ...state.singleRecipe,
-          votes: [
-            ...state.singleRecipe.votes,
-            { userId: action.userId }
-          ]
-        } : state.singleRecipe.votes
-          .filter(vote => vote.userId !== action.userId)
+        singleRecipe:
+          state.singleRecipe.votes.userId !== action.userId
+            ? {
+              ...state.singleRecipe,
+              votes: [...state.singleRecipe.votes, { userId: action.userId }]
+            }
+            : state.singleRecipe.votes.filter(vote => vote.userId !== action.userId)
       };
     case 'FETCH_FAVORITE_RECIPES':
       return {
         ...state,
-        ...{
-          favoriteRecipes: action.favoriteRecipes.recipes
-        }
+        favoriteRecipes: action.favoriteRecipes
       };
     case 'ADD_REVIEW':
       return {
         ...state,
-        singleRecipe: state.singleRecipe.reviews.concat(action.review.reviewData)
+        singleRecipe: {
+          ...state.singleRecipe,
+          reviews: state.singleRecipe.reviews.concat(action.review)
+        }
       };
     default:
       return state;

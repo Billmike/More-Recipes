@@ -117,9 +117,10 @@ class Favorites extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+  console.log('favs compo', state);
   return {
     user: state.auth.user,
-    recipes: state.recipes.favoriteRecipes
+    recipes: state.recipes.favoriteRecipes.recipes
   };
 };
 
