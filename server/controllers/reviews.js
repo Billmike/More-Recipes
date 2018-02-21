@@ -51,18 +51,17 @@ class Review {
                 to: user.email,
                 subject: `Hi ${user.username}. Your recipe has been reviewed`
               };
-              sendMail.sendMail(mailOptions, (err, information) => {
+              sendMail.sendMail(mailOptions, (err) => {
                 if (err) {
-                  res.json({
+                  return res.json({
                     message: err.message
                   });
-                } else {
-                  return res.status(201).json({
-                    message: 'Review successfully posted',
-                    reviewData: {
-                      content: review.content
-                    }
-                  });
+                }
+              });
+              return res.status(201).json({
+                message: 'Review successfully posted',
+                reviewData: {
+                  content: review.content
                 }
               });
             });

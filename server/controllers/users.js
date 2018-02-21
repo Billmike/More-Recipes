@@ -48,28 +48,27 @@ class Users {
               subject: 'Welcome to More Recipes!',
               text: '<b>So glad to have you on board. your journey to deliciousness just began!</b>'
             };
-            sendMail.sendMail(mailOptions, (err, information) => {
+            sendMail.sendMail(mailOptions, (err) => {
               if (err) {
-                res.status(500).json({
+                return res.status(500).json({
                   message: err.message
                 });
-              } else {
-                const token = jwt.sign(
-                  {
-                    id: newUser.id,
-                    username: newUser.username,
-                    emailAddress: newUser.email
-                  },
-                  process.env.SECRET,
-                  { expiresIn: '30 days' }
-                );
-                return res.status(201).json({
-                  message: 'Signup Successful.',
-                  username: newUser.username,
-                  email: newUser.email,
-                  token
-                });
               }
+            });
+            const token = jwt.sign(
+              {
+                id: newUser.id,
+                username: newUser.username,
+                emailAddress: newUser.email
+              },
+              process.env.SECRET,
+              { expiresIn: '30 days' }
+            );
+            return res.status(201).json({
+              message: 'Signup Successful.',
+              username: newUser.username,
+              email: newUser.email,
+              token
             });
           })
           .catch((error) => {
