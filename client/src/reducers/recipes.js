@@ -49,7 +49,6 @@ export default (state = recipeDefaultState, action) => {
         recipes: state.recipes.filter(({ id }) => id !== action.id)
       };
     case 'TOGGLE_FAVORITE':
-      console.log('toggle', action);
       return {
         ...state,
         recipes: state.recipes.map((recipe) => {
@@ -66,7 +65,6 @@ export default (state = recipeDefaultState, action) => {
         })
       };
     case 'UPVOTE_RECIPE':
-    console.log('redux reducers', state.singleRecipe)
       return {
         ...state,
         singleRecipe: {

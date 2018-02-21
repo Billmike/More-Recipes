@@ -105,7 +105,6 @@ const getAllRecipes = (req, res) => {
     .then((recipes) => {
       const tempStorage = [];
       recipes.forEach((elem) => {
-        console.log('the elem', elem.votes[0].dataValues.userId);
         tempStorage.push(new GetRecipes(
           elem.name,
           elem.description,
