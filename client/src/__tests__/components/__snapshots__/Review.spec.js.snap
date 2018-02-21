@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render review component correctly 1`] = `
+<div
+  className="row custom-div"
+>
+  <div
+    className=""
+  >
+    <div
+      className="container"
+    >
+      <p
+        className="reviewer-name"
+      />
+      <p
+        className="review-content"
+      >
+        Amazing recipe you got fam!
+      </p>
+    </div>
+  </div>
+</div>
+`;

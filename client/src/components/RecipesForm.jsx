@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import validateAddRecipe from '../../../server/middleware/validateAddRecipe';
-import '../assets/css/addRecipe.css';
 
 class RecipesForm extends Component {
   constructor(props) {
@@ -47,8 +46,8 @@ class RecipesForm extends Component {
     this.setState(() => ({ instructions }));
   };
 
-  onSubmit = e => {
-    e.preventDefault();
+  onSubmit = event => {
+    event.preventDefault();
     this.props.onSubmit({
       name: this.state.name,
       description: this.state.description,

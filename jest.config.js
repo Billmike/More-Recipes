@@ -6,7 +6,11 @@ module.exports = {
     '<rootDir>./server/__test__/*.js'
   ],
   setupFiles: [
+    'raf/polyfill',
     '<rootDir>./client/src/__tests__/config.js'
+  ],
+  snapshotSerializers: [
+    'enzyme-to-json/serializer'
   ],
   globals: {
     toastr: {

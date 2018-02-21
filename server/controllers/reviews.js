@@ -1,7 +1,8 @@
 import db from '../models/index';
+import sendMail from './sendMail';
 import errorMessage from '../errorHandler/errorMessage';
 
-
+const { User } = db;
 const reviews = db.Review;
 const recipes = db.Recipe;
 
@@ -38,25 +39,39 @@ class Review {
               message: 'You cannot review your own recipe.'
             });
         }
-        return reviews.create({
-          userId: req.userId,
-          recipeId: req.params.recipeId,
-          content: req.body.content,
-        })
-          .then((review) => {
-            return res.status(201).json({
-              message: 'Review successfully posted',
-              reviewData: {
-                content: review.content
-              }
-            });
-          })
-          .catch(() => {
-            return res
-              .status(500)
-              .json({
-                message: errorMessage
+        User.findById(foundRecipe.owner)
+          .then((user) => {
+            reviews.create({
+              userId: req.userId,
+              recipeId: req.params.recipeId,
+              content: req.body.content,
+            }).then((review) => {
+              const mailOptions = {
+                from: process.env.EMAIL_ADDRESS,
+                to: user.email,
+                subject: `Hi ${user.username}. Your recipe has been reviewed`
+              };
+              sendMail.sendMail(mailOptions, (err, information) => {
+                if (err) {
+                  res.json({
+                    message: err.message
+                  });
+                } else {
+                  return res.status(201).json({
+                    message: 'Review successfully posted',
+                    reviewData: {
+                      content: review.content
+                    }
+                  });
+                }
               });
+            });
+          });
+      }).catch(() => {
+        return res
+          .status(500)
+          .json({
+            message: errorMessage
           });
       });
   }

@@ -5,6 +5,7 @@ import Emoji from 'react-emoji-render';
 import Footer from './Footer';
 import ReviewForm from './ReviewForm';
 import Review from './Review';
+import { getUserinfo } from '../actions/signinRequest';
 import {
   startGetOneRecipe,
   startUpvoteRecipe,
@@ -29,8 +30,9 @@ class RecipeDetail extends Component {
     this.favoriteRecipes = this.favoriteRecipes.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.startGetOneRecipe(this.props.match.params.id);
+    this.props.getUserinfo();
   }
 
   componentDidUpdate() {
@@ -106,7 +108,7 @@ class RecipeDetail extends Component {
                 <Review
                   key={review.id}
                   review={review}
-                  // user={this.props.user.username}
+                  user={this.props.user.username}
                 />
               </div>
             );
@@ -204,11 +206,12 @@ class RecipeDetail extends Component {
 const mapStateToProps = (state, props) => {
   return {
     recipe: state.recipes.singleRecipe,
-    user: state.auth.user
+    user: state.auth.userDetails
   };
 };
 
 export default connect(mapStateToProps, {
+  getUserinfo,
   startGetOneRecipe,
   startUpvoteRecipe,
   startDownVoteRecipe,

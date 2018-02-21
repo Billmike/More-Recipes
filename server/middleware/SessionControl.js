@@ -62,7 +62,8 @@ class SessionControl {
    */
 
   static getUser(req, res) {
-    req.token = req.headers.token || req.query.token;
+    req.token = req.headers['x-access-token']
+    || req.headers.token || req.query.token;
     let verifiedJWT;
     try {
       verifiedJWT = jwt.verify(req.token, process.env.SECRET);

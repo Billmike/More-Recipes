@@ -5,6 +5,7 @@ import Emoji from 'react-emoji-render';
 import FavoriteModal from './FavoriteModal';
 import Footer from './Footer';
 import pizza from '../assets/img/pizzza.jpg';
+import { getUserinfo } from '../actions/signinRequest';
 import {
   startGetUserFavorites,
   startAddFavoriteRecipes
@@ -22,6 +23,7 @@ class Favorites extends Component {
   }
   componentDidMount() {
     this.props.startGetUserFavorites(this.props.user.id);
+    this.props.getUserinfo();
   }
 
   handleClearFavoriteRecipe() {
@@ -95,7 +97,7 @@ class Favorites extends Component {
         <div className="container">
           <h2 className="dashboard-h2">
             {' '}
-            Welcome to your Dashboard, {this.props.user.username}!
+            Welcome to your Dashboard, {this.props.userDetails.username}!
           </h2>
           <h4 className="dashboard-h4"> My favorites </h4>
           <div className="row">
@@ -117,14 +119,15 @@ class Favorites extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log('favs compo', state);
   return {
     user: state.auth.user,
+    userDetails: state.auth.userDetails,
     recipes: state.recipes.favoriteRecipes.recipes
   };
 };
 
 export default connect(mapStateToProps, {
+  getUserinfo,
   startGetUserFavorites,
   startAddFavoriteRecipes
 })(Favorites);

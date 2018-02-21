@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should render the 404 page correctly 1`] = `
+<div>
+  <div
+    className="section-bck"
+  >
+    <p
+      className="p-section"
+    >
+      You've gone too far in search of a dessert, init? 
+      <Emoji
+        text=":'("
+      />
+       
+      <Link
+        replace={false}
+        to="/"
+      >
+         Go back
+      </Link>
+    </p>
+  </div>
+  <Footer />
+</div>
+`;

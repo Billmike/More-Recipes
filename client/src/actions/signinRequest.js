@@ -27,6 +27,19 @@ export const getUserInformationAC = (user) => {
   };
 };
 
+export const getUserinfo = () => {
+  return (dispatch) => {
+    return axios.get('http://localhost:8000/api/v1/users/get_user')
+      .then((res) => {
+        console.log('user res', res.data);
+        dispatch(getUserInformationAC(res.data))
+      })
+      .catch((err) => {
+        console.log('user err', err.message);
+      });
+  };
+};
+
 /**
  * Represents a function
  * @function

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import validateInput from '../../../server/validators/validatesignup';
 import '../assets/css/signup.css';
 
-class SignupForm extends Component {
+export class SignupForm extends Component {
   constructor(props) {
     super(props);
     this.state = {

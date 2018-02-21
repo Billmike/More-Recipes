@@ -5,10 +5,12 @@ import Emoji from 'react-emoji-render';
 import Footer from './Footer';
 import RecipeEdit from './RecipeEdit';
 import { startGetUserRecipes } from '../actions/recipes';
+import { getUserinfo } from '../actions/signinRequest';
 
 class Dashboard extends Component {
   componentWillMount() {
     this.props.startGetUserRecipes();
+    this.props.getUserinfo();
   }
 
   componentDidUpdate() {
@@ -48,10 +50,11 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+  console.log('dashboard state', state);
   return {
     recipes: state.recipes.userRecipe,
-    user: state.auth.user
+    user: state.auth.userDetails
   };
 };
 
-export default connect(mapStateToProps, { startGetUserRecipes })(Dashboard);
+export default connect(mapStateToProps, { getUserinfo, startGetUserRecipes })(Dashboard);

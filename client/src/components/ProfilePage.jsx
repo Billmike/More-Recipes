@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Footer from './Footer';
-import { getUserInformation } from '../actions/signinRequest';
+import { getUserinfo } from '../actions/signinRequest';
 import cool from '../assets/img/cooll.jpg';
 
 class ProfilePage extends Component {
@@ -9,19 +9,20 @@ class ProfilePage extends Component {
     super(props);
   }
   componentDidMount() {
-    getUserInformation(this.props.userInformation.id)
+    this.props.getUserinfo();
   }
-  render() {
+  render () {
     return (
-    <div>
+      <div>
     <main className="container">
-      <h1 className="profile-h1">My Profile</h1>
+      <h1 className="profile-h1">User Account</h1>
       <div className="profile-card">
         <img src={cool} alt="John" className="profile-image" />
-        <p className="profile-email">Username</p>
-        <p className="prop-username"> {this.props.userInformation.username} </p>
+        <h1 className="profile-random">John Doe</h1>
+        <p className="profile-title">Username</p>
+        <p className="prop-username"> {this.props.currentUserInfo.username} </p>
         <p className="profile-email">Email Address</p>
-        <p className="prop-email"> {this.props.userInformation.emailAddress} </p>
+        <p className="prop-email"> {this.props.currentUserInfo.email} </p>
       </div>
     </main>
     <Footer />
@@ -31,10 +32,10 @@ class ProfilePage extends Component {
 };
 
 const mapStateToProps = (state, props) => {
+  console.log('our props', state);
   return {
-    userInformation: state.auth.user
+    currentUserInfo: state.auth.userDetails
   };
 };
 
-
-export default connect(mapStateToProps, { getUserInformation })(ProfilePage);
+export default connect(mapStateToProps, { getUserinfo })(ProfilePage);

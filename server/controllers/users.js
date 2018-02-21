@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { User } from '../models';
+import sendMail from './sendMail';
 import errorMessage from '../errorHandler/errorMessage';
 import signupValidator from '../validators/validatesignup';
 import signinValidator from '../validators/validatesignin';
@@ -41,20 +42,34 @@ class Users {
           password: req.body.password
         })
           .then((newUser) => {
-            const token = jwt.sign(
-              {
-                id: newUser.id,
-                username: newUser.username,
-                emailAddress: newUser.email
-              },
-              process.env.SECRET,
-              { expiresIn: '30 days' }
-            );
-            return res.status(201).json({
-              message: 'Signup Successful.',
-              username: newUser.username,
-              email: newUser.email,
-              token
+            const mailOptions = {
+              from: process.env.EMAIL_ADDRESS,
+              to: newUser.email,
+              subject: 'Welcome to More Recipes!',
+              text: '<b>So glad to have you on board. your journey to deliciousness just began!</b>'
+            };
+            sendMail.sendMail(mailOptions, (err, information) => {
+              if (err) {
+                res.status(500).json({
+                  message: err.message
+                });
+              } else {
+                const token = jwt.sign(
+                  {
+                    id: newUser.id,
+                    username: newUser.username,
+                    emailAddress: newUser.email
+                  },
+                  process.env.SECRET,
+                  { expiresIn: '30 days' }
+                );
+                return res.status(201).json({
+                  message: 'Signup Successful.',
+                  username: newUser.username,
+                  email: newUser.email,
+                  token
+                });
+              }
             });
           })
           .catch((error) => {
