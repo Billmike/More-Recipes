@@ -204,6 +204,7 @@ class RecipeDetail extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+  console.log('state here menh!!', state)
   return {
     recipe: state.recipes.singleRecipe,
     user: state.auth.userDetails

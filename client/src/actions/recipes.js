@@ -9,6 +9,7 @@ import editRecipe from '../actionCreators/editRecipes';
 import removeRecipe from '../actionCreators/removeRecipe';
 import addReview from '../actionCreators/addReview';
 import upVoteRecipe from '../actionCreators/upVoteRecipe';
+import downVoteRecipe from '../actionCreators/downVoteRecipe';
 import './toastrConfig';
 
 /**
@@ -20,7 +21,7 @@ import './toastrConfig';
 
 export const startGetAllRecipes = page => dispatch =>
   axios
-    .get(`/api/v1/recipes/${page}`)
+    .get(`http://localhost:8000/api/v1/recipes/${page}`)
     .then((res) => {
       dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
     })
@@ -128,7 +129,7 @@ export const startRemoveRecipe = id => dispatch =>
 
 export const startGetOneRecipe = id => dispatch =>
   axios
-    .get(`/api/v1/recipe/${id}`)
+    .get(`http://localhost:8000/api/v1/recipe/${id}`)
     .then((res) => {
       dispatch(getOneRecipe(res.data.recipeData));
     })
@@ -145,7 +146,7 @@ export const startGetOneRecipe = id => dispatch =>
 
 export const startAddFavoriteRecipes = id => (dispatch, getstate) =>
   axios
-    .post(`/api/v1/recipes/${id}/favorites`)
+    .post(`http://localhost:8000/api/v1/recipes/${id}/favorites`)
     .then((res) => {
       const authUserid = getstate().auth.user.id;
       toastr.success(res.data.message);
@@ -181,7 +182,7 @@ export const startAddFavoriteRecipes = id => (dispatch, getstate) =>
 
 export const startGetUserFavorites = id => dispatch =>
   axios
-    .get(`/api/v1/users/${id}/favorites`)
+    .get(`http://localhost:8000/api/v1/users/${id}/favorites`)
     .then((res) => {
       dispatch(fetchFavorites(res.data));
     })
@@ -198,13 +199,15 @@ export const startGetUserFavorites = id => dispatch =>
 
 export const startUpvoteRecipe = id => (dispatch, getstate) =>
   axios
-    .post(`/api/v1/recipes/${id}/votes/upvote`)
+    .post(`http://localhost:8000/api/v1/recipes/${id}/votes/upvote`)
     .then((res) => {
+      console.log('looooggg', res.data);
       const authUserid = getstate().auth.user.id;
       toastr.success(res.data.message);
       dispatch(upVoteRecipe(res.data, authUserid));
     })
     .catch((err) => {
+      console.log('err here', err);
       if (
         err.response.data.message ===
         'You need to be logged in to perform this action.'
@@ -230,9 +233,9 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
  * @returns { object } - returns an object with an action type
  */
 
-export const startDownVoteRecipe = id => () =>
+export const startDownVoteRecipe = id => dispatch =>
   axios
-    .post(`/api/v1/recipes/${id}/votes/downvote`)
+    .post(`http://localhost:8000/api/v1/recipes/${id}/votes/downvote`)
     .then((res) => {
       toastr.success(res.data.message);
     })

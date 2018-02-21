@@ -66,15 +66,16 @@ export default (state = recipeDefaultState, action) => {
         })
       };
     case 'UPVOTE_RECIPE':
+    console.log('redux reducers', state.singleRecipe)
       return {
         ...state,
-        singleRecipe:
-          state.singleRecipe.votes.userId !== action.userId
-            ? {
-              ...state.singleRecipe,
-              votes: [...state.singleRecipe.votes, { userId: action.userId }]
-            }
-            : state.singleRecipe.votes.filter(vote => vote.userId !== action.userId)
+        singleRecipe: {
+          ...state.singleRecipe,
+          votersId: [
+            !state.singleRecipe[0].votersId.includes(action.userId) ? state.singleRecipe[0].votersId.concat(action.userId) :
+              state.singleRecipe[0].votersId.filter(vote => vote.id !== action.userId)
+          ]
+        }
       };
     case 'FETCH_FAVORITE_RECIPES':
       return {

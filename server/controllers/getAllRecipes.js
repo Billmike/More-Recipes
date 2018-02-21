@@ -21,13 +21,14 @@ class GetRecipes {
    * @param  {number} upVote - Recipe upvote count
    * @param  {number} downVote - Recipe downvote count
    * @param  {number} id - Recipe id
+   * @param {array} votersId - object with Id of voters
    * @param  {time} createdAt - Recipe time of creation
    * @param  {time} updatedAt - Recipe time of update
    */
   constructor(
     name, description, imageUrl, category, ingredients, instructions,
     owner, reviews, favorites, viewCount, upVote, downVote, id,
-    createdAt, updatedAt,
+    createdAt, updatedAt, votersId,
   ) {
     this.name = name;
     this.description = description;
@@ -41,6 +42,7 @@ class GetRecipes {
     this.viewCount = viewCount;
     this.upVote = upVote;
     this.downVote = downVote;
+    this.votersId = votersId;
     this.id = id;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
@@ -103,6 +105,7 @@ const getAllRecipes = (req, res) => {
     .then((recipes) => {
       const tempStorage = [];
       recipes.forEach((elem) => {
+        console.log('the elem', elem.votes[0].dataValues.userId);
         tempStorage.push(new GetRecipes(
           elem.name,
           elem.description,
@@ -119,6 +122,7 @@ const getAllRecipes = (req, res) => {
           elem.id,
           elem.createdAt,
           elem.updatedAt,
+          [elem.votes[0].dataValues.userId]
         ));
       });
       return res
