@@ -9,7 +9,6 @@ import editRecipe from '../actionCreators/editRecipes';
 import removeRecipe from '../actionCreators/removeRecipe';
 import addReview from '../actionCreators/addReview';
 import upVoteRecipe from '../actionCreators/upVoteRecipe';
-import downVoteRecipe from '../actionCreators/downVoteRecipe';
 import './toastrConfig';
 
 /**
