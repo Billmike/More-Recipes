@@ -29,12 +29,12 @@ export const getUserInformationAC = (user) => {
 
 export const getUserinfo = () => {
   return (dispatch) => {
-    return axios.get('/api/v1/users/get_user')
+    return axios.get('http://localhost:8000/api/v1/users/get_user')
       .then((res) => {
         dispatch(getUserInformationAC(res.data))
       })
       .catch((err) => {
-        Promise.reject(err.message);
+        Promise.reject(err);
       });
   };
 };
@@ -48,7 +48,7 @@ export const getUserinfo = () => {
  * @returns { object } The signed in user and a token
  */
 export const signinRequest = userData => (dispatch) => {
-  return axios.post('/api/v1/users/signin', userData)
+  return axios.post('http://localhost:8000/api/v1/users/signin', userData)
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('authToken', token);
@@ -56,7 +56,10 @@ export const signinRequest = userData => (dispatch) => {
       setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
     })
-    .catch(error => Promise.reject(error.message));
+    .catch((error) => {
+      toastr.error(error.response.data.message);
+      Promise.reject(error);
+    });
 };
 
 /**

@@ -9,11 +9,12 @@ class RecipesForm extends Component {
       name: this.props.recipe ? this.props.recipe.name : '',
       description: this.props.recipe ? this.props.recipe.description : '',
       img_url: 'no-img-here',
-      category: this.props.recipe ? this.props.recipe.category : '',
+      category: this.props.recipe ? this.props.recipe.category : 'Select a category for your recipe',
       ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
       instructions: this.props.recipe ? this.props.recipe.instructions : '',
-      error: ''
+      error: '',
     };
+    this.onCategorySet = this.onCategorySet.bind(this);
   }
 
   onDescriptionChange = e => {
@@ -31,10 +32,9 @@ class RecipesForm extends Component {
     this.setState(() => ({ img_url }));
   };
 
-  onCategorySet = e => {
-    const category = e.target.value;
-    this.setState(() => ({ category }));
-  };
+  onCategorySet(event) {
+    this.setState({ category: event.target.value })
+  }
 
   onIngredientsSet = e => {
     const ingredients = e.target.value;
@@ -103,21 +103,14 @@ class RecipesForm extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label className="recipe-cat" htmlFor="recipename">
-                Category
-              </label>
-              <input
-                className="form-control"
-                id="recipename"
-                aria-describedby="recipeNameHelp"
-                value={this.state.category}
-                onChange={this.onCategorySet}
-                required
-              />
-              <small id="categoryHelp" className="form-text">
-                Category could be Breakfast, Lunch, Dessert or any other fun one
-                of your choice.
-              </small>
+              <label htmlFor="category">Category</label>
+              <select className="form-control" value={this.state.category} onChange={this.onCategorySet} id="category">
+                <option value="lunch">Lunch</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="dessert">Dessert</option>
+                <option value="dinner">Dinner</option>
+                <option value="snacks">Snacks</option>
+              </select>
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">

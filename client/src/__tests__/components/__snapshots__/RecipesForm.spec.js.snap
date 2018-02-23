@@ -78,25 +78,42 @@ exports[`Should render Recipes form properly 1`] = `
         className="form-group"
       >
         <label
-          className="recipe-cat"
-          htmlFor="recipename"
+          htmlFor="category"
         >
           Category
         </label>
-        <input
-          aria-describedby="recipeNameHelp"
+        <select
           className="form-control"
-          id="recipename"
+          id="category"
           onChange={[Function]}
-          required={true}
-          value=""
-        />
-        <small
-          className="form-text"
-          id="categoryHelp"
+          value="Select a category for your recipe"
         >
-          Category could be Breakfast, Lunch, Dessert or any other fun one of your choice.
-        </small>
+          <option
+            value="lunch"
+          >
+            Lunch
+          </option>
+          <option
+            value="breakfast"
+          >
+            Breakfast
+          </option>
+          <option
+            value="dessert"
+          >
+            Dessert
+          </option>
+          <option
+            value="dinner"
+          >
+            Dinner
+          </option>
+          <option
+            value="snacks"
+          >
+            Snacks
+          </option>
+        </select>
       </div>
       <div
         className="form-row"
@@ -242,25 +259,42 @@ exports[`Should render Recipes form properly with recipe data  1`] = `
         className="form-group"
       >
         <label
-          className="recipe-cat"
-          htmlFor="recipename"
+          htmlFor="category"
         >
           Category
         </label>
-        <input
-          aria-describedby="recipeNameHelp"
+        <select
           className="form-control"
-          id="recipename"
+          id="category"
           onChange={[Function]}
-          required={true}
           value="Lunch"
-        />
-        <small
-          className="form-text"
-          id="categoryHelp"
         >
-          Category could be Breakfast, Lunch, Dessert or any other fun one of your choice.
-        </small>
+          <option
+            value="lunch"
+          >
+            Lunch
+          </option>
+          <option
+            value="breakfast"
+          >
+            Breakfast
+          </option>
+          <option
+            value="dessert"
+          >
+            Dessert
+          </option>
+          <option
+            value="dinner"
+          >
+            Dinner
+          </option>
+          <option
+            value="snacks"
+          >
+            Snacks
+          </option>
+        </select>
       </div>
       <div
         className="form-row"

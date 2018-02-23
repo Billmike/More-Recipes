@@ -34,7 +34,7 @@ test('Should set description on input change', () => {
 test('Should set the category on input change', () => {
   const value = 'Lunch';
   const wrapper = shallow(<RecipesForm />);
-  wrapper.find('input').at(3).simulate('change', {
+  wrapper.find('select').at(0).simulate('change', {
     target: { value }
   });
   expect(wrapper.state('category')).toBe(value);

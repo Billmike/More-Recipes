@@ -14,13 +14,13 @@ const DeleteModal = props => (
     <p className="modal-ptag"> Do you want to delete this recipe?</p>
     <div className="group-btn">
       <button
-        className="btn btn-danger user-btn"
+        className="btn btn-danger user-btn modal-btn-red"
         onClick={props.onRemoveRecipe}
       >
         Yes
       </button>
       <button
-        className="btn user-btn"
+        className="btn user-btn modal-btn-white"
         onClick={props.handleClearSelectedRecipe}
       >
         No

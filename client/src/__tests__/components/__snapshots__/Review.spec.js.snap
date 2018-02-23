@@ -5,20 +5,30 @@ exports[`Should render review component correctly 1`] = `
   className="row custom-div"
 >
   <div
-    className=""
+    className="col-md-1"
   >
-    <div
-      className="container"
+    <img
+      className="review-image"
+    />
+  </div>
+  <div
+    className="col-md-11 review-box"
+  >
+    <p
+      className="reviewer-name inline-p"
+    />
+    <span
+      className="review-time"
     >
-      <p
-        className="reviewer-name"
-      />
-      <p
-        className="review-content"
-      >
-        Amazing recipe you got fam!
-      </p>
-    </div>
+       
+      Invalid date
+    </span>
+    <hr />
+    <p
+      className="review-content"
+    >
+      Amazing recipe you got fam!
+    </p>
   </div>
 </div>
 `;

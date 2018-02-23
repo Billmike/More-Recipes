@@ -1,11 +1,9 @@
 import db from '../models/index';
 import errorMessage from '../errorHandler/errorMessage';
 
-const Recipes = db.Recipe;
-const Votes = db.Vote;
-const Favorites = db.Favorite;
-const Review = db.Review;
-const User = db.User;
+const {
+  Recipe, Review, User, Favorite, Vote
+} = db;
 
 class GetRecipes {
 /**
@@ -85,12 +83,12 @@ const sortRecipes = (recipeArray, sortOrder, callback) => {
  */
 
 const getAllRecipes = (req, res) => {
-  Recipes.findAll({
+  Recipe.findAll({
     where: {
       id: req.params.recipeId
     },
     include: [{
-      model: Votes,
+      model: Vote,
       as: 'votes',
     }, {
       model: User,
@@ -98,13 +96,15 @@ const getAllRecipes = (req, res) => {
       model: Review,
       as: 'reviews'
     }, {
-      model: Favorites,
+      model: Favorite,
       as: 'favorites',
     }],
   })
     .then((recipes) => {
       const tempStorage = [];
       recipes.forEach((elem) => {
+        let votes = [];
+        votes = elem.votes[0] ? [elem.votes[0].dataValues.userId] : [];
         tempStorage.push(new GetRecipes(
           elem.name,
           elem.description,
@@ -121,26 +121,26 @@ const getAllRecipes = (req, res) => {
           elem.id,
           elem.createdAt,
           elem.updatedAt,
-          [elem.votes[0].dataValues.userId]
+          votes
         ));
       });
       return res
         .status(200).json({ recipeData: tempStorage });
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(500).json({
-        message: err.message
+        message: errorMessage
       });
     });
 };
 
 export const getUserRecipes = (req, res) => {
-  Recipes.findAll({
+  Recipe.findAll({
     where: {
       owner: req.userId
     },
     include: [{
-      model: Votes,
+      model: Vote,
       as: 'votes',
     }, {
       model: User,
@@ -148,7 +148,7 @@ export const getUserRecipes = (req, res) => {
       model: Review,
       as: 'reviews'
     }, {
-      model: Favorites,
+      model: Favorite,
       as: 'favorites',
     }],
   })
@@ -179,9 +179,9 @@ export const getUserRecipes = (req, res) => {
           recipeData: tempStorage
         });
     })
-    .catch((err) => {
+    .catch(() => {
       res.status(500).json({
-        message: err.message
+        message: errorMessage
       });
     });
 };

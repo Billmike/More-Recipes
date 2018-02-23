@@ -13,9 +13,6 @@ describe('ADD REVIEW actions', () => {
   afterEach(() => moxios.uninstall());
 
   it('Should add review to a recipe and dispatch ADD_REVIEW action', async (done) => {
-    const data = {
-      review: 'Amazing recipe you got fam'
-    };
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({

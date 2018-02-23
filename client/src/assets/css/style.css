@@ -450,7 +450,7 @@ a:hover {
 .center-emoji {
   text-align: center;
   font-family: 'Dosis';
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
 }
 
 .section-bck {
@@ -508,16 +508,14 @@ a:hover {
   margin-top: 50px;
   color: black;
   border-radius: 5px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  box-shadow: 0 4px 8px 0 cadetblue;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .review-back {
   background: ghostwhite;
   margin: 50px;
   padding-top: 10px;
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
   border-radius: 15px;
   overflow-y: scroll;
   max-height: 700px;
@@ -527,13 +525,13 @@ a:hover {
   font-family: Dosis;
   font-size: 20px;
   font-weight: bold;
-  color: brown;
+  color: black;
 }
 
 .review-content {
   font-family: Philosopher;
   font-size: 20px;
-  color: black;
+  color: gray;
 }
 
 .carousel-slide-image {
@@ -546,7 +544,7 @@ a:hover {
 }
 
 .user-btn {
-  margin-left: 5px;
+  background: none;
 }
 
 .user-btn-special {
@@ -613,4 +611,27 @@ a:hover {
 
 .signin-pad{
   padding-top: 20px;
+}
+
+.modal-btn-red {
+  background: red;
+}
+
+.modal-btn-white {
+  background: white;
+  margin-left: 10px;
+}
+
+.inline-p {
+  display: inline;
+}
+
+.review-time {
+  margin-left: 15px;
+  color: gray;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.review-box {
+  margin-top: 10px;
 }
