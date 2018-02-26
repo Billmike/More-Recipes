@@ -2,7 +2,7 @@ import { isEmpty } from 'lodash';
 import { SET_CURRENT_USER, GET_USER_INFORMATION } from '../actions/types';
 
 const initialState = {
-  isAuthenticated: false,
+  isAuthenticated: !!localStorage.getItem('authToken'),
   userDetails: {},
 };
 

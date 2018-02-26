@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
     downvoters: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       defaultValue: []
+    },
+    views: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     }
   });
   Recipe.associate = (models) => {

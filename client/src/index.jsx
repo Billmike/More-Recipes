@@ -11,10 +11,10 @@ import { setCurrentUser } from './actions/signinRequest';
 
 const store = configureStore();
 
-if (localStorage.authToken) {
-  setAuthToken(localStorage.authToken);
-  store.dispatch(setCurrentUser(jwt.decode(localStorage.authToken)));
-}
+// if (localStorage.authToken) {
+//   setAuthToken(localStorage.authToken);
+//   store.dispatch(setCurrentUser(jwt.decode(localStorage.authToken)));
+// }
 
 ReactDOM
 .render(

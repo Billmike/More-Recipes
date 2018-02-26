@@ -37,7 +37,7 @@ class RecipeEdit extends Component {
       <div className="col-md-4">
         <div className="card">
           <Link to={`/recipe/${this.props.id}`}>
-            <img className="card-img-top" alt="Pizza" src={pizza} />
+            <img className="card-img-top" alt="Pizza" src={this.props.imageUrl} />
           </Link>
           <div className="card-body">
             <Link to={`/recipe/${this.props.id}`}>

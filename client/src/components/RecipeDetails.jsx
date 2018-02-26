@@ -75,7 +75,9 @@ class RecipeDetail extends Component {
     let splitInstructions;
     let upvotes;
     let downvotes;
+    let image;
     if (this.props.recipe) {
+      image = this.props.recipe[0].imageUrl;
       splitIngredients = this.props.recipe[0].ingredients
         .split('\n')
         .map((splitIng, index) => {
@@ -129,7 +131,7 @@ class RecipeDetail extends Component {
           This is the details of Recipe with name of {this.props.recipe.name}
           <div className="row container image-name">
             <div className="col-md-6">
-              <img src={pizza} />
+              <img src={image} />
             </div>
             <div className="col-md-6">
               <div>

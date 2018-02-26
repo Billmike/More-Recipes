@@ -1,4 +1,3 @@
-import axios from 'axios';
 import addRecipe from '../actionCreators/addRecipe';
 import getAllRecipes from '../actionCreators/getAllRecipes';
 import getUserRecipe from '../actionCreators/getUserRecipe';
@@ -9,6 +8,7 @@ import editRecipe from '../actionCreators/editRecipes';
 import removeRecipe from '../actionCreators/removeRecipe';
 import addReview from '../actionCreators/addReview';
 import upVoteRecipe from '../actionCreators/upVoteRecipe';
+import instance from '../utils/axios';
 import './toastrConfig';
 
 /**
@@ -19,8 +19,8 @@ import './toastrConfig';
  */
 
 export const startGetAllRecipes = page => dispatch =>
-  axios
-    .get(`/api/v1/recipes/${page}`)
+  instance
+    .get(`/recipes/${page}`)
     .then((res) => {
       dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
     })
@@ -39,7 +39,7 @@ export const startAddRecipe = (recipeData = {}) => (dispatch) => {
   const {
     name = '',
     description = '',
-    img_url = 'no-img-here',
+    imageUrl = '',
     category = '',
     ingredients = '',
     instructions = ''
@@ -48,13 +48,13 @@ export const startAddRecipe = (recipeData = {}) => (dispatch) => {
   const recipe = {
     name,
     description,
-    img_url,
+    imageUrl,
     category,
     ingredients,
     instructions
   };
-  return axios
-    .post('/api/v1/recipes', recipe)
+  return instance
+    .post('/recipes', recipe)
     .then(() => {
       toastr.success('Recipe added successfully.');
       dispatch(addRecipe({
@@ -73,8 +73,8 @@ export const startAddRecipe = (recipeData = {}) => (dispatch) => {
  */
 
 export const startGetUserRecipes = () => dispatch =>
-  axios
-    .get('/api/v1/users/recipes')
+  instance
+    .get('/users/recipes')
     .then((res) => {
       dispatch(getUserRecipe(res.data.recipeData));
     })
@@ -91,8 +91,8 @@ export const startGetUserRecipes = () => dispatch =>
  */
 
 export const startEditRecipe = (id, updates) => dispatch =>
-  axios
-    .put(`/api/v1/recipes/${id}/modify`, updates)
+  instance
+    .put(`/recipes/${id}/modify`, updates)
     .then(() => {
       toastr.success('Recipe edited successfully.');
       dispatch(editRecipe(id, updates));
@@ -109,8 +109,8 @@ export const startEditRecipe = (id, updates) => dispatch =>
  */
 
 export const startRemoveRecipe = id => dispatch =>
-  axios
-    .delete(`/api/v1/recipes/${id}`)
+  instance
+    .delete(`/recipes/${id}`)
     .then(() => {
       toastr.success('Recipe deleted successfully.');
       dispatch(removeRecipe(id));
@@ -127,8 +127,8 @@ export const startRemoveRecipe = id => dispatch =>
  */
 
 export const startGetOneRecipe = id => dispatch =>
-  axios
-    .get(`/api/v1/recipe/${id}`)
+  instance
+    .get(`/recipe/${id}`)
     .then((res) => {
       dispatch(getOneRecipe(res.data.recipeData));
     })
@@ -144,8 +144,8 @@ export const startGetOneRecipe = id => dispatch =>
  */
 
 export const startAddFavoriteRecipes = id => (dispatch, getstate) =>
-  axios
-    .post(`/api/v1/recipes/${id}/favorites`)
+  instance
+    .post(`/recipes/${id}/favorites`)
     .then((res) => {
       const authUserid = getstate().auth.user.id;
       toastr.success(res.data.message);
@@ -180,8 +180,8 @@ export const startAddFavoriteRecipes = id => (dispatch, getstate) =>
  */
 
 export const startGetUserFavorites = id => dispatch =>
-  axios
-    .get(`/api/v1/users/${id}/favorites`)
+  instance
+    .get(`/users/${id}/favorites`)
     .then((res) => {
       dispatch(fetchFavorites(res.data));
     })
@@ -197,8 +197,8 @@ export const startGetUserFavorites = id => dispatch =>
  */
 
 export const startUpvoteRecipe = id => (dispatch, getstate) =>
-  axios
-    .post(`/api/v1/recipes/${id}/votes/upvote`)
+  instance
+    .post(`/recipes/${id}/votes/upvote`)
     .then((res) => {
       const authUserid = getstate().auth.user.id;
       toastr.success(res.data.message);
@@ -231,8 +231,8 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
  */
 
 export const startDownVoteRecipe = id => dispatch =>
-  axios
-    .post(`/api/v1/recipes/${id}/votes/downvote`)
+  instance
+    .post(`/recipes/${id}/votes/downvote`)
     .then((res) => {
       toastr.success(res.data.message);
     })
@@ -264,8 +264,8 @@ export const startDownVoteRecipe = id => dispatch =>
  */
 
 export const startAddReview = (id, reviewData) => dispatch =>
-  axios
-    .post(`/api/v1/recipes/${id}/reviews`, reviewData)
+  instance
+    .post(`/recipes/${id}/reviews`, reviewData)
     .then((res) => {
       toastr.success(res.data.message);
       dispatch(addReview(res.data));

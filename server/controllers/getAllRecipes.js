@@ -101,8 +101,13 @@ const getAllRecipes = (req, res) => {
     }],
   })
     .then((recipes) => {
+      console.log('Recipe details', req.userId);
+      if (recipes[0].dataValues.owner !== req.userId) {
+        recipes[0].increment('views', { by: 1 });
+      }
       const tempStorage = [];
       recipes.forEach((elem) => {
+        // console.log('stuff', elem.dataValues.views)
         let votes = [];
         votes = elem.votes[0] ? [elem.votes[0].dataValues.userId] : [];
         tempStorage.push(new GetRecipes(
@@ -115,7 +120,7 @@ const getAllRecipes = (req, res) => {
           { id: elem.User.id, username: elem.User.username },
           elem.reviews,
           countRecipes(elem.favorites),
-          null,
+          elem.dataValues.views,
           countRecipes(elem.votes, 'voteType', 'upvote'),
           countRecipes(elem.votes, 'voteType', 'downvote'),
           elem.id,
@@ -127,9 +132,9 @@ const getAllRecipes = (req, res) => {
       return res
         .status(200).json({ recipeData: tempStorage });
     })
-    .catch(() => {
+    .catch((err) => {
       res.status(500).json({
-        message: errorMessage
+        message: err.message
       });
     });
 };
@@ -165,7 +170,7 @@ export const getUserRecipes = (req, res) => {
           { id: elem.User.id, username: elem.User.username },
           elem.reviews,
           countRecipes(elem.favorites),
-          null,
+          elem.dataValues.views,
           countRecipes(elem.votes, 'voteType', 'upvote'),
           countRecipes(elem.votes, 'voteType', 'downvote'),
           elem.id,

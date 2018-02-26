@@ -50,6 +50,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, props) => {
+  console.log('our state', state);
   return {
     recipes: state.recipes.userRecipe,
     user: state.auth.userDetails

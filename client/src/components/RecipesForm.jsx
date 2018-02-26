@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
+import DropZone from 'react-dropzone';
 import validateAddRecipe from '../../../server/middleware/validateAddRecipe';
 
 class RecipesForm extends Component {
@@ -8,54 +10,76 @@ class RecipesForm extends Component {
     this.state = {
       name: this.props.recipe ? this.props.recipe.name : '',
       description: this.props.recipe ? this.props.recipe.description : '',
-      img_url: 'no-img-here',
+      imageUrl: this.props.recipe? this.props.recipe.imageUrl : "https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg",
       category: this.props.recipe ? this.props.recipe.category : 'Select a category for your recipe',
       ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
       instructions: this.props.recipe ? this.props.recipe.instructions : '',
       error: '',
     };
     this.onCategorySet = this.onCategorySet.bind(this);
+    this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
   }
 
-  onDescriptionChange = e => {
-    const description = e.target.value;
+  onDescriptionChange = event => {
+    const description = event.target.value;
     this.setState(() => ({ description }));
   };
 
-  onNameChange = e => {
-    const name = e.target.value;
+  onNameChange = event => {
+    const name = event.target.value;
     this.setState(() => ({ name }));
   };
 
-  onImgSet = e => {
-    const img_url = e.target.value;
-    this.setState(() => ({ img_url }));
-  };
+  uploadToCloudinary() {
+    const formData = new FormData();
+    formData.append("file", this.state.imageUrl);
+    formData.append("upload_preset", "gw9enn9u");
+    formData.append("api_key", "757874753524889");
+
+    return axios.post("https://api.cloudinary.com/v1_1/andela-nigeria/image/upload",
+      formData
+  );
+  }
+
+  // onImgSet = e => {
+  //   const imageUrl = e.target.value;
+  //   this.setState(() => ({ imageUrl }));
+  // };
 
   onCategorySet(event) {
     this.setState({ category: event.target.value })
   }
 
-  onIngredientsSet = e => {
-    const ingredients = e.target.value;
+  onIngredientsSet = event => {
+    const ingredients = event.target.value;
     this.setState(() => ({ ingredients }));
   };
 
-  onInstructionsSet = e => {
-    const instructions = e.target.value;
+  onInstructionsSet = event => {
+    const instructions = event.target.value;
     this.setState(() => ({ instructions }));
   };
 
+  handleDrop = file => {
+    this.setState({ imageUrl: file[0] })
+  }
+
   onSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit({
-      name: this.state.name,
-      description: this.state.description,
-      img_url: this.state.img_url,
-      category: this.state.category,
-      ingredients: this.state.ingredients,
-      instructions: this.state.instructions
-    });
+    this.uploadToCloudinary().then((response) => {
+      const secureURL = response.data.secure_url;
+      const recipeImage = this.state;
+      recipeImage.imageUrl = secureURL;
+
+      this.props.onSubmit({
+        name: this.state.name,
+        description: this.state.description,
+        imageUrl: this.state.imageUrl,
+        category: this.state.category,
+        ingredients: this.state.ingredients,
+        instructions: this.state.instructions
+      });
+    })
   };
 
   render() {
@@ -85,7 +109,7 @@ class RecipesForm extends Component {
                 <label className="recipe-desc" htmlFor="inputDescription">
                   Description
                 </label>
-                <input
+                <textarea
                   className="form-control"
                   id="descriptionTextArea"
                   rows="3"
@@ -98,8 +122,24 @@ class RecipesForm extends Component {
                 </small>
               </div>
               <div className="form-group col-4 upload-btn-wrapper">
-                <button className="btns">Upload an Image</button>
-                <input type="file" name="myfile" />
+                {/* <button className="btns">Upload an Image</button>
+                <input type="file" name="myfile" /> */}
+                <DropZone
+                  onDrop={this.handleDrop}
+                  accept="image/*"
+                  multiple={false}
+                  className="dropzone"
+                >
+                {this.state.imageUrl &&
+                <div>
+                  <img
+                    src={this.state.imageUrl}
+                    className="img-fluid fluid-image d-block"
+                  />
+                  <p className="dropzone-tag"> Click to upload an Image </p>
+                </div>
+                }
+                </DropZone>
               </div>
             </div>
             <div className="form-group">

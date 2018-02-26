@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
 import setAuthToken from '../utils/setAuthToken';
+import instance from '../utils/axios';
 import './toastrConfig';
 
 /**
@@ -29,7 +30,7 @@ export const getUserInformationAC = (user) => {
 
 export const getUserinfo = () => {
   return (dispatch) => {
-    return axios.get('http://localhost:8000/api/v1/users/get_user')
+    return instance.get('/users/get_user')
       .then((res) => {
         dispatch(getUserInformationAC(res.data))
       })
@@ -48,12 +49,11 @@ export const getUserinfo = () => {
  * @returns { object } The signed in user and a token
  */
 export const signinRequest = userData => (dispatch) => {
-  return axios.post('http://localhost:8000/api/v1/users/signin', userData)
+  return instance.post('/users/signin', userData)
     .then((res) => {
       const { token } = res.data;
       localStorage.setItem('authToken', token);
       toastr.success('Login Successful.');
-      setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
     })
     .catch((error) => {
@@ -72,7 +72,6 @@ export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem('authToken');
     toastr.success('Logout Successful.');
-    setAuthToken(false);
     dispatch(setCurrentUser({}));
   };
 };
