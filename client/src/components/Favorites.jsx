@@ -22,7 +22,7 @@ class Favorites extends Component {
     this.removeFavorite = this.removeFavorite.bind(this);
   }
   componentDidMount() {
-    this.props.startGetUserFavorites(this.props.user.id);
+    this.props.startGetUserFavorites(this.props.userDetails.id);
     this.props.getUserinfo();
   }
 
@@ -33,7 +33,7 @@ class Favorites extends Component {
   }
 
   componentDidUpdate() {
-    this.props.startGetUserFavorites(this.props.user.id);
+    this.props.startGetUserFavorites(this.props.userDetails.id);
   }
 
   selectFavorite() {

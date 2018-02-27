@@ -9,9 +9,10 @@ import { DOWNVOTE_RECIPE } from '../actions/types';
  * @returns { object } - returns an object with an action type
  */
 
-const downVoteRecipe = id => ({
+const downVoteRecipe = (id, userId) => ({
   type: DOWNVOTE_RECIPE,
-  id
+  id,
+  userId
 });
 
 export default downVoteRecipe;

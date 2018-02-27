@@ -83,6 +83,7 @@ class RecipesForm extends Component {
   };
 
   render() {
+    let dropzoneRef;
     return (
       <div>
         <main className="container">
@@ -125,21 +126,30 @@ class RecipesForm extends Component {
                 {/* <button className="btns">Upload an Image</button>
                 <input type="file" name="myfile" /> */}
                 <DropZone
+                  ref={(node) => { dropzoneRef = node; }}
                   onDrop={this.handleDrop}
                   accept="image/*"
                   multiple={false}
                   className="dropzone"
+                  disablePreview={false}
                 >
-                {this.state.imageUrl &&
+                {this.state.imageUrl.preview &&
                 <div>
                   <img
-                    src={this.state.imageUrl}
+                    src={this.state.imageUrl.preview}
                     className="img-fluid fluid-image d-block"
                   />
                   <p className="dropzone-tag"> Click to upload an Image </p>
                 </div>
                 }
                 </DropZone>
+                <button
+                  type="button"
+                  onClick={() => { dropzoneRef.open() }}
+                  className="drop-button"
+                >
+                Click to upload image
+                </button>
               </div>
             </div>
             <div className="form-group">

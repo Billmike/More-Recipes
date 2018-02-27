@@ -21,42 +21,6 @@ class Vote {
   * @returns { object } Returns the vote of the user
   *
   */
-
-  static newVote(req, res) {
-    Recipes.findById(req.params.recipeId)
-      .then((foundRecipe) => {
-        const { userId } = req;
-        console.log('The array', userId)
-        if (req.params.vote === 'upvote') {
-          foundRecipe.upvoters.push(userId);
-          console.log('The second array', foundRecipe.upvoters);
-          return Votes.create({
-            userId: req.userId,
-            recipeId: req.params.recipeId,
-            voteType: req.params.vote
-          }).then((votedRec) => {
-            res.status(200).json({
-              message: 'Successfully upvoted'
-            });
-          });
-        }
-        foundRecipe.downvoters.push(req.userId);
-        return Votes.create({
-          userId: req.userId,
-          recipeId: req.params.recipeId,
-          voteType: req.params.vote
-        }).then((votedRec) => {
-          res.status(200).json({
-            message: 'Successfully downvoted'
-          });
-        });
-      }).catch((error) => {
-        res.status(500).json({
-          message: error.message
-        })
-      })
-  }
-
   static voteRecipe(req, res) {
     if (req.params.vote !== 'downvote' && req.params.vote !== 'upvote') {
       return res
@@ -99,7 +63,7 @@ class Vote {
                     }
                   }));
             }
-            
+
             const votersArray = [];
             votedRecipes.forEach(elem => votersArray
               .push(elem.dataValues.userId));
@@ -109,22 +73,24 @@ class Vote {
                 .filter(elem => elem.dataValues.userId === req.userId)[0];
               if (checkVoteType.dataValues.voteType === req.params.vote) {
                 res
-                  .status(200)
+                  .status(403)
                   .json({
-                    message: `Recipe removed from your list of ${req.params.vote}d recipes`,
+                    message: `Sorry! You already ${req.params.vote}d this recipe!`,
                     votedRecipe: {
                       recipeId: checkVoteType.dataValues.recipeId
                     }
                   });
-                return checkVoteType.destroy();
               }
               return Votes.findById(checkVoteType.dataValues.id)
                 .then(updateVote => updateVote
                   .update({ voteType: req.params.vote }))
-                .then(() => res
+                .then(recipeDel => res
                   .status(200)
                   .json({
-                    message: `${req.params.vote} successful.`
+                    message: `${req.params.vote} successful.`,
+                    votedRecipe: {
+                      recipeId: recipeDel.recipeId
+                    }
                   }));
             }
             return Votes.create({

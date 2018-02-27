@@ -5,7 +5,7 @@ const {
   Recipe, Review, User, Favorite, Vote
 } = db;
 
-class GetRecipes {
+export class GetRecipes {
 /**
    * @param  {string} name - Recipe name
    * @param  {string} description - Recipe description
@@ -47,7 +47,7 @@ class GetRecipes {
   }
 }
 
-const countRecipes = (recipeArray, itemKey, itemValue) => {
+export const countRecipes = (recipeArray, itemKey, itemValue) => {
   if (recipeArray.length === 0) return 0;
   if (itemKey === null && itemValue === null) return recipeArray.length;
   return recipeArray.filter(elem => elem[itemKey] === itemValue).length;
@@ -101,7 +101,6 @@ const getAllRecipes = (req, res) => {
     }],
   })
     .then((recipes) => {
-      console.log('Recipe details', req.userId);
       if (recipes[0].dataValues.owner !== req.userId) {
         recipes[0].increment('views', { by: 1 });
       }

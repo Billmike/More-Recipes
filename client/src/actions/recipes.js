@@ -8,6 +8,7 @@ import editRecipe from '../actionCreators/editRecipes';
 import removeRecipe from '../actionCreators/removeRecipe';
 import addReview from '../actionCreators/addReview';
 import upVoteRecipe from '../actionCreators/upVoteRecipe';
+import downVote from '../actionCreators/downVoteRecipe';
 import instance from '../utils/axios';
 import './toastrConfig';
 
@@ -130,6 +131,7 @@ export const startGetOneRecipe = id => dispatch =>
   instance
     .get(`/recipe/${id}`)
     .then((res) => {
+      console.log('data', res.data)
       dispatch(getOneRecipe(res.data.recipeData));
     })
     .catch(error => Promise.reject(error.response.data.message));
@@ -147,7 +149,7 @@ export const startAddFavoriteRecipes = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/favorites`)
     .then((res) => {
-      const authUserid = getstate().auth.user.id;
+      const authUserid = getstate().auth.userDetails.id;
       toastr.success(res.data.message);
       return dispatch(toggleFavorites(
         res.data,
@@ -200,7 +202,7 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/votes/upvote`)
     .then((res) => {
-      const authUserid = getstate().auth.user.id;
+      const authUserid = getstate().auth.userDetails.id;
       toastr.success(res.data.message);
       dispatch(upVoteRecipe(res.data, authUserid));
     })
@@ -211,7 +213,7 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
       ) {
         toastr.error(err.response.data.message);
       } else if (
-        err.response.data.message === 'You already upvoted on this recipe'
+        err.response.data.message === 'Sorry! You already upvoted this recipe!'
       ) {
         toastr.warning(err.response.data.message);
       } else if (
@@ -230,11 +232,13 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
  * @returns { object } - returns an object with an action type
  */
 
-export const startDownVoteRecipe = id => dispatch =>
+export const startDownVoteRecipe = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/votes/downvote`)
     .then((res) => {
+      const authUserid = getstate().auth.userDetails.id;
       toastr.success(res.data.message);
+      dispatch(downVote(res.data, authUserid));
     })
     .catch((err) => {
       if (
@@ -243,7 +247,7 @@ export const startDownVoteRecipe = id => dispatch =>
       ) {
         toastr.error(err.response.data.message);
       } else if (
-        err.response.data.message === 'You already downvoted on this recipe'
+        err.response.data.message === 'Sorry! You already downvoted this recipe!'
       ) {
         toastr.warning(err.response.data.message);
       } else if (

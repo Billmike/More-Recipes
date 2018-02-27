@@ -22,9 +22,10 @@ export default (state = recipeDefaultState, action) => {
         recipes: [...action.recipes]
       };
     case 'GET_ONE_RECIPE':
+    console.log('single man here', action.recipe);
       return {
         ...state,
-        singleRecipe: action.recipe
+        singleRecipe: action.recipe[0]
       };
     case 'GET_USER_RECIPES':
       return {
@@ -65,14 +66,25 @@ export default (state = recipeDefaultState, action) => {
         })
       };
     case 'UPVOTE_RECIPE':
+      state.singleRecipe.downVote = state.singleRecipe
+        .downVote > 0 ? state.singleRecipe
+          .downVote - 1 : state.singleRecipe.downVote;
       return {
         ...state,
         singleRecipe: {
           ...state.singleRecipe,
-          votersId: [
-            !state.singleRecipe[0].votersId.includes(action.userId) ? state.singleRecipe[0].votersId.concat(action.userId) :
-              state.singleRecipe[0].votersId.filter(vote => vote.id !== action.userId)
-          ]
+          upVote: state.singleRecipe.upVote + 1
+        }
+      };
+    case 'DOWNVOTE_RECIPE':
+    state.singleRecipe.upVote = state.singleRecipe
+        .upVote > 0 ? state.singleRecipe
+          .upVote - 1 : state.singleRecipe.upVote;
+      return {
+        ...state,
+        singleRecipe: {
+          ...state.singleRecipe,
+          downVote: state.singleRecipe.downVote + 1
         }
       };
     case 'FETCH_FAVORITE_RECIPES':

@@ -21,7 +21,9 @@ class RecipeDetail extends Component {
     super(props);
     this.state = {
       reviewText: '',
-      reviews: []
+      reviews: [],
+      recipe: {},
+      upVotes: 0
     };
     this.upVoteRecipe = this.upVoteRecipe.bind(this);
     this.downVoteRecipe = this.downVoteRecipe.bind(this);
@@ -35,9 +37,15 @@ class RecipeDetail extends Component {
     this.props.getUserinfo();
   }
 
-  componentDidUpdate() {
-    this.props.startGetOneRecipe(this.props.match.params.id);
-  }
+  // componentDidUpdate() {
+  //   this.props.startGetOneRecipe(this.props.match.params.id);
+  // }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log('will reci====>', nextProps.recipe);
+  //   const recipe = (nextProps.recipe) ? (nextProps.recipe) : {};
+  //   const upVotes = (recipe.upVote) ? recipe.upVote : 0;
+  //   this.setState({ recipe, upVotes })
+  // }
 
   onReviewFormChange(event) {
     event.preventDefault();
@@ -73,38 +81,30 @@ class RecipeDetail extends Component {
     let reviews;
     let splitIngredients;
     let splitInstructions;
-    let upvotes;
-    let downvotes;
-    let image;
     if (this.props.recipe) {
-      image = this.props.recipe[0].imageUrl;
-      splitIngredients = this.props.recipe[0].ingredients
+      splitIngredients = this.props.recipe.ingredients
         .split('\n')
-        .map((splitIng, index) => {
+        .map((ingredient, index) => {
           return (
-            <ul>
-              <li className="indie-key" key={index}>
-                {splitIng}
-              </li>
-            </ul>
+              <p className="indie-key" key={index}>
+                {ingredient}
+              </p>
           );
         });
 
-      splitInstructions = this.props.recipe[0].instructions
+      splitInstructions = this.props.recipe.instructions
         .split('\n')
-        .map((splitInstrut, index) => {
+        .map((instruction, index) => {
           return (
-            <ul>
-              <li className="indie-key" key={index}>
-                {splitInstrut}
-              </li>
-            </ul>
+              <p className="indie-key" key={index}>
+                {instruction}
+              </p>
           );
         });
 
       reviews =
-        this.props.recipe[0].reviews.length > 0 ? (
-          this.props.recipe[0].reviews.map(review => {
+        this.props.recipe.reviews.length > 0 ? (
+          this.props.recipe.reviews.map(review => {
             return (
               <div className="review-div">
                 <Review
@@ -121,66 +121,64 @@ class RecipeDetail extends Component {
             No reviews for this recipe yet. Want to be the first to review this?<Emoji text="B-)" />
           </p>
         );
-
-      upvotes = this.props.recipe[0].upVote;
-      downvotes = this.props.recipe[0].downVote;
     }
     return (
       <div>
         <div>
-          This is the details of Recipe with name of {this.props.recipe.name}
-          <div className="row container image-name">
-            <div className="col-md-6">
-              <img src={image} />
-            </div>
-            <div className="col-md-6">
-              <div>
-                <h4 className="detail-title"> Recipe Title </h4>
-                <Link to="/" onClick={this.favoriteRecipes}>
-                  <i className="fa fa-heart my-heart" aria-hidden="true" />
-                </Link>
-                <p>{this.props.recipe.name}</p>
-              </div>
-              <div>
-                <h4 className="detail-title"> Description </h4>
-                <p>{this.props.recipe.description}</p>
-              </div>
-              <div>
-                <h4 className="detail-title"> Category </h4>
-                <p>{this.props.recipe.category}</p>
-              </div>
-            </div>
+        <h4 className="recipe-detail-name">
+          {this.props.recipe.name}
+          </h4>
+          <div className="recipe-detail-category">
+            Category: {this.props.recipe.category}
           </div>
-          <div className="row container">
-            <div className="col-sm ingredients-div">
-              <h4 className="detail-title"> Ingredients </h4>
-              {splitIngredients}
+          <div className="container image-name">
+            <div className="img-fluid">
+              <img src={this.props.recipe.imageUrl} className=" recipe-detail-image" />
             </div>
-            <div className="col-sm ingredients-div">
-              <span>
+            <div className="recipe-detials-btn">
                 <Link
                   to="/"
-                  className="btn border border-secondary rounded brown-thumb"
+                  className="btn details-action-button thumbs-up brown-thumb"
                   onClick={this.upVoteRecipe}
                 >
-                  {upvotes}{' '}
+                  {this.props.recipe.upVote}{' '}
                   <i className="fa fa-thumbs-up fa" aria-hidden="true" />
                 </Link>
                 <Link
                   to="/"
-                  className="btn border border-secondary rounded brown-thumb"
+                  className="btn details-action-button brown-thumb"
                   onClick={this.downVoteRecipe}
                 >
                   {' '}
-                  {downvotes}{' '}
+                  {this.props.recipe.downVote}{' '}
                   <i className="fa fa-thumbs-down fa" aria-hidden="true" />
                 </Link>
-              </span>
+                <Link
+                  to="/"
+                  onClick={this.favoriteRecipes}
+                  className="btn details-action-button heart-button"
+                >
+                  <i className="fa fa-heart my-heart" aria-hidden="true" />
+                </Link>
+              </div>
+            <div className="">
+              <div>
+                <h4 className="recipe-detail-description"> Description </h4>
+                <p className="recipe-description-paragraph">{this.props.recipe.description}</p>
+              </div>
             </div>
-            <div className="col-sm ingredients-div">
+          </div>
+          <div>
+          <div className="row container">
+            <div className="col-6 ingredients-div">
+              <h4 className="detail-title"> Ingredients </h4>
+              {splitIngredients}
+            </div>
+            <div className="col-6 ingredients-div">
               <h4 className="detail-title"> Instructions </h4>
               {splitInstructions}
             </div>
+          </div>
           </div>
           <div>
             <div>
@@ -209,6 +207,7 @@ const mapStateToProps = (state, props) => {
   console.log('single', state);
   return {
     recipe: state.recipes.singleRecipe,
+    upVote: state.recipes.singleRecipe.upVote,
     user: state.auth.userDetails
   };
 };
