@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
+import LoaderComp from './LoaderComp';
 import DropZone from 'react-dropzone';
-import validateAddRecipe from '../../../server/middleware/validateAddRecipe';
+import validateRecipe from '../../../server/validators/validateRecipe';
 
 class RecipesForm extends Component {
   constructor(props) {
@@ -14,7 +16,8 @@ class RecipesForm extends Component {
       category: this.props.recipe ? this.props.recipe.category : 'Select a category for your recipe',
       ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
       instructions: this.props.recipe ? this.props.recipe.instructions : '',
-      error: '',
+      errors: {},
+      loaded: true,
     };
     this.onCategorySet = this.onCategorySet.bind(this);
     this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
@@ -41,11 +44,6 @@ class RecipesForm extends Component {
   );
   }
 
-  // onImgSet = e => {
-  //   const imageUrl = e.target.value;
-  //   this.setState(() => ({ imageUrl }));
-  // };
-
   onCategorySet(event) {
     this.setState({ category: event.target.value })
   }
@@ -66,41 +64,55 @@ class RecipesForm extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    this.uploadToCloudinary().then((response) => {
-      const secureURL = response.data.secure_url;
-      const recipeImage = this.state;
-      recipeImage.imageUrl = secureURL;
 
-      this.props.onSubmit({
-        name: this.state.name,
-        description: this.state.description,
-        imageUrl: this.state.imageUrl,
-        category: this.state.category,
-        ingredients: this.state.ingredients,
-        instructions: this.state.instructions
+    if (this.isValid()) {
+      this.setState({ errors: {} });
+      this.setState({ loaded: false })
+      this.uploadToCloudinary().then((response) => {
+        const secureURL = response.data.secure_url;
+        const recipeImage = this.state;
+        recipeImage.imageUrl = secureURL;
+  
+        this.props.onSubmit({
+          name: this.state.name,
+          description: this.state.description,
+          imageUrl: this.state.imageUrl,
+          category: this.state.category,
+          ingredients: this.state.ingredients,
+          instructions: this.state.instructions
+        });
       });
-    })
+    }
   };
+
+  isValid() {
+    const { errors, isValid } = validateRecipe(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+
+    return isValid;
+  }
 
   render() {
     let dropzoneRef;
+    const { errors } = this.state;
     return (
       <div>
         <main className="container">
-          {this.state.error && <p>{this.state.error}</p>}
-          <form className="needs-validation" onSubmit={this.onSubmit}>
+          <form className="" onSubmit={this.onSubmit}>
             <div className="form-group">
               <label className="recipe-name" htmlFor="recipename">
                 Recipe Name
               </label>
               <input
-                className="form-control recipe-name"
+                className={classNames("form-control", { "has-errors": errors.name })}
                 id="recipename"
                 aria-describedby="recipeNameHelp"
                 value={this.state.name}
                 onChange={this.onNameChange}
-                required
               />
+              {errors.name && (<span className="help-block has-errors">{errors.name}</span>)}
               <small id="recipeNameHelp" className="form-text">
                 Enter a name for your recipe
               </small>
@@ -111,13 +123,13 @@ class RecipesForm extends Component {
                   Description
                 </label>
                 <textarea
-                  className="form-control"
+                  className={classNames("form-control", { "has-errors": errors.description })}
                   id="descriptionTextArea"
                   rows="3"
                   value={this.state.description}
                   onChange={this.onDescriptionChange}
-                  required
                 />
+                {errors.description && (<span className="help-block has-errors">{errors.description}</span>)}
                 <small id="descriptionHelp" className="form-text">
                   Enter a short description for your recipe.
                 </small>
@@ -154,7 +166,7 @@ class RecipesForm extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="category">Category</label>
-              <select className="form-control" value={this.state.category} onChange={this.onCategorySet} id="category">
+              <select className="form-control custom-select" value={this.state.category} onChange={this.onCategorySet} id="category">
                 <option value="lunch">Lunch</option>
                 <option value="breakfast">Breakfast</option>
                 <option value="dessert">Dessert</option>
@@ -168,13 +180,14 @@ class RecipesForm extends Component {
                   Ingredients
                 </label>
                 <textarea
-                  className="form-control large-text"
+                  className={classNames("form-control large-text", { "has-errors": errors.ingredients })}
                   id="recipename"
                   aria-describedby="recipeNameHelp"
                   value={this.state.ingredients}
                   onChange={this.onIngredientsSet}
-                  required
+                  
                 />
+                {errors.ingredients && (<span className="help-block has-errors">{errors.ingredients}</span>)}
                 <small id="recipeNameHelp" className="form-text">
                   Enter your recipe ingredients, separated by Commas.
                 </small>
@@ -187,17 +200,21 @@ class RecipesForm extends Component {
                   Instructions
                 </label>
                 <textarea
-                  className="form-control large-text"
+                  className={classNames("form-control large-text", { "has-errors": errors.instructions })}
                   id="recipeDesc"
                   rows="3"
                   value={this.state.instructions}
                   onChange={this.onInstructionsSet}
-                  required
+                  
                 />
+                {errors.instructions && (<span className="help-block has-errors">{errors.instructions}</span>)}
                 <small id="descriptionHelp" className="form-text">
                   Enter your step-by-step Instructions.
                 </small>
               </div>
+              <LoaderComp
+                loaded={this.state.loaded}
+              />
             </div>
             <div className="form-group">
               <button className="btn btn-primary my-btn button-font btn-lg btn-block">

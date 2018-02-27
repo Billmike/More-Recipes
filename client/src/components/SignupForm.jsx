@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import LoaderComp from './LoaderComp';
 import validateInput from '../../../server/validators/validatesignup';
 import '../assets/css/signup.css';
 
@@ -13,7 +14,7 @@ export class SignupForm extends Component {
       email: '',
       password: '',
       errors: {},
-      isLoading: false
+      loaded: true
     };
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
@@ -43,14 +44,14 @@ export class SignupForm extends Component {
     event.preventDefault();
 
     if (this.isValid()) {
-      this.setState({ errors: {}, isLoading: true });
+      this.setState({ errors: {}, loaded: false });
       this.props
         .signupRequest(this.state)
         .then(() => {
           this.props.history.push('/dashboard');
         })
         .catch(errors => {
-          this.setState({ isLoading: false });
+          this.setState({ loaded: true });
           if (errors === 'Username must be unique.') {
             return toastr.error('This username is taken.');
           } else {
@@ -115,6 +116,9 @@ export class SignupForm extends Component {
                 <span className="help-block has-errors">{errors.password}</span>
               )}
             </div>
+            <LoaderComp
+              loaded={this.state.loaded}
+              />
             <input type="submit" value="Submit" className="btn submit-btn size-bt btn-block" />
       </form>
       <p> Have an account? <a className="account" href="/login"> Sign in </a> </p>

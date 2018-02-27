@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import '../assets/css/style.css';
+import LoaderComp from './LoaderComp';
 import RecipesList from './RecipesList';
 import Footer from './Footer';
 import Pagination from './Pagination';
@@ -13,6 +14,9 @@ import noodles from '../assets/img/noodles.jpg';
 class Homepage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loaded: true
+    }
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
   componentDidMount() {
