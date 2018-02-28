@@ -36,34 +36,20 @@ export const startGetAllRecipes = page => dispatch =>
  * @returns { object } - returns an object with an action type and the new recipe object
  */
 
-export const startAddRecipe = (recipeData = {}) => (dispatch) => {
-  const {
-    name = '',
-    description = '',
-    imageUrl = '',
-    category = '',
-    ingredients = '',
-    instructions = ''
-  } = recipeData;
+export const startAddRecipe = recipeData => (dispatch) => {
 
-  const recipe = {
-    name,
-    description,
-    imageUrl,
-    category,
-    ingredients,
-    instructions
-  };
   return instance
-    .post('/recipes', recipe)
-    .then(() => {
+    .post('/recipes', recipeData)
+    .then((res) => {
       toastr.success('Recipe added successfully.');
-      dispatch(addRecipe({
-        id: recipe.id,
-        ...recipe
-      }));
+      dispatch(addRecipe(res.data));
     })
-    .catch(error => Promise.reject(error.response.data.message));
+    .catch((error) => {
+      if (error.response.data
+        .message === 'You already have a recipe with this name') {
+        toastr.warning(error.response.data.message);
+      }
+    });
 };
 
 /**
@@ -77,6 +63,7 @@ export const startGetUserRecipes = () => dispatch =>
   instance
     .get('/users/recipes')
     .then((res) => {
+      console.log('user res', res.data);
       dispatch(getUserRecipe(res.data.recipeData));
     })
     .catch(error => Promise.reject(error.response.message));
@@ -112,11 +99,14 @@ export const startEditRecipe = (id, updates) => dispatch =>
 export const startRemoveRecipe = id => dispatch =>
   instance
     .delete(`/recipes/${id}`)
-    .then(() => {
+    .then((res) => {
+      console.log('deleted recipe', res.data)
       toastr.success('Recipe deleted successfully.');
-      dispatch(removeRecipe(id));
+      dispatch(removeRecipe(res.data.recipeId));
     })
-    .catch(error => Promise.reject(error.response.message));
+    .catch(error => {
+      console.log(error);
+    });
 
 /**
  * Represents a function
@@ -131,7 +121,6 @@ export const startGetOneRecipe = id => dispatch =>
   instance
     .get(`/recipe/${id}`)
     .then((res) => {
-      console.log('data', res.data)
       dispatch(getOneRecipe(res.data.recipeData));
     })
     .catch(error => Promise.reject(error.response.data.message));

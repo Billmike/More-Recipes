@@ -133,7 +133,7 @@ class RecipeDetail extends Component {
           </div>
           <div className="container image-name">
             <div className="img-fluid center-image">
-              <img src={this.props.recipe.imageUrl} className=" recipe-detail-image" />
+              <img src={this.props.recipe.imageUrl} className="rounded recipe-detail-image" />
             </div>
             <div className="recipe-detials-btn">
                 <Link
@@ -146,7 +146,7 @@ class RecipeDetail extends Component {
                 </Link>
                 <Link
                   to="/"
-                  className="btn details-action-button brown-thumb"
+                  className="btn details-action-button thumbs-down"
                   onClick={this.downVoteRecipe}
                 >
                   {' '}

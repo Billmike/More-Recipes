@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
-import { startRemoveRecipe } from '../actions/recipes';
+import { startRemoveRecipe, startGetUserRecipes } from '../actions/recipes';
 import pizza from '../assets/img/pizzza.jpg';
 
 class RecipeEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedRecipe: undefined
+      selectedRecipe: undefined,
     };
     this.selectRecipe = this.selectRecipe.bind(this);
     this.handleClearSelectedRecipe = this.handleClearSelectedRecipe.bind(this);
@@ -24,33 +24,35 @@ class RecipeEdit extends Component {
 
   selectRecipe() {
     this.setState(() => ({
-      selectedRecipe: this.props.id
+      selectedRecipe: this.props.recipe.id
     }));
   }
 
   onRemoveRecipe() {
-    this.props.startRemoveRecipe(this.props.id);
+    this.props.startRemoveRecipe(this.props.recipe.id).then(() => {
+      this.props.startGetUserRecipes();
+    })
   }
 
   render() {
     return (
       <div className="col-md-4">
         <div className="card">
-          <Link to={`/recipe/${this.props.id}`}>
-            <img className="card-img-top" alt="Pizza" src={this.props.imageUrl} />
+          <Link to={`/recipe/${this.props.recipe.id}`}>
+            <img className="card-img-top" alt="Pizza" src={this.props.recipe.imageUrl} />
           </Link>
           <div className="card-body">
-            <Link to={`/recipe/${this.props.id}`}>
-              <h4 className="card-title">{this.props.name}</h4>
+            <Link to={`/recipe/${this.props.recipe.id}`}>
+              <h4 className="card-title">{this.props.recipe.name}</h4>
             </Link>
-            <p className="card-text">{this.props.description}</p>
+            <p className="card-text">{this.props.recipe.description}</p>
             <div className="group-btn">
               <div
                 className="container action-btn"
                 style={{ textAlign: 'justify' }}
               >
                 <Link
-                  to={`/edit/${this.props.id}`}
+                  to={`/edit/${this.props.recipe.id}`}
                   className="btn user-btn"
                   role="button"
                 >
@@ -70,7 +72,7 @@ class RecipeEdit extends Component {
                   className="btn user-btn user-btn-special"
                   role="button"
                 >
-                  {this.props.recipe[0].upVote}{' '}
+                  {this.props.recipe.upVote}{' '}
                   <i className="fa fa-thumbs-up fa brown" />{' '}
                 </button>
                 <button
@@ -78,7 +80,7 @@ class RecipeEdit extends Component {
                   className="btn user-btn user-btn-special"
                   role="button"
                 >
-                  {this.props.recipe[0].downVote}{' '}
+                  {this.props.recipe.downVote}{' '}
                   <i className="fa fa-thumbs-down fa brown" />
                 </button>
                 <button
@@ -86,7 +88,7 @@ class RecipeEdit extends Component {
                   className="btn user-btn user-btn-special"
                   role="button"
                 >
-                  {this.props.recipe[0].favorites}{' '}
+                  {this.props.recipe.favorites}{' '}
                   <i className="fa fa-heart crimson" />
                 </button>
               </div>
@@ -94,7 +96,7 @@ class RecipeEdit extends Component {
           </div>
           <div className="card-footer pad-footer">
             <small className="text-muted small-text">
-              Recipe Category - {this.props.category}
+              Recipe Category - {this.props.recipe.category}
             </small>
           </div>
         </div>
@@ -108,16 +110,12 @@ class RecipeEdit extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    recipe: state.recipes.userRecipe
-  };
-};
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    startRemoveRecipe: recipeData => dispatch(startRemoveRecipe(recipeData))
+    startRemoveRecipe: recipeData => dispatch(startRemoveRecipe(recipeData)),
+    startGetUserRecipes: userRecipe => dispatch(startGetUserRecipes())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeEdit);
+export default connect(null, mapDispatchToProps)(RecipeEdit);

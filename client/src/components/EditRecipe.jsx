@@ -5,8 +5,9 @@ import { startEditRecipe } from '../actions/recipes';
 
 export class EditRecipe extends Component {
   onSubmit = recipe => {
-    this.props.startEditRecipe(this.props.recipe.id, recipe);
+    this.props.startEditRecipe(this.props.recipe.id, recipe).then(() => {
     this.props.history.push('/dashboard');
+    });
   };
 
   componentWillMount() {}

@@ -443,8 +443,8 @@ a:hover {
 }
 
 .my-heart {
-  margin-left: 20px;
-  color: brown;
+  margin-left: 10px;
+  color: red;
 }
 
 .center-emoji {
@@ -512,7 +512,6 @@ a:hover {
 }
 
 .review-back {
-  background: ghostwhite;
   margin: 50px;
   padding-top: 10px;
   /* padding-bottom: 30px; */
@@ -658,6 +657,7 @@ a:hover {
 
 .card-img-top {
   max-height: 200px;
+  min-height: 200px;
 }
 
 .drop-button {
@@ -716,9 +716,15 @@ a:hover {
   margin-right: 10px;
 }
 
+.thumbs-up:hover {
+  color: white;
+}
+
 .heart-button {
-  padding-left: 0px;
+  background: white;
+  color: black;
   margin-left: 10px;
+  width: 60px;
 }
 
 .indie-key{
@@ -734,4 +740,13 @@ a:hover {
   margin-top: 60px;
   color: brown;
   font-family: -webkit-pictograph;
+}
+
+.thumbs-down {
+  background: red;
+}
+
+.thumbs-down:hover {
+  background: red;
+  color: white;
 }

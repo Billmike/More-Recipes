@@ -6,8 +6,9 @@ import { startAddRecipe } from '../actions/recipes';
 
 export class AddRecipe extends Component {
   onSubmit = recipe => {
-    this.props.startAddRecipe(recipe);
-    this.props.history.push('/dashboard');
+    this.props.startAddRecipe(recipe).then(() => {
+      this.props.history.push('/dashboard');
+    });
   };
 
   render() {

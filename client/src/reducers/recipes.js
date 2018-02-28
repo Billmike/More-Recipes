@@ -12,8 +12,8 @@ export default (state = recipeDefaultState, action) => {
     case 'ADD_RECIPE':
       return {
         ...state,
-        userRecipe: [...state.userRecipe, action.recipe],
-        recipes: [...action.recipe]
+        userRecipe: [...state.userRecipe, action.recipe.recipeData],
+        recipes: [...action.recipe.recipeData]
       };
     case 'GET_RECIPES':
       return {
@@ -22,7 +22,6 @@ export default (state = recipeDefaultState, action) => {
         recipes: [...action.recipes]
       };
     case 'GET_ONE_RECIPE':
-    console.log('single man here', action.recipe);
       return {
         ...state,
         singleRecipe: action.recipe[0]
@@ -36,8 +35,6 @@ export default (state = recipeDefaultState, action) => {
       return {
         ...state,
         recipes: state.recipes.map((recipe) => {
-          console.log('action id', action.id);
-          console.log('user edit here', recipe);
           if (recipe.id == action.id) {
             return {
               ...recipe,
@@ -49,7 +46,9 @@ export default (state = recipeDefaultState, action) => {
     case 'REMOVE_RECIPE':
       return {
         ...state,
-        recipes: state.recipes.filter(({ id }) => id !== action.id)
+        userRecipe: state.userRecipe.filter((recipe) => {
+          recipe.id !== action.id
+        })
       };
     case 'TOGGLE_FAVORITE':
       return {
@@ -79,7 +78,7 @@ export default (state = recipeDefaultState, action) => {
         }
       };
     case 'DOWNVOTE_RECIPE':
-    state.singleRecipe.upVote = state.singleRecipe
+      state.singleRecipe.upVote = state.singleRecipe
         .upVote > 0 ? state.singleRecipe
           .upVote - 1 : state.singleRecipe.upVote;
       return {
@@ -99,7 +98,7 @@ export default (state = recipeDefaultState, action) => {
         ...state,
         singleRecipe: {
           ...state.singleRecipe,
-          reviews: state.singleRecipe.reviews.concat(action.review)
+          reviews: state.singleRecipe.reviews.concat(action.review.reviewData)
         }
       };
     default:

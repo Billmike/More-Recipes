@@ -8,18 +8,19 @@ import { startGetUserRecipes } from '../actions/recipes';
 import { getUserinfo } from '../actions/signinRequest';
 
 class Dashboard extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.startGetUserRecipes();
     this.props.getUserinfo();
   }
 
   render() {
+    console.log('I render at first! for now')
     let availableRecipes;
-    if (this.props.recipes) {
+    if (this.props.recipes.length > 0) {
       availableRecipes =
         this.props.recipes.length > 0 ? (
           this.props.recipes.map(recipe => {
-            return <RecipeEdit key={recipe.id} {...recipe} />;
+            return <RecipeEdit key={recipe.id} recipe={recipe} />;
           })
         ) : (
           <p className="no-recipes-p">
@@ -46,7 +47,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  console.log('our state', state);
+  console.log('our state', state.recipes.userRecipe);
   return {
     recipes: state.recipes.userRecipe,
     user: state.auth.userDetails

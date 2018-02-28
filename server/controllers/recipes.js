@@ -33,25 +33,36 @@ class Recipe {
       ingredients,
       instructions
     } = req.body;
-    return recipes
-      .create({
+    recipes.findOne({
+      where: {
         name,
-        description,
-        imageUrl,
-        category,
-        ingredients,
-        instructions,
         owner: req.userId
-      })
-      .then(recipe =>
-        res.status(201).json({
-          message: 'Recipe created successfully',
-          recipeData: recipe
-        }))
-      .catch(() =>
-        res.status(500).json({
-          message: errorMessage
-        }));
+      }
+    }).then((foundRecipe) => {
+      if (foundRecipe) {
+        return res.status(409).json({
+          message: 'You already have a recipe with this name'
+        });
+      }
+      recipes
+        .create({
+          name,
+          description,
+          imageUrl,
+          category,
+          ingredients,
+          instructions,
+          owner: req.userId
+        })
+        .then(recipe =>
+          res.status(201).json({
+            message: 'Recipe created successfully',
+            recipeData: recipe
+          }));
+    }).catch(() =>
+      res.status(500).json({
+        message: errorMessage
+      }));
   }
 
   /**
@@ -221,7 +232,8 @@ class Recipe {
         return recipe.destroy().then(() =>
           res.status(201).json({
             message:
-              'You have successfully deleted this recipe. Want to add another?'
+              'You have successfully deleted this recipe. Want to add another?',
+            recipeId: recipe.id
           }));
       })
       .catch(() =>

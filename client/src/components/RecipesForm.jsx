@@ -13,7 +13,7 @@ class RecipesForm extends Component {
       name: this.props.recipe ? this.props.recipe.name : '',
       description: this.props.recipe ? this.props.recipe.description : '',
       imageUrl: this.props.recipe? this.props.recipe.imageUrl : "https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg",
-      category: this.props.recipe ? this.props.recipe.category : 'Select a category for your recipe',
+      category: this.props.recipe ? this.props.recipe.category : 'Lunch',
       ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
       instructions: this.props.recipe ? this.props.recipe.instructions : '',
       errors: {},
@@ -67,7 +67,7 @@ class RecipesForm extends Component {
 
     if (this.isValid()) {
       this.setState({ errors: {} });
-      this.setState({ loaded: false })
+      this.setState({ loaded: false });
       this.uploadToCloudinary().then((response) => {
         const secureURL = response.data.secure_url;
         const recipeImage = this.state;

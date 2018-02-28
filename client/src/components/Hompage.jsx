@@ -24,7 +24,7 @@ class Homepage extends Component {
   }
 
   handlePaginationChange(data) {
-    const currentView = data.selected + 1;
+    const currentView = data.selected;
     this.props.startGetAllRecipes(currentView);
   }
 
@@ -32,7 +32,7 @@ class Homepage extends Component {
     let allRecipes;
     if (this.props.recipes) {
       allRecipes = this.props.recipes.map((recipe, i) => {
-        return <RecipesList key={i} {...recipe} />;
+        return <RecipesList key={i} recipe = {recipe} />;
       });
     }
     return (

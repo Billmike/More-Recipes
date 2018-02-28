@@ -61,7 +61,9 @@ class Review {
               return res.status(201).json({
                 message: 'Review successfully posted',
                 reviewData: {
-                  content: review.content
+                  content: review.content,
+                  dateCreated: review.createdAt,
+                  dateUpdated: review.updatedAt
                 }
               });
             });

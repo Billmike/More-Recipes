@@ -9,7 +9,7 @@ import { REMOVE_RECIPE } from '../actions/types';
  * @returns { object } - returns an object with an action type
  */
 
-const removeRecipe = ({ id } = {}) => ({
+const removeRecipe = id => ({
   type: REMOVE_RECIPE,
   id
 });
