@@ -23,10 +23,10 @@ body {
 }
 
 .detail-title {
-  font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
   letter-spacing: 1px;
+  font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 35px;
   display: inline-block;
   margin-left: 40px;
 }
@@ -396,7 +396,14 @@ a:hover {
 }
 
 .ingredients-div {
-  text-align: center;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-right: 50px;
+  padding-left: 50px;
 }
 
 .form-container {
@@ -424,6 +431,7 @@ a:hover {
 
 .review-form {
   height: 200px;
+  margin-top: 30px;
 }
 
 .brown-thumb {
@@ -682,13 +690,16 @@ a:hover {
 
 .recipe-detail-description{
   text-align: center;
-  font-size: 35px;
+  font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
+  font-size: 40px;
+  letter-spacing: 1px;
   margin-top: 30px;
 }
 
 .recipe-description-paragraph{
   word-wrap: normal;
   word-break: break-all;
+  text-align: center;
 }
 
 .recipe-detials-btn{
@@ -708,4 +719,19 @@ a:hover {
 .heart-button {
   padding-left: 0px;
   margin-left: 10px;
+}
+
+.indie-key{
+  padding-bottom: 20px;
+}
+
+.center-image{
+  text-align: center;
+}
+
+.auth-review{
+  text-align: center;
+  margin-top: 60px;
+  color: brown;
+  font-family: -webkit-pictograph;
 }

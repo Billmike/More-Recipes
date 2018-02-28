@@ -23,7 +23,6 @@ class IsLoggedIn {
       return res
         .status(403)
         .send({
-          status: 'Denied',
           message: 'You need to be logged in to perform this action.'
         });
     }

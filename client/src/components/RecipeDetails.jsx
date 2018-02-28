@@ -86,9 +86,9 @@ class RecipeDetail extends Component {
         .split('\n')
         .map((ingredient, index) => {
           return (
-              <p className="indie-key" key={index}>
+              <li className="indie-key" key={index}>
                 {ingredient}
-              </p>
+              </li>
           );
         });
 
@@ -96,9 +96,9 @@ class RecipeDetail extends Component {
         .split('\n')
         .map((instruction, index) => {
           return (
-              <p className="indie-key" key={index}>
+              <li className="indie-key" key={index}>
                 {instruction}
-              </p>
+              </li>
           );
         });
 
@@ -132,7 +132,7 @@ class RecipeDetail extends Component {
             Category: {this.props.recipe.category}
           </div>
           <div className="container image-name">
-            <div className="img-fluid">
+            <div className="img-fluid center-image">
               <img src={this.props.recipe.imageUrl} className=" recipe-detail-image" />
             </div>
             <div className="recipe-detials-btn">
@@ -169,30 +169,32 @@ class RecipeDetail extends Component {
             </div>
           </div>
           <div>
-          <div className="row container">
-            <div className="col-6 ingredients-div">
+          <div className="container">
+            <div className="ingredients-div">
               <h4 className="detail-title"> Ingredients </h4>
+              <hr />
               {splitIngredients}
             </div>
-            <div className="col-6 ingredients-div">
+            <div className="ingredients-div">
               <h4 className="detail-title"> Instructions </h4>
+              <hr />
               {splitInstructions}
             </div>
           </div>
           </div>
           <div>
-            <div>
+          {this.props.auth ? <div>
               <ReviewForm
                 onChange={this.onReviewFormChange}
                 reviewText={this.state.reviewText}
                 reviewRecipe={this.reviewRecipe}
               />
-            </div>
+            </div> : <p className="auth-review"> You have to be Logged in to post a review </p>}
           </div>
           <br />
           <div>
             <h6 className="text-center form-h6">
-              What people are saying about this recipe
+              Reviews
             </h6>
           </div>
           <div className="review-back">{reviews}</div>
@@ -206,6 +208,7 @@ class RecipeDetail extends Component {
 const mapStateToProps = (state, props) => {
   console.log('single', state);
   return {
+    auth: state.auth.isAuthenticated,
     recipe: state.recipes.singleRecipe,
     upVote: state.recipes.singleRecipe.upVote,
     user: state.auth.userDetails

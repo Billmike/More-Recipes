@@ -211,25 +211,21 @@ class Recipe {
       .then((recipe) => {
         if (!recipe) {
           return res.status(404).json({
-            status: 'Not found',
             message: 'The recipe you are looking for does not exist.'
           });
         } else if (recipe.owner !== req.userId) {
           return res.status(403).json({
-            status: 'Forbidden.',
             message: 'You do not have the priviledges to perform this action.'
           });
         }
         return recipe.destroy().then(() =>
           res.status(201).json({
-            status: 'Success.',
             message:
               'You have successfully deleted this recipe. Want to add another?'
           }));
       })
       .catch(() =>
         res.status(500).json({
-          status: 'Failed',
           message: 'Oops.. Something went wrong. Why not try again later?'
         }));
   }

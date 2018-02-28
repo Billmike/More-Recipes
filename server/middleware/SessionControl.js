@@ -27,10 +27,9 @@ class SessionControl {
       verifiedJWT = jwt.verify(req.token, process.env.SECRET);
     } catch (error) {
       res
-        .status(400)
+        .status(403)
         .json({
-          status: 'failed.',
-          message: 'Provide correct details to access this resource.'
+          message: 'You need to be logged in to perform this action.'
         });
     }
     User.findById(verifiedJWT.id)
@@ -38,7 +37,7 @@ class SessionControl {
         if (!user) {
           const err = res
             .status(403)
-            .json({ status: 'Unverified.', message: 'Invalid user token.' });
+            .json({ message: 'Invalid user token.' });
           return next(err);
         }
         req.userId = verifiedJWT.id;

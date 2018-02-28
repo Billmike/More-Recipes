@@ -12,7 +12,7 @@ export default (state = recipeDefaultState, action) => {
     case 'ADD_RECIPE':
       return {
         ...state,
-        userRecipe: [...action.recipe],
+        userRecipe: [...state.userRecipe, action.recipe],
         recipes: [...action.recipe]
       };
     case 'GET_RECIPES':
@@ -36,6 +36,8 @@ export default (state = recipeDefaultState, action) => {
       return {
         ...state,
         recipes: state.recipes.map((recipe) => {
+          console.log('action id', action.id);
+          console.log('user edit here', recipe);
           if (recipe.id == action.id) {
             return {
               ...recipe,

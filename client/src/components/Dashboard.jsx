@@ -13,10 +13,6 @@ class Dashboard extends Component {
     this.props.getUserinfo();
   }
 
-  componentDidUpdate() {
-    this.props.startGetUserRecipes();
-  }
-
   render() {
     let availableRecipes;
     if (this.props.recipes) {
