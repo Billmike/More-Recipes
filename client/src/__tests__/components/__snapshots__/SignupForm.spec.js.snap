@@ -54,6 +54,9 @@ exports[`Should render Signup Form correctly 1`] = `
             value=""
           />
         </div>
+        <LoaderComp
+          loaded={true}
+        />
         <input
           className="btn submit-btn size-bt btn-block"
           type="submit"

@@ -118,7 +118,7 @@ class Favorites extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     userDetails: state.auth.userDetails,

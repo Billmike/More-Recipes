@@ -32,7 +32,7 @@ module.exports = (app) => {
   );
 
   app.put(
-    '/api/v1/recipes/:recipeId/modify',
+    '/api/v1/recipes/:recipeId',
     Login.hasToken,
     User.isuser,
     recipeController.modifyRecipe
@@ -47,7 +47,7 @@ module.exports = (app) => {
   );
 
   app.delete(
-    '/api/v1/recipes/:recipeId',
+    '/api/v1/recipe/:recipeId',
     Login.hasToken,
     User.isuser,
     recipeController.deleteRecipe

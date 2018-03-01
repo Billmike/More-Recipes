@@ -205,8 +205,7 @@ class RecipeDetail extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  console.log('single', state);
+const mapStateToProps = (state) => {
   return {
     auth: state.auth.isAuthenticated,
     recipe: state.recipes.singleRecipe,

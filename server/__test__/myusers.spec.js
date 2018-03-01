@@ -232,7 +232,7 @@ describe('User API testing', () => {
           .type('form')
           .send(dummyUser)
           .end((err, res) => {
-            expect(res.statusCode).to.equal(403);
+            expect(res.statusCode).to.equal(401);
             expect(res.body.message).to.equal('Invalid email or password.');
             done();
           });

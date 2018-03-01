@@ -46,6 +46,20 @@ describe('Recipes Endpoint', () => {
           done();
         });
     });
+    it('Should successfully create a recipe as a logged in user', (done) => {
+      const testUser = { ...users[0] };
+      request.post(`${recipesApi}?token=${testUser.tokens[0].token}`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .send(recipes[1])
+        .end((err, res) => {
+          expect(res.status).to.equal(409);
+          expect(res.body.message)
+            .to.equal('You already have a recipe with this name');
+          done();
+        });
+    });
     it(
       'Should return a 400 if no name of recipe is provided on creation attempt',
       (done) => {
@@ -145,14 +159,13 @@ describe('Recipes Endpoint', () => {
         const testRecipe = { ...recipes[0] };
         const recipeId = recipes[0].id;
         testRecipe.name = 'New Rice meal';
-        request.put(`${recipesApi}/${recipeId}/modify`)
+        request.put(`${recipesApi}/${recipeId}`)
           .set('Connection', 'keep alive')
           .set('Content-Type', 'application/json')
           .type('form')
           .send(testRecipe)
           .end((err, res) => {
             expect(res.status).to.equal(403);
-            expect(res.body.status).to.equal('Denied');
             expect(res.body.message)
               .to.equal('You need to be logged in to perform this action.');
             done();
@@ -165,7 +178,7 @@ describe('Recipes Endpoint', () => {
         const testUser = { ...users[0] };
         const testRecipe = { ...recipes[0] };
         request
-          .put(`${recipesApi}/100/modify?token=${testUser.tokens[0].token}`)
+          .put(`${recipesApi}/100?token=${testUser.tokens[0].token}`)
           .set('Connection', 'keep alive')
           .set('Content-Type', 'application/json')
           .type('form')
@@ -179,7 +192,7 @@ describe('Recipes Endpoint', () => {
       }
     );
     it('Should prevent an unauthenticated user from deleting a recipe', (done) => {
-      request.delete(`${recipesApi}/${recipes[0].id}`)
+      request.delete(`/api/v1/recipe/${recipes[0].id}`)
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
@@ -191,27 +204,29 @@ describe('Recipes Endpoint', () => {
     });
     it('Should prevent a user from deleting a recipe they do not own', (done) => {
       const testUser = { ...users[0] };
-      request.delete(`${recipesApi}/${recipes[0].id}?token=${testUser.tokens[0].token}`)
+      request.delete(`/api/v1/recipe/${recipes[0]
+        .id}?token=${testUser.tokens[0].token}`)
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
           expect(res.status).to.equal(403);
-          expect(res.body.message).to.equal('You do not have the priviledges to perform this action.');
-          expect(res.body.status).to.equal('Forbidden.');
+          expect(res.body.message).to
+            .equal('You cannot delete this recipe as it does not belong to you.');
           done();
         });
     });
     it('Should return a 404 if the recipe to be deleted does not exist', (done) => {
       const testUser = { ...users[0] };
-      request.delete(`${recipesApi}/${recipes[1].id}?token=${testUser.tokens[0].token}`)
+      request.delete(`${recipesApi}/${recipes[1]
+        .id}?token=${testUser.tokens[0].token}`)
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
           expect(res.status).to.equal(404);
           done();
-        })
+        });
     })
     it(
       'Should prevent a non-logged in user from posting a review on a recipe',
@@ -225,7 +240,6 @@ describe('Recipes Endpoint', () => {
             expect(res.status).to.equal(403);
             expect(res.body.message)
               .to.equal('You need to be logged in to perform this action.');
-            expect(res.body.status).to.equal('Denied');
             done();
           });
       }
@@ -242,7 +256,8 @@ describe('Recipes Endpoint', () => {
         .send(testReview)
         .end((err, res) => {
           expect(res.status).to.equal(403);
-          expect(res.body.message).to.equal('You can\'t post an empty review. Please, enter a happy review for this recipe.');
+          expect(res.body.message).to
+            .equal('You can\'t post an empty review. Please, enter a happy review for this recipe.');
           expect(res.body.status).to.equal('Denied.');
           done();
         });
@@ -308,7 +323,6 @@ describe('Recipes Endpoint', () => {
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
-          console.log('last one here', res.body);
           expect(res.status).to.equal(200);
           expect(res.body.message).
             to.equal(`You currently have ${res

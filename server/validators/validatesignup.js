@@ -13,12 +13,6 @@ const validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 
 const validateSignup = (data) => {
   const errors = {};
-  if ((data.password === undefined || data.password.trim() === '')
-  && (data.email === undefined || data.email.trim() === ''
-  || !validEmail.test(data.email))
-  && (data.username === undefined || data.username.trim() === '')) {
-    errors.requiredFields = 'All fields are required.';
-  }
   if (data.email === undefined || data.email.trim() === ''
   || !validEmail.test(data.email)) {
     errors.email = 'Please provide a valid email address.';

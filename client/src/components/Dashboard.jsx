@@ -14,12 +14,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log('I render at first! for now')
     let availableRecipes;
     if (this.props.recipes.length > 0) {
       availableRecipes =
         this.props.recipes.length > 0 ? (
-          this.props.recipes.map(recipe => {
+          this.props.recipes.map((recipe) => {
             return <RecipeEdit key={recipe.id} recipe={recipe} />;
           })
         ) : (
@@ -46,12 +45,13 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  console.log('our state', state.recipes.userRecipe);
+const mapStateToProps = (state) => {
   return {
     recipes: state.recipes.userRecipe,
     user: state.auth.userDetails
   };
 };
 
-export default connect(mapStateToProps, { getUserinfo, startGetUserRecipes })(Dashboard);
+export default connect(mapStateToProps,
+  { getUserinfo, startGetUserRecipes }
+)(Dashboard);

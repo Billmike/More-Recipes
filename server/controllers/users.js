@@ -36,10 +36,11 @@ class Users {
         if (existingUser) {
           return res.status(409).json({ message: 'Email must be unique.' });
         }
+        const hashedPassword = bcrypt.hashSync(req.body.password, 10);
         User.create({
           username: req.body.username,
           email: req.body.email,
-          password: req.body.password
+          password: hashedPassword
         })
           .then((newUser) => {
             const mailOptions = {
@@ -108,13 +109,13 @@ class Users {
         .then((user) => {
           if (!user) {
             return res
-              .status(403)
+              .status(401)
               .json({ message: 'Invalid email or password.' });
           }
           if (user) {
             const unHashPassword = bcrypt.compareSync(password, user.password);
             if (!unHashPassword) {
-              return res.status(403).json({
+              return res.status(401).json({
                 message: 'Invalid email or password.'
               });
             }

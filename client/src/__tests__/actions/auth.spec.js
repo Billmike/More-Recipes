@@ -3,6 +3,7 @@ import configureStore from 'redux-mock-store';
 import moxios from 'moxios';
 import jwt from 'jsonwebtoken';
 import thunk from 'redux-thunk';
+import instance from '../../utils/axios';
 import { SET_CURRENT_USER } from '../../actions/types';
 import { signupRequest } from '../../actions/userSignupAction';
 import { signinRequest, logout } from '../../actions/signinRequest';
@@ -14,7 +15,7 @@ const mockStore = configureStore([thunk]);
 window.localStorage = mockLocalStorage;
 
 describe('Authentication action', () => {
-  beforeEach(() => moxios.install());
+  beforeEach(() => moxios.install(instance));
   afterEach(() => moxios.uninstall());
 
   describe('Signup action', () => {

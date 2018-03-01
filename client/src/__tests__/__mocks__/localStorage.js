@@ -6,5 +6,8 @@ export default {
   },
   removeItem() {
     return localStorage;
+  },
+  getItem(key, value) {
+    return { ...localStorage, key: value };
   }
 };

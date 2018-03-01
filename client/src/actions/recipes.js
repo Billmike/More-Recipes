@@ -63,7 +63,6 @@ export const startGetUserRecipes = () => dispatch =>
   instance
     .get('/users/recipes')
     .then((res) => {
-      console.log('user res', res.data);
       dispatch(getUserRecipe(res.data.recipeData));
     })
     .catch(error => Promise.reject(error.response.message));
@@ -80,7 +79,7 @@ export const startGetUserRecipes = () => dispatch =>
 
 export const startEditRecipe = (id, updates) => dispatch =>
   instance
-    .put(`/recipes/${id}/modify`, updates)
+    .put(`/recipes/${id}`, updates)
     .then(() => {
       toastr.success('Recipe edited successfully.');
       dispatch(editRecipe(id, updates));
@@ -98,9 +97,8 @@ export const startEditRecipe = (id, updates) => dispatch =>
 
 export const startRemoveRecipe = id => dispatch =>
   instance
-    .delete(`/recipes/${id}`)
+    .delete(`/recipe/${id}`)
     .then((res) => {
-      console.log('deleted recipe', res.data)
       toastr.success('Recipe deleted successfully.');
       dispatch(removeRecipe(res.data.recipeId));
     })
@@ -196,6 +194,7 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
       dispatch(upVoteRecipe(res.data, authUserid));
     })
     .catch((err) => {
+      console.log('the error', err);
       if (
         err.response.data.message ===
         'You need to be logged in to perform this action.'

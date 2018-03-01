@@ -4,9 +4,9 @@ import RecipesForm from './RecipesForm';
 import { startEditRecipe } from '../actions/recipes';
 
 export class EditRecipe extends Component {
-  onSubmit = recipe => {
+  onSubmit = (recipe) => {
     this.props.startEditRecipe(this.props.recipe.id, recipe).then(() => {
-    this.props.history.push('/dashboard');
+      this.props.history.push('/dashboard');
     });
   };
 
@@ -24,13 +24,13 @@ export class EditRecipe extends Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    recipe: state.recipes.userRecipe.find(recipe => {
+    recipe: state.recipes.userRecipe.find((recipe) => {
       return recipe.id == props.match.params.id;
     })
   };
 };
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     startEditRecipe: (id, recipe) => dispatch(startEditRecipe(id, recipe))
   };

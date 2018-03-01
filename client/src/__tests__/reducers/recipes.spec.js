@@ -2,7 +2,10 @@ import expect from 'expect';
 import deepFreeze from 'deep-freeze';
 import mockReducers, {
   reviews,
-  recipeMock
+  recipeMock,
+  singleRecipes,
+  removeRecipeMock,
+  favoritesRecipeMock
 } from '../__mocks__/reducers/mockReducers';
 import recipeReducers from '../../reducers/recipes';
 import {
@@ -13,7 +16,8 @@ import {
   GET_RECIPES,
   GET_ONE_RECIPE,
   FETCH_FAVORITE_RECIPES,
-  ADD_REVIEW
+  ADD_REVIEW,
+  TOGGLE_FAVORITE
 } from '../../actions/types';
 
 describe('Recipes Reducer', () => {
@@ -39,12 +43,12 @@ describe('Recipes Reducer', () => {
     };
     const action = {
       type: ADD_RECIPE,
-      recipe: [recipeMock]
+      recipe: singleRecipes
     };
     const stateAfter = {
       pages: 0,
-      recipes: [recipeMock],
-      userRecipe: [recipeMock],
+      recipes: recipeMock,
+      userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
       userFavoriteRecipesId: []
@@ -106,15 +110,15 @@ describe('Recipes Reducer', () => {
   it('Should handle the REMOVE_RECIPE action', () => {
     const stateBefore = {
       pages: 0,
-      recipes: [recipeMock],
-      userRecipe: [],
+      recipes: [],
+      userRecipe: removeRecipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
       userFavoriteRecipesId: []
     };
     const action = {
       type: REMOVE_RECIPE,
-      id: recipeMock.id
+      id: recipeMock[0].id
     };
     const stateAfter = {
       pages: 0,
@@ -165,7 +169,7 @@ describe('Recipes Reducer', () => {
     };
     const action = {
       type: GET_ONE_RECIPE,
-      recipe: recipeMock
+      recipe: [recipeMock]
     };
     const stateAfter = {
       pages: 0,
@@ -209,7 +213,7 @@ describe('Recipes Reducer', () => {
       pages: 0,
       recipes: [],
       userRecipe: [],
-      singleRecipe: recipeMock,
+      singleRecipe: recipeMock[0],
       favoriteRecipes: [],
       userFavoriteRecipesId: []
     };

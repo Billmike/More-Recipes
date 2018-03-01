@@ -7,4 +7,9 @@ const voteResponse = {
   votedRecipe
 };
 
+export const downVoteResponse = {
+  message: 'upVote successful',
+  votedRecipe
+};
+
 export default voteResponse;

@@ -23,7 +23,6 @@ describe('Tests for Favorites API endpoint', () => {
           .type('form')
           .end((err, res) => {
             expect(res.status).to.equal(403);
-            expect(res.body.status).to.equal('Denied');
             expect(res.body.message)
               .to.equal('You need to be logged in to perform this action.');
             done();

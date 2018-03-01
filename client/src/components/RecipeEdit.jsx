@@ -111,7 +111,7 @@ class RecipeEdit extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     startRemoveRecipe: recipeData => dispatch(startRemoveRecipe(recipeData)),
     startGetUserRecipes: userRecipe => dispatch(startGetUserRecipes())

@@ -226,7 +226,7 @@ class Recipe {
           });
         } else if (recipe.owner !== req.userId) {
           return res.status(403).json({
-            message: 'You do not have the priviledges to perform this action.'
+            message: 'You cannot delete this recipe as it does not belong to you.'
           });
         }
         return recipe.destroy().then(() =>

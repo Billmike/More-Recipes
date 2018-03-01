@@ -2,6 +2,7 @@ import configureStore from 'redux-mock-store';
 import expect from 'expect';
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
+import instance from '../../utils/axios';
 import { startAddReview } from '../../actions/recipes';
 import reviewResponse from '../__mocks__/actions/reviews';
 import { ADD_REVIEW } from '../../actions/types';
@@ -9,7 +10,7 @@ import { ADD_REVIEW } from '../../actions/types';
 const mockStore = configureStore([thunk]);
 
 describe('ADD REVIEW actions', () => {
-  beforeEach(() => moxios.install());
+  beforeEach(() => moxios.install(instance));
   afterEach(() => moxios.uninstall());
 
   it('Should add review to a recipe and dispatch ADD_REVIEW action', async (done) => {

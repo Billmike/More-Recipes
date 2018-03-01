@@ -22,6 +22,7 @@ module.exports = {
     localStorage: {
       setItem: (() => {}),
       clearItem: (() => {}),
+      getItem: (() => {}),
       removeItem: (() => {})
     },
   },

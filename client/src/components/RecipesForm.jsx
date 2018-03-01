@@ -12,7 +12,7 @@ class RecipesForm extends Component {
     this.state = {
       name: this.props.recipe ? this.props.recipe.name : '',
       description: this.props.recipe ? this.props.recipe.description : '',
-      imageUrl: this.props.recipe? this.props.recipe.imageUrl : "https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg",
+      imageUrl: this.props.recipe ? this.props.recipe.imageUrl : "https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg",
       category: this.props.recipe ? this.props.recipe.category : 'Lunch',
       ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
       instructions: this.props.recipe ? this.props.recipe.instructions : '',
