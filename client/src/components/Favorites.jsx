@@ -22,8 +22,8 @@ class Favorites extends Component {
     this.removeFavorite = this.removeFavorite.bind(this);
   }
   componentDidMount() {
-    this.props.startGetUserFavorites(this.props.userDetails.id);
     this.props.getUserinfo();
+    this.props.startGetUserFavorites(this.props.userDetails.id);
   }
 
   handleClearFavoriteRecipe() {
@@ -56,11 +56,11 @@ class Favorites extends Component {
         return (
           <div className="col-md-4">
             <div className="card">
-              <Link to={`/recipe/${recipe.id}`}>
-                <img className="card-img-top" alt="Pizza" src={pizza} />
+              <Link to={`/recipe/${recipe.id}`} key={index}>
+                <img className="card-img-top" alt="Pizza" src={recipe.imageUrl} />
               </Link>
               <div className="card-body">
-                <Link to={`/recipe/${recipe.id}`}>
+                <Link to={`/recipe/${recipe.id}`} key={index}>
                   <h4 className="card-title">{recipe.name}</h4>
                 </Link>
                 <p className="card-text">{recipe.description}</p>

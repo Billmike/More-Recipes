@@ -32,6 +32,7 @@ export class RecipeList extends Component {
                 to={`/recipe/${this.props.recipe.id}`}
                 className="btn border border-secondary rounded"
               >
+              { this.props.recipe.views }
                 <i className="fa fa-eye" aria-hidden="true" />
               </Link>
               <Link

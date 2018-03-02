@@ -1,6 +1,9 @@
+import Sequelize from 'sequelize';
 import db from '../models/index';
+import validateSearchInput from '../validators/validateSearchInput';
 import errorMessage from '../errorHandler/errorMessage';
 
+const { Op } = Sequelize;
 const recipes = db.Recipe;
 const reviews = db.Review;
 const favorites = db.Favorite;
@@ -127,7 +130,7 @@ class Recipe {
     recipes
       .findAndCountAll()
       .then((foundRecipes) => {
-        pages = Math.floor(foundRecipes.count / limit);
+        pages = Math.ceil(foundRecipes.count / limit);
         singlePage = parseInt(req.params.page, 10);
         offset = singlePage * limit;
 
@@ -241,54 +244,39 @@ class Recipe {
           message: 'Oops.. Something went wrong. Why not try again later?'
         }));
   }
-
   static searchRecipes(req, res) {
-    return recipes
-      .findAndCountAll({
-        where: {
-          $or: [
-            {
-              name: {
-                $iLike: `%${req.query.search}%`
-              }
-            },
-            {
-              ingredients: {
-                $contains: [`${req.query.search}`]
-              }
-            }
-          ]
+    const { errors, isValid } = validateSearchInput(req.query);
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    recipes.findAll({
+      where: {
+        [Op.or]: {
+          name: {
+            [Op.iLike]: `%${req.query.name}`
+          },
+          ingredients: {
+            [Op.iLike]: `%${req.query.ingredients}`
+          }
         }
-      })
-      .then(() => {
-        recipes
-          .findAll({
-            order: [['createdAt', 'DESC']],
-            where: {
-              $or: [
-                {
-                  name: {
-                    $iLike: `%${req.query.search}%`
-                  }
-                },
-                {
-                  ingredients: {
-                    $contains: [`${req.query.search}`]
-                  }
-                }
-              ]
-            }
-          })
-          .then((searchedRecipes) => {
-            res.status(200).json({
-              recipeData: searchedRecipes
-            });
-          });
-      })
-      .catch(err =>
-        res.status(500).json({
-          message: err.message
-        }));
+      }
+    }).then((foundRecipes) => {
+      const numberOfRecipesFound = foundRecipes.length;
+      if (foundRecipes.length <= 0) {
+        return res.status(200).json({
+          message: 'No recipes found with this name or ingredient'
+        });
+      }
+      const queryName = req.query.name ? 'name' : 'ingredient(s)';
+      res.status(200).json({
+        message: `Found ${numberOfRecipesFound} recipe(s) with this ${queryName}`,
+        recipeData: foundRecipes
+      });
+    }).catch((err) => {
+      res.status(500).json({
+        message: err.message
+      });
+    });
   }
 }
 

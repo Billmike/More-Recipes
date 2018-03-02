@@ -16,7 +16,7 @@ class Homepage extends Component {
     super(props);
     this.state = {
       loaded: true
-    }
+    };
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
   componentDidMount() {
@@ -128,8 +128,7 @@ class Homepage extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('my reciopes', state);
+const mapStateToProps = (state) => {
   return {
     recipes: state.recipes.recipes,
     pages: state.recipes.pages

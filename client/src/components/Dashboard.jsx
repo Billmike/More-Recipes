@@ -17,17 +17,17 @@ class Dashboard extends Component {
     let availableRecipes;
     if (this.props.recipes.length > 0) {
       availableRecipes =
-        this.props.recipes.length > 0 ? (
           this.props.recipes.map((recipe) => {
             return <RecipeEdit key={recipe.id} recipe={recipe} />;
-          })
-        ) : (
+          });
+    } else {
+      availableRecipes = (
           <p className="no-recipes-p">
             {this.props.user.username}, you do not have any recipes yet.{' '}
             <Link to="/add">Create one now.</Link>
             <Emoji text=":)" />
           </p>
-        );
+      );
     }
     return (
       <div>

@@ -9,7 +9,7 @@ class LoginForm extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
     };
     this.onEmailChange = this.onEmailChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
@@ -26,15 +26,14 @@ class LoginForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.setState({ errors: {}, isLoading: true });
+    this.setState({ errors: {} });
     if (this.isValid()) {
       this.props
         .signinRequest(this.state)
         .then(() => {
           this.props.history.push('/dashboard');
         })
-        .catch(error => {
-          this.setState({ isLoading: false });
+        .catch((error) => {
           if (error === 'Invalid email or password.') {
             return toastr.error('Invalid login details');
           }
@@ -65,9 +64,10 @@ class LoginForm extends Component {
               <input
               type="email"
               name="email"
+              autoComplete="email"
               value={this.state.email}
               onChange={this.onEmailChange}
-              className={classNames("form-control form-control-lg", { "has-errors": errors.email })}
+              className={classNames('form-control form-control-lg', { 'has-errors': errors.email })}
               placeholder="Email Address" />
               {errors.email && (
                 <span className="help-block has-errors">{errors.email}</span>)}
@@ -76,13 +76,16 @@ class LoginForm extends Component {
               <input
               type="password"
               name="password"
+              autoComplete="current-password"
               value={this.state.password}
               onChange={this.onPasswordChange}
-              className={classNames("form-control form-control-lg", { "has-errors": errors.password })}
+              className={classNames('form-control form-control-lg', { 'has-errors': errors.password })}
               placeholder="Password" />
               {errors.password && (
                 <span className="help-block has-errors">{errors.password}</span>
               )}
+            </div>
+            <div>
             </div>
             <input type="submit" value="Submit" className="btn submit-btn size-bt btn-block" />
       </form>

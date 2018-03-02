@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Footer from './Footer';
 import { signinRequest } from '../actions/signinRequest';
-import LoginForm from './LoginForm.jsx';
+import LoginForm from './LoginForm';
 
 class LoginPage extends Component {
   render() {

@@ -13,8 +13,6 @@ import {
   startAddReview,
   startAddFavoriteRecipes
 } from '../actions/recipes';
-import pizza from '../assets/img/pancakes.jpeg';
-import hearty from '../assets/img/giphy.gif';
 
 class RecipeDetail extends Component {
   constructor(props) {
@@ -36,16 +34,6 @@ class RecipeDetail extends Component {
     this.props.startGetOneRecipe(this.props.match.params.id);
     this.props.getUserinfo();
   }
-
-  // componentDidUpdate() {
-  //   this.props.startGetOneRecipe(this.props.match.params.id);
-  // }
-  // componentWillReceiveProps(nextProps) {
-  //   console.log('will reci====>', nextProps.recipe);
-  //   const recipe = (nextProps.recipe) ? (nextProps.recipe) : {};
-  //   const upVotes = (recipe.upVote) ? recipe.upVote : 0;
-  //   this.setState({ recipe, upVotes })
-  // }
 
   onReviewFormChange(event) {
     event.preventDefault();
@@ -104,7 +92,7 @@ class RecipeDetail extends Component {
 
       reviews =
         this.props.recipe.reviews.length > 0 ? (
-          this.props.recipe.reviews.map(review => {
+          this.props.recipe.reviews.map((review) => {
             return (
               <div className="review-div">
                 <Review

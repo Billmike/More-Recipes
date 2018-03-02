@@ -31,7 +31,7 @@ class RecipeEdit extends Component {
   onRemoveRecipe() {
     this.props.startRemoveRecipe(this.props.recipe.id).then(() => {
       this.props.startGetUserRecipes();
-    })
+    });
   }
 
   render() {
@@ -114,7 +114,7 @@ class RecipeEdit extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     startRemoveRecipe: recipeData => dispatch(startRemoveRecipe(recipeData)),
-    startGetUserRecipes: userRecipe => dispatch(startGetUserRecipes())
+    startGetUserRecipes: () => dispatch(startGetUserRecipes())
   };
 };
 

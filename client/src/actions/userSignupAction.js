@@ -1,6 +1,4 @@
-import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import setAuthToken from '../utils/setAuthToken';
 import instance from '../utils/axios';
 import { SET_CURRENT_USER } from './types';
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import LoaderComp from './LoaderComp';
 import validateInput from '../../../server/validators/validatesignup';
 import '../assets/css/signup.css';
 
@@ -14,7 +13,6 @@ export class SignupForm extends Component {
       email: '',
       password: '',
       errors: {},
-      loaded: true
     };
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
@@ -44,19 +42,17 @@ export class SignupForm extends Component {
     event.preventDefault();
 
     if (this.isValid()) {
-      this.setState({ errors: {}, loaded: false });
+      this.setState({ errors: {} });
       this.props
         .signupRequest(this.state)
         .then(() => {
           this.props.history.push('/dashboard');
         })
-        .catch(errors => {
-          this.setState({ loaded: true });
+        .catch((errors) => {
           if (errors === 'Username must be unique.') {
             return toastr.error('This username is taken.');
-          } else {
-            return toastr.error('Invalid credentials.');
           }
+          return toastr.error('Invalid credentials.');
         });
     }
   }
@@ -84,9 +80,10 @@ export class SignupForm extends Component {
               <input
               type="text"
               name="username"
+              autoComplete="username"
               value={this.state.username}
               onChange={this.onUsernameChange}
-              className={classNames("form-control form-control-lg", { "has-errors": errors.username })}
+              className={classNames('form-control form-control-lg', { 'has-errors': errors.username })}
               placeholder="Username" />
               {errors.username && (
                 <span className="help-block has-errors">{errors.username}</span>
@@ -97,6 +94,7 @@ export class SignupForm extends Component {
               <input
               type="email"
               name="email"
+              autoComplete="email"
               value={this.state.email}
               onChange={this.onEmailChange}
               className={classNames("form-control form-control-lg", { "has-errors": errors.email })}
@@ -108,17 +106,15 @@ export class SignupForm extends Component {
               <input
               type="password"
               name="password"
+              autoComplete="new-password"
               value={this.state.password}
               onChange={this.onPasswordChange}
-              className={classNames("form-control form-control-lg", { "has-errors": errors.password })}
+              className={classNames('form-control form-control-lg', { 'has-errors': errors.password })}
               placeholder="Password" />
               {errors.password && (
                 <span className="help-block has-errors">{errors.password}</span>
               )}
             </div>
-            <LoaderComp
-              loaded={this.state.loaded}
-              />
             <input type="submit" value="Submit" className="btn submit-btn size-bt btn-block" />
       </form>
       <p> Have an account? <a className="account" href="/login"> Sign in </a> </p>

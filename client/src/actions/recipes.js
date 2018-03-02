@@ -194,7 +194,6 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
       dispatch(upVoteRecipe(res.data, authUserid));
     })
     .catch((err) => {
-      console.log('the error', err);
       if (
         err.response.data.message ===
         'You need to be logged in to perform this action.'

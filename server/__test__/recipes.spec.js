@@ -191,43 +191,52 @@ describe('Recipes Endpoint', () => {
           });
       }
     );
-    it('Should prevent an unauthenticated user from deleting a recipe', (done) => {
-      request.delete(`/api/v1/recipe/${recipes[0].id}`)
-        .set('Connection', 'keep alive')
-        .set('Content-Type', 'application/json')
-        .type('form')
-        .end((err, res) => {
-          expect(res.status).to.equal(403);
-          expect(res.body.message).to.equal('You need to be logged in to perform this action.');
-          done();
-        });
-    });
-    it('Should prevent a user from deleting a recipe they do not own', (done) => {
-      const testUser = { ...users[0] };
-      request.delete(`/api/v1/recipe/${recipes[0]
-        .id}?token=${testUser.tokens[0].token}`)
-        .set('Connection', 'keep alive')
-        .set('Content-Type', 'application/json')
-        .type('form')
-        .end((err, res) => {
-          expect(res.status).to.equal(403);
-          expect(res.body.message).to
-            .equal('You cannot delete this recipe as it does not belong to you.');
-          done();
-        });
-    });
-    it('Should return a 404 if the recipe to be deleted does not exist', (done) => {
-      const testUser = { ...users[0] };
-      request.delete(`${recipesApi}/${recipes[1]
-        .id}?token=${testUser.tokens[0].token}`)
-        .set('Connection', 'keep alive')
-        .set('Content-Type', 'application/json')
-        .type('form')
-        .end((err, res) => {
-          expect(res.status).to.equal(404);
-          done();
-        });
-    })
+    it(
+      'Should prevent an unauthenticated user from deleting a recipe',
+      (done) => {
+        request.delete(`/api/v1/recipe/${recipes[0].id}`)
+          .set('Connection', 'keep alive')
+          .set('Content-Type', 'application/json')
+          .type('form')
+          .end((err, res) => {
+            expect(res.status).to.equal(403);
+            expect(res.body.message).to.equal('You need to be logged in to perform this action.');
+            done();
+          });
+      }
+    );
+    it(
+      'Should prevent a user from deleting a recipe they do not own',
+      (done) => {
+        const testUser = { ...users[0] };
+        request.delete(`/api/v1/recipe/${recipes[0]
+          .id}?token=${testUser.tokens[0].token}`)
+          .set('Connection', 'keep alive')
+          .set('Content-Type', 'application/json')
+          .type('form')
+          .end((err, res) => {
+            expect(res.status).to.equal(403);
+            expect(res.body.message).to
+              .equal('You cannot delete this recipe as it does not belong to you.');
+            done();
+          });
+      }
+    );
+    it(
+      'Should return a 404 if the recipe to be deleted does not exist',
+      (done) => {
+        const testUser = { ...users[0] };
+        request.delete(`${recipesApi}/${recipes[1]
+          .id}?token=${testUser.tokens[0].token}`)
+          .set('Connection', 'keep alive')
+          .set('Content-Type', 'application/json')
+          .type('form')
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            done();
+          });
+      }
+    );
     it(
       'Should prevent a non-logged in user from posting a review on a recipe',
       (done) => {
@@ -331,17 +340,59 @@ describe('Recipes Endpoint', () => {
           done();
         });
     });
-    it('Should return an error if an unauthenticated user attempts fo fetch recipes', (done) => {
-      request.get('/api/v1/users/recipes')
+    it(
+      'Should return an error if an unauthenticated user attempts fo fetch recipes',
+      (done) => {
+        request.get('/api/v1/users/recipes')
+          .set('Connection', 'keep alive')
+          .set('Content-Type', 'application/json')
+          .type('form')
+          .end((err, res) => {
+            expect(res.status).to.equal(403);
+            expect(res.body.message)
+              .to.equal('You need to be logged in to perform this action.');
+            done();
+          });
+      }
+    );
+    it('Should return the results of a search by name', (done) => {
+      request.get(`${recipesApi}/search?name=Canda`)
         .set('Connection', 'keep alive')
         .set('Content-Type', 'application/json')
         .type('form')
         .end((err, res) => {
-          expect(res.status).to.equal(403);
-          expect(res.body.message)
-            .to.equal('You need to be logged in to perform this action.');
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal('Found 1 recipe(s) with this name');
+          expect(res.body.recipeData).to.be.an('array');
           done();
         });
     });
+    it('Should return the results of a search by ingredients', (done) => {
+      request.get(`${recipesApi}/search?ingredients=Array`)
+        .set('Connection', 'keep alive')
+        .set('Content-Type', 'application/json')
+        .type('form')
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to
+            .equal('No recipes found with this name or ingredient');
+          done();
+        });
+    });
+    it(
+      'Should return an error if no parameter is passed in the search',
+      (done) => {
+        request.get(`${recipesApi}/search?name=`)
+          .set('Connection', 'keep alive')
+          .set('Content-Type', 'application/json')
+          .type('form')
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.message).to
+              .equal('Your search parameter cannot be empty');
+            done();
+          });
+      }
+    );
   });
 });

@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import db from '../models/index';
 import errorMessage from '../errorHandler/errorMessage';
 
@@ -101,12 +102,16 @@ const getAllRecipes = (req, res) => {
     }],
   })
     .then((recipes) => {
-      if (recipes[0].dataValues.owner !== req.userId) {
-        recipes[0].increment('views', { by: 1 });
+      const token = req.headers['x-access-token'] || req.headers.token;
+      let ownerRecipe;
+      if (token !== 'null' && token !== undefined) {
+        ownerRecipe = jwt.decode(token, process.env.SECRET);
+        if (recipes[0].dataValues.owner !== ownerRecipe.id) {
+          recipes[0].increment('views', { by: 1 });
+        }
       }
       const tempStorage = [];
       recipes.forEach((elem) => {
-        // console.log('stuff', elem.dataValues.views)
         let votes = [];
         votes = elem.votes[0] ? [elem.votes[0].dataValues.userId] : [];
         tempStorage.push(new GetRecipes(

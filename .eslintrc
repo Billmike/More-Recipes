@@ -5,6 +5,13 @@
     "plugins": [
       "react"
     ],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
     "env": {
       "node": true,
       "es6": true,
@@ -51,5 +58,15 @@
       "window": true,
       "document": true,
       "toastr": true
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "extensions": [
+            ".js",
+            ".jsx"
+          ]
+        }
+      }
     }
   }

@@ -5,7 +5,7 @@ import Footer from './Footer';
 import { startAddRecipe } from '../actions/recipes';
 
 export class AddRecipe extends Component {
-  onSubmit = recipe => {
+  onSubmit = (recipe) => {
     this.props.startAddRecipe(recipe).then(() => {
       this.props.history.push('/dashboard');
     });
@@ -22,7 +22,7 @@ export class AddRecipe extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     startAddRecipe: recipe => dispatch(startAddRecipe(recipe))
   };
