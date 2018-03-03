@@ -47,7 +47,10 @@ class Users {
               from: process.env.EMAIL_ADDRESS,
               to: newUser.email,
               subject: 'Welcome to More Recipes!',
-              text: '<b>So glad to have you on board. your journey to deliciousness just began!</b>'
+              template: 'signupsuccess',
+              context: {
+                username: newUser.username
+              }
             };
             sendMail.sendMail(mailOptions, (err) => {
               if (err) {
@@ -55,21 +58,21 @@ class Users {
                   message: err.message
                 });
               }
-            });
-            const token = jwt.sign(
-              {
-                id: newUser.id,
+              const token = jwt.sign(
+                {
+                  id: newUser.id,
+                  username: newUser.username,
+                  emailAddress: newUser.email
+                },
+                process.env.SECRET,
+                { expiresIn: '30 days' }
+              );
+              return res.status(201).json({
+                message: 'Signup Successful.',
                 username: newUser.username,
-                emailAddress: newUser.email
-              },
-              process.env.SECRET,
-              { expiresIn: '30 days' }
-            );
-            return res.status(201).json({
-              message: 'Signup Successful.',
-              username: newUser.username,
-              email: newUser.email,
-              token
+                email: newUser.email,
+                token
+              });
             });
           })
           .catch((error) => {

@@ -47,30 +47,35 @@ class Review {
               content: req.body.content,
               user: foundUser.dataValues.username
             }).then((review) => {
-              res.status(201).json({
-                message: 'Review successfully posted',
-                reviewData: {
-                  content: review.content,
-                  user: foundUser.username,
-                  createdAt: review.createdAt,
-                  updatedAt: review.updatedAt
-                }
-              });
-            });
-          });
-        User.findById(foundRecipe.owner)
-          .then((user) => {
-            const mailOptions = {
-              from: process.env.EMAIL_ADDRESS,
-              to: user.email,
-              subject: `Hi ${user.username}. Your recipe has been reviewed`
-            };
-            sendMail.sendMail(mailOptions, (err) => {
-              if (err) {
-                return res.json({
-                  message: err.message
+              User.findById(foundRecipe.owner)
+                .then((user) => {
+                  const mailOptions = {
+                    from: process.env.EMAIL_ADDRESS,
+                    to: user.email,
+                    subject: 'Your recipe has been reviewed',
+                    template: 'reviewsuccess',
+                    context: {
+                      username: user.username,
+                      recipeId: req.params.id
+                    }
+                  };
+                  sendMail.sendMail(mailOptions, (err) => {
+                    if (err) {
+                      return res.json({
+                        message: err.message
+                      });
+                    }
+                    return res.status(201).json({
+                      message: 'Review successfully posted',
+                      reviewData: {
+                        content: review.content,
+                        user: foundUser.username,
+                        createdAt: review.createdAt,
+                        updatedAt: review.updatedAt
+                      }
+                    });
+                  });
                 });
-              }
             });
           });
       }).catch(() => {

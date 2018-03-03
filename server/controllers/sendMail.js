@@ -1,3 +1,4 @@
+import handleBars from 'nodemailer-express-handlebars';
 import nodemailer from 'nodemailer';
 
 const sendMail = nodemailer.createTransport({
@@ -11,5 +12,10 @@ const sendMail = nodemailer.createTransport({
     pass: process.env.PASSWORD,
   },
 });
+
+sendMail.use('compile', handleBars({
+  viewPath: 'server/email-templates',
+  extName: '.hbs'
+}));
 
 export default sendMail;
