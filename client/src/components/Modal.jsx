@@ -10,8 +10,8 @@ const DeleteModal = props => (
     className="modal-class"
     ariaHideApp={false}
   >
-    <h3 className="modal-ptag"> Delete Recipe? </h3>
-    <p className="modal-ptag"> Do you want to delete this recipe?</p>
+    <h3 className="modal-ptag"> Delete Recipe </h3>
+    <p className="modal-ptag"> Are you sure want to delete this recipe?</p>
     <div className="group-btn">
       <button
         className="btn btn-danger user-btn modal-btn-red"

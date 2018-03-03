@@ -27,12 +27,11 @@ class ProfilePage extends Component {
     </main>
     <Footer />
   </div>
-    )
+    );
   }
-};
+}
 
-const mapStateToProps = (state, props) => {
-  console.log('our props', state);
+const mapStateToProps = (state) => {
   return {
     currentUserInfo: state.auth.userDetails
   };

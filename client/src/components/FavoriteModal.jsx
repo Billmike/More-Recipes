@@ -9,16 +9,17 @@ const FavoriteModal = props => (
     className="modal-class"
     ariaHideApp={false}
   >
-    <h3> Remove recipe from list of favorites?</h3>
+    <h3 className="modal-ptag"> Remove recipe</h3>
+    <p className="modal-ptag"> Are you sure want to remove this recipe?</p>
     <div className="group-btn">
       <button
-        className="btn btn-danger user-btn"
+        className="btn btn-danger user-btn modal-btn-red"
         onClick={props.removeFavorite}
       >
         Yes
       </button>
       <button
-        className="btn user-btn"
+        className="btn user-btn modal-btn-white"
         onClick={props.handleClearFavoriteRecipe}
       >
         No

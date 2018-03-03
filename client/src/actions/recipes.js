@@ -102,9 +102,7 @@ export const startRemoveRecipe = id => dispatch =>
       toastr.success('Recipe deleted successfully.');
       dispatch(removeRecipe(res.data.recipeId));
     })
-    .catch(error => {
-      console.log(error);
-    });
+    .catch(error => Promise.reject(error));
 
 /**
  * Represents a function

@@ -12,8 +12,7 @@ export default (state = recipeDefaultState, action) => {
     case 'ADD_RECIPE':
       return {
         ...state,
-        userRecipe: [...state.userRecipe, action.recipe.recipeData],
-        recipes: [...state.recipes, action.recipe.recipeData]
+        userRecipe: [...state.userRecipe, action.recipe.recipeData]
       };
     case 'GET_RECIPES':
       return {

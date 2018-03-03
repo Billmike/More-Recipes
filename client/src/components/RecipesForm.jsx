@@ -23,46 +23,47 @@ class RecipesForm extends Component {
     this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
   }
 
-  onDescriptionChange = event => {
+  onDescriptionChange = (event) => {
     const description = event.target.value;
     this.setState(() => ({ description }));
   };
 
-  onNameChange = event => {
+  onNameChange = (event) => {
     const name = event.target.value;
     this.setState(() => ({ name }));
   };
 
   uploadToCloudinary() {
     const formData = new FormData();
-    formData.append("file", this.state.imageUrl);
-    formData.append("upload_preset", "gw9enn9u");
-    formData.append("api_key", "757874753524889");
+    formData.append('file', this.state.imageUrl);
+    formData.append('upload_preset', 'gw9enn9u');
+    formData.append('api_key', '757874753524889');
 
-    return axios.post("https://api.cloudinary.com/v1_1/andela-nigeria/image/upload",
+    return axios.post(
+      'https://api.cloudinary.com/v1_1/andela-nigeria/image/upload',
       formData
-  );
+    );
   }
 
   onCategorySet(event) {
     this.setState({ category: event.target.value })
   }
 
-  onIngredientsSet = event => {
+  onIngredientsSet = (event) => {
     const ingredients = event.target.value;
     this.setState(() => ({ ingredients }));
   };
 
-  onInstructionsSet = event => {
+  onInstructionsSet = (event) => {
     const instructions = event.target.value;
     this.setState(() => ({ instructions }));
   };
 
-  handleDrop = file => {
-    this.setState({ imageUrl: file[0] })
+  handleDrop = (file) => {
+    this.setState({ imageUrl: file[0] });
   }
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
 
     if (this.isValid()) {
@@ -106,7 +107,7 @@ class RecipesForm extends Component {
                 Recipe Name
               </label>
               <input
-                className={classNames("form-control", { "has-errors": errors.name })}
+                className={classNames('form-control', { 'has-errors': errors.name })}
                 id="recipename"
                 aria-describedby="recipeNameHelp"
                 value={this.state.name}
@@ -123,7 +124,7 @@ class RecipesForm extends Component {
                   Description
                 </label>
                 <textarea
-                  className={classNames("form-control", { "has-errors": errors.description })}
+                  className={classNames('form-control', { 'has-errors': errors.description })}
                   id="descriptionTextArea"
                   rows="3"
                   value={this.state.description}
@@ -135,8 +136,6 @@ class RecipesForm extends Component {
                 </small>
               </div>
               <div className="form-group col-4 upload-btn-wrapper">
-                {/* <button className="btns">Upload an Image</button>
-                <input type="file" name="myfile" /> */}
                 <DropZone
                   ref={(node) => { dropzoneRef = node; }}
                   onDrop={this.handleDrop}
@@ -180,7 +179,7 @@ class RecipesForm extends Component {
                   Ingredients
                 </label>
                 <textarea
-                  className={classNames("form-control large-text", { "has-errors": errors.ingredients })}
+                  className={classNames('form-control large-text', { 'has-errors': errors.ingredients })}
                   id="recipename"
                   aria-describedby="recipeNameHelp"
                   value={this.state.ingredients}
@@ -200,7 +199,7 @@ class RecipesForm extends Component {
                   Instructions
                 </label>
                 <textarea
-                  className={classNames("form-control large-text", { "has-errors": errors.instructions })}
+                  className={classNames('form-control large-text', { 'has-errors': errors.instructions })}
                   id="recipeDesc"
                   rows="3"
                   value={this.state.instructions}
