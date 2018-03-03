@@ -39,33 +39,38 @@ class Review {
               message: 'You cannot review your own recipe.'
             });
         }
-        User.findById(foundRecipe.owner)
-          .then((user) => {
+        User.findById(req.userId)
+          .then((foundUser) => {
             reviews.create({
               userId: req.userId,
               recipeId: req.params.recipeId,
               content: req.body.content,
+              user: foundUser.dataValues.username
             }).then((review) => {
-              const mailOptions = {
-                from: process.env.EMAIL_ADDRESS,
-                to: user.email,
-                subject: `Hi ${user.username}. Your recipe has been reviewed`
-              };
-              sendMail.sendMail(mailOptions, (err) => {
-                if (err) {
-                  return res.json({
-                    message: err.message
-                  });
-                }
-              });
-              return res.status(201).json({
+              res.status(201).json({
                 message: 'Review successfully posted',
                 reviewData: {
                   content: review.content,
-                  dateCreated: review.createdAt,
-                  dateUpdated: review.updatedAt
+                  user: foundUser.username,
+                  createdAt: review.createdAt,
+                  updatedAt: review.updatedAt
                 }
               });
+            });
+          });
+        User.findById(foundRecipe.owner)
+          .then((user) => {
+            const mailOptions = {
+              from: process.env.EMAIL_ADDRESS,
+              to: user.email,
+              subject: `Hi ${user.username}. Your recipe has been reviewed`
+            };
+            sendMail.sendMail(mailOptions, (err) => {
+              if (err) {
+                return res.json({
+                  message: err.message
+                });
+              }
             });
           });
       }).catch(() => {

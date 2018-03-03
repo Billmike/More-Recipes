@@ -98,7 +98,7 @@ class RecipeDetail extends Component {
                 <Review
                   key={review.id}
                   review={review}
-                  user={this.props.user.username}
+                  user={review.user}
                 />
               </div>
             );

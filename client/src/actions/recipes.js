@@ -252,7 +252,7 @@ export const startDownVoteRecipe = id => (dispatch, getstate) =>
  * @returns { object } - returns an object with an action type and the new review object
  */
 
-export const startAddReview = (id, reviewData) => dispatch =>
+export const startAddReview = (id, reviewData) => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/reviews`, reviewData)
     .then((res) => {

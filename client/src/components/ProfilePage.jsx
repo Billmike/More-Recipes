@@ -5,13 +5,10 @@ import { getUserinfo } from '../actions/signinRequest';
 import cool from '../assets/img/cooll.jpg';
 
 class ProfilePage extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     this.props.getUserinfo();
   }
-  render () {
+  render() {
     return (
       <div>
     <main className="container">
