@@ -165,51 +165,6 @@ class Recipe {
   }
 
   /**
-   * Represents the method that gets one recipe in the application
-   * @method
-   *
-   * @param { object } req - the request object
-   * @param { object } res - the response object
-   *
-   * @returns { object } A recipe object
-   */
-
-  static getOneRecipe(req, res) {
-    return recipes
-      .findById(req.params.recipeId)
-      .then((foundRecipe) => {
-        if (!foundRecipe) {
-          return res.status(404).json({
-            message: 'This recipe does not exist.'
-          });
-        }
-        return recipes
-          .findOne({
-            where: {
-              id: foundRecipe.id
-            },
-            include: [
-              {
-                model: reviews,
-                as: 'reviews'
-              },
-              {
-                model: votes,
-                as: 'votes',
-                attributes: ['userId']
-              }
-            ]
-          })
-          .then(singleRecipe =>
-            res.status(200).json({ recipeData: singleRecipe }));
-      })
-      .catch(() =>
-        res.status(500).json({
-          message: errorMessage
-        }));
-  }
-
-  /**
    * Represents the method that deletes a recipe in the application
    * @method
    *
@@ -235,7 +190,7 @@ class Recipe {
         return recipe.destroy().then(() =>
           res.status(201).json({
             message:
-              'You have successfully deleted this recipe. Want to add another?',
+              'Recipe deleted successfully',
             recipeId: recipe.id
           }));
       })

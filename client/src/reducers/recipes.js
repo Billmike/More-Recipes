@@ -33,13 +33,14 @@ export default (state = recipeDefaultState, action) => {
     case 'EDIT_RECIPE':
       return {
         ...state,
-        recipes: state.recipes.map((recipe) => {
-          if (recipe.id == action.id) {
-            return {
-              ...recipe,
-              ...action.updates
-            };
+        userRecipe: state.userRecipe.map((recipe) => {
+          if (recipe.id !== action.id) {
+            return recipe;
           }
+          return {
+            ...recipe,
+            ...action.updates
+          };
         })
       };
     case 'REMOVE_RECIPE':

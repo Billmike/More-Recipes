@@ -15,7 +15,6 @@ export default (state = initialState, action = {}) => {
         user: action.user
       };
     case GET_USER_INFORMATION:
-    console.log('user info meeee', action);
       return {
         ...state,
         userDetails: action.user

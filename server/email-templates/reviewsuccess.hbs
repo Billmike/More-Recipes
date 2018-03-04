@@ -5,25 +5,36 @@
   <!--[if !mso]><!-->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!--<![endif]-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+  <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
   <style>
     h3 {
+      color: black;
       text-align: center;
       font-size: 20px;
-      font-family: 'Times New Roman', Times, serif;
+      font-family: 'Philosopher', Arial, Helvetica, sans-serif;
     }
 
     p {
+      color: black;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       font-size: 15px;
       text-align: center;
     }
+
+    .username {
+      font-size: 20px;
+      font-family: 'Philosopher';
+      color: black;
+    }
   </style>
 </head>
 <div>
+  <div>
   <img src="https://cdn.pixabay.com/photo/2017/01/31/09/30/raspberry-2023404_1280.jpg" />
+  </div>
   <h3> Hi,
-    <b>{{ username }} </b>
+    <b class="username">{{ username }} </b>
   </h3>
   <p> Your recipe just got a review. <a href=`https://more-recipes-app1.herokuapp.com/${{recipeId}}`>Check it out!</a></p>
 </div>

@@ -50,14 +50,19 @@ class Favorites {
                 userId: req.userId,
                 recipeId: req.params.recipeId,
               })
-                .then(createdFavs => res
-                  .status(200)
-                  .json({
-                    message: 'Recipe added to your list of favorites.',
-                    favoritedRecipe: {
-                      recipeId: createdFavs.recipeId
-                    }
-                  }));
+                .then((createdFavs) => {
+                  const favoritesIdArray = [];
+                  favoritesIdArray.push(req.userId)
+                  res
+                    .status(200)
+                    .json({
+                      message: 'Recipe added to your list of favorites.',
+                      favoritedRecipe: {
+                        recipeId: createdFavs.recipeId
+                      },
+                      favoritesId: favoritesIdArray
+                    });
+                });
             }
             const arrayOfUserIDs = [];
             favoriteRecipes.forEach((singleFavoriteRecipes) => {
@@ -68,11 +73,13 @@ class Favorites {
             if (arrayOfUserIDs.includes(userId)) {
               return favorite.findById(userFavorites.dataValues.id)
                 .then((existingFavorite) => {
+                  arrayOfUserIDs.pop(req.userId)
                   res.status(200).json({
                     message: 'Recipe removed from your favorites.',
                     favoritedRecipe: {
                       recipeId: existingFavorite.dataValues.recipeId
-                    }
+                    },
+                    favoritesId: arrayOfUserIDs
                   });
                   existingFavorite.destroy();
                 });
@@ -81,14 +88,18 @@ class Favorites {
               userId: req.userId,
               recipeId: req.params.recipeId,
             })
-              .then(createdFavorite => res
-                .status(200)
-                .json({
-                  message: 'Recipe added to your list of favorites.',
-                  favoritedRecipe: {
-                    recipeId: createdFavorite.recipeId
-                  }
-                }));
+              .then((createdFavorite) => {
+                arrayOfUserIDs.push(req.userId);
+                res
+                  .status(200)
+                  .json({
+                    message: 'Recipe added to your list of favorites.',
+                    favoritedRecipe: {
+                      recipeId: createdFavorite.recipeId
+                    },
+                    favoritesId: arrayOfUserIDs
+                  });
+              });
           });
       }
     }).catch(() => res

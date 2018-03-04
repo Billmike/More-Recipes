@@ -11,5 +11,5 @@ export default (state = defaultFilterState, action) => {
       };
     default:
       return state;
-  };
+  }
 };

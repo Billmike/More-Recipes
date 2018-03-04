@@ -43,6 +43,21 @@ class Users {
           password: hashedPassword
         })
           .then((newUser) => {
+            const token = jwt.sign(
+              {
+                id: newUser.id,
+                username: newUser.username,
+                emailAddress: newUser.email
+              },
+              process.env.SECRET,
+              { expiresIn: '30 days' }
+            );
+            res.status(201).json({
+              message: 'Signup Successful.',
+              username: newUser.username,
+              email: newUser.email,
+              token
+            });
             const mailOptions = {
               from: process.env.EMAIL_ADDRESS,
               to: newUser.email,
@@ -58,24 +73,8 @@ class Users {
                   message: err.message
                 });
               }
-              const token = jwt.sign(
-                {
-                  id: newUser.id,
-                  username: newUser.username,
-                  emailAddress: newUser.email
-                },
-                process.env.SECRET,
-                { expiresIn: '30 days' }
-              );
-              return res.status(201).json({
-                message: 'Signup Successful.',
-                username: newUser.username,
-                email: newUser.email,
-                token
-              });
             });
-          })
-          .catch((error) => {
+          }).catch((error) => {
             if (error.errors[0].message === 'username must be unique') {
               return res
                 .status(409)

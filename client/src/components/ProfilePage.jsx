@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Footer from './Footer';
 import { getUserinfo } from '../actions/signinRequest';
-import cool from '../assets/img/cooll.jpg';
+import cool from '../assets/img/strawberry.jpg';
 
 class ProfilePage extends Component {
   componentDidMount() {
@@ -12,10 +12,9 @@ class ProfilePage extends Component {
     return (
       <div>
     <main className="container">
-      <h1 className="profile-h1">User Account</h1>
+      <h1 className="profile-h1">My Profile</h1>
       <div className="profile-card">
         <img src={cool} alt="John" className="profile-image" />
-        <h1 className="profile-random">John Doe</h1>
         <p className="profile-title">Username</p>
         <p className="prop-username"> {this.props.currentUserInfo.username} </p>
         <p className="profile-email">Email Address</p>

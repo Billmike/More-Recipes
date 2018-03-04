@@ -83,7 +83,7 @@ const sortRecipes = (recipeArray, sortOrder, callback) => {
  * @returns { object } The recipes object
  */
 
-const getAllRecipes = (req, res) => {
+const getOneRecipe = (req, res) => {
   Recipe.findAll({
     where: {
       id: req.params.recipeId
@@ -195,4 +195,4 @@ export const getUserRecipes = (req, res) => {
     });
 };
 
-export default getAllRecipes;
+export default getOneRecipe;

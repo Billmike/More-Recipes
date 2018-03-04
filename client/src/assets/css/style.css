@@ -52,6 +52,7 @@ body {
 .profile-h1 {
   text-align: center;
   margin-top: 40px;
+  margin-bottom: -30px;
 }
 
 .custom-link {
@@ -267,15 +268,21 @@ h4 {
 }
 
 .card-title {
-  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
-  text-align: center;
   color: black;
+  font-family: 'Philosopher', Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-text {
   font-family: 'Open Sans Condensed', Arial, Helvetica, sans-serif;
   font-size: 20px;
   text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .group-btn {
@@ -349,28 +356,26 @@ h4 {
 }
 
 .profile-title {
-  color: grey;
-  font-size: 20px;
-  font-family: cursive;
+  color: black;
+  font-size: 30px;
+  font-family: 'Open Sans Condensed';
+  margin-top: 15px;
 }
 
 .profile-email {
   font-family: 'Open Sans Condensed';
-  font-size: 25px;
-  margin-top: 20px;
+  font-size: 30px;
 }
 
 .prop-username {
-  font-family: 'Open Sans Condensed';
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .prop-email {
   padding-bottom: 40px;
-  font-family: 'Open Sans Condensed';
   letter-spacing: 1px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .profile-button {

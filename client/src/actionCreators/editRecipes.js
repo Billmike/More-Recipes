@@ -9,8 +9,9 @@ import { EDIT_RECIPE } from '../actions/types';
  * @returns { object } - returns an object with an action type and edited recipe
  */
 
-const editRecipe = updates => ({
+const editRecipe = (id, updates) => ({
   type: EDIT_RECIPE,
+  id,
   updates
 });
 

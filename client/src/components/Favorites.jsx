@@ -43,7 +43,7 @@ class Favorites extends Component {
   }
 
   removeFavorite() {
-    this.props.startAddFavoriteRecipes(this.props.recipes[0].id);
+    this.props.startAddFavoriteRecipes(this.state.selectedFavorite);
     this.setState(() => ({
       selectedFavorite: undefined
     }));

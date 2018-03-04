@@ -5,7 +5,7 @@
     "title": "More-Recipes API",
     "description": "# Introduction\nWelcome to the More-Recipes (v1) API. More-Recipes is an application that enables users from across the globe share insightful and amazing recipes.\n\n# Overview\nThe More-Recipes API was built using NodeJS (v8.9.1) and ExpressJS (v4.16.2). To begin consuming this API, it is strongly recommended that you create a dummy user (or users) which would be authenticated by the API.\n\n# Authentication\nThe More-Recipes API makes use of JSON Web Tokens (JWT) for authentication.\n\n# Error and Status Codes\n-  200 - OK\n-  201 - Created\n-  400 - Bad Request\n-  401 - Unauthorized\n-  403 - Forbidden\n-  404 - Not Found\n- 409 - Conflict\n-  500 - Internal Server Error\n\n# Rate limit\n-  No rate limit employed for now."
   },
-  "host": "localhost:8000",
+  "host": "https://more-recipes-app1.herokuapp.com",
   "basePath": "/api/v1",
   "schemes": [
     "http"

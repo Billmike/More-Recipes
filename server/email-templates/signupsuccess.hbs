@@ -5,26 +5,40 @@
   <!--[if !mso]><!-->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!--<![endif]-->
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+
   <style>
     h3 {
+      color: black;
       text-align: center;
       font-size: 20px;
-      font-family: 'Courier New', Courier, monospace;
+      font-family: 'Philosopher', Arial, Helvetica, sans-serif;
     }
 
     p {
+      color: black;
       font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
       font-size: 15px;
+      text-align: center;
+    }
+
+    .username {
+      font-size: 20px;
+      font-family: 'Philosopher';
+      color: black;
     }
   </style>
 </head>
 <div>
-  <img src="https://cdn.pixabay.com/photo/2017/01/31/09/30/raspberry-2023404_1280.jpg" />
+  <img class="img-fluid" src="https://cdn.pixabay.com/photo/2017/01/31/09/30/raspberry-2023404_1280.jpg" />
   <h3> Hi,
     <b>{{ username }} </b>
   </h3>
-  <p>Welcome to a new world of deliciousness! Glad to have you on board! To get started with our catalouge of amazing recipes,
+  <p class="username">Welcome to a new world of deliciousness! Glad to have you on board! To get started with our catalouge of amazing recipes,
     <a href="https://more-recipes-app1.herokuapp.com">click here!</a>
   </p>
 </div>

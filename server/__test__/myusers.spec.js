@@ -12,8 +12,8 @@ let user;
 describe('User API testing', () => {
   beforeEach(() => {
     user = {
-      username: 'randomusername',
-      email: 'randomd@gmail.com',
+      username: 'andromeda',
+      email: 'andromeda@gmail.com',
       password: 'qwertyuiop',
     };
   });
@@ -30,8 +30,8 @@ describe('User API testing', () => {
           expect(res.body.username).to.be.a('string');
           expect(res.body.email).to.be.a('string');
           expect(res.body.token).to.be.a('string');
-          expect(res.body.username).to.equal('randomusername');
-          expect(res.body.email).to.equal('randomd@gmail.com');
+          expect(res.body.username).to.equal('andromeda');
+          expect(res.body.email).to.equal('andromeda@gmail.com');
           expect(res.body).to.be.an('object');
           expect(res.body).to.not.have.property('password');
           done();
