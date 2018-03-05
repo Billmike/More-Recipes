@@ -80,7 +80,7 @@ export const startGetUserRecipes = () => dispatch =>
 export const startEditRecipe = (id, updates) => dispatch =>
   instance
     .put(`/recipes/${id}`, updates)
-    .then(() => {
+    .then((res) => {
       toastr.success('Recipe edited successfully.');
       dispatch(editRecipe(id, updates));
     })

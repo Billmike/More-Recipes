@@ -47,7 +47,7 @@ describe('Recipes Reducer', () => {
     };
     const stateAfter = {
       pages: 0,
-      recipes: recipeMock,
+      recipes: [],
       userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
@@ -86,19 +86,20 @@ describe('Recipes Reducer', () => {
     const stateBefore = {
       pages: 0,
       recipes: [],
-      userRecipe: [recipeMock],
+      userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
       userFavoriteRecipesId: []
     };
     const action = {
       type: EDIT_RECIPE,
-      updates: recipeMock
+      id: recipeMock.id,
+      updates: recipeMock[0]
     };
     const stateAfter = {
       pages: 0,
       recipes: [],
-      userRecipe: [recipeMock],
+      userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
       userFavoriteRecipesId: []

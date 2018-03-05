@@ -17,6 +17,7 @@ import {
   startAddReview
 } from '../../actions/recipes';
 import {
+  editRecipeResponse,
   recipeResponse,
   deleteRecipeResponse,
   mockFavoriteRecipes
@@ -72,17 +73,18 @@ describe('Recipes actions', () => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           status: 201,
-          response: recipeResponse
+          response: editRecipeResponse
         });
       });
       const returnedAction = [
         {
           type: EDIT_RECIPE,
-          updates: recipeResponse.recipeData
+          id: editRecipeResponse.recipeData.id,
+          updates: editRecipeResponse.recipeData
         }
       ];
       const store = mockStore({});
-      await store.dispatch(startEditRecipe({ ...recipeResponse.recipeData }));
+      await store.dispatch(startEditRecipe(editRecipeResponse.recipeData.id, editRecipeResponse.recipeData));
       expect(store.getActions()).toEqual(returnedAction);
     });
   });

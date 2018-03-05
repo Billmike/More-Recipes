@@ -7,6 +7,16 @@ const recipe = {
   instructions: 'Cook it really well\nAvoid mixing with water',
 };
 
+const editedRecipe = {
+  id: 1,
+  name: 'Amazing fried rice',
+  description: 'A really amazing fried rice',
+  img_url: 'https://somereallycoolimage.ly',
+  category: 'Lunch',
+  ingredients: 'Bread\nSamolina\nBeancake',
+  instructions: 'Cook it really well\nAvoid mixing with water',
+};
+
 export const mockRecipesReducers = {
   name: 'Amazing recipe',
   description: 'Amazing recipe here',
@@ -32,6 +42,11 @@ export const mockFavoriteRecipes = {
 export const recipeResponse = {
   status: 'Success',
   recipeData: recipe
+};
+
+export const editRecipeResponse = {
+  status: 'Success',
+  recipeData: editedRecipe
 };
 
 export const deleteRecipeResponse = {
