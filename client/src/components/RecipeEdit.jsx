@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
-import { startRemoveRecipe, startGetUserRecipes } from '../actions/recipes';
+import { RemoveRecipeAction, GetUserRecipesAction } from '../actions/recipes';
 import pizza from '../assets/img/pizzza.jpg';
 
 class RecipeEdit extends Component {
@@ -29,8 +29,8 @@ class RecipeEdit extends Component {
   }
 
   onRemoveRecipe() {
-    this.props.startRemoveRecipe(this.props.recipe.id).then(() => {
-      this.props.startGetUserRecipes();
+    this.props.RemoveRecipeAction(this.props.recipe.id).then(() => {
+      this.props.GetUserRecipesAction();
     });
   }
 
@@ -113,8 +113,8 @@ class RecipeEdit extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    startRemoveRecipe: recipeData => dispatch(startRemoveRecipe(recipeData)),
-    startGetUserRecipes: () => dispatch(startGetUserRecipes())
+    RemoveRecipeAction: recipeData => dispatch(RemoveRecipeAction(recipeData)),
+    GetUserRecipesAction: () => dispatch(GetUserRecipesAction())
   };
 };
 

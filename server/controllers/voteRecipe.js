@@ -12,8 +12,8 @@ const Recipes = db.Recipe;
 
 class Vote {
   /**
-  * Represents the method lets a user vote on a recipe
-  * @method
+  * Vote on a recipe
+  *
   *
   * @param { object } req - The request object
   * @param { object } res - The response object
@@ -24,7 +24,9 @@ class Vote {
   static voteRecipe(req, res) {
     if (req.params.vote !== 'downvote' && req.params.vote !== 'upvote') {
       return res
-        .status(404).json({ message: 'URL not found.' });
+        .status(400).json({
+          message: 'Parameter passed should be upvote or downvote.'
+        });
     }
     Recipes.findById(req.params.recipeId)
       .then((foundRecipe) => {

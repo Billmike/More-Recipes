@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash';
 /**
-  * Represents the Signup Validator function
-  * @function
+  * Validate the user input prior to sign-up
+  *
   *
   * @param { object } data - The request data object
   *
@@ -14,7 +14,7 @@ const validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 const validateSignup = (data) => {
   const errors = {};
   if (data.email === undefined || data.email.trim() === ''
-  || !validEmail.test(data.email)) {
+    || !validEmail.test(data.email)) {
     errors.email = 'Please provide a valid email address.';
   } if (data.password === undefined || data.password.length <= 8
     || data.password.trim() === '') {

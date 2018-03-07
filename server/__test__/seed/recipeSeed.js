@@ -1,5 +1,5 @@
 const recipes = [{
-  id: '1',
+  id: '5',
   name: 'Rice',
   description: 'So many things here',
   category: 'Lunch',
@@ -8,7 +8,7 @@ const recipes = [{
   instructions: 'Cook this shii weel, Chop to a million pieces',
 }, {
   id: '2',
-  name: 'Canda',
+  name: 'Totally random name here',
   description: 'AMazeballs',
   category: 'Dinner',
   img_link: 'https://somerandomimagehere.com',

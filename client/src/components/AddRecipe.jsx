@@ -1,16 +1,36 @@
 import React, { Component } from 'react';
-import RecipesForm from './RecipesForm';
 import { connect } from 'react-redux';
+import RecipesForm from './RecipesForm';
 import Footer from './Footer';
-import { startAddRecipe } from '../actions/recipes';
+import { AddRecipeAction } from '../actions/recipes';
 
+/**
+ * Component that renders the Add recipe form
+ *
+ * @class AddRecipe
+ *
+ * @extends Component
+ */
 export class AddRecipe extends Component {
+  /**
+   * @param { object } recipe - The recipe object to be added
+   *
+   * @memberof AddRecipe
+   *
+   * @returns { void } void
+   */
   onSubmit = (recipe) => {
-    this.props.startAddRecipe(recipe).then(() => {
+    this.props.AddRecipeAction(recipe).then(() => {
       this.props.history.push('/dashboard');
     });
   };
 
+  /**
+   * @memberof AddRecipe
+   *
+   * @returns { jsx } JSX
+   *
+  */
   render() {
     return (
       <div>
@@ -22,9 +42,17 @@ export class AddRecipe extends Component {
   }
 }
 
+/**
+ * mapStateToProps
+ *
+ * @param {Object} state
+ *
+ * @returns {Object} object
+ */
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    startAddRecipe: recipe => dispatch(startAddRecipe(recipe))
+    AddRecipeAction: recipe => dispatch(AddRecipeAction(recipe))
   };
 };
 

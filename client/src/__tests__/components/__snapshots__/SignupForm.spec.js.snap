@@ -64,14 +64,13 @@ exports[`Should render Signup Form correctly 1`] = `
         />
       </form>
       <p>
-         Have an account? 
+         Have an account?
         <a
           className="account"
           href="/login"
         >
-           Sign in 
+          Sign in
         </a>
-         
       </p>
     </div>
   </div>

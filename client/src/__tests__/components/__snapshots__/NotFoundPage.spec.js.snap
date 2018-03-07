@@ -8,7 +8,7 @@ exports[`Should render the 404 page correctly 1`] = `
     <p
       className="p-section"
     >
-      You've gone too far in search of a dessert, init? 
+      You've gone too far in search of a dessert, init?
       <Emoji
         text=":'("
       />

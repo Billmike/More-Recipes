@@ -6,33 +6,58 @@ import LoaderComp from './LoaderComp';
 import RecipesList from './RecipesList';
 import Footer from './Footer';
 import Pagination from './Pagination';
-import { startGetAllRecipes } from '../actions/recipes';
+import { GetAllRecipesAction, SearchRecipesAction } from '../actions/recipes';
 import strawberry from '../assets/img/strawberry.jpg';
 import dark from '../assets/img/dark.jpg';
 import noodles from '../assets/img/noodles.jpg';
+
+
+/**
+ * Component that renders the Homepage
+ *
+ * @class Homepage
+ *
+ * @extends Component
+ */
 
 class Homepage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: true
+      loaded: true,
+      searchQuery: ''
     };
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
+    this.searchRecipes = this.searchRecipes.bind(this);
+    this.renderSearchResult = this.renderSearchResult.bind(this);
   }
   componentDidMount() {
-    this.props.startGetAllRecipes(0);
+    this.props.GetAllRecipesAction(0);
   }
 
   handlePaginationChange(data) {
     const currentView = data.selected;
-    this.props.startGetAllRecipes(currentView);
+    this.props.GetAllRecipesAction(currentView);
+  }
+
+  searchRecipes(event) {
+    event.preventDefault();
+    this.setState({ [event.target.name]: event.target.value });
+    this.props.SearchRecipesAction(event.target.value);
+  }
+
+  renderSearchResult() {
+    const { recipes } = this.props;
+    return recipes !== null ? recipes.map((recipe) => {
+      return <RecipesList key={recipe.id} recipe={recipe} />;
+    }) : <p>No recipe found for your search</p>;
   }
 
   render() {
     let allRecipes;
     if (this.props.recipes) {
-      allRecipes = this.props.recipes.map((recipe, i) => {
-        return <RecipesList key={i} recipe = {recipe} />;
+      allRecipes = this.props.recipes.map((recipe) => {
+        return <RecipesList key={recipe.id} recipe={recipe} />;
       });
     }
     return (
@@ -110,11 +135,16 @@ class Homepage extends Component {
           <h2 className="homepage-h2"> Top Recipes</h2>
           <div className="input-group">
             <span className="input-group-btn">
-              <button className="btn btn-secondary" type="button">
-                Go!
-              </button>
+
             </span>
-            <input className="form-control" placeholder="Search for....." />
+            <input
+              type="search"
+              name="searchQuery"
+              value={this.state.searchQuery}
+              className="form-control"
+              placeholder="Search for....."
+              onChange={this.searchRecipes}
+            />
           </div>
           <div className="row">{allRecipes}</div>
           <Pagination
@@ -135,4 +165,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { startGetAllRecipes })(Homepage);
+export default connect(
+  mapStateToProps,
+  {
+    GetAllRecipesAction, SearchRecipesAction
+  }
+)(Homepage);

@@ -1,6 +1,11 @@
 import handleBars from 'nodemailer-express-handlebars';
 import nodemailer from 'nodemailer';
 
+/**
+ * Creates the nodemailer transport for sending emails
+ * and defines a template to be used
+ */
+
 const sendMail = nodemailer.createTransport({
   service: 'Gmail',
   host: 'smtp.gmail.com',

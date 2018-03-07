@@ -12,8 +12,8 @@ const recipe = db.Recipe;
 
 class Favorites {
   /**
-   * Represents the method that handles adding a favorite recipe
-   * @method
+   * Adds a particular recipe to the list of favorites for a user
+   *
    *
    * @param { object } req - The request object
    * @param { object } res - The response object
@@ -110,13 +110,13 @@ class Favorites {
   }
 
   /**
-   * Represents the method that handles getting the favorite recipes of a user
-   * @method
+   * Gets the list of favorites for a particular user
+   *
    *
    * @param { object } req - The request object
    * @param { object } res - The response object
    *
-   * @returns { object } The user's favorite recipes
+   * @returns { array } An array of the user's favorite recipes
    */
 
   static getFavorites(req, res) {

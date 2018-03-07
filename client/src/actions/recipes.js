@@ -9,40 +9,40 @@ import removeRecipe from '../actionCreators/removeRecipe';
 import addReview from '../actionCreators/addReview';
 import upVoteRecipe from '../actionCreators/upVoteRecipe';
 import downVote from '../actionCreators/downVoteRecipe';
+import searchRecipes from '../actionCreators/searchRecipes';
 import instance from '../utils/axios';
-import './toastrConfig';
+import '../utils/toastrConfig';
 
 /**
- * Represents a function
- * @function
+ * Action for fetching all recipes
  *
  * @returns { object } - returns an object with an action type and all recipes
  */
 
-export const startGetAllRecipes = page => dispatch =>
+export const GetAllRecipesAction = page => dispatch =>
   instance
     .get(`/recipes/${page}`)
-    .then((res) => {
-      dispatch(getAllRecipes(res.data.recipeData, res.data.pages));
+    .then((response) => {
+      dispatch(getAllRecipes(response.data.recipeData, response.data.pages));
     })
     .catch(error => Promise.reject(error.response.message));
 
 /**
- * Represents a function
- * @function
+ * Action for adding recipe to the application
  *
  * @param { object } recipeData - The recipe object
  *
- * @returns { object } - returns an object with an action type and the new recipe object
+ * @returns { object } - returns an object with
+ * an action type and the new recipe object
  */
 
-export const startAddRecipe = recipeData => (dispatch) => {
+export const AddRecipeAction = recipeData => (dispatch) => {
 
   return instance
     .post('/recipes', recipeData)
-    .then((res) => {
+    .then((response) => {
       toastr.success('Recipe added successfully.');
-      dispatch(addRecipe(res.data));
+      dispatch(addRecipe(response.data));
     })
     .catch((error) => {
       if (error.response.data
@@ -53,93 +53,90 @@ export const startAddRecipe = recipeData => (dispatch) => {
 };
 
 /**
- * Represents a function
- * @function
+ * Action to fecth user recipes
  *
- * @returns { object } - returns an object with an action type and the user recipe object
+ * @returns { object } - returns an object with an
+ * action type and the user recipe object
  */
 
-export const startGetUserRecipes = () => dispatch =>
+export const GetUserRecipesAction = () => dispatch =>
   instance
     .get('/users/recipes')
-    .then((res) => {
-      dispatch(getUserRecipe(res.data.recipeData));
+    .then((response) => {
+      dispatch(getUserRecipe(response.data.recipeData));
     })
     .catch(error => Promise.reject(error.response.message));
 
 /**
- * Represents a function
- * @function
+ * Action to edit a recipe
  *
  * @param { number } id - The recipe id
  * @param { object } updates - The recipe details
  *
- * @returns { object } - returns an object with an action type and the new recipe object
+ * @returns { object } - returns an object with an
+ * action type and the new recipe object
  */
 
-export const startEditRecipe = (id, updates) => dispatch =>
+export const EditRecipeAction = (id, updates) => dispatch =>
   instance
     .put(`/recipes/${id}`, updates)
-    .then((res) => {
+    .then((response) => {
       toastr.success('Recipe edited successfully.');
       dispatch(editRecipe(id, updates));
     })
     .catch(error => Promise.reject(error));
 
 /**
- * Represents a function
- * @function
+ * Action to delete a recipe from the application
  *
  * @param { number } id - The recipe id
  *
  * @returns { object } - returns an object with an action type
  */
 
-export const startRemoveRecipe = id => dispatch =>
+export const RemoveRecipeAction = id => dispatch =>
   instance
     .delete(`/recipe/${id}`)
-    .then((res) => {
+    .then((response) => {
       toastr.success('Recipe deleted successfully.');
-      dispatch(removeRecipe(res.data.recipeId));
+      dispatch(removeRecipe(response.data.recipeId));
     })
     .catch(error => Promise.reject(error));
 
 /**
- * Represents a function
- * @function
+ * Action to fetch just one recipe
  *
  * @param { number } id - The recipe id
  *
  * @returns { object } - returns an object with an action type
  */
 
-export const startGetOneRecipe = id => dispatch =>
+export const GetOneRecipeAction = id => dispatch =>
   instance
     .get(`/recipe/${id}`)
-    .then((res) => {
-      dispatch(getOneRecipe(res.data.recipeData));
+    .then((response) => {
+      dispatch(getOneRecipe(response.data.recipeData));
     })
     .catch(error => Promise.reject(error.response.data.message));
 
 /**
- * Represents a function
- * @function
+ * Action to add favorites
  *
  * @param { number } id - The recipe id
  *
  * @returns { object } - returns an object with an action type
  */
 
-export const startAddFavoriteRecipes = id => (dispatch, getstate) =>
+export const AddFavoriteRecipesAction = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/favorites`)
-    .then((res) => {
+    .then((response) => {
       const authUserid = getstate().auth.userDetails.id;
-      toastr.success(res.data.message);
+      toastr.success(response.data.message);
       return dispatch(toggleFavorites(
-        res.data,
+        response.data,
         authUserid,
-        res.data.message === 'Recipe removed from your favorites.'
+        response.data.message === 'Recipe removed from your favorites.'
           ? 'remove'
           : 'add'
       ));
@@ -158,38 +155,36 @@ export const startAddFavoriteRecipes = id => (dispatch, getstate) =>
       }
     });
 /**
- * Represents a function
- * @function
+ * Action to fetch the favorites of a user
  *
  * @param { number } id - The recipe id
  *
  * @returns { object } - returns an object with an action type
  */
 
-export const startGetUserFavorites = id => dispatch =>
+export const GetUserFavoritesAction = id => dispatch =>
   instance
     .get(`/users/${id}/favorites`)
-    .then((res) => {
-      dispatch(fetchFavorites(res.data));
+    .then((response) => {
+      dispatch(fetchFavorites(response.data));
     })
     .catch(error => Promise.reject(error.response.data.message));
 
 /**
- * Represents a function
- * @function
+ * Action to upvote a recipe
  *
  * @param { number } id - The recipe id
  *
  * @returns { object } - returns an object with an action type
  */
 
-export const startUpvoteRecipe = id => (dispatch, getstate) =>
+export const UpvoteRecipeAction = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/votes/upvote`)
-    .then((res) => {
+    .then((response) => {
       const authUserid = getstate().auth.userDetails.id;
-      toastr.success(res.data.message);
-      dispatch(upVoteRecipe(res.data, authUserid));
+      toastr.success(response.data.message);
+      dispatch(upVoteRecipe(response.data, authUserid));
     })
     .catch((err) => {
       if (
@@ -209,21 +204,20 @@ export const startUpvoteRecipe = id => (dispatch, getstate) =>
     });
 
 /**
- * Represents a function
- * @function
+ * Action to downvote a recipe
  *
  * @param { number } id - The recipe id
  *
  * @returns { object } - returns an object with an action type
  */
 
-export const startDownVoteRecipe = id => (dispatch, getstate) =>
+export const DownVoteRecipeAction = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/votes/downvote`)
-    .then((res) => {
+    .then((response) => {
       const authUserid = getstate().auth.userDetails.id;
-      toastr.success(res.data.message);
-      dispatch(downVote(res.data, authUserid));
+      toastr.success(response.data.message);
+      dispatch(downVote(response.data, authUserid));
     })
     .catch((err) => {
       if (
@@ -232,7 +226,8 @@ export const startDownVoteRecipe = id => (dispatch, getstate) =>
       ) {
         toastr.error(err.response.data.message);
       } else if (
-        err.response.data.message === 'Sorry! You already downvoted this recipe!'
+        err.response.data
+          .message === 'Sorry! You already downvoted this recipe!'
       ) {
         toastr.warning(err.response.data.message);
       } else if (
@@ -243,21 +238,21 @@ export const startDownVoteRecipe = id => (dispatch, getstate) =>
     });
 
 /**
- * Represents a function
- * @function
+ * Action to post a review about a recipe
  *
  * @param { number } id - The recipe id
  * @param { object } reviewData - The review object
  *
- * @returns { object } - returns an object with an action type and the new review object
+ * @returns { object } - returns an object
+ * with an action type and the new review object
  */
 
-export const startAddReview = (id, reviewData) => (dispatch, getstate) =>
+export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/reviews`, reviewData)
-    .then((res) => {
-      toastr.success(res.data.message);
-      dispatch(addReview(res.data));
+    .then((response) => {
+      toastr.success(response.data.message);
+      dispatch(addReview(response.data));
     })
     .catch((err) => {
       if (

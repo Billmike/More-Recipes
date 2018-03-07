@@ -20,7 +20,6 @@ exports[`Should render review component correctly 1`] = `
     <span
       className="review-time"
     >
-       
       Invalid date
     </span>
     <hr />

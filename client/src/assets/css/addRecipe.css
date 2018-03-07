@@ -8,6 +8,7 @@
   display: inline-block;
   margin-top: 55px;
 }
+
 .btns {
   border: 2px solid #E2E3EB;
   color: gray;
@@ -32,35 +33,7 @@
   height: 300px;
 }
 
-.recipe-name {
-  font-family: 'Open Sans Condensed', Roboto, Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-.recipe-desc {
-  font-family: 'Open Sans Condensed', Roboto, Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-.recipe-cat {
-  font-family: 'Open Sans Condensed', Roboto, Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-.recipe-ingredients {
-  font-family: 'Open Sans Condensed', Roboto, Arial, Helvetica, sans-serif;
-  font-size: 25px;
-  letter-spacing: 1px;
-  font-weight: bold;
-}
-
-.recipe-instructions {
+.recipe-form-values {
   font-family: 'Open Sans Condensed', Roboto, Arial, Helvetica, sans-serif;
   font-size: 25px;
   letter-spacing: 1px;

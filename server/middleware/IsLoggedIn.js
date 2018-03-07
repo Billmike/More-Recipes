@@ -6,8 +6,8 @@
 
 class IsLoggedIn {
   /**
-    * Represents the method that checks if a use has a token
-    * @method
+    * Verify whether a token is passed in the request
+    *
     *
     * @param { object } req - The request object
     * @param { object } res - The response object
@@ -18,10 +18,10 @@ class IsLoggedIn {
 
   static hasToken(req, res, next) {
     req.token = req.headers['x-access-token']
-    || req.headers.token || req.query.token;
+      || req.headers.token || req.query.token;
     if (!req.token) {
       return res
-        .status(403)
+        .status(401)
         .send({
           message: 'You need to be logged in to perform this action.'
         });

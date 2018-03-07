@@ -47,7 +47,7 @@ export default (state = recipeDefaultState, action) => {
       return {
         ...state,
         userRecipe: state.userRecipe.filter((recipe) => {
-          recipe.id !== action.id
+          recipe.id !== action.id;
         })
       };
     case 'TOGGLE_FAVORITE':
@@ -62,7 +62,8 @@ export default (state = recipeDefaultState, action) => {
             favorites:
               action.toggleType === 'add'
                 ? [...recipe.favorites, { userId: action.userId }]
-                : recipe.favorites.filter(favorite => favorite.userId !== action.userId)
+                : recipe.favorites.filter(favorite => favorite
+                  .userId !== action.userId)
           };
         })
       };

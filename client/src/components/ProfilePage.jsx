@@ -11,18 +11,20 @@ class ProfilePage extends Component {
   render() {
     return (
       <div>
-    <main className="container">
-      <h1 className="profile-h1">My Profile</h1>
-      <div className="profile-card">
-        <img src={cool} alt="John" className="profile-image" />
-        <p className="profile-title">Username</p>
-        <p className="prop-username"> {this.props.currentUserInfo.username} </p>
-        <p className="profile-email">Email Address</p>
-        <p className="prop-email"> {this.props.currentUserInfo.email} </p>
+        <main className="container">
+          <h1 className="profile-h1">My Profile</h1>
+          <div className="profile-card">
+            <img src={cool} alt="John" className="profile-image" />
+            <p className="profile-title">Username</p>
+            <p className="prop-username">
+              {this.props.currentUserInfo.username}
+            </p>
+            <p className="profile-email">Email Address</p>
+            <p className="prop-email"> {this.props.currentUserInfo.email} </p>
+          </div>
+        </main>
+        <Footer />
       </div>
-    </main>
-    <Footer />
-  </div>
     );
   }
 }

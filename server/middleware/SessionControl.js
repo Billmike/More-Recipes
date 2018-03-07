@@ -10,15 +10,13 @@ require('dotenv').config();
   */
 class SessionControl {
   /**
-  * Represents the method that checks a user
-  *
-  * @method
+  * Check and verify the token passed
   *
   * @param { function } next Takes in a callback function
   * @param { object } req takes in the request object
   * @param { object } res takes in the response object
   *
-  * @returns { object } - The user details
+  * @returns { object } - The user details object
   */
 
   static isuser(req, res, next) {
@@ -49,9 +47,8 @@ class SessionControl {
   }
 
   /**
-   * Represents the method for getting a particular user's details
+   * Fetch the details of a signed-in user
    *
-   * @method
    *
    * @param { object } req - The request object
    * @param { object } res - The response object
@@ -62,13 +59,13 @@ class SessionControl {
 
   static getUser(req, res) {
     req.token = req.headers['x-access-token']
-    || req.headers.token || req.query.token;
+      || req.headers.token || req.query.token;
     let verifiedJWT;
     try {
       verifiedJWT = jwt.verify(req.token, process.env.SECRET);
     } catch (error) {
       res
-        .status(403)
+        .status(401)
         .json({ message: 'Provide correct details to access this resource.' });
     }
     User.findOne({

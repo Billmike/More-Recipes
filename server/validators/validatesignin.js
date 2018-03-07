@@ -1,8 +1,7 @@
 import { isEmpty } from 'lodash';
 
 /**
-  * Represents the signin Validator function
-  * @function
+  * Validate the user input prior to signing into the app
   *
   * @param { object } data - The request data object
   *
@@ -13,7 +12,7 @@ import { isEmpty } from 'lodash';
 const validatesignin = (data) => {
   const errors = {};
   if ((data.email === undefined || data.email === '')
-  || (data.password === undefined || data.password === '')) {
+    || (data.password === undefined || data.password === '')) {
     errors.requiredFields = 'Input an email and password to sign in!';
   }
   if (data.email === undefined || data.email === '') {

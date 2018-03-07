@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import DropZone from 'react-dropzone';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import LoaderComp from './LoaderComp';
-import DropZone from 'react-dropzone';
 import validateRecipe from '../../../server/validators/validateRecipe';
 
 class RecipesForm extends Component {
@@ -12,26 +12,17 @@ class RecipesForm extends Component {
     this.state = {
       name: this.props.recipe ? this.props.recipe.name : '',
       description: this.props.recipe ? this.props.recipe.description : '',
-      imageUrl: this.props.recipe ? this.props.recipe.imageUrl : "https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg",
+      imageUrl: this.props.recipe ? this.props.recipe
+        .imageUrl : 'https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg',
       category: this.props.recipe ? this.props.recipe.category : 'Lunch',
       ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
       instructions: this.props.recipe ? this.props.recipe.instructions : '',
       errors: {},
       loaded: true,
     };
-    this.onCategorySet = this.onCategorySet.bind(this);
+    this.onFormValueChange = this.onFormValueChange.bind(this);
     this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
   }
-
-  onDescriptionChange = (event) => {
-    const description = event.target.value;
-    this.setState(() => ({ description }));
-  };
-
-  onNameChange = (event) => {
-    const name = event.target.value;
-    this.setState(() => ({ name }));
-  };
 
   uploadToCloudinary() {
     const formData = new FormData();
@@ -45,19 +36,12 @@ class RecipesForm extends Component {
     );
   }
 
-  onCategorySet(event) {
-    this.setState({ category: event.target.value })
+  onFormValueChange(event) {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value
+    });
   }
-
-  onIngredientsSet = (event) => {
-    const ingredients = event.target.value;
-    this.setState(() => ({ ingredients }));
-  };
-
-  onInstructionsSet = (event) => {
-    const instructions = event.target.value;
-    this.setState(() => ({ instructions }));
-  };
 
   handleDrop = (file) => {
     this.setState({ imageUrl: file[0] });
@@ -73,7 +57,7 @@ class RecipesForm extends Component {
         const secureURL = response.data.secure_url;
         const recipeImage = this.state;
         recipeImage.imageUrl = secureURL;
-  
+
         this.props.onSubmit({
           name: this.state.name,
           description: this.state.description,
@@ -103,34 +87,52 @@ class RecipesForm extends Component {
         <main className="container">
           <form className="" onSubmit={this.onSubmit}>
             <div className="form-group">
-              <label className="recipe-name" htmlFor="recipename">
+              <label className="recipe-form-values" htmlFor="recipename">
                 Recipe Name
               </label>
               <input
-                className={classNames('form-control', { 'has-errors': errors.name })}
+                className={classNames(
+                  'form-control',
+                  { 'has-errors': errors.name }
+                )}
                 id="recipename"
                 aria-describedby="recipeNameHelp"
+                name="name"
                 value={this.state.name}
-                onChange={this.onNameChange}
+                onChange={this.onFormValueChange}
               />
-              {errors.name && (<span className="help-block has-errors">{errors.name}</span>)}
+              {errors.name && (
+                <span className="help-block has-errors">{errors.name}</span>)}
               <small id="recipeNameHelp" className="form-text">
                 Enter a name for your recipe
               </small>
             </div>
             <div className="form-row">
               <div className="form-group col-8">
-                <label className="recipe-desc" htmlFor="inputDescription">
+                <label
+                  className="recipe-form-values"
+                  htmlFor="inputDescription"
+                >
                   Description
                 </label>
                 <textarea
-                  className={classNames('form-control', { 'has-errors': errors.description })}
+                  className={classNames(
+                    'form-control',
+                    { 'has-errors': errors.description }
+                  )}
                   id="descriptionTextArea"
                   rows="3"
+                  name="description"
                   value={this.state.description}
-                  onChange={this.onDescriptionChange}
+                  onChange={this.onFormValueChange}
                 />
-                {errors.description && (<span className="help-block has-errors">{errors.description}</span>)}
+                {errors.description && (
+                  <span
+                    className="help-block has-errors"
+                  >
+                    {errors.description}
+                  </span>
+                )}
                 <small id="descriptionHelp" className="form-text">
                   Enter a short description for your recipe.
                 </small>
@@ -144,28 +146,34 @@ class RecipesForm extends Component {
                   className="dropzone"
                   disablePreview={false}
                 >
-                {this.state.imageUrl.preview &&
-                <div>
-                  <img
-                    src={this.state.imageUrl.preview}
-                    className="img-fluid fluid-image d-block"
-                  />
-                  <p className="dropzone-tag"> Click to upload an Image </p>
-                </div>
-                }
+                  {this.state.imageUrl.preview &&
+                    <div>
+                      <img
+                        src={this.state.imageUrl.preview}
+                        className="img-fluid fluid-image d-block"
+                      />
+                      <p className="dropzone-tag"> Click to upload an Image </p>
+                    </div>
+                  }
                 </DropZone>
                 <button
                   type="button"
-                  onClick={() => { dropzoneRef.open() }}
+                  onClick={() => { dropzoneRef.open(); }}
                   className="drop-button"
                 >
-                Click to upload image
+                  Click to upload image
                 </button>
               </div>
             </div>
             <div className="form-group">
               <label htmlFor="category">Category</label>
-              <select className="form-control custom-select" value={this.state.category} onChange={this.onCategorySet} id="category">
+              <select
+                className="form-control custom-select"
+                name="category"
+                value={this.state.category}
+                onChange={this.onFormValueChange}
+                id="category"
+              >
                 <option value="lunch">Lunch</option>
                 <option value="breakfast">Breakfast</option>
                 <option value="dessert">Dessert</option>
@@ -175,38 +183,53 @@ class RecipesForm extends Component {
             </div>
             <div className="form-row">
               <div className="form-group col-md-6">
-                <label className="recipe-ingredients" htmlFor="recipename">
+                <label className="recipe-form-values" htmlFor="recipename">
                   Ingredients
                 </label>
                 <textarea
-                  className={classNames('form-control large-text', { 'has-errors': errors.ingredients })}
+                  className={classNames(
+                    'form-control large-text',
+                    { 'has-errors': errors.ingredients }
+                  )}
                   id="recipename"
+                  name="ingredients"
                   aria-describedby="recipeNameHelp"
                   value={this.state.ingredients}
-                  onChange={this.onIngredientsSet}
-                  
+                  onChange={this.onFormValueChange}
+
                 />
-                {errors.ingredients && (<span className="help-block has-errors">{errors.ingredients}</span>)}
+                {errors.ingredients && (<span
+                  className="help-block has-errors">
+                  {errors.ingredients}
+                </span>
+                )}
                 <small id="recipeNameHelp" className="form-text">
                   Enter your recipe ingredients, separated by Commas.
                 </small>
               </div>
               <div className="form-group col-md-6">
                 <label
-                  className="recipe-instructions"
+                  className="recipe-form-values"
                   htmlFor="inputDescription"
                 >
                   Instructions
                 </label>
                 <textarea
-                  className={classNames('form-control large-text', { 'has-errors': errors.instructions })}
+                  className={classNames(
+                    'form-control large-text',
+                    { 'has-errors': errors.instructions }
+                  )}
                   id="recipeDesc"
                   rows="3"
+                  name="instructions"
                   value={this.state.instructions}
-                  onChange={this.onInstructionsSet}
-                  
+                  onChange={this.onFormValueChange}
+
                 />
-                {errors.instructions && (<span className="help-block has-errors">{errors.instructions}</span>)}
+                {errors.instructions && (<span
+                  className="help-block has-errors">
+                  {errors.instructions}
+                </span>)}
                 <small id="descriptionHelp" className="form-text">
                   Enter your step-by-step Instructions.
                 </small>
@@ -216,7 +239,8 @@ class RecipesForm extends Component {
               />
             </div>
             <div className="form-group">
-              <button className="btn btn-primary my-btn button-font btn-lg btn-block">
+              <button
+                className="btn btn-primary my-btn button-font btn-lg btn-block">
                 Submit Recipe
               </button>
             </div>

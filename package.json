@@ -22,15 +22,16 @@
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "test-client": "jest --config=jest.config.json",
     "nyc-local": "cross-env NODE_ENV=test npm run test-migrate && cross-env NODE_ENV=test npm run test",
-    "test-local": "cross-env NODE_ENV=test npm run test-migrate && cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit",
-    "test": "NODE_ENV=test npm run test-migrate && NODE_ENV=test nyc mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit && npm run coverage",
+    "test-local": "cross-env NODE_ENV=test npm run test-migrate && npm run seed-testdb && cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit",
+    "test": "cross-env NODE_ENV=test npm run test-migrate && npm run seed-testdb && NODE_ENV=test nyc mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit && npm run coverage",
     "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "client-test": "jest ./client/src/__tests__/**/** --config ./jest.config.js --coverage",
     "dev": "nodemon --exec babel-node ./server/bin/www.js",
     "client": "npm run start --prefix client",
     "run-prod": "npm run build-client && node ./dist/bin/www.js",
-    "run-dev": "npm run build-test && node ./dist/bin/www.js"
+    "run-dev": "npm run build-test && node ./dist/bin/www.js",
+    "seed-testdb": "sequelize db:seed:all --env test"
   },
   "nyc": {
     "require": [
@@ -150,6 +151,7 @@
     "style-loader": "^0.19.0",
     "supertest": "^3.0.0",
     "swagger-ui-express": "^2.0.13",
+    "uuid": "^3.2.1",
     "validator": "^9.2.0",
     "webpack": "^3.4.1"
   }

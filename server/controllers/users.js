@@ -13,8 +13,8 @@ import signinValidator from '../validators/validatesignin';
 
 class Users {
   /**
-   * Represents the static method for signing up a user
-   * @method
+   * Signs up a new user
+   *
    *
    * @param { object } req - The request Object
    * @param { object } res - The response Object
@@ -89,8 +89,8 @@ class Users {
   }
 
   /**
-   * Represents the static method for signing in a user
-   * @method
+   * Signs in a registered user
+   *
    *
    * @param { object } req - The request Object
    * @param { object } res - The response Object
@@ -145,6 +145,14 @@ class Users {
     }
   }
 
+  /**
+   * Updates a user profile
+   *
+   * @param { object } req - The request object
+   * @param { object } res - The response object
+   *
+   * @returns { object } The modified user object
+   */
   static updateProfile(req, res) {
     User.findById(req.userId)
       .then(foundUser =>

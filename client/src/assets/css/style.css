@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Graduate|Dosis|Philosopher|Open+Sans+Condensed:300');
+
 html {
   position: relative;
   min-height: 100%;
@@ -505,6 +506,10 @@ a:hover {
   border-color: white;
 }
 
+.page-link:hover {
+  cursor: pointer;
+}
+
 .custom-div {
   background: white;
   margin-right: 50px;
@@ -732,7 +737,7 @@ a:hover {
   width: 60px;
 }
 
-.indie-key{
+.split-items {
   padding-bottom: 20px;
 }
 

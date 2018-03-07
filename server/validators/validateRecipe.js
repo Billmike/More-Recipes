@@ -1,5 +1,13 @@
 import { isEmpty } from 'lodash';
 
+/**
+  * Validate user input prior to adding a recipe on the client-side
+  *
+  * @param { object } data - The request data object
+  *
+  * @returns { object } an object of error messages
+  */
+
 const validateRecipe = (data) => {
   const errors = {};
   if (data.name === undefined || data.name.trim() === '') {

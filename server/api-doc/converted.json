@@ -3,7 +3,7 @@
   "info": {
     "version": "1.0",
     "title": "More-Recipes API",
-    "description": "# Introduction\nWelcome to the More-Recipes (v1) API. More-Recipes is an application that enables users from across the globe share insightful and amazing recipes.\n\n# Overview\nThe More-Recipes API was built using NodeJS (v8.9.1) and ExpressJS (v4.16.2). To begin consuming this API, it is strongly recommended that you create a dummy user (or users) which would be authenticated by the API.\n\n# Authentication\nThe More-Recipes API makes use of JSON Web Tokens (JWT) for authentication.\n\n# Error and Status Codes\n-  200 - OK\n-  201 - Created\n-  400 - Bad Request\n-  401 - Unauthorized\n-  403 - Forbidden\n-  404 - Not Found\n- 409 - Conflict\n-  500 - Internal Server Error\n\n# Rate limit\n-  No rate limit employed for now."
+    "description": "# Introduction\nWelcome to the More-Recipes (v1) API. More-Recipes is an application that enables users from across the globe share insightful and amazing recipes.\n\n# Overview\nThe More-Recipes API was built using NodeJS (v8.9.1) and ExpressJS (v4.16.2). To begin consuming this API, it is strongly recommended that you create a dummy user (or users) which would be authenticated by the API.\n\n# Authentication\nThe More-Recipes API makes use of JSON Web Tokens (JWT) for authentication.\n\n# Status Codes in use\n-  200 - OK\n-  201 - Created\n-  400 - Bad Request\n-  401 - Unauthorized\n-  403 - Forbidden\n-  404 - Not Found\n- 409 - Conflict\n-  500 - Internal Server Error\n\n# Rate limit\n-  No rate limit employed for now."
   },
   "host": "https://more-recipes-app1.herokuapp.com",
   "basePath": "/api/v1",
@@ -20,7 +20,7 @@
     "/users/signup": {
       "post": {
         "description": "Signs up a  new user and returns a JSON Web Token.",
-        "summary": "localhost:8000/api/v1/users/signup",
+        "summary": "/api/v1/users/signup",
         "tags": [
           "User"
         ],
@@ -28,14 +28,16 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "in": "body",
-          "name": "body",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/User"
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
           }
-        }],
+        ],
         "responses": {
           "201": {
             "description": "User sign-up success",
@@ -84,7 +86,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/users/signup",
+            "x-testName": "/api/v1/users/signup",
             "x-testDescription": "Signs up a  new user and returns a JSON Web Token."
           }
         ],
@@ -99,7 +101,7 @@
     "/users/signin": {
       "post": {
         "description": "Signs in an existing user and issues a JSON Web Token on successful sign-in",
-        "summary": "localhost:8000/api/v1/users/signin",
+        "summary": "/api/v1/users/signin",
         "tags": [
           "User"
         ],
@@ -107,14 +109,16 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "in": "body",
-          "name": "body",
-          "required": true,
-          "schema": {
-            "$ref":"#/definitions/Login"
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
           }
-        }],
+        ],
         "responses": {
           "201": {
             "description": "User sign-in success",
@@ -156,7 +160,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/users/signin",
+            "x-testName": "/api/v1/users/signin",
             "x-testDescription": "Signs in an existing user and issues a JSON Web Token on successful sign-in"
           }
         ],
@@ -171,7 +175,7 @@
     "/recipes/{page}": {
       "get": {
         "description": "Gets all the recipes in the application",
-        "summary": "localhost:8000/api/v1/recipes/:page",
+        "summary": "/api/v1/recipes/:page",
         "tags": [
           "Recipe"
         ],
@@ -179,11 +183,13 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "in": "path",
-          "name": "page",
-          "required": true
-        }],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -218,7 +224,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes1",
+            "x-testName": "/api/v1/recipes1",
             "x-testDescription": "Gets all the recipes in the application"
           }
         ],
@@ -233,7 +239,7 @@
     "/recipes": {
       "post": {
         "description": "Creates a new recipe",
-        "summary": "localhost:8000/api/v1/recipes",
+        "summary": "/api/v1/recipes",
         "tags": [
           "Recipe"
         ],
@@ -241,18 +247,21 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "in": "body",
-          "name": "body",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/Recipe"
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Recipe"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true
           }
-        }, {
-          "in": "header",
-          "name": "token",
-          "required": true
-        }],
+        ],
         "responses": {
           "201": {
             "description": "Success Response",
@@ -301,7 +310,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes",
+            "x-testName": "/api/v1/recipes",
             "x-testDescription": "Creates a new recipe"
           }
         ],
@@ -316,7 +325,7 @@
     "/recipe/{recipeId}": {
       "get": {
         "description": "Gets on recipe in the application",
-        "summary": "localhost:8000/api/v1/recipe/:recipeId",
+        "summary": "/api/v1/recipe/:recipeId",
         "tags": [
           "Recipe"
         ],
@@ -360,7 +369,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes/:recipeId",
+            "x-testName": "/api/v1/recipes/:recipeId",
             "x-testDescription": "Gets on recipe in the application"
           }
         ],
@@ -373,7 +382,7 @@
       },
       "delete": {
         "description": "Deletes an existing recipe in the application",
-        "summary": "localhost:8000/api/v1/recipes/:recipeId",
+        "summary": "/api/v1/recipes/:recipeId",
         "tags": [
           "Recipe"
         ],
@@ -388,7 +397,8 @@
             "required": true,
             "type": "string",
             "description": ""
-          }, {
+          },
+          {
             "name": "token",
             "in": "header",
             "required": true
@@ -442,7 +452,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes/:recipeId1",
+            "x-testName": "/api/v1/recipes/:recipeId1",
             "x-testDescription": "Deletes an existing recipe in the application"
           }
         ],
@@ -457,7 +467,7 @@
     "/recipes/{recipeId}": {
       "put": {
         "description": "Modify an existing recipe in the application",
-        "summary": "localhost:8000/api/v1/recipes/:recipeId/modify",
+        "summary": "/api/v1/recipes/:recipeId/modify",
         "tags": [
           "Recipe"
         ],
@@ -472,7 +482,8 @@
             "required": true,
             "type": "string",
             "description": ""
-          }, {
+          },
+          {
             "name": "token",
             "in": "body",
             "required": true
@@ -505,7 +516,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes/:recipeId/modify",
+            "x-testName": "/api/v1/recipes/:recipeId/modify",
             "x-testDescription": "Modify an existing recipe in the application"
           }
         ],
@@ -520,7 +531,7 @@
     "/users/get_user": {
       "get": {
         "description": "Gets a logged-in user",
-        "summary": "localhost:8000/api/v1/users/get_user",
+        "summary": "/api/v1/users/get_user",
         "tags": [
           "User"
         ],
@@ -528,11 +539,13 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "name": "token",
-          "in": "header",
-          "required": true
-        }],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true
+          }
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -567,7 +580,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/users/get_user",
+            "x-testName": "/api/v1/users/get_user",
             "x-testDescription": "Gets a logged-in user"
           }
         ],
@@ -582,7 +595,7 @@
     "/users/profile": {
       "put": {
         "description": "Enable a user edit their details",
-        "summary": "localhost:8000/api/v1/users/profile",
+        "summary": "/api/v1/users/profile",
         "tags": [
           "User"
         ],
@@ -590,18 +603,21 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [{
-          "in": "body",
-          "name": "User details",
-          "required": true,
-          "schema": {
-            "$ref": "#/definitions/Login"
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true
           }
-        }, {
-          "in": "header",
-          "name": "token",
-          "required": true
-        }],
+        ],
         "responses": {
           "200": {
             "description": "",
@@ -643,7 +659,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/users/profile",
+            "x-testName": "/api/v1/users/profile",
             "x-testDescription": "Enable a user edit their details"
           }
         ],
@@ -658,7 +674,7 @@
     "/recipes/{recipeId}/reviews": {
       "post": {
         "description": "Post reviews on a particular recipe",
-        "summary": "localhost:8000/api/v1/recipes/:recipeId/reviews",
+        "summary": "/api/v1/recipes/:recipeId/reviews",
         "tags": [
           "Recipe"
         ],
@@ -730,7 +746,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes/:recipeId/reviews",
+            "x-testName": "/api/v1/recipes/:recipeId/reviews",
             "x-testDescription": "Post reviews on a particular recipe"
           }
         ],
@@ -745,7 +761,7 @@
     "/recipes/{recipeId}/favorites": {
       "post": {
         "description": "Favorite a single recipe by an authenticated user",
-        "summary": "localhost:8000/api/v1/recipes/:recipeId/favorites",
+        "summary": "/api/v1/recipes/:recipeId/favorites",
         "tags": [
           "Recipe"
         ],
@@ -810,7 +826,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes/:recipeId/favorites",
+            "x-testName": "/api/v1/recipes/:recipeId/favorites",
             "x-testDescription": "Favorite a single recipe by an authenticated user"
           }
         ],
@@ -825,7 +841,7 @@
     "/users/{userId}/favorites": {
       "get": {
         "description": "Get all the favorites for a particular user",
-        "summary": "localhost:8000/api/v1/users/:userId/favorites",
+        "summary": "/api/v1/users/:userId/favorites",
         "tags": [
           "User"
         ],
@@ -890,7 +906,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/users/:userId/favorites",
+            "x-testName": "/api/v1/users/:userId/favorites",
             "x-testDescription": "Get all the favorites for a particular user"
           }
         ],
@@ -905,7 +921,7 @@
     "/recipes/{recipeId}/upvote": {
       "post": {
         "description": "Upvote a single recipe",
-        "summary": "localhost:8000/api/v1/recipes/:recipeId/upvote",
+        "summary": "/api/v1/recipes/:recipeId/upvote",
         "tags": [
           "Recipe"
         ],
@@ -977,7 +993,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes/:recipeId/upvote",
+            "x-testName": "/api/v1/recipes/:recipeId/upvote",
             "x-testDescription": "Upvote a single recipe"
           }
         ],
@@ -992,7 +1008,7 @@
     "/recipes/{recipeId}/downvote": {
       "post": {
         "description": "Downvote a particular recipe",
-        "summary": "localhost:8000/api/v1/recipes/:recipeId/downvote",
+        "summary": "/api/v1/recipes/:recipeId/downvote",
         "tags": [
           "Recipe"
         ],
@@ -1064,7 +1080,7 @@
             },
             "x-testShouldPass": true,
             "x-testEnabled": true,
-            "x-testName": "localhost:8000/api/v1/recipes/:recipeId/downvote",
+            "x-testName": "/api/v1/recipes/:recipeId/downvote",
             "x-testDescription": "Downvote a particular recipe"
           }
         ],

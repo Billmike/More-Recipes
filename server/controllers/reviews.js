@@ -13,16 +13,16 @@ const recipes = db.Recipe;
   */
 
 class Review {
-/**
-  * Represents the method that adds a review
-  * @method
-  *
-  * @param { object } req - The request object
-  * @param { object } res - The response object
-  *
-  * @returns { object } Returns the review object
-  *
-  */
+  /**
+    * Adds a review to a recipe by an authenticated user
+    *
+    *
+    * @param { object } req - The request object
+    * @param { object } res - The response object
+    *
+    * @returns { object } Returns the review object
+    *
+    */
 
   static addReviews(req, res) {
     return recipes.findById(req.params.recipeId)
@@ -32,13 +32,7 @@ class Review {
             .status(404)
             .json({ message: 'Recipe not found.' });
         }
-        if (foundRecipe.owner === req.userId) {
-          return res
-            .status(403)
-            .json({
-              message: 'You cannot review your own recipe.'
-            });
-        }
+
         User.findById(req.userId)
           .then((foundUser) => {
             reviews.create({

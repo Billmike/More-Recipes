@@ -9,10 +9,9 @@ import { ADD_REVIEW } from '../actions/types';
  * @returns { object } - returns an object with an action type and recipe review
  */
 
-const addReview = (review, username) => ({
+const addReview = review => ({
   type: ADD_REVIEW,
   review,
-  username
 });
 
 export default addReview;

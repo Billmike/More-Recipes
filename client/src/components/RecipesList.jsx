@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import pizza from '../assets/img/pizzza.jpg';
-import { startAddFavoriteRecipes } from '../actions/recipes';
+import { AddFavoriteRecipesAction } from '../actions/recipes';
 
 export class RecipeList extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export class RecipeList extends Component {
 
   favoriteRecipes(event) {
     event.preventDefault();
-    this.props.startAddFavoriteRecipes(this.props.recipe.id);
+    this.props.AddFavoriteRecipesAction(this.props.recipe.id);
   }
 
   render() {
@@ -20,10 +20,16 @@ export class RecipeList extends Component {
       <div className="col-md-4">
         <div className="card">
           <Link to={`/recipe/${this.props.recipe.id}`}>
-            <img className="card-img-top" alt="Pizza" src={this.props.recipe.imageUrl} />
+            <img
+              className="card-img-top"
+              alt="Pizza"
+              src={this.props.recipe.imageUrl}
+            />
           </Link>
           <div className="card-body">
-            <Link to={`/recipe/${this.props.recipe.id}`}>
+            <Link
+              to={`/recipe/${this.props.recipe.id}`}
+            >
               <h4 className="card-title">{this.props.recipe.name}</h4>
             </Link>
             <p className="card-text">{this.props.recipe.description}</p>
@@ -32,7 +38,7 @@ export class RecipeList extends Component {
                 to={`/recipe/${this.props.recipe.id}`}
                 className="btn border border-secondary rounded"
               >
-              { this.props.recipe.views }
+                {this.props.recipe.views}
                 <i className="fa fa-eye" aria-hidden="true" />
               </Link>
               <Link
@@ -65,4 +71,4 @@ export class RecipeList extends Component {
   }
 }
 
-export default connect(null, { startAddFavoriteRecipes })(RecipeList);
+export default connect(null, { AddFavoriteRecipesAction })(RecipeList);

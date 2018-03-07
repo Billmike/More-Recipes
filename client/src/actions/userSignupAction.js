@@ -1,22 +1,6 @@
 import jwt from 'jsonwebtoken';
 import instance from '../utils/axios';
-import { SET_CURRENT_USER } from './types';
-
-/**
- * Represents a function
- * @function
- *
- * @param { object } user - The user object
- *
- * @returns { object } The action type and a user object
- */
-
-export const setCurrentUser = (user) => {
-  return {
-    type: SET_CURRENT_USER,
-    user,
-  };
-};
+import { setCurrentUser } from './signinRequest';
 
 /**
  * Represents a function
@@ -27,6 +11,7 @@ export const setCurrentUser = (user) => {
  * @returns { object } The signed up user and a token
  */
 
+// eslint-disable-next-line
 export const signupRequest = userData => (dispatch) => {
   return instance.post('/users/signup', userData)
     .then((res) => {

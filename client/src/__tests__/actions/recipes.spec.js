@@ -4,17 +4,17 @@ import configureStore from 'redux-mock-store';
 import expect from 'expect';
 import instance from '../../utils/axios';
 import {
-  startAddRecipe,
-  startEditRecipe,
-  startRemoveRecipe,
-  startGetAllRecipes,
-  startGetOneRecipe,
-  startGetUserRecipes,
-  startGetUserFavorites,
-  startAddFavoriteRecipes,
-  startUpvoteRecipe,
-  startDownVoteRecipe,
-  startAddReview
+  AddRecipeAction,
+  EditRecipeAction,
+  RemoveRecipeAction,
+  GetAllRecipesAction,
+  GetOneRecipeAction,
+  GetUserRecipesAction,
+  GetUserFavoritesAction,
+  AddFavoriteRecipesAction,
+  UpvoteRecipeAction,
+  DownVoteRecipeAction,
+  AddReviewAction
 } from '../../actions/recipes';
 import {
   editRecipeResponse,
@@ -62,7 +62,7 @@ describe('Recipes actions', () => {
       ];
 
       const store = mockStore({});
-      await store.dispatch(startAddRecipe({ ...recipeResponse.recipeData }));
+      await store.dispatch(AddRecipeAction({ ...recipeResponse.recipeData }));
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -84,7 +84,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(startEditRecipe(editRecipeResponse.recipeData.id, editRecipeResponse.recipeData));
+      await store.dispatch(EditRecipeAction(editRecipeResponse.recipeData.id, editRecipeResponse.recipeData));
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -107,7 +107,7 @@ describe('Recipes actions', () => {
       ];
 
       const store = mockStore({});
-      await store.dispatch(startRemoveRecipe(recipeResponse.id));
+      await store.dispatch(RemoveRecipeAction(recipeResponse.id));
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -131,7 +131,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(startGetAllRecipes());
+      await store.dispatch(GetAllRecipesAction());
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -152,7 +152,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(startGetOneRecipe());
+      await store.dispatch(GetOneRecipeAction());
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -176,7 +176,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(startGetUserRecipes());
+      await store.dispatch(GetUserRecipesAction());
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -197,7 +197,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(startGetUserFavorites());
+      await store.dispatch(GetUserFavoritesAction());
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -221,7 +221,7 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({ auth: { userDetails: { token: '' } } });
-        await store.dispatch(startAddFavoriteRecipes());
+        await store.dispatch(AddFavoriteRecipesAction());
         expect(store.getActions()).toEqual(returnedAction);
       }
     );
@@ -243,7 +243,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({ auth: { userDetails: { token: '' } } });
-      await store.dispatch(startUpvoteRecipe({}));
+      await store.dispatch(UpvoteRecipeAction({}));
       expect(store.getActions()).toEqual(returnedAction);
       done();
     });
@@ -265,7 +265,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({ auth: { userDetails: { token: '' } } });
-      await store.dispatch(startDownVoteRecipe({}));
+      await store.dispatch(DownVoteRecipeAction({}));
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -285,8 +285,8 @@ describe('Recipes actions', () => {
           review: reviews
         }
       ];
-      const store = mockStore({ });
-      await store.dispatch(startAddReview({}));
+      const store = mockStore({});
+      await store.dispatch(AddReviewAction({}));
       expect(store.getActions()).toEqual(returnedAction);
     })
   })

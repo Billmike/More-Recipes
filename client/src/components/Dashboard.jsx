@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom';
 import Emoji from 'react-emoji-render';
 import Footer from './Footer';
 import RecipeEdit from './RecipeEdit';
-import { startGetUserRecipes } from '../actions/recipes';
+import { GetUserRecipesAction } from '../actions/recipes';
 import { getUserinfo } from '../actions/signinRequest';
 
+/**
+ * Component that renders the Dashboard page
+ *
+ * @class Dashboard
+ *
+ * @extends Component
+ */
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.startGetUserRecipes();
+    this.props.GetUserRecipesAction();
     this.props.getUserinfo();
   }
 
@@ -17,16 +24,16 @@ class Dashboard extends Component {
     let availableRecipes;
     if (this.props.recipes.length > 0) {
       availableRecipes =
-          this.props.recipes.map((recipe) => {
-            return <RecipeEdit key={recipe.id} recipe={recipe} />;
-          });
+        this.props.recipes.map((recipe) => {
+          return <RecipeEdit key={recipe.id} recipe={recipe} />;
+        });
     } else {
       availableRecipes = (
-          <p className="no-recipes-p">
-            {this.props.user.username}, you do not have any recipes yet.{' '}
-            <Link to="/add">Create one now.</Link>
-            <Emoji text=":)" />
-          </p>
+        <p className="no-recipes-p">
+          {this.props.user.username}, you do not have any recipes yet.{' '}
+          <Link to="/add">Create one now.</Link>
+          <Emoji text=":)" />
+        </p>
       );
     }
     return (
@@ -52,6 +59,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps,
-  { getUserinfo, startGetUserRecipes }
+export default connect(
+  mapStateToProps,
+  { getUserinfo, GetUserRecipesAction }
 )(Dashboard);

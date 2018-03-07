@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize';
 import db from '../models/index';
-import validateSearchInput from '../validators/validateSearchInput';
 import errorMessage from '../errorHandler/errorMessage';
 
 const { Op } = Sequelize;
@@ -18,13 +17,13 @@ const votes = db.Vote;
 
 class Recipe {
   /**
-   * Represents the methos that creates a new recipe
-   * @method
+   * Creates a new recipe by an logged-in user
+   *
    *
    * @param { object } req - The request object
    * @param { object } res - The response object
    *
-   * @returns { object } The recipe object
+   * @returns { object } The new recipe object
    */
 
   static addRecipe(req, res) {
@@ -69,13 +68,13 @@ class Recipe {
   }
 
   /**
-   * Represents the Method that edits the recipe
-   * @method
+   * Modifies an existing recipe by the user who created the recipe
+   *
    *
    * @param { object } res - The response object
    * @param { object } req - The request object
    *
-   * @returns { object } the modified recipe
+   * @returns { object } the modified recipe object
    */
 
   static modifyRecipe(req, res) {
@@ -113,8 +112,9 @@ class Recipe {
   }
 
   /**
-   * Represents the method that gets all recipes in the application
-   * @method
+   * Fetches all the recipes in the database
+   * and limits them to six recipes per page
+   *
    *
    * @param { object } req - the request object
    * @param { object } res - the response object
@@ -158,15 +158,15 @@ class Recipe {
             });
           });
       })
-      .catch(error =>
+      .catch(() =>
         res.status(500).json({
-          message: error.message
+          message: errorMessage
         }));
   }
 
   /**
-   * Represents the method that deletes a recipe in the application
-   * @method
+   * Deletes a single recipe in the application
+   *
    *
    * @param { object } req - the request object
    * @param { object } res - the response object
@@ -184,7 +184,8 @@ class Recipe {
           });
         } else if (recipe.owner !== req.userId) {
           return res.status(403).json({
-            message: 'You cannot delete this recipe as it does not belong to you.'
+            message: 'You cannot delete this recipe' +
+              ' as it does not belong to you.'
           });
         }
         return recipe.destroy().then(() =>
@@ -196,22 +197,31 @@ class Recipe {
       })
       .catch(() =>
         res.status(500).json({
-          message: 'Oops.. Something went wrong. Why not try again later?'
+          message: errorMessage
         }));
   }
+
+  /**
+   * Searches the database for recipe(s) using either name or ingredient
+   *
+   *
+   * @param { object } req - The request object
+   * @param { object } res - The response object
+   *
+   * @returns { object } An array of recipes
+   * object that matches the request parameter
+   */
+
   static searchRecipes(req, res) {
-    const { errors, isValid } = validateSearchInput(req.query);
-    if (!isValid) {
-      return res.status(400).json(errors);
-    }
+    const { search } = req.query;
     recipes.findAll({
       where: {
         [Op.or]: {
           name: {
-            [Op.iLike]: `%${req.query.name}`
+            [Op.iLike]: `%${search}`
           },
           ingredients: {
-            [Op.iLike]: `%${req.query.ingredients}`
+            [Op.iLike]: `%${search}`
           }
         }
       }
@@ -222,14 +232,13 @@ class Recipe {
           message: 'No recipes found with this name or ingredient'
         });
       }
-      const queryName = req.query.name ? 'name' : 'ingredient(s)';
       res.status(200).json({
-        message: `Found ${numberOfRecipesFound} recipe(s) with this ${queryName}`,
+        message: `Found ${numberOfRecipesFound} recipe(s)`,
         recipeData: foundRecipes
       });
-    }).catch((err) => {
+    }).catch(() => {
       res.status(500).json({
-        message: err.message
+        message: errorMessage
       });
     });
   }

@@ -2,14 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Emoji from 'react-emoji-render';
+import uuid from 'uuid';
 import FavoriteModal from './FavoriteModal';
 import Footer from './Footer';
 import pizza from '../assets/img/pizzza.jpg';
 import { getUserinfo } from '../actions/signinRequest';
 import {
-  startGetUserFavorites,
-  startAddFavoriteRecipes
+  GetUserFavoritesAction,
+  AddFavoriteRecipesAction
 } from '../actions/recipes';
+
+
+/**
+ * Component that renders the User Favorites page
+ *
+ * @class Favorites
+ *
+ * @extends Component
+ */
 
 class Favorites extends Component {
   constructor(props) {
@@ -23,7 +33,7 @@ class Favorites extends Component {
   }
   componentDidMount() {
     this.props.getUserinfo();
-    this.props.startGetUserFavorites(this.props.userDetails.id);
+    this.props.GetUserFavoritesAction(this.props.userDetails.id);
   }
 
   handleClearFavoriteRecipe() {
@@ -33,7 +43,7 @@ class Favorites extends Component {
   }
 
   componentDidUpdate() {
-    this.props.startGetUserFavorites(this.props.userDetails.id);
+    this.props.GetUserFavoritesAction(this.props.userDetails.id);
   }
 
   selectFavorite() {
@@ -43,7 +53,7 @@ class Favorites extends Component {
   }
 
   removeFavorite() {
-    this.props.startAddFavoriteRecipes(this.state.selectedFavorite);
+    this.props.AddFavoriteRecipesAction(this.state.selectedFavorite);
     this.setState(() => ({
       selectedFavorite: undefined
     }));
@@ -52,15 +62,15 @@ class Favorites extends Component {
   render() {
     let favRecipes;
     if (this.props.recipes) {
-      favRecipes = this.props.recipes.map((recipe, index) => {
+      favRecipes = this.props.recipes.map((recipe) => {
         return (
           <div className="col-md-4">
             <div className="card">
-              <Link to={`/recipe/${recipe.id}`} key={index}>
+              <Link to={`/recipe/${recipe.id}`}>
                 <img className="card-img-top" alt="Pizza" src={recipe.imageUrl} />
               </Link>
               <div className="card-body">
-                <Link to={`/recipe/${recipe.id}`} key={index}>
+                <Link to={`/recipe/${recipe.id}`}>
                   <h4 className="card-title">{recipe.name}</h4>
                 </Link>
                 <p className="card-text">{recipe.description}</p>
@@ -104,12 +114,12 @@ class Favorites extends Component {
             {this.props.recipes !== undefined ? (
               favRecipes
             ) : (
-              <p className="no-recipes-p">
-                {' '}
-                You currently have no <Emoji text="<3" />. Checkout some recipes{' '}
-                <Link to="/">here.</Link>
-              </p>
-            )}
+                <p className="no-recipes-p">
+                  {' '}
+                  You currently have no <Emoji text="<3" />. Checkout some recipes{' '}
+                  <Link to="/">here.</Link>
+                </p>
+              )}
           </div>
         </div>
         <Footer />
@@ -128,6 +138,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   getUserinfo,
-  startGetUserFavorites,
-  startAddFavoriteRecipes
+  GetUserFavoritesAction,
+  AddFavoriteRecipesAction
 })(Favorites);

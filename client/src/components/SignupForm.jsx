@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import validateInput from '../../../server/validators/validatesignup';
-import '../assets/css/signup.css';
 
 export class SignupForm extends Component {
   constructor(props) {
@@ -14,9 +13,7 @@ export class SignupForm extends Component {
       password: '',
       errors: {},
     };
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.onEmailChange = this.onEmailChange.bind(this);
+    this.onFormValuesChange = this.onFormValuesChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -26,16 +23,11 @@ export class SignupForm extends Component {
     }
   }
 
-  onUsernameChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  onEmailChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  onPasswordChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  onFormValuesChange(event) {
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value
+    });
   }
 
   onSubmit(event) {
@@ -71,55 +63,86 @@ export class SignupForm extends Component {
     const { errors } = this.state;
     return (
       <div className="container">
-      <div className="card text-center card-form has-feedback">
-      <div className="card-body">
-      <form onSubmit={this.onSubmit}>
-            <h1 className="sign-up-h3">Register</h1>
+        <div className="card text-center card-form has-feedback">
+          <div className="card-body">
+            <form onSubmit={this.onSubmit}>
+              <h1 className="sign-up-h3">Register</h1>
 
-            <div className="form-group">
-              <input
-              type="text"
-              name="username"
-              autoComplete="username"
-              value={this.state.username}
-              onChange={this.onUsernameChange}
-              className={classNames('form-control form-control-lg', { 'has-errors': errors.username })}
-              placeholder="Username" />
-              {errors.username && (
-                <span className="help-block has-errors">{errors.username}</span>
-              )}
-            </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  name="username"
+                  autoComplete="username"
+                  value={this.state.username}
+                  onChange={this.onFormValuesChange}
+                  className={classNames('form-control form-control-lg',
+                    { 'has-errors': errors.username })}
+                  placeholder="Username" />
+                {errors.username && (
+                  <span
+                    className="help-block has-errors"
+                  >
+                    {errors.username}
+                  </span>
+                )}
+              </div>
 
-            <div className="form-group">
+              <div className="form-group">
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  value={this.state.email}
+                  onChange={this.onFormValuesChange}
+                  className={classNames(
+                    'form-control form-control-lg',
+                    { 'has-errors': errors.email }
+                  )}
+                  placeholder="Email Address" />
+                {errors.email && (
+                  <span
+                    className="help-block has-errors"
+                  >
+                    {errors.email}
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  name="password"
+                  autoComplete="new-password"
+                  value={this.state.password}
+                  onChange={this.onFormValuesChange}
+                  className={classNames(
+                    'form-control form-control-lg',
+                    { 'has-errors': errors.password }
+                  )}
+                  placeholder="Password" />
+                {errors.password && (
+                  <span
+                    className="help-block has-errors"
+                  >
+                    {errors.password}
+                  </span>
+                )}
+              </div>
               <input
-              type="email"
-              name="email"
-              autoComplete="email"
-              value={this.state.email}
-              onChange={this.onEmailChange}
-              className={classNames("form-control form-control-lg", { "has-errors": errors.email })}
-              placeholder="Email Address" />
-              {errors.email && (
-                <span className="help-block has-errors">{errors.email}</span>)}
-            </div>
-            <div className="form-group">
-              <input
-              type="password"
-              name="password"
-              autoComplete="new-password"
-              value={this.state.password}
-              onChange={this.onPasswordChange}
-              className={classNames('form-control form-control-lg', { 'has-errors': errors.password })}
-              placeholder="Password" />
-              {errors.password && (
-                <span className="help-block has-errors">{errors.password}</span>
-              )}
-            </div>
-            <input type="submit" value="Submit" className="btn submit-btn size-bt btn-block" />
-      </form>
-      <p> Have an account? <a className="account" href="/login"> Sign in </a> </p>
-      </div>
-      </div>
+                type="submit"
+                value="Submit"
+                className="btn submit-btn size-bt btn-block"
+              />
+            </form>
+            <p> Have an account?
+          <a
+                className="account"
+                href="/login"
+              >
+                Sign in
+          </a>
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
