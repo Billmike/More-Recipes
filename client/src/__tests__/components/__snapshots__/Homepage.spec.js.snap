@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Homepage /> Should render the homepage component correctly 1`] = `
+<div
+  className="under-carousel-div"
+>
+  <div
+    className="carousel slide"
+    data-ride="carousel"
+    id="carouselExampleIndicators"
+  >
+    <ol
+      className="carousel-indicators"
+    >
+      <li
+        className="active"
+        data-slide-to="0"
+        data-target="#carouselExampleIndicators"
+      />
+      <li
+        data-slide-to="1"
+        data-target="#carouselExampleIndicators"
+      />
+      <li
+        data-slide-to="2"
+        data-target="#carouselExampleIndicators"
+      />
+    </ol>
+    <div
+      className="carousel-inner"
+    >
+      <div
+        className="carousel-item active"
+      >
+        <img
+          alt="First slide"
+          className="d-block w-100 sizing carousel-slide-image"
+          src="test-file-stub"
+        />
+        <div
+          className="carousel-caption d-none d-md-block"
+        >
+          <h3
+            className="carousel-h3"
+          >
+            Handcrafted recipes made by local chefs
+          </h3>
+        </div>
+      </div>
+      <div
+        className="carousel-item"
+      >
+        <img
+          alt="Second slide"
+          className="d-block w-100 sizing carousel-slide-image"
+          src="test-file-stub"
+        />
+        <div
+          className="carousel-caption d-none d-md-block"
+        >
+          <h3
+            className="carousel-h3"
+          >
+            Tasty recipes to spice up your dinner table.
+          </h3>
+        </div>
+      </div>
+      <div
+        className="carousel-item"
+      >
+        <img
+          alt="Third slide"
+          className="d-block w-100 sizing carousel-slide-image"
+          src="test-file-stub"
+        />
+        <div
+          className="carousel-caption d-none d-md-block"
+        >
+          <h3
+            className="carousel-h3"
+          >
+            Make every meal memorable.
+          </h3>
+        </div>
+      </div>
+    </div>
+    <a
+      className="carousel-control-prev"
+      data-slide="prev"
+      href="#carouselExampleIndicators"
+      role="button"
+    >
+      <span
+        aria-hidden="true"
+        className="carousel-control-prev-icon"
+      />
+      <span
+        className="sr-only"
+      >
+        Previous
+      </span>
+    </a>
+    <a
+      className="carousel-control-next"
+      data-slide="next"
+      href="#carouselExampleIndicators"
+      role="button"
+    >
+      <span
+        aria-hidden="true"
+        className="carousel-control-next-icon"
+      />
+      <span
+        className="sr-only"
+      >
+        Next
+      </span>
+    </a>
+  </div>
+  <div
+    className="container"
+  >
+    <h2
+      className="homepage-h2"
+    >
+       Top Recipes
+    </h2>
+    <div
+      className="input-group"
+    >
+      <span
+        className="input-group-btn"
+      />
+      <input
+        className="form-control"
+        name="searchQuery"
+        placeholder="Search for....."
+        type="search"
+        value=""
+      />
+    </div>
+    <div
+      className="row"
+    />
+    <Pagination
+      handlePaginationChange={[Function]}
+    />
+  </div>
+  <Footer />
+</div>
+`;

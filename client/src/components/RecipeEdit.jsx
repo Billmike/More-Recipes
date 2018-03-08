@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import { RemoveRecipeAction, GetUserRecipesAction } from '../actions/recipes';
-import pizza from '../assets/img/pizzza.jpg';
 
-class RecipeEdit extends Component {
+export class RecipeEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,7 +94,7 @@ class RecipeEdit extends Component {
             </div>
           </div>
           <div className="card-footer pad-footer">
-            <small className="text-muted small-text">
+            <small className="text-muted small-text category-text">
               Recipe Category - {this.props.recipe.category}
             </small>
           </div>

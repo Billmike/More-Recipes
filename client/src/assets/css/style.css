@@ -29,7 +29,6 @@ body {
   font-weight: bold;
   font-size: 35px;
   display: inline-block;
-  margin-left: 40px;
 }
 
 .under-carousel-div {
@@ -432,7 +431,9 @@ a:hover {
 .form-h6 {
   color: brown;
   font-family: 'Philosopher', Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 30px;
+  margin-bottom: -20px;
+  margin-top: 40px;
 }
 
 .review-form {
@@ -454,9 +455,9 @@ a:hover {
 }
 
 .center-emoji {
+  margin-top: 20px;
   text-align: center;
   font-family: 'Dosis';
-  /* padding-bottom: 30px; */
 }
 
 .section-bck {
@@ -513,18 +514,18 @@ a:hover {
 .custom-div {
   background: white;
   margin-right: 50px;
-  margin-left: 50px;
+  margin-left: 11.2%;
   margin-bottom: 50px;
   margin-top: 50px;
   color: black;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 77%;
+
 }
 
 .review-back {
-  margin: 50px;
   padding-top: 10px;
-  /* padding-bottom: 30px; */
   border-radius: 15px;
   overflow-y: scroll;
   max-height: 700px;
@@ -642,6 +643,7 @@ a:hover {
 }
 
 .review-box {
+  margin-left: 40px;
   margin-top: 10px;
 }
 
@@ -707,6 +709,7 @@ a:hover {
 }
 
 .recipe-description-paragraph{
+  margin-bottom: 40px;
   word-wrap: normal;
   word-break: break-all;
   text-align: center;
@@ -759,4 +762,16 @@ a:hover {
 .thumbs-down:hover {
   background: red;
   color: white;
+}
+
+.category-text {
+  text-transform: capitalize !important;
+}
+
+.search-button {
+  margin-top: 30px;
+}
+
+.frontpage-hr {
+  margin-top: 70px;
 }

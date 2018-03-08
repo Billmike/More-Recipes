@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import validateInput from '../../../server/validators/validatesignin';
 
@@ -114,12 +115,12 @@ class LoginForm extends Component {
             <p
               className="signin-pad"
             > Not yet registered?
-            <a
+            <Link
                 className="account"
-                href="/register"
+                to="/register"
               >
                 Let's hook you up with an account.
-            </a>
+            </Link>
             </p>
           </div>
         </div>

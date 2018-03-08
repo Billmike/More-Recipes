@@ -242,6 +242,27 @@ class Recipe {
       });
     });
   }
+
+  static popularRecipes(req, res) {
+    return recipes.findAll({
+      include: [{
+        model: favorites,
+        as: 'favorites',
+      }, {
+        model: reviews,
+        as: 'reviews'
+      }],
+      limit: 6
+    }).then((theFoundrecipes) => {
+      return res.status(200).json({
+        theFoundrecipes
+      });
+    }).catch((err) => {
+      return res.status(400).json({
+        message: err.message
+      });
+    });
+  }
 }
 
 export default Recipe;

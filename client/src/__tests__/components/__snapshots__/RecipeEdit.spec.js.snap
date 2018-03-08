@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecipeEdit /> Should render the Edit recipe component correctly 1`] = `
+<div
+  className="col-md-4"
+>
+  <div
+    className="card"
+  >
+    <Link
+      replace={false}
+      to="/recipe/1"
+    >
+      <img
+        alt="Pizza"
+        className="card-img-top"
+      />
+    </Link>
+    <div
+      className="card-body"
+    >
+      <Link
+        replace={false}
+        to="/recipe/1"
+      >
+        <h4
+          className="card-title"
+        >
+          Amazing fried rice
+        </h4>
+      </Link>
+      <p
+        className="card-text"
+      >
+        A really amazing fried rice
+      </p>
+      <div
+        className="group-btn"
+      >
+        <div
+          className="container action-btn"
+          style={
+            Object {
+              "textAlign": "justify",
+            }
+          }
+        >
+          <Link
+            className="btn user-btn"
+            replace={false}
+            role="button"
+            to="/edit/1"
+          >
+             
+            <i
+              className="far fa-edit brown"
+            />
+             
+          </Link>
+          <button
+            className="btn user-btn"
+            onClick={[Function]}
+            role="button"
+          >
+             
+            <i
+              className="fas fa-trash-alt crimson"
+            />
+             
+          </button>
+          <button
+            className="btn user-btn user-btn-special"
+            disabled={true}
+            role="button"
+          >
+             
+            <i
+              className="fa fa-thumbs-up fa brown"
+            />
+             
+          </button>
+          <button
+            className="btn user-btn user-btn-special"
+            disabled={true}
+            role="button"
+          >
+             
+            <i
+              className="fa fa-thumbs-down fa brown"
+            />
+          </button>
+          <button
+            className="btn user-btn user-btn-special"
+            disabled={true}
+            role="button"
+          >
+             
+            <i
+              className="fa fa-heart crimson"
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="card-footer pad-footer"
+    >
+      <small
+        className="text-muted small-text category-text"
+      >
+        Recipe Category - 
+        Lunch
+      </small>
+    </div>
+  </div>
+  <DeleteModal
+    handleClearSelectedRecipe={[Function]}
+    onRemoveRecipe={[Function]}
+  />
+</div>
+`;

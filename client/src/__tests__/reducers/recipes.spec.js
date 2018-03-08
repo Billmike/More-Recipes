@@ -5,7 +5,8 @@ import mockReducers, {
   recipeMock,
   singleRecipes,
   removeRecipeMock,
-  favoritesRecipeMock
+  favoritesRecipeMock,
+  mockVotes
 } from '../__mocks__/reducers/mockReducers';
 import recipeReducers from '../../reducers/recipes';
 import {

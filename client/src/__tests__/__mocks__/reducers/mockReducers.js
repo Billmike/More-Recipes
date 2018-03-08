@@ -48,7 +48,7 @@ export const favoritesRecipeMock = [{
   ingredients: 'Amala\nEwedu',
   instructions: 'Cook the meal well\nTurn properly',
   owner: 1,
-  favorites: [{ }],
+  favorites: [{}],
   reviews: []
 }];
 
@@ -77,6 +77,17 @@ export const singleRecipes = {
     favorites: [{ userId: 1 }],
     reviews: []
   }
+};
+
+export const mockVotes = {
+  name: 'Single recipe',
+  description: 'Nice single recipe',
+  imageUrl: 'https://someniceimagehere.jpg',
+  category: 'Lunch',
+  ingredients: 'New dawn\nAmazing things',
+  instructions: 'cooke me well\nSweet life',
+  upVote: 0,
+  downVote: 0
 };
 
 export const reviews = {

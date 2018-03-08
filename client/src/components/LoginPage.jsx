@@ -13,7 +13,7 @@ import LoginForm from './LoginForm';
  * @extends Component
  */
 
-class LoginPage extends Component {
+export class LoginPage extends Component {
   render() {
     const { signinRequest } = this.props;
     return (

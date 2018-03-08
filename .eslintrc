@@ -24,6 +24,7 @@
       80,
       2
     ],
+    "eqeqeq": "off",
     "arrow-body-style": "off",
     "class-methods-use-this": 0,
     "prefer-default-export": "off",

@@ -14,7 +14,7 @@ import { getUserinfo } from '../actions/signinRequest';
  *
  * @extends Component
  */
-class Dashboard extends Component {
+export class Dashboard extends Component {
   componentDidMount() {
     this.props.GetUserRecipesAction();
     this.props.getUserinfo();
@@ -52,7 +52,7 @@ class Dashboard extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     recipes: state.recipes.userRecipe,
     user: state.auth.userDetails

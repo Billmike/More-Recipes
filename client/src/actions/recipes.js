@@ -4,6 +4,7 @@ import getUserRecipe from '../actionCreators/getUserRecipe';
 import getOneRecipe from '../actionCreators/getOneRecipe';
 import toggleFavorites from '../actionCreators/toggleFavorites';
 import fetchFavorites from '../actionCreators/fetchFavorites';
+import popularRecipe from '../actionCreators/popularRecipe';
 import editRecipe from '../actionCreators/editRecipes';
 import removeRecipe from '../actionCreators/removeRecipe';
 import addReview from '../actionCreators/addReview';
@@ -27,6 +28,13 @@ export const GetAllRecipesAction = page => dispatch =>
     })
     .catch(error => Promise.reject(error.response.message));
 
+export const GetPopularRecipes = () => dispatch =>
+  instance.get('/recipes/popular')
+    .then((response) => {
+      console.log('we got the response', response);
+      dispatch(popularRecipe(response.data));
+    })
+    .catch(error => Promise.reject(error.response.message));
 /**
  * Action for adding recipe to the application
  *

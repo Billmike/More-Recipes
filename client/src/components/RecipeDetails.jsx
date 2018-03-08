@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Emoji from 'react-emoji-render';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
 import Footer from './Footer';
 import ReviewForm from './ReviewForm';
 import Review from './Review';
@@ -14,7 +14,7 @@ import {
   AddFavoriteRecipesAction
 } from '../actions/recipes';
 
-class RecipeDetail extends Component {
+export class RecipeDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,20 +70,22 @@ class RecipeDetail extends Component {
     let splitInstructions;
     if (this.props.recipe) {
       splitIngredients = this.props.recipe.ingredients
+        .trim('\n')
         .split('\n')
         .map((ingredient) => {
           return (
-            <li className="split-items" key={uuid()}>
+            <li className="split-items" key={v4()}>
               {ingredient}
             </li>
           );
         });
 
       splitInstructions = this.props.recipe.instructions
+        .trim('\n')
         .split('\n')
         .map((instruction) => {
           return (
-            <li className="split-items" key={uuid()}>
+            <li className="split-items" key={v4()}>
               {instruction}
             </li>
           );

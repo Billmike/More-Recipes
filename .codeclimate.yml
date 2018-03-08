@@ -1,45 +1,32 @@
-plugins:
-  csslint:
+engines:
+  duplications:
     enabled: false
-  duplication:
-    enabled: true
     config:
       languages:
-      - javascript
+        - javascript
   eslint:
     enabled: true
     checks:
-      file-lines:
-        enabled: false
-      method-lines:
-        enabled: false
       comma-dangle:
         enabled: false
       linebreak-style:
         enabled: false
       import/extensions:
         enabled: false
-      file-lines:
-        enabled: false
-      similar-code:
-        enabled: false
-      identical-code:
-        enabled: false
   fixme:
     enabled: true
 ratings:
-  paths:
-  - "server/**/*.js"
-  - "client/**/*.js"
-  - "client/**/*.jsx"
-
-exclude_patterns:
-  - "webpack.config.*.js"
+    paths:
+      - "server/**/*.js"
+languages:
+  JavaScript: true
+exclude_paths:
   - "node_modules/"
-  - "client/src/__tests__/__mocks__/"
+  - "client/"
   - "template/*"
+  - "server/routes/"
   - "server/__test__"
-  - "client/src/__tests__"
-  - "server/migrations"
-  - "server/models"
   - "server/seeders"
+  - "server/migrations"
+  - "server/api-doc"
+  - "public/"

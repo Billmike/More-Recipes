@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserLinks /> Should render the UserLinks component correctly 1`] = `
+<ul
+  className="nav navbar-nav ml-auto"
+>
+  <li
+    className="nav-item active"
+  >
+    <Link
+      className="nav-link custom-link"
+      replace={false}
+      to="/"
+    >
+      Home
+      <span
+        className="sr-only"
+      >
+        (current)
+      </span>
+    </Link>
+  </li>
+  <li
+    className="nav-item"
+  >
+    <Link
+      className="nav-link custom-link"
+      replace={false}
+      to="/dashboard"
+    >
+      My Recipes
+    </Link>
+  </li>
+  <li
+    className="nav-item"
+  >
+    <Link
+      className="nav-link custom-link"
+      replace={false}
+      to="/add"
+    >
+      Add Recipe
+    </Link>
+  </li>
+  <li>
+    <Link
+      className="nav-link custom-link"
+      replace={false}
+      to="/favorites"
+    >
+      My Favorites
+    </Link>
+  </li>
+  <li
+    className="nav-item"
+  >
+    <Link
+      className="nav-link custom-link"
+      replace={false}
+      to="/profile"
+    >
+      My Profile
+    </Link>
+  </li>
+  <li
+    className="nav-item"
+  >
+    <Link
+      className="nav-link logout btn-primary"
+      replace={false}
+      to="/"
+    >
+      Logout
+    </Link>
+  </li>
+</ul>
+`;

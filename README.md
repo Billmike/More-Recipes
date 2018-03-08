@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/Billmike/More-Recipes.svg?branch=develop)](https://travis-ci.org/Billmike/More-Recipes)  [![Test Coverage](https://api.codeclimate.com/v1/badges/4eec654ff50f54688b72/test_coverage)](https://codeclimate.com/github/Billmike/More-Recipes/test_coverage)  [![Coverage Status](https://coveralls.io/repos/github/Billmike/More-Recipes/badge.svg?branch=chore%2Ffix-all-tests)](https://coveralls.io/github/Billmike/More-Recipes?branch=chore%2Ffix-all-tests)
-[![Maintainability](https://api.codeclimate.com/v1/badges/4eec654ff50f54688b72/maintainability)](https://codeclimate.com/github/Billmike/More-Recipes/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1edfdfe474ad69a6dccc/maintainability)](https://codeclimate.com/github/Billmike/More-Recipes/maintainability)
 
 # More-Recipes
 ## Introduction

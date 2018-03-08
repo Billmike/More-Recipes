@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewForm /> Should render the review form correctly 1`] = `
+<form
+  className="form-group container form-container"
+  id="form"
+>
+  <textarea
+    className="form-control review-form"
+    placeholder="Enter a review for this recipe"
+  />
+  <button
+    className="btn btn-primary btn-lg btn-block form-button"
+  >
+    Submit review
+  </button>
+</form>
+`;

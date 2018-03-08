@@ -6,7 +6,10 @@ import LoaderComp from './LoaderComp';
 import RecipesList from './RecipesList';
 import Footer from './Footer';
 import Pagination from './Pagination';
-import { GetAllRecipesAction, SearchRecipesAction } from '../actions/recipes';
+import {
+  GetAllRecipesAction,
+  GetPopularRecipes, SearchRecipesAction
+} from '../actions/recipes';
 import strawberry from '../assets/img/strawberry.jpg';
 import dark from '../assets/img/dark.jpg';
 import noodles from '../assets/img/noodles.jpg';
@@ -20,7 +23,7 @@ import noodles from '../assets/img/noodles.jpg';
  * @extends Component
  */
 
-class Homepage extends Component {
+export class Homepage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,11 +31,10 @@ class Homepage extends Component {
       searchQuery: ''
     };
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
-    this.searchRecipes = this.searchRecipes.bind(this);
-    this.renderSearchResult = this.renderSearchResult.bind(this);
   }
   componentDidMount() {
     this.props.GetAllRecipesAction(0);
+    this.props.GetPopularRecipes();
   }
 
   handlePaginationChange(data) {
@@ -40,23 +42,16 @@ class Homepage extends Component {
     this.props.GetAllRecipesAction(currentView);
   }
 
-  searchRecipes(event) {
-    event.preventDefault();
-    this.setState({ [event.target.name]: event.target.value });
-    this.props.SearchRecipesAction(event.target.value);
-  }
-
-  renderSearchResult() {
-    const { recipes } = this.props;
-    return recipes !== null ? recipes.map((recipe) => {
-      return <RecipesList key={recipe.id} recipe={recipe} />;
-    }) : <p>No recipe found for your search</p>;
-  }
-
   render() {
     let allRecipes;
+    let popularRecipesList;
     if (this.props.recipes) {
       allRecipes = this.props.recipes.map((recipe) => {
+        return <RecipesList key={recipe.id} recipe={recipe} />;
+      });
+    }
+    if (this.props.popularRecipes) {
+      popularRecipesList = this.props.popularRecipes.map((recipe) => {
         return <RecipesList key={recipe.id} recipe={recipe} />;
       });
     }
@@ -132,8 +127,7 @@ class Homepage extends Component {
           </a>
         </div>
         <div className="container">
-          <h2 className="homepage-h2"> Top Recipes</h2>
-          <div className="input-group">
+          <div className="input-group search-button">
             <span className="input-group-btn">
 
             </span>
@@ -146,6 +140,10 @@ class Homepage extends Component {
               onChange={this.searchRecipes}
             />
           </div>
+          <h2 className="homepage-h2"> Popular Recipes of the week</h2>
+          <div className="row">{popularRecipesList}</div>
+          <hr className="frontpage-hr" />
+          <h2 className="homepage-h2"> Recipe Catalogue</h2>
           <div className="row">{allRecipes}</div>
           <Pagination
             handlePaginationChange={this.handlePaginationChange}
@@ -158,8 +156,10 @@ class Homepage extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
+  console.log('the state', state);
   return {
+    popularRecipes: state.recipes.popularRecipes,
     recipes: state.recipes.recipes,
     pages: state.recipes.pages
   };
@@ -168,6 +168,6 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   {
-    GetAllRecipesAction, SearchRecipesAction
+    GetAllRecipesAction, GetPopularRecipes, SearchRecipesAction
   }
 )(Homepage);

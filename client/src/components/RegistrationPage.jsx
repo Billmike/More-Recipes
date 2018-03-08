@@ -5,7 +5,7 @@ import Footer from './Footer';
 import SignupForm from './SignupForm';
 import { signupRequest } from '../actions/userSignupAction';
 
-class RegistrationPage extends Component {
+export class RegistrationPage extends Component {
   render() {
     const { signupRequest } = this.props;
     return (

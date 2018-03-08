@@ -61,7 +61,7 @@ export class RecipeList extends Component {
             </div>
           </div>
           <div className="card-footer pad-footer">
-            <small className="text-muted small-text">
+            <small className="text-muted small-text category-text">
               Recipe Category - {this.props.recipe.category}
             </small>
           </div>

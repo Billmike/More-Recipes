@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Modal /> Should render the Modal correctly 1`] = `
+<div>
+  <Component
+    className="spinner"
+    color="#5f9ea0"
+    component="div"
+    corners={1}
+    direction={1}
+    hwaccel={false}
+    left="50%"
+    length={20}
+    lines={13}
+    loadedClassName="loadedContent"
+    parentClassName="loader"
+    radius={30}
+    rotate={0}
+    scale={1}
+    shadow={false}
+    speed={1}
+    top="50%"
+    trail={60}
+    width={10}
+    zIndex={2000000000}
+  />
+</div>
+`;

@@ -4,9 +4,9 @@ import moment from 'moment';
 const Review = (props) => {
   return (
     <div className="row custom-div">
-      <div className="col-md-1">
+      {/* <div className="col-md-1">
         <img className="review-image" />
-      </div>
+      </div> */}
       <div className="col-md-11 review-box">
         <p className="reviewer-name inline-p">{props.user}</p>
         <span

@@ -5,7 +5,6 @@ import Emoji from 'react-emoji-render';
 import uuid from 'uuid';
 import FavoriteModal from './FavoriteModal';
 import Footer from './Footer';
-import pizza from '../assets/img/pizzza.jpg';
 import { getUserinfo } from '../actions/signinRequest';
 import {
   GetUserFavoritesAction,
@@ -21,7 +20,7 @@ import {
  * @extends Component
  */
 
-class Favorites extends Component {
+export class Favorites extends Component {
   constructor(props) {
     super(props);
     this.state = {

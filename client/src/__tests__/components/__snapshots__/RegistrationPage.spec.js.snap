@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RegistrationPage /> Should render the registration page correctly 1`] = `
+<div>
+  <Connect(SignupForm) />
+  <Footer />
+</div>
+`;

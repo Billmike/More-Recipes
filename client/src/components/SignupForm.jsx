@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom'
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import validateInput from '../../../server/validators/validatesignup';
@@ -134,12 +135,12 @@ export class SignupForm extends Component {
               />
             </form>
             <p> Have an account?
-          <a
+          <Link
                 className="account"
-                href="/login"
+                to="/login"
               >
                 Sign in
-          </a>
+          </Link>
             </p>
           </div>
         </div>

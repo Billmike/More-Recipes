@@ -65,12 +65,13 @@ exports[`Should render Signup Form correctly 1`] = `
       </form>
       <p>
          Have an account?
-        <a
+        <Link
           className="account"
-          href="/login"
+          replace={false}
+          to="/login"
         >
           Sign in
-        </a>
+        </Link>
       </p>
     </div>
   </div>

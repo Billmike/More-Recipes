@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddRecipe /> Should render correctly 1`] = `
+<div>
+  <h1
+    className="container add-h1"
+  >
+     Add Recipe 
+  </h1>
+  <RecipesForm
+    onSubmit={[Function]}
+  />
+  <Footer />
+</div>
+`;

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dashboard /> Should render correctly 1`] = `
+<div>
+  <div
+    className="container"
+  >
+    <h2
+      className="dashboard-h2"
+    >
+       
+      Welcome to your Dashboard, 
+      annabelle
+      !
+    </h2>
+    <h4
+      className="dashboard-h4"
+    >
+       My Recipes 
+    </h4>
+    <div
+      className="row"
+    >
+      <p
+        className="no-recipes-p"
+      >
+        annabelle
+        , you do not have any recipes yet.
+         
+        <Link
+          replace={false}
+          to="/add"
+        >
+          Create one now.
+        </Link>
+        <Emoji
+          text=":)"
+        />
+      </p>
+    </div>
+  </div>
+  <Footer />
+</div>
+`;

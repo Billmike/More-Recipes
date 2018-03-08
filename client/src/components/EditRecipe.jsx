@@ -19,8 +19,6 @@ export class EditRecipe extends Component {
     });
   };
 
-  componentWillMount() { }
-
   render() {
     return (
       <div>

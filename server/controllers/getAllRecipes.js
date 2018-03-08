@@ -7,23 +7,23 @@ const {
 } = db;
 
 export class GetRecipes {
-/**
-   * @param  {string} name - Recipe name
-   * @param  {string} description - Recipe description
-   * @param  {string} imageUrl - Recipe image link
-   * @param  {array} ingredients - Recipe ingredients
-   * @param  {array} instructions - Recipe instructions
-   * @param  {object} owner - User information - id, and username.
-   * @param  {array} reviews - Recipe review
-   * @param  {number} favorites - Recipe favorites
-   * @param  {number} viewCount - Recipe view count
-   * @param  {number} upVote - Recipe upvote count
-   * @param  {number} downVote - Recipe downvote count
-   * @param  {number} id - Recipe id
-   * @param {array} votersId - object with Id of voters
-   * @param  {time} createdAt - Recipe time of creation
-   * @param  {time} updatedAt - Recipe time of update
-   */
+  /**
+     * @param  {string} name - Recipe name
+     * @param  {string} description - Recipe description
+     * @param  {string} imageUrl - Recipe image link
+     * @param  {array} ingredients - Recipe ingredients
+     * @param  {array} instructions - Recipe instructions
+     * @param  {object} owner - User information - id, and username.
+     * @param  {array} reviews - Recipe review
+     * @param  {number} favorites - Recipe favorites
+     * @param  {number} viewCount - Recipe view count
+     * @param  {number} upVote - Recipe upvote count
+     * @param  {number} downVote - Recipe downvote count
+     * @param  {number} id - Recipe id
+     * @param {array} votersId - object with Id of voters
+     * @param  {time} createdAt - Recipe time of creation
+     * @param  {time} updatedAt - Recipe time of update
+     */
   constructor(
     name, description, imageUrl, category, ingredients, instructions,
     owner, reviews, favorites, viewCount, upVote, downVote, id,

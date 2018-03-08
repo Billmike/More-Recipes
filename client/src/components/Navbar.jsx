@@ -7,7 +7,7 @@ import GuestLinks from '../components/navlinks/guestLinks';
 import { logout } from '../actions/signinRequest';
 import logo from '../assets/img/more-recipes-logo.png';
 
-class Navbar extends Component {
+export class Navbar extends Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
@@ -22,7 +22,8 @@ class Navbar extends Component {
 
     return (
       <nav
-        className="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+        className="navbar
+        navbar-expand-lg navbar-light bg-light navbar-fixed-top">
         <button
           className="navbar-toggler"
           type="button"

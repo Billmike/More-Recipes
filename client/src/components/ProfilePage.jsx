@@ -4,7 +4,7 @@ import Footer from './Footer';
 import { getUserinfo } from '../actions/signinRequest';
 import cool from '../assets/img/strawberry.jpg';
 
-class ProfilePage extends Component {
+export class ProfilePage extends Component {
   componentDidMount() {
     this.props.getUserinfo();
   }

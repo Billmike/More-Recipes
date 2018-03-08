@@ -15,6 +15,8 @@ module.exports = (app) => {
       message: 'Welcome to the More-Recipes API'
     }));
 
+  app.get('/api/v1/recipes/popular', recipeController.popularRecipes);
+
   app.get('/api/v1/users/get_user', User.getUser);
   app.get('/api/v1/recipe/:recipeId', getOneRecipe);
   app.post('/api/v1/recipes/search', recipeController.searchRecipes);

@@ -3,6 +3,7 @@ const recipeDefaultState = {
   recipes: [],
   userRecipe: [],
   singleRecipe: '',
+  popularRecipes: [],
   favoriteRecipes: [],
   userFavoriteRecipesId: []
 };
@@ -19,6 +20,12 @@ export default (state = recipeDefaultState, action) => {
         ...state,
         pages: action.pagination,
         recipes: [...action.recipes]
+      };
+    case 'POPULAR_RECIPES':
+      console.log('the reducer got hit', action);
+      return {
+        ...state,
+        popularRecipes: [...action.recipe.theFoundrecipes]
       };
     case 'GET_ONE_RECIPE':
       return {
@@ -65,9 +72,32 @@ export default (state = recipeDefaultState, action) => {
                 : recipe.favorites.filter(favorite => favorite
                   .userId !== action.userId)
           };
+        }),
+        popularRecipes: state.popularRecipes.map((recipe) => {
+          if (recipe.id !== action.favoriteRecipes.favoritedRecipe.recipeId) {
+            return recipe;
+          }
+          return {
+            ...recipe,
+            favorites:
+              action.toggleType === 'add'
+                ? [...recipe.favorites, { userId: action.userId }]
+                : recipe.favorites
+                  .filter(favorite => favorite.userId !== action.userId)
+          };
         })
       };
     case 'UPVOTE_RECIPE':
+      Object.defineProperties(state.singleRecipe, {
+        upVote: {
+          value: state.singleRecipe.upVote,
+          writable: true
+        },
+        downVote: {
+          value: state.singleRecipe.downVote,
+          writable: true
+        }
+      })
       state.singleRecipe.downVote = state.singleRecipe
         .downVote > 0 ? state.singleRecipe
           .downVote - 1 : state.singleRecipe.downVote;

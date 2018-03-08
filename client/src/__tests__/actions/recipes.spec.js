@@ -84,7 +84,8 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(EditRecipeAction(editRecipeResponse.recipeData.id, editRecipeResponse.recipeData));
+      await store.dispatch(EditRecipeAction(editRecipeResponse
+        .recipeData.id, editRecipeResponse.recipeData));
       expect(store.getActions()).toEqual(returnedAction);
     });
   });
@@ -113,27 +114,28 @@ describe('Recipes actions', () => {
   });
 
   describe('Get All recipes Action', () => {
-    it('Should fetch all recipes in the application and dispatch the GET_RECIPES action', async () => {
-      const allRecipes = {
-        recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
-      };
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: allRecipes
+    it('Should fetch all recipes in the application and dispatch the GET_RECIPES action',
+      async () => {
+        const allRecipes = {
+          recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
+        };
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 200,
+            response: allRecipes
+          });
         });
+        const returnedAction = [
+          {
+            type: GET_RECIPES,
+            recipes: allRecipes.recipeData
+          }
+        ];
+        const store = mockStore({});
+        await store.dispatch(GetAllRecipesAction());
+        expect(store.getActions()).toEqual(returnedAction);
       });
-      const returnedAction = [
-        {
-          type: GET_RECIPES,
-          recipes: allRecipes.recipeData
-        }
-      ];
-      const store = mockStore({});
-      await store.dispatch(GetAllRecipesAction());
-      expect(store.getActions()).toEqual(returnedAction);
-    });
   });
 
   describe('Get one recipe action', () => {
