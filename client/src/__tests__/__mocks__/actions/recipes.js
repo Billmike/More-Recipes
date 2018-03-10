@@ -44,6 +44,10 @@ export const recipeResponse = {
   recipeData: recipe
 };
 
+export const popularRecipeResponse = {
+  theFoundRecipes: recipe
+};
+
 export const editRecipeResponse = {
   status: 'Success',
   recipeData: editedRecipe

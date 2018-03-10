@@ -28,13 +28,20 @@ export const GetAllRecipesAction = page => dispatch =>
     })
     .catch(error => Promise.reject(error.response.message));
 
+/**
+* Action for fetching popular recipes
+*
+* @returns { object } - returns an object with
+  an action type and popular recipes
+*/
+
 export const GetPopularRecipes = () => dispatch =>
   instance.get('/recipes/popular')
     .then((response) => {
-      console.log('we got the response', response);
       dispatch(popularRecipe(response.data));
     })
     .catch(error => Promise.reject(error.response.message));
+
 /**
  * Action for adding recipe to the application
  *
