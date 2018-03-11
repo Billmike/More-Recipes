@@ -80,12 +80,7 @@ export const singleRecipes = {
 };
 
 export const mockVotes = {
-  name: 'Single recipe',
-  description: 'Nice single recipe',
-  imageUrl: 'https://someniceimagehere.jpg',
-  category: 'Lunch',
-  ingredients: 'New dawn\nAmazing things',
-  instructions: 'cooke me well\nSweet life',
+  ...mockReducers,
   upVote: 0,
   downVote: 0
 };

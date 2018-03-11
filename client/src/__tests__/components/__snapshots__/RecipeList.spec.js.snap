@@ -14,6 +14,7 @@ exports[`<RecipesList /> Should mount the Recipe List component correctly 1`] = 
       <img
         alt="Pizza"
         className="card-img-top"
+        src="https://somereallycoolimage.ly"
       />
     </Link>
     <div
@@ -49,6 +50,7 @@ exports[`<RecipesList /> Should mount the Recipe List component correctly 1`] = 
         </Link>
         <Link
           className="btn border border-secondary rounded"
+          id="favbutton"
           onClick={[Function]}
           replace={false}
           to="/recipe/3"

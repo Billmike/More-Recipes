@@ -22,6 +22,7 @@ exports[`<RecipeDetails Component Should render the recipe details component pro
       >
         <img
           className="rounded recipe-detail-image"
+          src="https://somereallycoolimage.ly"
         />
       </div>
       <div

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import validateInput from '../../../server/validators/validatesignup';
@@ -72,12 +72,15 @@ export class SignupForm extends Component {
               <div className="form-group">
                 <input
                   type="text"
+                  id="username"
                   name="username"
                   autoComplete="username"
                   value={this.state.username}
                   onChange={this.onFormValuesChange}
-                  className={classNames('form-control form-control-lg',
-                    { 'has-errors': errors.username })}
+                  className={classNames(
+                    'form-control form-control-lg',
+                    { 'has-errors': errors.username }
+                  )}
                   placeholder="Username" />
                 {errors.username && (
                   <span
@@ -92,6 +95,7 @@ export class SignupForm extends Component {
                 <input
                   type="email"
                   name="email"
+                  id="email"
                   autoComplete="email"
                   value={this.state.email}
                   onChange={this.onFormValuesChange}
@@ -111,6 +115,7 @@ export class SignupForm extends Component {
               <div className="form-group">
                 <input
                   type="password"
+                  id="password"
                   name="password"
                   autoComplete="new-password"
                   value={this.state.password}
@@ -153,7 +158,7 @@ SignupForm.propTypes = {
   signupRequest: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, props) => {
+export const mapStateToProps = (state, props) => {
   return {
     isAuthenticated: state.auth.isAuthenticated
   };

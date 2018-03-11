@@ -29,7 +29,7 @@ export class EditRecipe extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+export const mapStateToProps = (state, props) => {
   return {
     recipe: state.recipes.userRecipe.find((recipe) => {
       return recipe.id == props.match.params.id;
@@ -37,10 +37,4 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    EditRecipeAction: (id, recipe) => dispatch(EditRecipeAction(id, recipe))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditRecipe);
+export default connect(mapStateToProps, { EditRecipeAction })(EditRecipe);

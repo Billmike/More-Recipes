@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import toastr from 'toastr';
 import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
 import instance from '../utils/axios';
 import '../utils/toastrConfig';

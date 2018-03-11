@@ -38,7 +38,11 @@ export class RecipeEdit extends Component {
       <div className="col-md-4">
         <div className="card">
           <Link to={`/recipe/${this.props.recipe.id}`}>
-            <img className="card-img-top" alt="Pizza" src={this.props.recipe.imageUrl} />
+            <img
+              className="card-img-top"
+              alt="Pizza"
+              src={this.props.recipe.imageUrl}
+            />
           </Link>
           <div className="card-body">
             <Link to={`/recipe/${this.props.recipe.id}`}>
@@ -110,11 +114,6 @@ export class RecipeEdit extends Component {
 }
 
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    RemoveRecipeAction: recipeData => dispatch(RemoveRecipeAction(recipeData)),
-    GetUserRecipesAction: () => dispatch(GetUserRecipesAction())
-  };
-};
-
-export default connect(null, mapDispatchToProps)(RecipeEdit);
+export default connect(null, {
+  RemoveRecipeAction, GetUserRecipesAction
+})(RecipeEdit);

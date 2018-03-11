@@ -25,7 +25,7 @@ exports[`<Favorites /> Should render the Favorites component 1`] = `
         className="no-recipes-p"
       >
          
-        You currently have no 
+        You currently have no
         <Emoji
           text="<3"
         />

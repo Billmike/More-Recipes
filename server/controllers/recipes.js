@@ -248,10 +248,21 @@ class Recipe {
       include: [{
         model: favorites,
         as: 'favorites',
-      }, {
+      },
+      {
         model: reviews,
         as: 'reviews'
       }],
+      order: [
+        [
+          {
+            model: favorites,
+            as: 'favorites'
+          },
+          'id',
+          'ASC'
+        ]
+      ],
       limit: 6
     }).then((theFoundrecipes) => {
       return res.status(200).json({

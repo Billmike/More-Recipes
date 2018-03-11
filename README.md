@@ -6,6 +6,8 @@
 > **More Recipes** is an application built using React, Redux, and Node that enables users create, share and vote on insightful recipes from around the world.
 
 ## Features currently available in the application
+* Users can see a catalogue of recipes well paginated
+* Users can see the most popular recipes in the application.
 * Users can create accounts by signing up with a valid email address and username
 * Registered users can login with verified details
 * Registered users can add recipes to the application

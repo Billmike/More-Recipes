@@ -45,6 +45,7 @@ export class RecipeList extends Component {
                 to={`/recipe/${this.props.recipe.id}`}
                 className="btn border border-secondary rounded"
                 onClick={this.favoriteRecipes}
+                id="favbutton"
               >
                 {' '}
                 {this.props.recipe.favorites.length}

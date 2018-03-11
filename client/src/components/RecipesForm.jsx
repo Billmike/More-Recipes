@@ -157,6 +157,7 @@ class RecipesForm extends Component {
                   }
                 </DropZone>
                 <button
+                  id="dropZoneButton"
                   type="button"
                   onClick={() => { dropzoneRef.open(); }}
                   className="drop-button"

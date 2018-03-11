@@ -1,4 +1,4 @@
-const recipeDefaultState = {
+export const recipeDefaultState = {
   pages: 0,
   recipes: [],
   userRecipe: [],
@@ -88,16 +88,6 @@ export default (state = recipeDefaultState, action) => {
         })
       };
     case 'UPVOTE_RECIPE':
-      Object.defineProperties(state.singleRecipe, {
-        upVote: {
-          value: state.singleRecipe.upVote,
-          writable: true
-        },
-        downVote: {
-          value: state.singleRecipe.downVote,
-          writable: true
-        }
-      })
       state.singleRecipe.downVote = state.singleRecipe
         .downVote > 0 ? state.singleRecipe
           .downVote - 1 : state.singleRecipe.downVote;

@@ -42,18 +42,5 @@ export class AddRecipe extends Component {
   }
 }
 
-/**
- * mapStateToProps
- *
- * @param {Object} state
- *
- * @returns {Object} object
- */
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    AddRecipeAction: recipe => dispatch(AddRecipeAction(recipe))
-  };
-};
-
-export default connect(undefined, mapDispatchToProps)(AddRecipe);
+export default connect(undefined, { AddRecipeAction })(AddRecipe);

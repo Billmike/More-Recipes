@@ -19,6 +19,27 @@ const recipe = {
   }]
 };
 
+const userRecipes = [
+  {
+    id: 3,
+    name: 'Amazing fried rice',
+    description: 'A really amazing fried rice',
+    img_url: 'https://somereallycoolimage.ly',
+    category: 'Lunch',
+    ingredients: 'Bread\nSamolina\nBeancake',
+    instructions: 'Cook it really well\nAvoid mixing with water',
+    favorites: [{
+      userId: 1
+    }],
+    reviews: [{
+      id: 1,
+      content: 'Amazing recipe you got',
+      createdAt: '19th-Jan-2018',
+      updatedAt: '19th-Jan-2018'
+    }]
+  }
+];
+
 const state = {
   auth: {
     userDetails: {
@@ -27,8 +48,9 @@ const state = {
   },
   recipes: {
     singleRecipe: recipe,
-    userRecipe: recipe,
-    recipes: recipe
+    userRecipe: userRecipes,
+    recipes: recipe,
+    favoriteRecipes: recipe
   }
 };
 

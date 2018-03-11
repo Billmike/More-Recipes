@@ -129,6 +129,7 @@ exports[`<Homepage /> Should render the homepage component correctly 1`] = `
       <input
         className="form-control"
         name="searchQuery"
+        onChange={[Function]}
         placeholder="Search for....."
         type="search"
         value=""

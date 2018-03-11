@@ -209,7 +209,7 @@ export class RecipeDetail extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     auth: state.auth.isAuthenticated,
     recipe: state.recipes.singleRecipe,

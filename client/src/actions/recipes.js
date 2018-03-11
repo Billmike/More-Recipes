@@ -1,3 +1,4 @@
+import toastr from 'toastr';
 import addRecipe from '../actionCreators/addRecipe';
 import getAllRecipes from '../actionCreators/getAllRecipes';
 import getUserRecipe from '../actionCreators/getUserRecipe';
@@ -60,6 +61,7 @@ export const AddRecipeAction = recipeData => (dispatch) => {
       dispatch(addRecipe(response.data));
     })
     .catch((error) => {
+      console.log('the fucking error', error);
       if (error.response.data
         .message === 'You already have a recipe with this name') {
         toastr.warning(error.response.data.message);
@@ -270,6 +272,7 @@ export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
       dispatch(addReview(response.data));
     })
     .catch((err) => {
+      console.log('the fucking error', err);
       if (
         err.response.data.message ===
         'You need to be logged in to perform this action.'
@@ -282,3 +285,12 @@ export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
         toastr.warning(err.response.data.message);
       }
     });
+
+// export const SearchRecipesAction = searchQuery => dispatch =>
+//   instance.post(`/api/v1/recipes/search?search=${searchQuery}`)
+//     .then((response) => {
+//       console.log('found recipes', response);
+//     })
+//     .catch((err) => {
+//       console.log('the error', err);
+//     });

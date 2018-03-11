@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { EditRecipe } from '../../components/EditRecipe';
+import { EditRecipe, mapStateToProps } from '../../components/EditRecipe';
 import RecipesForm from '../../components/RecipesForm';
 import recipes from '../fixtures/recipes';
+import state from '../fixtures/state';
 
 describe('<EditRecipe />', () => {
   it('Should render EditRecipe component correctly', () => {
@@ -37,5 +38,15 @@ describe('<EditRecipe />', () => {
     wrapper.instance().onSubmit(recipes[0]);
     expect(onSubmitSpy).toHaveBeenCalled();
     done();
+  });
+  it('Should call mapStateToProps', () => {
+    const props = {
+      match: {
+        params: {
+          id: 1
+        }
+      }
+    };
+    mapStateToProps(state, props);
   });
 });

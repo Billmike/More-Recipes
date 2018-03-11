@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should render Signup Form correctly 1`] = `
+exports[`<SignupForm component /> Should render the sign-up form correctly 1`] = `
 <div
   className="container"
 >
@@ -24,6 +24,7 @@ exports[`Should render Signup Form correctly 1`] = `
           <input
             autoComplete="username"
             className="form-control form-control-lg"
+            id="username"
             name="username"
             onChange={[Function]}
             placeholder="Username"
@@ -37,6 +38,7 @@ exports[`Should render Signup Form correctly 1`] = `
           <input
             autoComplete="email"
             className="form-control form-control-lg"
+            id="email"
             name="email"
             onChange={[Function]}
             placeholder="Email Address"
@@ -50,6 +52,7 @@ exports[`Should render Signup Form correctly 1`] = `
           <input
             autoComplete="new-password"
             className="form-control form-control-lg"
+            id="password"
             name="password"
             onChange={[Function]}
             placeholder="Password"

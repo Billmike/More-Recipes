@@ -66,7 +66,11 @@ export class Favorites extends Component {
           <div className="col-md-4">
             <div className="card">
               <Link to={`/recipe/${recipe.id}`}>
-                <img className="card-img-top" alt="Pizza" src={recipe.imageUrl} />
+                <img
+                  className="card-img-top"
+                  alt="Pizza"
+                  src={recipe.imageUrl}
+                />
               </Link>
               <div className="card-body">
                 <Link to={`/recipe/${recipe.id}`}>
@@ -115,7 +119,8 @@ export class Favorites extends Component {
             ) : (
                 <p className="no-recipes-p">
                   {' '}
-                  You currently have no <Emoji text="<3" />. Checkout some recipes{' '}
+                  You currently have no
+                  <Emoji text="<3" />. Checkout some recipes{' '}
                   <Link to="/">here.</Link>
                 </p>
               )}
@@ -127,7 +132,7 @@ export class Favorites extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     userDetails: state.auth.userDetails,

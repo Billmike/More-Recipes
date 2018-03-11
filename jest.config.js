@@ -17,7 +17,8 @@ module.exports = {
   ],
   setupFiles: [
     'raf/polyfill',
-    '<rootDir>./client/src/__tests__/config.js'
+    '<rootDir>./client/src/__tests__/config.js',
+    '<rootDir>./client/src/__tests__/__mocks__/localStorage.js',
   ],
   snapshotSerializers: [
     'enzyme-to-json/serializer'

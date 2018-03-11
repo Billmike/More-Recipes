@@ -71,6 +71,7 @@ class LoginForm extends Component {
                 <input
                   type="email"
                   name="email"
+                  id="email"
                   autoComplete="email"
                   value={this.state.email}
                   onChange={this.onFormValuesChange}
@@ -90,6 +91,7 @@ class LoginForm extends Component {
                 <input
                   type="password"
                   name="password"
+                  id="password"
                   autoComplete="current-password"
                   value={this.state.password}
                   onChange={this.onFormValuesChange}

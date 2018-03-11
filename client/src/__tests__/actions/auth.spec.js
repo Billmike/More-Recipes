@@ -4,9 +4,11 @@ import moxios from 'moxios';
 import jwt from 'jsonwebtoken';
 import thunk from 'redux-thunk';
 import instance from '../../utils/axios';
-import { SET_CURRENT_USER } from '../../actions/types';
+import { SET_CURRENT_USER, GET_USER_INFORMATION } from '../../actions/types';
 import { signupRequest } from '../../actions/userSignupAction';
-import { signinRequest, logout } from '../../actions/signinRequest';
+import {
+  signinRequest, logout, getUserinfo
+} from '../../actions/signinRequest';
 import mockData from '../__mocks__/actions/auth';
 import mockLocalStorage from '../__mocks__/localStorage';
 
@@ -72,6 +74,27 @@ describe('Authentication action', () => {
       ];
       const store = mockStore({});
       await store.dispatch(logout({}));
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
+    });
+  });
+  describe('Get user action', () => {
+    it('Should fetch the details of a signed in user', async (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: mockData.userSigninData
+        })
+      })
+      const returnedAction = [
+        {
+          type: GET_USER_INFORMATION,
+          user: mockData.userSigninData
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(getUserinfo());
       expect(store.getActions()).toEqual(returnedAction);
       done();
     });

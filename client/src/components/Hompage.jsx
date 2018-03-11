@@ -30,11 +30,17 @@ export class Homepage extends Component {
       loaded: true,
       searchQuery: ''
     };
+    this.onSearch = this.onSearch.bind(this);
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
   componentDidMount() {
     this.props.GetAllRecipesAction(0);
     this.props.GetPopularRecipes();
+  }
+
+  onSearch(event) {
+    this.setState({ [event.target.name]: event.target.value });
+    this.props.SearchRecipesAction(event.target.value);
   }
 
   handlePaginationChange(data) {
@@ -137,7 +143,7 @@ export class Homepage extends Component {
               value={this.state.searchQuery}
               className="form-control"
               placeholder="Search for....."
-              onChange={this.searchRecipes}
+              onChange={this.onSearch}
             />
           </div>
           <h2 className="homepage-h2"> Popular Recipes of the week</h2>

@@ -8,7 +8,7 @@ import mockReducers, {
   favoritesRecipeMock,
   mockVotes
 } from '../__mocks__/reducers/mockReducers';
-import recipeReducers from '../../reducers/recipes';
+import recipeReducers, { recipeDefaultState } from '../../reducers/recipes';
 import {
   ADD_RECIPE,
   GET_USER_RECIPES,
@@ -18,7 +18,8 @@ import {
   GET_ONE_RECIPE,
   FETCH_FAVORITE_RECIPES,
   ADD_REVIEW,
-  TOGGLE_FAVORITE
+  TOGGLE_FAVORITE,
+  UPVOTE_RECIPE
 } from '../../actions/types';
 
 describe('Recipes Reducer', () => {
@@ -29,7 +30,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     });
   });
 
@@ -40,7 +42,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: ADD_RECIPE,
@@ -52,7 +55,8 @@ describe('Recipes Reducer', () => {
       userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -65,7 +69,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: GET_USER_RECIPES,
@@ -77,7 +82,8 @@ describe('Recipes Reducer', () => {
       userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -90,7 +96,8 @@ describe('Recipes Reducer', () => {
       userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: EDIT_RECIPE,
@@ -103,7 +110,8 @@ describe('Recipes Reducer', () => {
       userRecipe: recipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -116,7 +124,8 @@ describe('Recipes Reducer', () => {
       userRecipe: removeRecipeMock,
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: REMOVE_RECIPE,
@@ -128,7 +137,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -141,7 +151,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: GET_RECIPES,
@@ -154,7 +165,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -167,7 +179,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: GET_ONE_RECIPE,
@@ -179,7 +192,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: recipeMock,
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -192,7 +206,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [recipeMock],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: FETCH_FAVORITE_RECIPES,
@@ -204,7 +219,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: '',
       favoriteRecipes: [recipeMock],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -217,7 +233,8 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: recipeMock[0],
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     const action = {
       type: ADD_REVIEW,
@@ -229,10 +246,22 @@ describe('Recipes Reducer', () => {
       userRecipe: [],
       singleRecipe: mockReducers,
       favoriteRecipes: [],
-      userFavoriteRecipesId: []
+      userFavoriteRecipesId: [],
+      popularRecipes: []
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
     expect(recipeReducers(stateBefore, action)).toEqual(stateAfter);
   });
+  // it('Should handle up-voting a recipe and dispatch the UPVOTE-RECIPE action', () => {
+  //   const stateBefore = { ...recipeDefaultState, singleRecipe: mockVotes };
+  //   const action = {
+  //     type: UPVOTE_RECIPE,
+  //     id: mockReducers.id
+  //   };
+  //   const stateAfter = { ...recipeDefaultState, singleRecipe: mockVotes };
+  //   deepFreeze(stateBefore);
+  //   deepFreeze(action);
+  //   expect(recipeReducers(stateBefore, action)).toEqual(stateAfter);
+  // });
 });

@@ -1,8 +1,10 @@
 import moxios from 'moxios';
 import thunk from 'redux-thunk';
+import toastr from 'toastr';
 import configureStore from 'redux-mock-store';
 import expect from 'expect';
 import instance from '../../utils/axios';
+import localStorage from '../__mocks__/localStorage';
 import {
   AddRecipeAction,
   EditRecipeAction,
@@ -41,6 +43,10 @@ import {
 } from '../../actions/types';
 
 const mockStore = configureStore([thunk]);
+
+window.localStorage = localStorage;
+
+toastr.success = jest.fn();
 
 describe('Recipes actions', () => {
   beforeEach(() => moxios.install(instance));

@@ -1,8 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import mapDispatchToProps, { AddRecipe } from '../../components/AddRecipe';
+import thunk from 'redux-thunk';
+import ConfigureMockStore from 'redux-mock-store';
+import { AddRecipe, mapDispatchToProps } from '../../components/AddRecipe';
 import recipes from '../fixtures/recipes';
 import RecipesForm from '../../components/RecipesForm';
+
+const mockStore = ConfigureMockStore([thunk]);
 
 describe('<AddRecipe />', () => {
   it('Should render correctly', () => {
@@ -29,5 +33,9 @@ describe('<AddRecipe />', () => {
     wrapper.instance().onSubmit(recipes[0]);
     expect(onSubmitSpy).toHaveBeenCalled();
     done();
+  });
+  it('should pass onSubmit handler to RecipesForm', () => {
+    const wrapper = shallow(<AddRecipe />);
+    expect(wrapper.find(RecipesForm).props().onSubmit).toBeTruthy();
   });
 });

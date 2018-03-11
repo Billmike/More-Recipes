@@ -24,6 +24,7 @@ exports[`<LoginForm /> Should render the form correctly 1`] = `
           <input
             autoComplete="email"
             className="form-control form-control-lg"
+            id="email"
             name="email"
             onChange={[Function]}
             placeholder="Email Address"
@@ -37,6 +38,7 @@ exports[`<LoginForm /> Should render the form correctly 1`] = `
           <input
             autoComplete="current-password"
             className="form-control form-control-lg"
+            id="password"
             name="password"
             onChange={[Function]}
             placeholder="Password"
