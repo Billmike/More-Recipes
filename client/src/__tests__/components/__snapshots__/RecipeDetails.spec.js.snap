@@ -30,6 +30,7 @@ exports[`<RecipeDetails Component Should render the recipe details component pro
       >
         <Link
           className="btn details-action-button thumbs-up brown-thumb"
+          id="upvoteid"
           onClick={[Function]}
           replace={false}
           to="/"
@@ -42,6 +43,7 @@ exports[`<RecipeDetails Component Should render the recipe details component pro
         </Link>
         <Link
           className="btn details-action-button thumbs-down"
+          id="downvoteid"
           onClick={[Function]}
           replace={false}
           to="/"
@@ -55,6 +57,7 @@ exports[`<RecipeDetails Component Should render the recipe details component pro
         </Link>
         <Link
           className="btn details-action-button heart-button"
+          id="favoriteid"
           onClick={[Function]}
           replace={false}
           to="/"

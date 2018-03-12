@@ -140,6 +140,7 @@ export class Homepage extends Component {
             <input
               type="search"
               name="searchQuery"
+              id="searchParamId"
               value={this.state.searchQuery}
               className="form-control"
               placeholder="Search for....."
@@ -163,7 +164,6 @@ export class Homepage extends Component {
 }
 
 export const mapStateToProps = (state) => {
-  console.log('the state', state);
   return {
     popularRecipes: state.recipes.popularRecipes,
     recipes: state.recipes.recipes,

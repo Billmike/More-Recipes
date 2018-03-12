@@ -66,9 +66,8 @@ describe('<SignupForm component />', () => {
     expect(wrapper.instance().props
       .isAuthenticated).toEqual(nextProps);
   });
-  it('Should call mapStateToProps', (done) => {
+  it('Should call mapStateToProps', () => {
     mapStateToProps(state);
-    done();
   });
 });
 

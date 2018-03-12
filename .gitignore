@@ -62,3 +62,7 @@ dist/
 
 #bundle.js
 client/bundle.js
+
+.vscode
+
+.DS_Store

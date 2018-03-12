@@ -48,6 +48,7 @@ exports[`<RecipeEdit /> Should render the Edit recipe component correctly 1`] = 
         >
           <Link
             className="btn user-btn"
+            id="editRecipeLink"
             replace={false}
             role="button"
             to="/edit/1"
@@ -60,6 +61,7 @@ exports[`<RecipeEdit /> Should render the Edit recipe component correctly 1`] = 
           </Link>
           <button
             className="btn user-btn"
+            id="selectRecipe"
             onClick={[Function]}
             role="button"
           >
@@ -115,6 +117,7 @@ exports[`<RecipeEdit /> Should render the Edit recipe component correctly 1`] = 
     </div>
   </div>
   <DeleteModal
+    className="modalClassname"
     handleClearSelectedRecipe={[Function]}
     onRemoveRecipe={[Function]}
   />

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { Dashboard, mapStateToProps } from '../../components/Dashboard';
 import { RecipeEdit } from '../../components/RecipeEdit';
-import recipes from '../fixtures/recipes';
+import recipes, { FavoritesRecipeProps } from '../fixtures/recipes';
 import auth from '../fixtures/authUser';
 import state from '../fixtures/state';
 
@@ -23,7 +23,7 @@ describe('<Dashboard />', () => {
     const wrapper = shallow(<Dashboard
       getUserinfo={() => Promise.resolve()}
       GetUserRecipesAction={() => Promise.resolve()}
-      recipes={recipes[0]}
+      recipes={FavoritesRecipeProps}
       user={auth}
     >
       <div>
@@ -33,14 +33,13 @@ describe('<Dashboard />', () => {
           </h2>
           <h4 className="dashboard-h4"> My Recipes</h4>
           <div className="row">
-            <RecipeEdit />
+            <RecipeEdit recipe={recipes[0]} />
           </div>
         </div>
       </div>
     </Dashboard>);
   });
-  it('Should call mapStateToProps', (done) => {
+  it('Should call mapStateToProps', () => {
     mapStateToProps(state);
-    done();
   });
 });

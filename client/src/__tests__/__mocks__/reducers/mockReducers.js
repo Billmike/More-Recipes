@@ -61,7 +61,20 @@ export const removeRecipeMock = [{
   ingredients: 'Amala\nEwedu',
   instructions: 'Cook the meal well\nTurn properly',
   owner: 1,
-  favorites: [{ userId: 1 }],
+  favorites: [{ userId: 3 }],
+  reviews: []
+}];
+
+export const addFavoriteRecipeMock = [{
+  id: 1,
+  name: 'Amazing recipe',
+  description: 'Amazing recipe here',
+  img_url: 'https://someimagehereforall',
+  category: 'Lunch',
+  ingredients: 'Amala\nEwedu',
+  instructions: 'Cook the meal well\nTurn properly',
+  owner: 1,
+  favorites: [{ userId: 3 }, { userId: 1 }],
   reviews: []
 }];
 

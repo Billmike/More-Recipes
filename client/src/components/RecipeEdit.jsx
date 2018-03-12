@@ -55,6 +55,7 @@ export class RecipeEdit extends Component {
                 style={{ textAlign: 'justify' }}
               >
                 <Link
+                  id="editRecipeLink"
                   to={`/edit/${this.props.recipe.id}`}
                   className="btn user-btn"
                   role="button"
@@ -63,6 +64,7 @@ export class RecipeEdit extends Component {
                   <i className="far fa-edit brown" />{' '}
                 </Link>
                 <button
+                  id="selectRecipe"
                   onClick={this.selectRecipe}
                   className="btn user-btn"
                   role="button"
@@ -104,6 +106,7 @@ export class RecipeEdit extends Component {
           </div>
         </div>
         <Modal
+          className="modalClassname"
           selectedRecipe={this.state.selectedRecipe}
           handleClearSelectedRecipe={this.handleClearSelectedRecipe}
           onRemoveRecipe={this.onRemoveRecipe}

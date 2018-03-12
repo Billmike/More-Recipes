@@ -82,6 +82,7 @@ export class Favorites extends Component {
                   style={{ textAlign: 'justify' }}
                 >
                   <button
+                    id="selectFavoriteButton"
                     onClick={this.selectFavorite}
                     className="btn btn-danger"
                     role="button"

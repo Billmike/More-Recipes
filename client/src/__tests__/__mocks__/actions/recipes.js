@@ -57,3 +57,9 @@ export const deleteRecipeResponse = {
   status: 'Success',
   recipeData: {}
 };
+
+export const favoriteRecipes = {
+  favoritedRecipe: {
+    recipeId: 1
+  }
+};

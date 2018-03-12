@@ -10,8 +10,7 @@ window.localStorage = global.localStorage;
 
 describe('Auth Reducer', () => {
   it('Should return the initial state', () => {
-    const expectedAction = authReducer(initialState, undefined);
-    expect(expectedAction).toEqual(initialState);
+    expect(authReducer(undefined, {})).toEqual(initialState);
   });
   it('Should set the current user in the store', () => {
     const stateBefore = initialState;

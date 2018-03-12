@@ -132,6 +132,7 @@ export class RecipeDetail extends Component {
             <div className="recipe-detials-btn">
               <Link
                 to="/"
+                id="upvoteid"
                 className="btn details-action-button thumbs-up brown-thumb"
                 onClick={this.upVoteRecipe}
               >
@@ -140,6 +141,7 @@ export class RecipeDetail extends Component {
               </Link>
               <Link
                 to="/"
+                id="downvoteid"
                 className="btn details-action-button thumbs-down"
                 onClick={this.downVoteRecipe}
               >
@@ -149,6 +151,7 @@ export class RecipeDetail extends Component {
               </Link>
               <Link
                 to="/"
+                id="favoriteid"
                 onClick={this.favoriteRecipes}
                 className="btn details-action-button heart-button"
               >
