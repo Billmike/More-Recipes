@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Emoji from 'react-emoji-render';
 import ReactPaginate from 'react-paginate';
 import '../assets/css/style.css';
 import LoaderComp from './LoaderComp';
@@ -28,7 +29,8 @@ export class Homepage extends Component {
     super(props);
     this.state = {
       loaded: true,
-      searchQuery: ''
+      searchQuery: '',
+      page: 1
     };
     this.onSearch = this.onSearch.bind(this);
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
@@ -40,7 +42,7 @@ export class Homepage extends Component {
 
   onSearch(event) {
     this.setState({ [event.target.name]: event.target.value });
-    this.props.SearchRecipesAction(event.target.value);
+    this.props.SearchRecipesAction(event.target.value, this.state.page);
   }
 
   handlePaginationChange(data) {
@@ -52,9 +54,16 @@ export class Homepage extends Component {
     let allRecipes;
     let popularRecipesList;
     if (this.props.recipes) {
-      allRecipes = this.props.recipes.map((recipe) => {
-        return <RecipesList key={recipe.id} recipe={recipe} />;
-      });
+      allRecipes = this.props.recipes.length > 0 ?
+        this.props.recipes.map((recipe) => {
+          return <RecipesList key={recipe.id} recipe={recipe} />;
+        }) : (
+          <div>
+            <p className="search-text">
+              No results found for your search <Emoji text=";(" />
+            </p>
+          </div>
+        );
     }
     if (this.props.popularRecipes) {
       popularRecipesList = this.props.popularRecipes.map((recipe) => {
@@ -133,6 +142,9 @@ export class Homepage extends Component {
           </a>
         </div>
         <div className="container">
+          <h2 className="homepage-h2"> Popular Recipes of the week</h2>
+          <div className="row">{popularRecipesList}</div>
+          <hr className="frontpage-hr" />
           <div className="input-group search-button">
             <span className="input-group-btn">
 
@@ -147,9 +159,6 @@ export class Homepage extends Component {
               onChange={this.onSearch}
             />
           </div>
-          <h2 className="homepage-h2"> Popular Recipes of the week</h2>
-          <div className="row">{popularRecipesList}</div>
-          <hr className="frontpage-hr" />
           <h2 className="homepage-h2"> Recipe Catalogue</h2>
           <div className="row">{allRecipes}</div>
           <Pagination
@@ -164,6 +173,7 @@ export class Homepage extends Component {
 }
 
 export const mapStateToProps = (state) => {
+  console.log('current state', state);
   return {
     popularRecipes: state.recipes.popularRecipes,
     recipes: state.recipes.recipes,

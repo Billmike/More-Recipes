@@ -213,8 +213,12 @@ class Recipe {
    */
 
   static searchRecipes(req, res) {
+    const limit = 6;
     const { search } = req.query;
-    recipes.findAll({
+    let offset;
+    let singlePage;
+    let pages;
+    recipes.findAndCountAll({
       where: {
         [Op.or]: {
           name: {
@@ -224,23 +228,93 @@ class Recipe {
             [Op.iLike]: `%${search}`
           }
         }
-      }
-    }).then((foundRecipes) => {
-      const numberOfRecipesFound = foundRecipes.length;
-      if (foundRecipes.length <= 0) {
-        return res.status(200).json({
-          message: 'No recipes found with this name or ingredient'
+      },
+      include: [
+        {
+          model: favorites,
+          as: 'favorites'
+        }, {
+          model: reviews,
+          as: 'reviews'
+        }
+      ]
+    }).then((searchRecipesResult) => {
+      pages = Math.ceil(searchRecipesResult.count / limit);
+      singlePage = parseInt(req.query.page, 10);
+      offset = singlePage * limit;
+
+      return recipes
+        .findAll({
+          where: {
+            [Op.or]: {
+              name: {
+                [Op.iLike]: `%${search}`
+              },
+              ingredients: {
+                [Op.iLike]: `%${search}`
+              }
+            }
+          },
+          include: [
+            {
+              model: favorites,
+              as: 'favorites'
+            }, {
+              model: reviews,
+              as: 'reviews'
+            }
+          ],
+          limit,
+          offset
+        }).then((returnedResult) => {
+          res.status(200).json({
+            recipeData: returnedResult,
+            pages
+          });
         });
-      }
-      res.status(200).json({
-        message: `Found ${numberOfRecipesFound} recipe(s)`,
-        recipeData: foundRecipes
-      });
-    }).catch(() => {
-      res.status(500).json({
-        message: errorMessage
+    }).catch((err) => {
+      return res.status(500).json({
+        message: err.message
       });
     });
+
+
+    // recipes.findAll({
+    //   where: {
+    //     [Op.or]: {
+    //       name: {
+    //         [Op.iLike]: `%${search}`
+    //       },
+    //       ingredients: {
+    //         [Op.iLike]: `%${search}`
+    //       }
+    //     }
+    //   },
+    //   include: [
+    //     {
+    //       model: favorites,
+    //       as: 'favorites'
+    //     }, {
+    //       model: reviews,
+    //       as: 'reviews'
+    //     }
+    //   ]
+    // }).then((foundRecipes) => {
+    //   const numberOfRecipesFound = foundRecipes.length;
+    //   if (foundRecipes.length <= 0) {
+    //     return res.status(200).json({
+    //       message: 'No recipes found with this name or ingredient'
+    //     });
+    //   }
+    //   res.status(200).json({
+    //     message: `Found ${numberOfRecipesFound} recipe(s)`,
+    //     recipeData: foundRecipes
+    //   });
+    // }).catch(() => {
+    //   res.status(500).json({
+    //     message: errorMessage
+    //   });
+    // });
   }
 
   static popularRecipes(req, res) {

@@ -63,7 +63,7 @@ export class SignupForm extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
+      <div className="container #signupForm">
         <div className="card text-center card-form has-feedback">
           <div className="card-body">
             <form onSubmit={this.onSubmit}>
@@ -134,6 +134,7 @@ export class SignupForm extends Component {
                 )}
               </div>
               <input
+                id="submitButton"
                 type="submit"
                 value="Submit"
                 className="btn submit-btn size-bt btn-block"

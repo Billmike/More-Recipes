@@ -48,9 +48,7 @@ export const getUserinfo = () => {
       .then((response) => {
         dispatch(getUserInformationActionCreator(response.data));
       })
-      .catch((err) => {
-        Promise.reject(err);
-      });
+      .catch(error => error);
   };
 };
 
@@ -71,7 +69,6 @@ export const signinRequest = userData => (dispatch) => {
     })
     .catch((error) => {
       toastr.error(error.response.data.message);
-      Promise.reject(error);
     });
 };
 

@@ -120,6 +120,17 @@ exports[`<Homepage /> Should render the homepage component correctly 1`] = `
   <div
     className="container"
   >
+    <h2
+      className="homepage-h2"
+    >
+       Popular Recipes of the week
+    </h2>
+    <div
+      className="row"
+    />
+    <hr
+      className="frontpage-hr"
+    />
     <div
       className="input-group search-button"
     >
@@ -136,17 +147,6 @@ exports[`<Homepage /> Should render the homepage component correctly 1`] = `
         value=""
       />
     </div>
-    <h2
-      className="homepage-h2"
-    >
-       Popular Recipes of the week
-    </h2>
-    <div
-      className="row"
-    />
-    <hr
-      className="frontpage-hr"
-    />
     <h2
       className="homepage-h2"
     >

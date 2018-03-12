@@ -37,7 +37,7 @@ export class Dashboard extends Component {
       );
     }
     return (
-      <div>
+      <div id="dashbordBody">
         <div className="container">
           <h2 className="dashboard-h2">
             {' '}

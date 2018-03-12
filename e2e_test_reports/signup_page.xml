@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="0"
+            tests="1">
+
+  <testsuite name="signup_page"
+    errors="1" failures="0" hostname="" id="" package="signup_page" skipped="0"
+    tests="1" time="0.004000" timestamp="Mon, 12 Mar 2018 10:51:47 GMT">
+  
+    <testcase name="Signup Page test" classname="signup_page" time="0.004000" assertions="0">
+    </testcase>
+  
+
+  
+    <system-err>
+        Error while running [Signup Page / Signup Page test]:
+
+  TypeError: client.url(...).waitForVisibleElement is not a function
+    at Object.Signup Page test (/Users/andeladeveloper/Desktop/More-recipes-dev/e2e_tests/signup_page.js:4:8)
+    at Module.call (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

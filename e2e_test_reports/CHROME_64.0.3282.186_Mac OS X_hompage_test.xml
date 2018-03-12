@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="1">
+
+  <testsuite name="hompage_test"
+    errors="0" failures="0" hostname="" id="" package="hompage_test" skipped="0"
+    tests="1" time="16.80" timestamp="Mon, 12 Mar 2018 10:23:11 GMT">
+  
+    <testcase name="Sample test" classname="hompage_test" time="16.80" assertions="13">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

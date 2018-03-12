@@ -35,6 +35,7 @@ export class RecipeList extends Component {
             <p className="card-text">{this.props.recipe.description}</p>
             <div className="group-btn">
               <Link
+                id="viewButton"
                 to={`/recipe/${this.props.recipe.id}`}
                 className="btn border border-secondary rounded"
               >

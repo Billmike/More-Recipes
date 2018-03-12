@@ -16,6 +16,7 @@ const guestLinks = props => (
     </li>
     <li className="nav-item">
       <Link
+        id="signupID"
         to="/register"
         className="nav-link custom-link">
         Register
@@ -23,6 +24,7 @@ const guestLinks = props => (
     </li>
     <li className="nav-item">
       <Link
+        id="signinID"
         to="/login"
         className="nav-link custom-link logout">
         Login

@@ -40,6 +40,7 @@ exports[`<RecipesList /> Should mount the Recipe List component correctly 1`] = 
       >
         <Link
           className="btn border border-secondary rounded"
+          id="viewButton"
           replace={false}
           to="/recipe/3"
         >

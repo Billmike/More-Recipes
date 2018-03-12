@@ -1,4 +1,5 @@
 import toastr from 'toastr';
+import axios from 'axios';
 import addRecipe from '../actionCreators/addRecipe';
 import getAllRecipes from '../actionCreators/getAllRecipes';
 import getUserRecipe from '../actionCreators/getUserRecipe';
@@ -27,7 +28,7 @@ export const GetAllRecipesAction = page => dispatch =>
     .then((response) => {
       dispatch(getAllRecipes(response.data.recipeData, response.data.pages));
     })
-    .catch(error => Promise.reject(error.response.message));
+    .catch(error => error);
 
 /**
 * Action for fetching popular recipes
@@ -41,7 +42,7 @@ export const GetPopularRecipes = () => dispatch =>
     .then((response) => {
       dispatch(popularRecipe(response.data));
     })
-    .catch(error => Promise.reject(error.response.message));
+    .catch(error => error);
 
 /**
  * Action for adding recipe to the application
@@ -61,7 +62,6 @@ export const AddRecipeAction = recipeData => (dispatch) => {
       dispatch(addRecipe(response.data));
     })
     .catch((error) => {
-      console.log('the fucking error', error);
       if (error.response.data
         .message === 'You already have a recipe with this name') {
         toastr.warning(error.response.data.message);
@@ -82,7 +82,7 @@ export const GetUserRecipesAction = () => dispatch =>
     .then((response) => {
       dispatch(getUserRecipe(response.data.recipeData));
     })
-    .catch(error => Promise.reject(error.response.message));
+    .catch(error => error);
 
 /**
  * Action to edit a recipe
@@ -101,7 +101,7 @@ export const EditRecipeAction = (id, updates) => dispatch =>
       toastr.success('Recipe edited successfully.');
       dispatch(editRecipe(id, updates));
     })
-    .catch(error => Promise.reject(error));
+    .catch(error => error);
 
 /**
  * Action to delete a recipe from the application
@@ -118,7 +118,7 @@ export const RemoveRecipeAction = id => dispatch =>
       toastr.success('Recipe deleted successfully.');
       dispatch(removeRecipe(response.data.recipeId));
     })
-    .catch(error => Promise.reject(error));
+    .catch(error => error);
 
 /**
  * Action to fetch just one recipe
@@ -185,7 +185,7 @@ export const GetUserFavoritesAction = id => dispatch =>
     .then((response) => {
       dispatch(fetchFavorites(response.data));
     })
-    .catch(error => Promise.reject(error.response.data.message));
+    .catch(error => error);
 
 /**
  * Action to upvote a recipe
@@ -272,7 +272,6 @@ export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
       dispatch(addReview(response.data));
     })
     .catch((err) => {
-      console.log('the fucking error', err);
       if (
         err.response.data.message ===
         'You need to be logged in to perform this action.'
@@ -286,11 +285,9 @@ export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
       }
     });
 
-// export const SearchRecipesAction = searchQuery => dispatch =>
-//   instance.post(`/api/v1/recipes/search?search=${searchQuery}`)
-//     .then((response) => {
-//       console.log('found recipes', response);
-//     })
-//     .catch((err) => {
-//       console.log('the error', err);
-//     });
+export const SearchRecipesAction = (searchQuery, page) => dispatch =>
+  instance.get(`/recipes/search?search=${searchQuery}&page=${page}`)
+    .then((response) => {
+      dispatch(searchRecipes(response.data, response.data.pages));
+    })
+    .catch(error => error);

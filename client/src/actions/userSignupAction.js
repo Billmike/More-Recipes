@@ -21,5 +21,5 @@ export const signupRequest = userData => (dispatch) => {
       toastr.success('Login Successful.');
       dispatch(setCurrentUser(jwt.decode(token)));
     })
-    .catch(error => Promise.reject(error.response.data.message));
+    .catch(error => error);
 };

@@ -775,3 +775,11 @@ a:hover {
 .frontpage-hr {
   margin-top: 70px;
 }
+
+.search-text{
+  justify-content: center;
+  margin-top: 40px;
+  font-family: Philosopher;
+  font-size: 25px;
+  margin-left: 400px;
+}

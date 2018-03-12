@@ -17,7 +17,8 @@ import {
   AddFavoriteRecipesAction,
   UpvoteRecipeAction,
   DownVoteRecipeAction,
-  AddReviewAction
+  AddReviewAction,
+  SearchRecipesAction
 } from '../../actions/recipes';
 import {
   editRecipeResponse,
@@ -39,7 +40,8 @@ import {
   TOGGLE_FAVORITE,
   UPVOTE_RECIPE,
   DOWNVOTE_RECIPE,
-  ADD_REVIEW
+  ADD_REVIEW,
+  SEARCH_RECIPES
 } from '../../actions/types';
 
 const mockStore = configureStore([thunk]);
@@ -339,5 +341,78 @@ describe('Recipes actions', () => {
         expect(store.getActions()).toEqual(returnedAction);
       }
     );
+  });
+  describe('Action errors', () => {
+    it('Should handle ADD_RECIPE error', async (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.reject({
+          status: 400,
+          response: {
+            data: {
+              message: 'Error occured'
+            }
+          }
+        });
+      });
+      const returnedAction = [
+        {
+          type: ADD_RECIPE,
+          recipe: recipeResponse
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(AddRecipeAction({ ...recipeResponse }));
+      expect(store.getActions()).toEqual([]);
+      done();
+    });
+    it('Should handle EDIT_RECIPE error', async (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.reject({
+          status: 400,
+          response: {
+            data: {
+              message: 'Error occured'
+            }
+          }
+        });
+      });
+      const returnedAction = [
+        {
+          type: EDIT_RECIPE,
+          id: editRecipeResponse.recipeData.id,
+          updates: editRecipeResponse.recipeData
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(EditRecipeAction(editRecipeResponse
+        .recipeData.id, editRecipeResponse.recipeData));
+      expect(store.getActions()).toEqual([]);
+      done();
+    });
+    it('Should handle DELETE_RECIPE error', async (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.reject({
+          status: 400,
+          response: {
+            data: {
+              message: 'Error occured'
+            }
+          }
+        });
+      });
+      const returnedAction = [
+        {
+          type: EDIT_RECIPE,
+          id: recipeResponse.id
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(RemoveRecipeAction(recipeResponse.id));
+      expect(store.getActions()).toEqual([]);
+      done();
+    });
   });
 });

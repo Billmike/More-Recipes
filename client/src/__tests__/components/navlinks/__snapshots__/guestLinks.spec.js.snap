@@ -25,6 +25,7 @@ exports[`<guestLinks /> Should mount the guestlink component properly 1`] = `
   >
     <Link
       className="nav-link custom-link"
+      id="signupID"
       replace={false}
       to="/register"
     >
@@ -36,6 +37,7 @@ exports[`<guestLinks /> Should mount the guestlink component properly 1`] = `
   >
     <Link
       className="nav-link custom-link logout"
+      id="signinID"
       replace={false}
       to="/login"
     >

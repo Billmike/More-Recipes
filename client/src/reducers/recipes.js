@@ -5,7 +5,8 @@ export const recipeDefaultState = {
   singleRecipe: '',
   popularRecipes: [],
   favoriteRecipes: [],
-  userFavoriteRecipesId: []
+  userFavoriteRecipesId: [],
+  searchRecipe: []
 };
 
 export default (state = recipeDefaultState, action) => {
@@ -121,6 +122,13 @@ export default (state = recipeDefaultState, action) => {
           ...state.singleRecipe,
           reviews: state.singleRecipe.reviews.concat(action.review.reviewData)
         }
+      };
+    case 'SEARCH_RECIPES':
+      console.log('hit the search reducer', action);
+      return {
+        ...state,
+        recipes: [...action.recipes.recipeData],
+        pages: action.pagination
       };
     default:
       return state;
