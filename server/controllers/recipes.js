@@ -271,9 +271,9 @@ class Recipe {
             pages
           });
         });
-    }).catch((err) => {
+    }).catch(() => {
       return res.status(500).json({
-        message: err.message
+        message: errorMessage
       });
     });
 

@@ -367,29 +367,30 @@ describe('Recipes actions', () => {
     );
   });
   describe('Search recipes catalogue', () => {
-    it('Should search the recipe catlogue and return a set of recipes matching the query', async (done) => {
-      const popularRecipes = {
-        theFoundrecipes: [recipeResponse
-          .recipeData, recipeResponse.recipeData]
-      };
-      moxios.wait(() => {
-        const request = moxios.requests.mostRecent();
-        request.respondWith({
-          status: 200,
-          response: popularRecipes
+    it('Should search the recipe catlogue and return' +
+      ' a set of recipes matching the query', async (done) => {
+        const popularRecipes = {
+          theFoundrecipes: [recipeResponse
+            .recipeData, recipeResponse.recipeData]
+        };
+        moxios.wait(() => {
+          const request = moxios.requests.mostRecent();
+          request.respondWith({
+            status: 200,
+            response: popularRecipes
+          });
         });
+        const returnedAction = [
+          {
+            type: SEARCH_RECIPES,
+            recipes: popularRecipes,
+          }
+        ];
+        const store = mockStore({});
+        await store.dispatch(SearchRecipesAction('Fried rice', 1));
+        expect(store.getActions()).toEqual(returnedAction);
+        done();
       });
-      const returnedAction = [
-        {
-          type: SEARCH_RECIPES,
-          recipes: popularRecipes,
-        }
-      ];
-      const store = mockStore({});
-      await store.dispatch(SearchRecipesAction('Fried rice', 1));
-      expect(store.getActions()).toEqual(returnedAction);
-      done();
-    });
   });
   describe('Action errors', () => {
     it('Should handle ADD_RECIPE error', async (done) => {
@@ -399,7 +400,7 @@ describe('Recipes actions', () => {
           status: 400,
           response: {
             data: {
-              message: 'Error occured'
+              message: 'Error occurred'
             }
           }
         });
@@ -427,7 +428,7 @@ describe('Recipes actions', () => {
           status: 400,
           response: {
             data: {
-              message: 'Error occured'
+              message: 'Error occurred'
             }
           }
         });
@@ -452,7 +453,7 @@ describe('Recipes actions', () => {
           status: 400,
           response: {
             data: {
-              message: 'Error occured'
+              message: 'Error occurred'
             }
           }
         });
@@ -468,5 +469,62 @@ describe('Recipes actions', () => {
       expect(store.getActions()).toEqual([]);
       done();
     });
+    it('Should handle search error', async () => {
+      const popularRecipes = {
+        theFoundrecipes: [recipeResponse
+          .recipeData, recipeResponse.recipeData]
+      };
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.reject({
+          status: 401,
+          response: {
+            data: {
+              message: 'Error occurred'
+            }
+          }
+        });
+      });
+      const returnedAction = [
+        {
+          type: SEARCH_RECIPES,
+          recipes: popularRecipes,
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(SearchRecipesAction());
+      expect(store.getActions()).toEqual([]);
+    });
+    it('Should handle the fetch all recipes error', async () => {
+      const allRecipes = {
+        recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
+      };
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 401,
+          response: {
+            data: {
+              message: 'Error occurred'
+            }
+          }
+        });
+      });
+      const returnedAction = [
+        {
+          type: GET_RECIPES_REQUEST,
+          isLoading: true
+        },
+        {
+          type: GET_RECIPES,
+          recipes: allRecipes.recipeData,
+          isLoading: false
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(GetAllRecipesAction());
+      expect(store.getActions())
+        .toEqual([{ isLoading: true, type: GET_RECIPES_REQUEST }]);
+    })
   });
 });

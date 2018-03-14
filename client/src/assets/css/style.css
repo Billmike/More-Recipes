@@ -863,3 +863,24 @@ a:hover {
     transform: rotate(360deg);
   }
 }
+
+@media screen and (max-device-width: 480px) {
+  .card {
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    margin-left: 20px;
+    margin-right: 15px;
+  }
+  .carousel-slide-image {
+    height: 500px;
+}
+.carousel-inner {
+  height: 500px;
+  width: 1500px;
+}
+.page-item {
+  width: 40px;
+    margin-left: 15px;
+}
+}

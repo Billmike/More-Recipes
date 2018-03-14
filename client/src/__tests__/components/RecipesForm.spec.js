@@ -85,4 +85,8 @@ describe('<RecipesForm/>', () => {
       />
     </RecipesForm>);
   });
+  it('Should handle', () => {
+    const wrapper = shallow(<RecipesForm />);
+    wrapper.find('#dropZoneID').simulate('ref');
+  });
 });

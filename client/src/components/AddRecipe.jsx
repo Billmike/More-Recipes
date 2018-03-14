@@ -32,12 +32,6 @@ export class AddRecipe extends Component {
    *
   */
   render() {
-    if (this.props.isLoading) {
-      return (<div className="ring">
-        <p className="loader-text">Loading</p>
-        <span className="loader-span"></span>
-      </div>);
-    }
     return (
       <div id="AddRecipeDiv">
         <h1 className="container add-h1"> Add Recipe </h1>

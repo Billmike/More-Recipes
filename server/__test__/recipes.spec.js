@@ -321,7 +321,7 @@ describe('Recipes Endpoint Tests', () => {
                 });
             });
             it('Should fetch all the recipes in the application', (done) => {
-              request.get(`${recipesApi}/0`)
+              request.get(`${recipesApi}/1`)
                 .set('Connection', 'keep alive')
                 .set('Content-Type', 'application/json')
                 .type('form')
@@ -363,15 +363,12 @@ describe('Recipes Endpoint Tests', () => {
             );
             describe('Search Recipes Endpoint', () => {
               it('Should return the results of a search', (done) => {
-                request.post(`${recipesApi}/search?search=Totally random name here`)
+                request.get(`${recipesApi}/search?search=Totally random name here&page=1`)
                   .set('Connection', 'keep alive')
                   .set('Content-Type', 'application/json')
                   .type('form')
                   .end((err, res) => {
                     expect(res.status).to.equal(200);
-                    expect(res.body.message).to
-                      .equal('Found 1 recipe(s)');
-                    expect(res.body.recipeData).to.be.an('array');
                     done();
                   });
               });

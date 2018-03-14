@@ -3,9 +3,12 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { Dashboard, mapStateToProps } from '../../components/Dashboard';
 import { RecipeEdit } from '../../components/RecipeEdit';
-import recipes, { FavoritesRecipeProps } from '../fixtures/recipes';
+import recipes, {
+  FavoritesRecipeProps, recipesLoading
+} from '../fixtures/recipes';
 import auth from '../fixtures/authUser';
 import state from '../fixtures/state';
+import Loader from '../../components/Loader';
 
 describe('<Dashboard />', () => {
   const GetUserRecipesAction = jest.fn();
@@ -39,6 +42,17 @@ describe('<Dashboard />', () => {
       </div>
     </Dashboard>);
   });
+  it('Should render the loader component', () => {
+    const wrapper = shallow(<Dashboard
+      isLoading={recipesLoading}
+      recipes={FavoritesRecipeProps}
+      user={auth}
+      getUserinfo={() => Promise.resolve()}
+      GetUserRecipesAction={() => Promise.resolve()}
+    >
+      <Loader />
+    </Dashboard>);
+  })
   it('Should call mapStateToProps', () => {
     mapStateToProps(state);
   });
