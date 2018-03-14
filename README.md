@@ -54,10 +54,24 @@
 For an indepth look at the API build and up-to-date documentation, visit the [api doumentation website](https://more-recipes-app1.herokuapp.com/api-docs) to get started.
 
 ##  Running tests
+#### Server-side tests
 *  Create a test database
 * run
 ```sh
 > $ npm run test-local
+```
+
+#### Client-side tests
+* To run the client-side tests, run
+```sh
+> $ npm run client-test
+```
+
+#### End-to-end tests
+* To run the end-to-end tests, make sure you have selenium and chrome-driver downloaded on your local machine. (See the ```nightwatch.json``` file for paths and how to set it up).
+* run
+```sh
+> $ npm run e2e
 ```
 
 ## Current limitations in the application
