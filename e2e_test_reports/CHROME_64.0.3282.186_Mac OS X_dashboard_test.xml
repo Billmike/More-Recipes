@@ -5,9 +5,9 @@
 
   <testsuite name="dashboard_test"
     errors="0" failures="0" hostname="" id="" package="dashboard_test" skipped="0"
-    tests="6" time="55.16" timestamp="Wed, 14 Mar 2018 04:49:11 GMT">
+    tests="6" time="60.97" timestamp="Wed, 14 Mar 2018 14:35:43 GMT">
   
-    <testcase name="Signin a user into their dashboard" classname="dashboard_test" time="8.923" assertions="10">
+    <testcase name="Signin a user into their dashboard" classname="dashboard_test" time="11.75" assertions="10">
 
     
 
@@ -30,84 +30,7 @@
     
     </testcase>
   
-    <testcase name="Create a recipe with a logged-in user" classname="dashboard_test" time="9.789" assertions="13">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="Delete a recipe by a logged in user" classname="dashboard_test" time="2.032" assertions="12">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="Edit recipe by logged-in user" classname="dashboard_test" time="3.095" assertions="8">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="Add and remove Recipe from users favorites" classname="dashboard_test" time="11.47" assertions="14">
-
-    
+    <testcase name="Create a recipe with a logged-in user" classname="dashboard_test" time="8.369" assertions="13">
 
     
 
@@ -136,7 +59,84 @@
     
     </testcase>
   
-    <testcase name="Upvote a recipe and leave reviews as a logged-in user" classname="dashboard_test" time="19.85" assertions="26">
+    <testcase name="Delete a recipe by a logged in user" classname="dashboard_test" time="2.991" assertions="12">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Edit recipe by logged-in user" classname="dashboard_test" time="2.561" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Add and remove Recipe from users favorites" classname="dashboard_test" time="15.87" assertions="14">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Upvote a recipe and leave reviews as a logged-in user" classname="dashboard_test" time="19.43" assertions="26">
 
     
 

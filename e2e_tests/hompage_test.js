@@ -19,12 +19,6 @@ module.exports = {
       .click('#viewButton')
       .pause(1000)
       .assert.urlContains('http://localhost:8080')
-      .click('#signupID')
-      .pause(1000)
-      .assert.urlContains('http://localhost:8080/register')
-      .click('#signinID')
-      .pause(1000)
-      .assert.urlContains('http://localhost:8080/login')
       .end();
   }
 };
