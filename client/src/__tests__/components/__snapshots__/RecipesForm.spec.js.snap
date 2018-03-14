@@ -7,6 +7,7 @@ exports[`<RecipesForm/> Should render error for an invalid form submission 1`] =
   >
     <form
       className=""
+      id="recipe-form-ID"
       onSubmit={[Function]}
     >
       <div
@@ -69,6 +70,7 @@ exports[`<RecipesForm/> Should render error for an invalid form submission 1`] =
             disableClick={false}
             disablePreview={false}
             disabled={false}
+            id="dropZoneID"
             maxSize={Infinity}
             minSize={0}
             multiple={false}
@@ -142,7 +144,7 @@ exports[`<RecipesForm/> Should render error for an invalid form submission 1`] =
           <textarea
             aria-describedby="recipeNameHelp"
             className="form-control large-text"
-            id="recipename"
+            id="recipeingredients"
             name="ingredients"
             onChange={[Function]}
             value=""
@@ -178,15 +180,13 @@ exports[`<RecipesForm/> Should render error for an invalid form submission 1`] =
             Enter your step-by-step Instructions.
           </small>
         </div>
-        <LoaderComp
-          loaded={true}
-        />
       </div>
       <div
         className="form-group"
       >
         <button
           className="btn btn-primary my-btn button-font btn-lg btn-block"
+          id="recipe-submit-button"
         >
           Submit Recipe
         </button>
@@ -203,6 +203,7 @@ exports[`<RecipesForm/> Should render the RecipesForm with recipes 1`] = `
   >
     <form
       className=""
+      id="recipe-form-ID"
       onSubmit={[Function]}
     >
       <div
@@ -265,6 +266,7 @@ exports[`<RecipesForm/> Should render the RecipesForm with recipes 1`] = `
             disableClick={false}
             disablePreview={false}
             disabled={false}
+            id="dropZoneID"
             maxSize={Infinity}
             minSize={0}
             multiple={false}
@@ -338,7 +340,7 @@ exports[`<RecipesForm/> Should render the RecipesForm with recipes 1`] = `
           <textarea
             aria-describedby="recipeNameHelp"
             className="form-control large-text"
-            id="recipename"
+            id="recipeingredients"
             name="ingredients"
             onChange={[Function]}
             value="Bread
@@ -377,15 +379,13 @@ Avoid mixing with water"
             Enter your step-by-step Instructions.
           </small>
         </div>
-        <LoaderComp
-          loaded={true}
-        />
       </div>
       <div
         className="form-group"
       >
         <button
           className="btn btn-primary my-btn button-font btn-lg btn-block"
+          id="recipe-submit-button"
         >
           Submit Recipe
         </button>
@@ -402,6 +402,7 @@ exports[`<RecipesForm/> Should render the recipe form correctly 1`] = `
   >
     <form
       className=""
+      id="recipe-form-ID"
       onSubmit={[Function]}
     >
       <div
@@ -464,6 +465,7 @@ exports[`<RecipesForm/> Should render the recipe form correctly 1`] = `
             disableClick={false}
             disablePreview={false}
             disabled={false}
+            id="dropZoneID"
             maxSize={Infinity}
             minSize={0}
             multiple={false}
@@ -537,7 +539,7 @@ exports[`<RecipesForm/> Should render the recipe form correctly 1`] = `
           <textarea
             aria-describedby="recipeNameHelp"
             className="form-control large-text"
-            id="recipename"
+            id="recipeingredients"
             name="ingredients"
             onChange={[Function]}
             value=""
@@ -573,15 +575,13 @@ exports[`<RecipesForm/> Should render the recipe form correctly 1`] = `
             Enter your step-by-step Instructions.
           </small>
         </div>
-        <LoaderComp
-          loaded={true}
-        />
       </div>
       <div
         className="form-group"
       >
         <button
           className="btn btn-primary my-btn button-font btn-lg btn-block"
+          id="recipe-submit-button"
         >
           Submit Recipe
         </button>

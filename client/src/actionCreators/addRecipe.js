@@ -1,4 +1,9 @@
-import { ADD_RECIPE } from '../actions/types';
+import { ADD_RECIPE, ADD_RECIPE_REQUEST } from '../actions/types';
+
+export const addRecipeRequest = () => ({
+  type: ADD_RECIPE_REQUEST,
+  isLoading: true
+});
 
 /**
  * Represents a function
@@ -11,7 +16,8 @@ import { ADD_RECIPE } from '../actions/types';
 
 const addRecipe = recipe => ({
   type: ADD_RECIPE,
-  recipe
+  recipe,
+  isLoading: false
 });
 
 export default addRecipe;

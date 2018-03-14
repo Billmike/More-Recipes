@@ -11,6 +11,7 @@ exports[`<SignupForm component /> Should render the sign-up form correctly 1`] =
       className="card-body"
     >
       <form
+        id="submitSignupForm"
         onSubmit={[Function]}
       >
         <h1

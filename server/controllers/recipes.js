@@ -123,22 +123,21 @@ class Recipe {
    */
 
   static getRecipes(req, res) {
-    let offset;
+    let offset = 0;
     const limit = 6;
     let singlePage;
     let pages;
     recipes
       .findAndCountAll()
       .then((foundRecipes) => {
-        pages = Math.ceil(foundRecipes.count / limit);
-        singlePage = parseInt(req.params.page, 10);
-        offset = singlePage * limit;
+        const { page } = req.params;
+        const pages = Math.ceil(foundRecipes.count / limit);
+        offset = limit * (page - 1);
 
         return recipes
           .findAll({
             limit,
             offset,
-            pages,
             include: [
               {
                 model: favorites,
@@ -157,11 +156,11 @@ class Recipe {
               pages
             });
           });
-      })
-      .catch(() =>
+      }).catch(() =>
         res.status(500).json({
           message: errorMessage
         }));
+
   }
 
   /**
@@ -213,9 +212,9 @@ class Recipe {
    */
 
   static searchRecipes(req, res) {
-    const limit = 6;
     const { search } = req.query;
-    let offset;
+    let offset = 0;
+    const limit = 6;
     let singlePage;
     let pages;
     recipes.findAndCountAll({
@@ -239,9 +238,9 @@ class Recipe {
         }
       ]
     }).then((searchRecipesResult) => {
-      pages = Math.ceil(searchRecipesResult.count / limit);
-      singlePage = parseInt(req.query.page, 10);
-      offset = singlePage * limit;
+      const { page } = req.query;
+      const pages = Math.ceil(searchRecipesResult.count / limit);
+      offset = limit * (page - 1);
 
       return recipes
         .findAll({

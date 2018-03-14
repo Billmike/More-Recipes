@@ -3,6 +3,7 @@
 exports[`<LoginForm /> Should render the form correctly 1`] = `
 <div
   className="container"
+  id="loginContainer"
 >
   <div
     className="card text-center card-form has-feedback"
@@ -11,6 +12,7 @@ exports[`<LoginForm /> Should render the form correctly 1`] = `
       className="card-body"
     >
       <form
+        id="loginFormBody"
         onSubmit={[Function]}
       >
         <h1
@@ -49,6 +51,7 @@ exports[`<LoginForm /> Should render the form correctly 1`] = `
         <div />
         <input
           className="btn submit-btn size-bt btn-block"
+          id="submitButton"
           type="submit"
           value="Submit"
         />

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import Loader from './Loader';
 import validateInput from '../../../server/validators/validatesignup';
 
 export class SignupForm extends Component {
@@ -66,7 +67,7 @@ export class SignupForm extends Component {
       <div className="container #signupForm">
         <div className="card text-center card-form has-feedback">
           <div className="card-body">
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} id="submitSignupForm">
               <h1 className="sign-up-h3">Register</h1>
 
               <div className="form-group">

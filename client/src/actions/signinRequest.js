@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import toastr from 'toastr';
-import { SET_CURRENT_USER, GET_USER_INFORMATION } from './types';
+import { SET_CURRENT_USER, GET_USER_INFORMATION, GET_USER_REQUEST } from './types';
 import instance from '../utils/axios';
 import '../utils/toastrConfig';
 
@@ -16,8 +16,14 @@ export const setCurrentUser = (user) => {
   return {
     type: SET_CURRENT_USER,
     user,
+    isLoading: false
   };
 };
+
+const getUserRequest = () => ({
+  type: GET_USER_REQUEST,
+  isLoading: true
+});
 
 /**
  * Action creator to set fetch the user in the store
@@ -30,7 +36,8 @@ export const setCurrentUser = (user) => {
 export const getUserInformationActionCreator = (user) => {
   return {
     type: GET_USER_INFORMATION,
-    user
+    user,
+    isLoading: false
   };
 };
 
@@ -44,6 +51,7 @@ export const getUserInformationActionCreator = (user) => {
 
 export const getUserinfo = () => {
   return (dispatch) => {
+    dispatch(getUserRequest())
     return instance.get('/users/get_user')
       .then((response) => {
         dispatch(getUserInformationActionCreator(response.data));

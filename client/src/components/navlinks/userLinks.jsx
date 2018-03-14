@@ -5,6 +5,7 @@ const userLinks = props => (
   <ul className="nav navbar-nav ml-auto">
     <li className="nav-item active">
       <Link
+        id="home-button"
         to="/"
         className="nav-link custom-link">
         Home
@@ -21,6 +22,7 @@ const userLinks = props => (
     </li>
     <li className="nav-item">
       <Link
+        id="addRecipeID"
         to="/add"
         className="nav-link custom-link">
         Add Recipe
@@ -28,6 +30,7 @@ const userLinks = props => (
     </li>
     <li>
       <Link
+        id="favoritesButton"
         to="/favorites"
         className="nav-link custom-link">
         My Favorites
@@ -42,6 +45,7 @@ const userLinks = props => (
     </li>
     <li className="nav-item">
       <Link
+        id="logoutButton"
         to="/"
         className="nav-link logout btn-primary"
         onClick={props.logout}>

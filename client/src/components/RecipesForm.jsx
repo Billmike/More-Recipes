@@ -4,6 +4,7 @@ import DropZone from 'react-dropzone';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import LoaderComp from './LoaderComp';
+import Loader from './Loader';
 import validateRecipe from '../../../server/validators/validateRecipe';
 
 class RecipesForm extends Component {
@@ -81,11 +82,16 @@ class RecipesForm extends Component {
 
   render() {
     let dropzoneRef;
+    if (!this.state.loaded) {
+      return (
+        <Loader />
+      );
+    }
     const { errors } = this.state;
     return (
       <div>
         <main className="container">
-          <form className="" onSubmit={this.onSubmit}>
+          <form id="recipe-form-ID" className="" onSubmit={this.onSubmit}>
             <div className="form-group">
               <label className="recipe-form-values" htmlFor="recipename">
                 Recipe Name
@@ -139,6 +145,7 @@ class RecipesForm extends Component {
               </div>
               <div className="form-group col-4 upload-btn-wrapper">
                 <DropZone
+                  id="dropZoneID"
                   ref={(node) => { dropzoneRef = node; }}
                   onDrop={this.handleDrop}
                   accept="image/*"
@@ -192,7 +199,7 @@ class RecipesForm extends Component {
                     'form-control large-text',
                     { 'has-errors': errors.ingredients }
                   )}
-                  id="recipename"
+                  id="recipeingredients"
                   name="ingredients"
                   aria-describedby="recipeNameHelp"
                   value={this.state.ingredients}
@@ -235,12 +242,11 @@ class RecipesForm extends Component {
                   Enter your step-by-step Instructions.
                 </small>
               </div>
-              <LoaderComp
-                loaded={this.state.loaded}
-              />
+
             </div>
             <div className="form-group">
               <button
+                id="recipe-submit-button"
                 className="btn btn-primary my-btn button-font btn-lg btn-block">
                 Submit Recipe
               </button>

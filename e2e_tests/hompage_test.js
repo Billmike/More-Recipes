@@ -14,7 +14,7 @@ module.exports = {
       .assert.visible('#carouselExampleIndicators')
       .assert.visible('.card')
       .click('#favbutton')
-      .pause(10000)
+      .pause(1000)
       .assert.elementPresent('.toast')
       .click('#viewButton')
       .pause(1000)

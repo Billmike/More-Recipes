@@ -4,6 +4,7 @@ import Emoji from 'react-emoji-render';
 import ReactPaginate from 'react-paginate';
 import '../assets/css/style.css';
 import LoaderComp from './LoaderComp';
+import Loader from './Loader';
 import RecipesList from './RecipesList';
 import Footer from './Footer';
 import Pagination from './Pagination';
@@ -30,29 +31,41 @@ export class Homepage extends Component {
     this.state = {
       loaded: true,
       searchQuery: '',
-      page: 1
+      page: 1,
+      search: false
     };
     this.onSearch = this.onSearch.bind(this);
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
   componentDidMount() {
-    this.props.GetAllRecipesAction(0);
+    this.props.GetAllRecipesAction(this.state.page);
     this.props.GetPopularRecipes();
   }
 
   onSearch(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value, search: true });
     this.props.SearchRecipesAction(event.target.value, this.state.page);
   }
 
   handlePaginationChange(data) {
     const currentView = data.selected;
-    this.props.GetAllRecipesAction(currentView);
+    this.setState({ page: currentView });
+    if (this.state.search) {
+      this.props.SearchRecipesAction(this.state.searchQuery, currentView);
+    } else {
+      this.setState({ search: false });
+      this.props.GetAllRecipesAction(currentView);
+    }
   }
 
   render() {
     let allRecipes;
     let popularRecipesList;
+    if (this.props.isLoading) {
+      return (
+        <Loader />
+      );
+    }
     if (this.props.recipes) {
       allRecipes = this.props.recipes.length > 0 ?
         this.props.recipes.map((recipe) => {
@@ -177,7 +190,8 @@ export const mapStateToProps = (state) => {
   return {
     popularRecipes: state.recipes.popularRecipes,
     recipes: state.recipes.recipes,
-    pages: state.recipes.pages
+    pages: state.recipes.pages,
+    isLoading: state.recipes.isLoading
   };
 };
 

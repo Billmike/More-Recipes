@@ -9,6 +9,7 @@ exports[`<UserLinks /> Should render the UserLinks component correctly 1`] = `
   >
     <Link
       className="nav-link custom-link"
+      id="home-button"
       replace={false}
       to="/"
     >
@@ -36,6 +37,7 @@ exports[`<UserLinks /> Should render the UserLinks component correctly 1`] = `
   >
     <Link
       className="nav-link custom-link"
+      id="addRecipeID"
       replace={false}
       to="/add"
     >
@@ -45,6 +47,7 @@ exports[`<UserLinks /> Should render the UserLinks component correctly 1`] = `
   <li>
     <Link
       className="nav-link custom-link"
+      id="favoritesButton"
       replace={false}
       to="/favorites"
     >
@@ -67,6 +70,7 @@ exports[`<UserLinks /> Should render the UserLinks component correctly 1`] = `
   >
     <Link
       className="nav-link logout btn-primary"
+      id="logoutButton"
       replace={false}
       to="/"
     >

@@ -1,15 +1,17 @@
 import toastr from 'toastr';
 import axios from 'axios';
-import addRecipe from '../actionCreators/addRecipe';
-import getAllRecipes from '../actionCreators/getAllRecipes';
-import getUserRecipe from '../actionCreators/getUserRecipe';
+import addRecipe, { addRecipeRequest } from '../actionCreators/addRecipe';
+import getAllRecipes,
+{ getAllRecipesRequest } from '../actionCreators/getAllRecipes';
+import getUserRecipe,
+{ getUserRecipeRequest } from '../actionCreators/getUserRecipe';
 import getOneRecipe from '../actionCreators/getOneRecipe';
 import toggleFavorites from '../actionCreators/toggleFavorites';
 import fetchFavorites from '../actionCreators/fetchFavorites';
 import popularRecipe from '../actionCreators/popularRecipe';
 import editRecipe from '../actionCreators/editRecipes';
 import removeRecipe from '../actionCreators/removeRecipe';
-import addReview from '../actionCreators/addReview';
+import addReview, { addReviewRequest } from '../actionCreators/addReview';
 import upVoteRecipe from '../actionCreators/upVoteRecipe';
 import downVote from '../actionCreators/downVoteRecipe';
 import searchRecipes from '../actionCreators/searchRecipes';
@@ -22,13 +24,15 @@ import '../utils/toastrConfig';
  * @returns { object } - returns an object with an action type and all recipes
  */
 
-export const GetAllRecipesAction = page => dispatch =>
-  instance
-    .get(`/recipes/${page}`)
-    .then((response) => {
-      dispatch(getAllRecipes(response.data.recipeData, response.data.pages));
-    })
-    .catch(error => error);
+export const GetAllRecipesAction = (page) => {
+  return (dispatch) => {
+    dispatch(getAllRecipesRequest());
+    return instance.get(`/recipes/${page}`)
+      .then((response) => {
+        dispatch(getAllRecipes(response.data.recipeData, response.data.pages));
+      }).catch(error => error);
+  };
+};
 
 /**
 * Action for fetching popular recipes
@@ -54,7 +58,7 @@ export const GetPopularRecipes = () => dispatch =>
  */
 
 export const AddRecipeAction = recipeData => (dispatch) => {
-
+  dispatch(addRecipeRequest());
   return instance
     .post('/recipes', recipeData)
     .then((response) => {
@@ -69,6 +73,17 @@ export const AddRecipeAction = recipeData => (dispatch) => {
     });
 };
 
+
+export const GetUserRecipesAction = () => {
+  return (dispatch) => {
+    dispatch(getUserRecipeRequest());
+    return instance.get('/users/recipes')
+      .then((response) => {
+        dispatch(getUserRecipe(response.data.recipeData));
+      }).catch(error => error);
+  };
+};
+
 /**
  * Action to fecth user recipes
  *
@@ -76,13 +91,13 @@ export const AddRecipeAction = recipeData => (dispatch) => {
  * action type and the user recipe object
  */
 
-export const GetUserRecipesAction = () => dispatch =>
-  instance
-    .get('/users/recipes')
-    .then((response) => {
-      dispatch(getUserRecipe(response.data.recipeData));
-    })
-    .catch(error => error);
+// export const GetUserRecipesAction = () => dispatch =>
+//   instance
+//     .get('/users/recipes')
+//     .then((response) => {
+//       dispatch(getUserRecipe(response.data.recipeData));
+//     })
+//     .catch(error => error);
 
 /**
  * Action to edit a recipe
@@ -264,26 +279,49 @@ export const DownVoteRecipeAction = id => (dispatch, getstate) =>
  * with an action type and the new review object
  */
 
-export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
-  instance
-    .post(`/recipes/${id}/reviews`, reviewData)
-    .then((response) => {
-      toastr.success(response.data.message);
-      dispatch(addReview(response.data));
-    })
-    .catch((err) => {
-      if (
-        err.response.data.message ===
-        'You need to be logged in to perform this action.'
-      ) {
-        toastr.error(err.response.data.message);
-      } else if (
-        err.response.data.message ===
-        "You can't post an empty review. Please, enter a happy review for this recipe."
-      ) {
-        toastr.warning(err.response.data.message);
-      }
-    });
+export const AddReviewAction = (id, review) => {
+  return (dispatch) => {
+    dispatch(addReviewRequest());
+    return instance.post(`/recipes/${id}/reviews`, review)
+      .then((response) => {
+        toastr.success(response.data.message);
+        dispatch(addReview(response.data));
+      }).catch((err) => {
+        if (
+          err.response.data.message ===
+          'You need to be logged in to perform this action.'
+        ) {
+          toastr.error(err.response.data.message);
+        } else if (
+          err.response.data.message ===
+          "You can't post an empty review. Please, enter a happy review for this recipe."
+        ) {
+          toastr.warning(err.response.data.message);
+        }
+      });
+  };
+};
+
+// export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
+//   instance
+//     .post(`/recipes/${id}/reviews`, reviewData)
+//     .then((response) => {
+//       toastr.success(response.data.message);
+//       dispatch(addReview(response.data));
+//     })
+//     .catch((err) => {
+//       if (
+//         err.response.data.message ===
+//         'You need to be logged in to perform this action.'
+//       ) {
+//         toastr.error(err.response.data.message);
+//       } else if (
+//         err.response.data.message ===
+//         "You can't post an empty review. Please, enter a happy review for this recipe."
+//       ) {
+//         toastr.warning(err.response.data.message);
+//       }
+//     });
 
 export const SearchRecipesAction = (searchQuery, page) => dispatch =>
   instance.get(`/recipes/search?search=${searchQuery}&page=${page}`)

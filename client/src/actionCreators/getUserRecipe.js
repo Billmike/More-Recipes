@@ -1,4 +1,9 @@
-import { GET_USER_RECIPES } from '../actions/types';
+import { GET_USER_RECIPES, GET_USER_RECIPES_REQUEST } from '../actions/types';
+
+export const getUserRecipeRequest = () => ({
+  type: GET_USER_RECIPES_REQUEST,
+  isLoading: true
+});
 
 /**
  * Represents a function
@@ -11,7 +16,8 @@ import { GET_USER_RECIPES } from '../actions/types';
 
 const getUserRecipe = userRecipe => ({
   type: GET_USER_RECIPES,
-  userRecipe
+  userRecipe,
+  isLoading: false
 });
 
 export default getUserRecipe;

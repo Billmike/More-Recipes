@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<EditRecipe /> Should render EditRecipe component correctly 1`] = `
-<div>
+<div
+  id="editRecipeID"
+>
   <h1
     className="container add-h1"
   >

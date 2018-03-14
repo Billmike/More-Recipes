@@ -1,29 +1,41 @@
 export const recipeDefaultState = {
-  pages: 0,
+  pages: 1,
   recipes: [],
   userRecipe: [],
   singleRecipe: '',
   popularRecipes: [],
   favoriteRecipes: [],
   userFavoriteRecipesId: [],
-  searchRecipe: []
+  searchRecipe: [],
+  isLoading: false
 };
 
 export default (state = recipeDefaultState, action) => {
   switch (action.type) {
+    case 'ADD_RECIPE_REQUEST':
+      return {
+        ...state,
+        isLoading: action.isLoading
+      };
     case 'ADD_RECIPE':
       return {
         ...state,
-        userRecipe: [...state.userRecipe, action.recipe.recipeData]
+        userRecipe: [...state.userRecipe, action.recipe.recipeData],
+        isLoading: action.isLoading
+      };
+    case 'GET_RECIPES_REQUEST':
+      return {
+        ...state,
+        isLoading: action.isLoading
       };
     case 'GET_RECIPES':
       return {
         ...state,
         pages: action.pagination,
-        recipes: [...action.recipes]
+        recipes: [...action.recipes],
+        isLoading: action.isLoading
       };
     case 'POPULAR_RECIPES':
-      console.log('the reducer got hit', action);
       return {
         ...state,
         popularRecipes: [...action.recipe.theFoundrecipes]
@@ -33,10 +45,16 @@ export default (state = recipeDefaultState, action) => {
         ...state,
         singleRecipe: action.recipe[0]
       };
+    case 'GET_USER_RECIPES_REQUEST':
+      return {
+        ...state,
+        isLoading: action.isLoading
+      };
     case 'GET_USER_RECIPES':
       return {
         ...state,
-        userRecipe: action.userRecipe
+        userRecipe: action.userRecipe,
+        isLoading: action.isLoading
       };
     case 'EDIT_RECIPE':
       return {
@@ -115,16 +133,21 @@ export default (state = recipeDefaultState, action) => {
         ...state,
         favoriteRecipes: action.favoriteRecipes
       };
+    case 'ADD_REVIEW_REQUEST':
+      return {
+        ...state,
+        isLoading: action.isLoading
+      };
     case 'ADD_REVIEW':
       return {
         ...state,
         singleRecipe: {
           ...state.singleRecipe,
           reviews: state.singleRecipe.reviews.concat(action.review.reviewData)
-        }
+        },
+        isLoading: action.isLoading
       };
     case 'SEARCH_RECIPES':
-      console.log('hit the search reducer', action);
       return {
         ...state,
         recipes: [...action.recipes.recipeData],

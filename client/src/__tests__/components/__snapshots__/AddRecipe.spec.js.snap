@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<AddRecipe /> Should render correctly 1`] = `
-<div>
+<div
+  id="AddRecipeDiv"
+>
   <h1
     className="container add-h1"
   >

@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Favorites /> Should render the Favorites component 1`] = `
-<div>
+<div
+  id="favorites-container"
+>
   <div
     className="container"
   >
@@ -32,6 +34,7 @@ exports[`<Favorites /> Should render the Favorites component 1`] = `
         . Checkout some recipes
          
         <Link
+          id="addFavoritesLink"
           replace={false}
           to="/"
         >

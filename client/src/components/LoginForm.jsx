@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import Loader from './Loader';
 import validateInput from '../../../server/validators/validatesignin';
 
 
@@ -19,6 +20,7 @@ class LoginForm extends Component {
       email: '',
       password: '',
       errors: {},
+      isLoading: true
     };
     this.onFormValuesChange = this.onFormValuesChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -61,10 +63,10 @@ class LoginForm extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
+      <div className="container" id="loginContainer">
         <div className="card text-center card-form has-feedback">
           <div className="card-body">
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} id="loginFormBody">
               <h1 className="sign-up-h3">Login</h1>
 
               <div className="form-group">
@@ -109,6 +111,7 @@ class LoginForm extends Component {
               <div>
               </div>
               <input
+                id="submitButton"
                 type="submit"
                 value="Submit"
                 className="btn submit-btn size-bt btn-block"

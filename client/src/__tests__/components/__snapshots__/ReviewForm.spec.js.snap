@@ -7,10 +7,12 @@ exports[`<ReviewForm /> Should render the review form correctly 1`] = `
 >
   <textarea
     className="form-control review-form"
+    id="reviewFormId"
     placeholder="Enter a review for this recipe"
   />
   <button
     className="btn btn-primary btn-lg btn-block form-button"
+    id="submit-review"
   >
     Submit review
   </button>

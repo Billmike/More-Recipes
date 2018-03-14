@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Emoji from 'react-emoji-render';
 import Footer from './Footer';
+import Loader from './Loader';
 import RecipeEdit from './RecipeEdit';
 import { GetUserRecipesAction } from '../actions/recipes';
 import { getUserinfo } from '../actions/signinRequest';
@@ -22,6 +23,11 @@ export class Dashboard extends Component {
 
   render() {
     let availableRecipes;
+    if (this.props.isLoading) {
+      return (
+        <Loader />
+      );
+    }
     if (this.props.recipes.length > 0) {
       availableRecipes =
         this.props.recipes.map((recipe) => {
@@ -55,7 +61,8 @@ export class Dashboard extends Component {
 export const mapStateToProps = (state) => {
   return {
     recipes: state.recipes.userRecipe,
-    user: state.auth.userDetails
+    user: state.auth.userDetails,
+    isLoading: state.recipes.isLoading
   };
 };
 

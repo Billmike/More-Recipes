@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import MDSpinner from 'react-md-spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Emoji from 'react-emoji-render';
 import { v4 } from 'uuid';
 import Footer from './Footer';
+import Loader from './Loader';
 import ReviewForm from './ReviewForm';
 import Review from './Review';
 import {
@@ -68,6 +70,9 @@ export class RecipeDetail extends Component {
     let reviews;
     let splitIngredients;
     let splitInstructions;
+    if (!this.props.singleRecipe.singleRecipe) {
+      return (<Loader />);
+    }
     if (this.props.recipe) {
       splitIngredients = this.props.recipe.ingredients
         .trim('\n')
@@ -114,7 +119,7 @@ export class RecipeDetail extends Component {
           );
     }
     return (
-      <div>
+      <div id="recipe-detail-ID">
         <div>
           <h4 className="recipe-detail-name">
             {this.props.recipe.name}
@@ -191,6 +196,7 @@ export class RecipeDetail extends Component {
                 onChange={this.onReviewFormChange}
                 reviewText={this.state.reviewText}
                 reviewRecipe={this.reviewRecipe}
+                isLoading={this.props.isLoading}
               />
             </div>
               : <p className="auth-review">
@@ -215,8 +221,10 @@ export class RecipeDetail extends Component {
 export const mapStateToProps = (state) => {
   return {
     auth: state.auth.isAuthenticated,
+    singleRecipe: state.recipes,
     recipe: state.recipes.singleRecipe,
     upVote: state.recipes.singleRecipe.upVote,
+    isLoading: state.recipes.isLoading
   };
 };
 

@@ -1,7 +1,13 @@
 import jwt from 'jsonwebtoken';
 import toastr from 'toastr';
 import instance from '../utils/axios';
+import { SIGNUP_REQUEST } from './types';
 import { setCurrentUser } from './signinRequest';
+
+const signupRequestAction = () => ({
+  type: SIGNUP_REQUEST,
+  isLoading: true
+});
 
 /**
  * Represents a function
@@ -14,6 +20,7 @@ import { setCurrentUser } from './signinRequest';
 
 // eslint-disable-next-line
 export const signupRequest = userData => (dispatch) => {
+  dispatch(signupRequestAction());
   return instance.post('/users/signup', userData)
     .then((res) => {
       const { token } = res.data;

@@ -107,7 +107,7 @@ export class Favorites extends Component {
       });
     }
     return (
-      <div>
+      <div id="favorites-container">
         <div className="container">
           <h2 className="dashboard-h2">
             {' '}
@@ -122,7 +122,9 @@ export class Favorites extends Component {
                   {' '}
                   You currently have no
                   <Emoji text="<3" />. Checkout some recipes{' '}
-                  <Link to="/">here.</Link>
+                  <Link
+                    id="addFavoritesLink"
+                    to="/">here.</Link>
                 </p>
               )}
           </div>

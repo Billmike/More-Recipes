@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import LoaderComp from './LoaderComp';
 import Modal from './Modal';
 import { RemoveRecipeAction, GetUserRecipesAction } from '../actions/recipes';
 
@@ -9,6 +10,7 @@ export class RecipeEdit extends Component {
     super(props);
     this.state = {
       selectedRecipe: undefined,
+      loaded: true
     };
     this.selectRecipe = this.selectRecipe.bind(this);
     this.handleClearSelectedRecipe = this.handleClearSelectedRecipe.bind(this);

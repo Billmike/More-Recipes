@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<RecipeDetails Component Should render the recipe details component properly 1`] = `
-<div>
+<div
+  id="recipe-detail-ID"
+>
   <div>
     <h4
       className="recipe-detail-name"

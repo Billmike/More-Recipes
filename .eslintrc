@@ -29,6 +29,7 @@
     "class-methods-use-this": 0,
     "prefer-default-export": "off",
     "import/no-named-as-default": "off",
+    "import/no-extraneous-dependencies": "off",
     "one-var": 0,
     "no-unused-expressions": "off",
     "no-unused-vars": "off",

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="1"
+            failures="1"
+            tests="1">
+
+  <testsuite name="votes_test"
+    errors="1" failures="1" hostname="" id="" package="votes_test" skipped="0"
+    tests="1" time="4.025" timestamp="Wed, 14 Mar 2018 04:46:20 GMT">
+  
+    <testcase name="Upvote a recipe as a logged-in user" classname="votes_test" time="4.025" assertions="4">
+
+    
+
+    
+
+      <failure message="Timed out while waiting for element &lt;.under-carousel-div&gt; to be present for 3000 milliseconds.">    at Object.Upvote a recipe as a logged-in user (/Users/andeladeveloper/Desktop/More-recipes-dev/e2e_tests/votes_test.js:16:8)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)</failure>
+
+    
+    </testcase>
+  
+
+  
+    <system-err>
+      ERROR: Unable to locate element: &#34;#home-button&#34; using: css selector
+    at Object.Upvote a recipe as a logged-in user (/Users/andeladeveloper/Desktop/More-recipes-dev/e2e_tests/votes_test.js:13:8)
+    at Module.call (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/lib/runner/module.js:62:34)
+    at /Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/lib/runner/testcase.js:70:29
+    at _fulfilled (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:834:54)
+    at self.promiseDispatch.done (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:863:30)
+    at Promise.promise.promiseDispatch (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:796:13)
+    at /Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:556:49
+    at runSingle (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:137:13)
+    at flush (/Users/andeladeveloper/Desktop/More-recipes-dev/node_modules/nightwatch/node_modules/q/q.js:125:13)
+    at _combinedTickCallback (internal/process/next_tick.js:131:7)
+    </system-err>
+  
+
+  
+  </testsuite>
+</testsuites>

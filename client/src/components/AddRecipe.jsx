@@ -32,8 +32,14 @@ export class AddRecipe extends Component {
    *
   */
   render() {
+    if (this.props.isLoading) {
+      return (<div className="ring">
+        <p className="loader-text">Loading</p>
+        <span className="loader-span"></span>
+      </div>);
+    }
     return (
-      <div>
+      <div id="AddRecipeDiv">
         <h1 className="container add-h1"> Add Recipe </h1>
         <RecipesForm onSubmit={this.onSubmit} />
         <Footer />
@@ -41,6 +47,5 @@ export class AddRecipe extends Component {
     );
   }
 }
-
 
 export default connect(undefined, { AddRecipeAction })(AddRecipe);

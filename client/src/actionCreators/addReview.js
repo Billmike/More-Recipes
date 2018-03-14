@@ -1,5 +1,10 @@
-import { ADD_REVIEW } from '../actions/types';
+import { ADD_REVIEW, ADD_REVIEW_REQUEST } from '../actions/types';
 
+
+export const addReviewRequest = () => ({
+  type: ADD_REVIEW_REQUEST,
+  isLoading: true
+});
 /**
  * Represents a function
  * @function
@@ -12,6 +17,7 @@ import { ADD_REVIEW } from '../actions/types';
 const addReview = review => ({
   type: ADD_REVIEW,
   review,
+  isLoading: false
 });
 
 export default addReview;

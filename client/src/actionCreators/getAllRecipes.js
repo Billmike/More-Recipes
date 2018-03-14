@@ -1,4 +1,9 @@
-import { GET_RECIPES } from '../actions/types';
+import { GET_RECIPES, GET_RECIPES_REQUEST } from '../actions/types';
+
+export const getAllRecipesRequest = () => ({
+  type: GET_RECIPES_REQUEST,
+  isLoading: true
+});
 
 /**
  * Represents a function
@@ -12,7 +17,8 @@ import { GET_RECIPES } from '../actions/types';
 const getAllRecipes = (recipes, pagination) => ({
   type: GET_RECIPES,
   recipes,
-  pagination
+  pagination,
+  isLoading: false
 });
 
 export default getAllRecipes;
