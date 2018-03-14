@@ -33,7 +33,8 @@ describe('Recipes Reducer', () => {
     const stateBefore = recipeDefaultState;
     const action = {
       type: ADD_RECIPE,
-      recipe: singleRecipes
+      recipe: singleRecipes,
+      isLoading: false
     };
     const stateAfter = { ...recipeDefaultState, userRecipe: recipeMock };
     deepFreeze(stateBefore);
@@ -44,7 +45,8 @@ describe('Recipes Reducer', () => {
     const stateBefore = recipeDefaultState;
     const action = {
       type: GET_USER_RECIPES,
-      userRecipe: recipeMock
+      userRecipe: recipeMock,
+      isLoading: false
     };
     const stateAfter = { ...recipeDefaultState, userRecipe: recipeMock };
     deepFreeze(stateBefore);
@@ -78,8 +80,9 @@ describe('Recipes Reducer', () => {
     const stateBefore = recipeDefaultState;
     const action = {
       type: GET_RECIPES,
-      pagination: 0,
-      recipes: [recipeMock]
+      pagination: 1,
+      recipes: [recipeMock],
+      isLoading: false
     };
     const stateAfter = { ...recipeDefaultState, recipes: [recipeMock] };
     deepFreeze(stateBefore);
@@ -122,7 +125,8 @@ describe('Recipes Reducer', () => {
     const stateBefore = { ...recipeDefaultState, singleRecipe: recipeMock[0] };
     const action = {
       type: ADD_REVIEW,
-      review: reviews
+      review: reviews,
+      isLoading: false
     };
     const stateAfter = { ...recipeDefaultState, singleRecipe: mockReducers };
     deepFreeze(stateBefore);

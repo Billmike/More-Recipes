@@ -2,6 +2,7 @@ import React from 'react';
 import moxios from 'moxios';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import DropZone from 'react-dropzone';
 import RecipesForm from '../../components/RecipesForm';
 import recipes from '../fixtures/recipes';
 
@@ -29,7 +30,7 @@ describe('<RecipesForm/>', () => {
       preventDefault: jest.fn()
     });
     expect(wrapper.state('errors')).toBeTruthy();
-  })
+  });
   it('Should set ingredient on input change', () => {
     const value = 'Best beef in the world';
     const wrapper = shallow(<RecipesForm />);
@@ -60,9 +61,6 @@ describe('<RecipesForm/>', () => {
     const wrapper = shallow(<RecipesForm />);
     wrapper.instance().setState(recipes[3]);
     wrapper.update();
-    wrapper.find('form').simulate('submit', {
-      preventDefault: jest.fn()
-    });
     expect(wrapper.instance().state).toEqual(recipes[3]);
   });
   it('Should set the image to be uploaded to state', () => {
@@ -78,5 +76,13 @@ describe('<RecipesForm/>', () => {
       name: 'image file',
       url: 'link'
     });
+  });
+  it('Should handle onDrop method', () => {
+    const handleDrop = jest.fn();
+    const wrapper = shallow(<RecipesForm>
+      <DropZone
+        onDrop={handleDrop}
+      />
+    </RecipesForm>);
   });
 });

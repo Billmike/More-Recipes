@@ -2,8 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Homepage, mapStateToProps } from '../../components/Hompage';
 import { RecipeList } from '../../components/RecipesList';
-import recipes, { FavoritesRecipeProps } from '../fixtures/recipes';
+import recipes, {
+  FavoritesRecipeProps, recipesLoading
+} from '../fixtures/recipes';
 import state from '../fixtures/state';
+import Loader from '../../components/Loader';
 
 describe('<Homepage />', () => {
   it('Should render the homepage component correctly', () => {
@@ -48,7 +51,20 @@ describe('<Homepage />', () => {
       target: { name: 'searchQuery', value }
     });
     expect(wrapper.state('searchQuery')).toEqual(value);
-  })
+  });
+
+  it('Should render the loader', () => {
+    const wrapper = shallow(<Homepage
+      isLoading={recipesLoading}
+      recipes={FavoritesRecipeProps}
+      popularRecipes={FavoritesRecipeProps}
+      GetAllRecipesAction={() => Promise.resolve()}
+      GetPopularRecipes={() => Promise.resolve()}
+      SearchRecipesAction={() => Promise.resolve()}
+    >
+      <Loader />
+    </Homepage>);
+  });
 
   it('Should call mapStateToProps', () => {
     mapStateToProps(state);

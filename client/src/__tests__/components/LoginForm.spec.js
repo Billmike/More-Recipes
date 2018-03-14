@@ -18,11 +18,13 @@ describe('<LoginForm />', () => {
   });
   it('Should populate the form field and update the state', () => {
     const signinRequest = jest.fn();
-    const wrapper = shallow(<LoginForm signinRequest={() => Promise.resolve()} />);
+    const wrapper = shallow(<LoginForm
+      signinRequest={() => Promise.resolve()} />);
     wrapper.instance().setState({
       email: 'randomemail@gmail.com',
       password: 'qwertyuiop',
-      errors: {}
+      errors: {},
+      isLoading: true
     });
     wrapper.update();
     wrapper.find('form').simulate('submit', {
@@ -31,7 +33,8 @@ describe('<LoginForm />', () => {
     expect(wrapper.instance().state).toEqual({
       email: 'randomemail@gmail.com',
       password: 'qwertyuiop',
-      errors: {}
+      errors: {},
+      isLoading: true
     });
   });
   it('Should render errors on invalid form submission', () => {

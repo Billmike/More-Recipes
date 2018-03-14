@@ -302,27 +302,6 @@ export const AddReviewAction = (id, review) => {
   };
 };
 
-// export const AddReviewAction = (id, reviewData) => (dispatch, getstate) =>
-//   instance
-//     .post(`/recipes/${id}/reviews`, reviewData)
-//     .then((response) => {
-//       toastr.success(response.data.message);
-//       dispatch(addReview(response.data));
-//     })
-//     .catch((err) => {
-//       if (
-//         err.response.data.message ===
-//         'You need to be logged in to perform this action.'
-//       ) {
-//         toastr.error(err.response.data.message);
-//       } else if (
-//         err.response.data.message ===
-//         "You can't post an empty review. Please, enter a happy review for this recipe."
-//       ) {
-//         toastr.warning(err.response.data.message);
-//       }
-//     });
-
 export const SearchRecipesAction = (searchQuery, page) => dispatch =>
   instance.get(`/recipes/search?search=${searchQuery}&page=${page}`)
     .then((response) => {

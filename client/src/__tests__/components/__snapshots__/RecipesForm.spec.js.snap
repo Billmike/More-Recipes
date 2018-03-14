@@ -6,7 +6,7 @@ exports[`<RecipesForm/> Should render error for an invalid form submission 1`] =
     className="container"
   >
     <form
-      className=""
+      className="formsubmit"
       id="recipe-form-ID"
       onSubmit={[Function]}
     >
@@ -202,7 +202,7 @@ exports[`<RecipesForm/> Should render the RecipesForm with recipes 1`] = `
     className="container"
   >
     <form
-      className=""
+      className="formsubmit"
       id="recipe-form-ID"
       onSubmit={[Function]}
     >
@@ -401,7 +401,7 @@ exports[`<RecipesForm/> Should render the recipe form correctly 1`] = `
     className="container"
   >
     <form
-      className=""
+      className="formsubmit"
       id="recipe-form-ID"
       onSubmit={[Function]}
     >

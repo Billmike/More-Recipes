@@ -91,7 +91,7 @@ class RecipesForm extends Component {
     return (
       <div>
         <main className="container">
-          <form id="recipe-form-ID" className="" onSubmit={this.onSubmit}>
+          <form id="recipe-form-ID" className="formsubmit" onSubmit={this.onSubmit}>
             <div className="form-group">
               <label className="recipe-form-values" htmlFor="recipename">
                 Recipe Name

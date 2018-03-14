@@ -4,7 +4,9 @@ import moxios from 'moxios';
 import jwt from 'jsonwebtoken';
 import thunk from 'redux-thunk';
 import instance from '../../utils/axios';
-import { SET_CURRENT_USER, GET_USER_INFORMATION } from '../../actions/types';
+import {
+  SET_CURRENT_USER, GET_USER_INFORMATION, SIGNUP_REQUEST, GET_USER_REQUEST
+} from '../../actions/types';
 import { signupRequest } from '../../actions/userSignupAction';
 import {
   signinRequest, logout, getUserinfo
@@ -32,8 +34,13 @@ describe('Authentication action', () => {
       });
       const returnedAction = [
         {
+          type: SIGNUP_REQUEST,
+          isLoading: true
+        },
+        {
           type: SET_CURRENT_USER,
-          user: jwt.decode(Response.token)
+          user: jwt.decode(Response.token),
+          isLoading: false
         }
       ];
       const store = mockStore({});
@@ -55,7 +62,8 @@ describe('Authentication action', () => {
       const returnedAction = [
         {
           type: SET_CURRENT_USER,
-          user: jwt.decode(Response.token)
+          user: jwt.decode(Response.token),
+          isLoading: false
         }
       ];
       const store = mockStore({});
@@ -69,7 +77,8 @@ describe('Authentication action', () => {
       const returnedAction = [
         {
           type: SET_CURRENT_USER,
-          user: {}
+          user: {},
+          isLoading: false
         }
       ];
       const store = mockStore({});
@@ -85,12 +94,17 @@ describe('Authentication action', () => {
         request.respondWith({
           status: 200,
           response: mockData.userSigninData
-        })
-      })
+        });
+      });
       const returnedAction = [
         {
+          type: GET_USER_REQUEST,
+          isLoading: true
+        },
+        {
           type: GET_USER_INFORMATION,
-          user: mockData.userSigninData
+          user: mockData.userSigninData,
+          isLoading: false
         }
       ];
       const store = mockStore({});

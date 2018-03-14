@@ -41,7 +41,11 @@ import {
   UPVOTE_RECIPE,
   DOWNVOTE_RECIPE,
   ADD_REVIEW,
-  SEARCH_RECIPES
+  SEARCH_RECIPES,
+  ADD_RECIPE_REQUEST,
+  GET_RECIPES_REQUEST,
+  ADD_REVIEW_REQUEST,
+  GET_USER_RECIPES_REQUEST
 } from '../../actions/types';
 
 const mockStore = configureStore([thunk]);
@@ -67,8 +71,13 @@ describe('Recipes actions', () => {
 
         const returnedAction = [
           {
+            type: ADD_RECIPE_REQUEST,
+            isLoading: true
+          },
+          {
             type: ADD_RECIPE,
-            recipe: recipeResponse
+            recipe: recipeResponse,
+            isLoading: false
           }
         ];
 
@@ -143,8 +152,13 @@ describe('Recipes actions', () => {
         });
         const returnedAction = [
           {
+            type: GET_RECIPES_REQUEST,
+            isLoading: true
+          },
+          {
             type: GET_RECIPES,
-            recipes: allRecipes.recipeData
+            recipes: allRecipes.recipeData,
+            isLoading: false
           }
         ];
         const store = mockStore({});
@@ -177,7 +191,7 @@ describe('Recipes actions', () => {
   });
 
   describe("Get user's recipe action", () => {
-    it('Should return the user\'s recipe and' +
+    it('Should return the users recipe and' +
       ' dispatch the GET_USER_RECIPES action', async () => {
         const userRecipes = {
           recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
@@ -191,8 +205,13 @@ describe('Recipes actions', () => {
         });
         const returnedAction = [
           {
+            type: GET_USER_RECIPES_REQUEST,
+            isLoading: true
+          },
+          {
             type: GET_USER_RECIPES,
-            userRecipe: userRecipes.recipeData
+            userRecipe: userRecipes.recipeData,
+            isLoading: false
           }
         ];
         const store = mockStore({});
@@ -202,7 +221,7 @@ describe('Recipes actions', () => {
   });
 
   describe('Get user favorites action', () => {
-    it('Should get user\'s favorite and' +
+    it('Should get users favorite and' +
       ' dispatch the FETCH_FAVORITE_RECIPES', async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
@@ -225,7 +244,7 @@ describe('Recipes actions', () => {
 
   describe('Toggle favorites action', () => {
     it(
-      'Should add/remove from a user\'s favorite list and' +
+      'Should add/remove from a users favorite list and' +
       ' dispatch the TOGGLE_FAVORITE action',
       async () => {
         moxios.wait(() => {
@@ -306,8 +325,13 @@ describe('Recipes actions', () => {
         });
         const returnedAction = [
           {
+            type: ADD_REVIEW_REQUEST,
+            isLoading: true
+          },
+          {
             type: ADD_REVIEW,
-            review: reviews
+            review: reviews,
+            isLoading: false
           }
         ];
         const store = mockStore({});
@@ -342,6 +366,31 @@ describe('Recipes actions', () => {
       }
     );
   });
+  describe('Search recipes catalogue', () => {
+    it('Should search the recipe catlogue and return a set of recipes matching the query', async (done) => {
+      const popularRecipes = {
+        theFoundrecipes: [recipeResponse
+          .recipeData, recipeResponse.recipeData]
+      };
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: popularRecipes
+        });
+      });
+      const returnedAction = [
+        {
+          type: SEARCH_RECIPES,
+          recipes: popularRecipes,
+        }
+      ];
+      const store = mockStore({});
+      await store.dispatch(SearchRecipesAction('Fried rice', 1));
+      expect(store.getActions()).toEqual(returnedAction);
+      done();
+    });
+  });
   describe('Action errors', () => {
     it('Should handle ADD_RECIPE error', async (done) => {
       moxios.wait(() => {
@@ -357,13 +406,18 @@ describe('Recipes actions', () => {
       });
       const returnedAction = [
         {
+          type: ADD_RECIPE_REQUEST,
+          isLoading: true
+        },
+        {
           type: ADD_RECIPE,
-          recipe: recipeResponse
+          recipe: recipeResponse,
+          isLoading: false
         }
       ];
       const store = mockStore({});
       await store.dispatch(AddRecipeAction({ ...recipeResponse }));
-      expect(store.getActions()).toEqual([]);
+      expect(store.getActions()).toEqual([{ isLoading: true, type: ADD_RECIPE_REQUEST }]);
       done();
     });
     it('Should handle EDIT_RECIPE error', async (done) => {

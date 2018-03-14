@@ -17,4 +17,10 @@ describe('<RecipeEdit />', () => {
     const wrapper = shallow(<RecipeEdit recipe={recipes[0]} />);
     wrapper.find('#editRecipeLink').simulate('click');
   });
+  it('Should render the Modal as a child', () => {
+    const onRemoveRecipe = jest.fn();
+    const wrapper = shallow(<RecipeEdit onRemoveRecipe={onRemoveRecipe} recipe={recipes[0]}>
+      <Modal onRemoveRecipe={onRemoveRecipe} />
+    </RecipeEdit>);
+  })
 });

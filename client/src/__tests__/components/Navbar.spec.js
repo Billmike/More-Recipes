@@ -10,6 +10,16 @@ describe('<Navbar />', () => {
     const wrapper = shallow(<Navbar auth={auth} />);
     expect(wrapper).toMatchSnapshot();
   });
+  it('Should render the GuestLinks if signed in', () => {
+    const auth = {
+      isAuthenticated: true
+    };
+    const logout = jest.fn();
+    const wrapper = shallow(<Navbar auth={auth} logout={logout} />);
+    wrapper.find('#userLinkID').simulate('click', {
+      preventDefault: jest.fn()
+    });
+  })
   it('Should call mapStateToProps', () => {
     mapStateToProps(state);
   });

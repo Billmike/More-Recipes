@@ -1,7 +1,10 @@
 import localStorage from 'mock-local-storage';
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
-import { SET_CURRENT_USER, GET_USER_INFORMATION } from '../../actions/types';
+import {
+  SET_CURRENT_USER, GET_USER_INFORMATION, SIGNUP_REQUEST,
+  GET_USER_REQUEST
+} from '../../actions/types';
 import authReducer, { initialState } from '../../reducers/auth';
 import { authUser } from '../fixtures/authUser';
 
@@ -16,12 +19,13 @@ describe('Auth Reducer', () => {
     const stateBefore = initialState;
     const action = {
       type: SET_CURRENT_USER,
-      user: authUser
+      user: authUser,
     };
     const stateAfter = {
       isAuthenticated: true,
       user: authUser,
-      userDetails: authUser
+      userDetails: authUser,
+      isLoading: false
     };
     deepFreeze(stateBefore);
     deepFreeze(action);
@@ -37,6 +41,28 @@ describe('Auth Reducer', () => {
       isAuthenticated: true,
       userDetails: authUser
     };
+    deepFreeze(stateBefore);
+    deepFreeze(action);
+    expect(authReducer(stateBefore, action)).toEqual(stateAfter);
+  });
+  it('Should start the sign-up request', () => {
+    const stateBefore = initialState;
+    const action = {
+      type: SIGNUP_REQUEST,
+      isLoading: true
+    };
+    const stateAfter = { ...initialState, isLoading: true };
+    deepFreeze(stateBefore);
+    deepFreeze(action);
+    expect(authReducer(stateBefore, action)).toEqual(stateAfter);
+  });
+  it('Should start the request to fetch a user', () => {
+    const stateBefore = initialState;
+    const action = {
+      type: GET_USER_REQUEST,
+      isLoading: true
+    };
+    const stateAfter = { ...initialState, isLoading: true };
     deepFreeze(stateBefore);
     deepFreeze(action);
     expect(authReducer(stateBefore, action)).toEqual(stateAfter);

@@ -46,6 +46,7 @@ export class Navbar extends Component {
           id="startupNavbar"
         >
           {isAuthenticated ? <UserLinks
+          id="userLinkID"
             logout={this.logout} />
             : <GuestLinks />}
         </div>
