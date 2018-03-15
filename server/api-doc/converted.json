@@ -5,10 +5,20 @@
     "title": "More-Recipes API",
     "description": "# Introduction\nWelcome to the More-Recipes (v1) API. More-Recipes is an application that enables users from across the globe share insightful and amazing recipes.\n\n# Overview\nThe More-Recipes API was built using NodeJS (v8.9.1) and ExpressJS (v4.16.2). To begin consuming this API, it is strongly recommended that you create a dummy user (or users) which would be authenticated by the API.\n\n# Authentication\nThe More-Recipes API makes use of JSON Web Tokens (JWT) for authentication.\n\n# Status Codes in use\n-  200 - OK\n-  201 - Created\n-  400 - Bad Request\n-  401 - Unauthorized\n-  403 - Forbidden\n-  404 - Not Found\n- 409 - Conflict\n-  500 - Internal Server Error\n\n# Rate limit\n-  No rate limit employed for now."
   },
-  "host": "https://more-recipes-app1.herokuapp.com",
+  "servers": [
+    {
+      "url": "https://more-recipes-app1.herokuapp.com",
+      "variables": {}
+    },
+    {
+      "url": "http://localhost:8000",
+      "variables": {}
+    }
+  ],
   "basePath": "/api/v1",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -20,7 +30,7 @@
     "/users/signup": {
       "post": {
         "description": "Signs up a  new user and returns a JSON Web Token.",
-        "summary": "/api/v1/users/signup",
+        "summary": "Sign-up a new User",
         "tags": [
           "User"
         ],
@@ -101,7 +111,7 @@
     "/users/signin": {
       "post": {
         "description": "Signs in an existing user and issues a JSON Web Token on successful sign-in",
-        "summary": "/api/v1/users/signin",
+        "summary": "Sign-in a registered user",
         "tags": [
           "User"
         ],
@@ -175,7 +185,7 @@
     "/recipes/{page}": {
       "get": {
         "description": "Gets all the recipes in the application",
-        "summary": "/api/v1/recipes/:page",
+        "summary": "Fetches all recipes in the application",
         "tags": [
           "Recipe"
         ],
@@ -236,10 +246,68 @@
         }
       }
     },
+    "/recipes/popular": {
+      "get": {
+        "description": "Gets the popular recipes based on favorites",
+        "summary": "Get popular recipes in the application",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesFetch",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Success Response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetRecipeSuccess"
+            },
+            "examples": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes/popular"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/popular",
+            "x-testDescription": "Fetch popular recipes"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
     "/recipes": {
       "post": {
         "description": "Creates a new recipe",
-        "summary": "/api/v1/recipes",
+        "summary": "Create a new recipe by an authenticated user",
         "tags": [
           "Recipe"
         ],
@@ -325,7 +393,7 @@
     "/recipe/{recipeId}": {
       "get": {
         "description": "Gets on recipe in the application",
-        "summary": "/api/v1/recipe/:recipeId",
+        "summary": "Fetch a single recipe in the application",
         "tags": [
           "Recipe"
         ],
@@ -382,7 +450,7 @@
       },
       "delete": {
         "description": "Deletes an existing recipe in the application",
-        "summary": "/api/v1/recipes/:recipeId",
+        "summary": "Delete a single recipe from the application",
         "tags": [
           "Recipe"
         ],
@@ -467,7 +535,7 @@
     "/recipes/{recipeId}": {
       "put": {
         "description": "Modify an existing recipe in the application",
-        "summary": "/api/v1/recipes/:recipeId/modify",
+        "summary": "Edit a recipe in the application",
         "tags": [
           "Recipe"
         ],
@@ -497,6 +565,27 @@
               "$ref": "#/definitions/SignupSuccessResponse"
             },
             "examples": {}
+          },
+          "403": {
+            "description": "edit recipe error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DeleteRecipeFailure"
+            }
+          },
+          "404": {
+            "description": "Edit recipe error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DeleteRecipeFailure"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
           }
         },
         "security": [],
@@ -531,7 +620,7 @@
     "/users/get_user": {
       "get": {
         "description": "Gets a logged-in user",
-        "summary": "/api/v1/users/get_user",
+        "summary": "Fetch a user detail",
         "tags": [
           "User"
         ],
@@ -595,7 +684,7 @@
     "/users/profile": {
       "put": {
         "description": "Enable a user edit their details",
-        "summary": "/api/v1/users/profile",
+        "summary": "Edit the details of an existing user",
         "tags": [
           "User"
         ],
@@ -674,7 +763,7 @@
     "/recipes/{recipeId}/reviews": {
       "post": {
         "description": "Post reviews on a particular recipe",
-        "summary": "/api/v1/recipes/:recipeId/reviews",
+        "summary": "Post a review on a recipe",
         "tags": [
           "Recipe"
         ],
@@ -761,7 +850,7 @@
     "/recipes/{recipeId}/favorites": {
       "post": {
         "description": "Favorite a single recipe by an authenticated user",
-        "summary": "/api/v1/recipes/:recipeId/favorites",
+        "summary": "Add a recipe to your list of favorites",
         "tags": [
           "Recipe"
         ],
@@ -841,7 +930,7 @@
     "/users/{userId}/favorites": {
       "get": {
         "description": "Get all the favorites for a particular user",
-        "summary": "/api/v1/users/:userId/favorites",
+        "summary": "Fetch the favorites for a particular user",
         "tags": [
           "User"
         ],
@@ -921,7 +1010,7 @@
     "/recipes/{recipeId}/upvote": {
       "post": {
         "description": "Upvote a single recipe",
-        "summary": "/api/v1/recipes/:recipeId/upvote",
+        "summary": "Up-vote a recipe by a signed-in User",
         "tags": [
           "Recipe"
         ],
@@ -1008,7 +1097,7 @@
     "/recipes/{recipeId}/downvote": {
       "post": {
         "description": "Downvote a particular recipe",
-        "summary": "/api/v1/recipes/:recipeId/downvote",
+        "summary": "Down-vote a recipe by a signed-in user",
         "tags": [
           "Recipe"
         ],

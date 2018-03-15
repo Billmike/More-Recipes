@@ -29,8 +29,8 @@ export class Homepage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: true,
       searchQuery: '',
+      loaded: true,
       page: 1,
       search: false
     };
@@ -53,7 +53,6 @@ export class Homepage extends Component {
     if (this.state.search) {
       this.props.SearchRecipesAction(this.state.searchQuery, currentView);
     } else {
-      this.setState({ search: false });
       this.props.GetAllRecipesAction(currentView);
     }
   }
