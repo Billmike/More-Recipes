@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="3">
+
+  <testsuite name="hompage_test"
+    errors="0" failures="0" hostname="" id="" package="hompage_test" skipped="0"
+    tests="3" time="26.87" timestamp="Fri, 16 Mar 2018 08:16:03 GMT">
+  
+    <testcase name="Homepage Test" classname="hompage_test" time="6.595" assertions="11">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Search for recipes" classname="hompage_test" time="9.586" assertions="6">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Show a 404 page for invalid routes" classname="hompage_test" time="10.69" assertions="8">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

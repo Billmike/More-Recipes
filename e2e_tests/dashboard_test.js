@@ -41,7 +41,38 @@ module.exports = {
       .assert.elementPresent('h4.dashboard-h4')
       .assert.containsText('h4.dashboard-h4', 'My Recipes');
   },
-  'Create a recipe with a logged-in user': (client) => {
+  'Create a recipe without complete details': (client) => {
+    client
+      .assert.visible('h2.dashboard-h2')
+      .assert.containsText(
+        'h2.dashboard-h2',
+        `Welcome to your Dashboard, ${user.username}!`
+      )
+      .assert.elementPresent('h4.dashboard-h4')
+      .assert.containsText('h4.dashboard-h4', 'My Recipes')
+      .click('#addRecipeID')
+      .waitForElementNotPresent('#dashbordBody', 7000)
+      .assert.elementNotPresent('#dashbordBody')
+      .waitForElementPresent('#AddRecipeDiv', 7000)
+      .assert.elementPresent('#AddRecipeDiv')
+      .setValue('#recipename', recipe.name)
+      .pause(1000)
+      .setValue('#descriptionTextArea', recipe.description)
+      .pause(1000)
+      .setValue('#dropZoneID', recipe.imageUrl)
+      .pause(1000)
+      .click('#category')
+      .setValue('#category', recipe.category)
+      .pause(1000)
+      .setValue('#recipeingredients', recipe.ingredients)
+      .pause(1000)
+      .click('#recipe-submit-button')
+      .waitForElementVisible('span.has-errors', 7000)
+      .assert.elementPresent('span.has-errors')
+      .assert.containsText('span.has-errors', 'Input directions on how to cook your recipe')
+      .pause(2000);
+  },
+  'Create a recipe as a logged-in user': (client) => {
     client.url(`${URL}/dashboard`)
       .waitForElementPresent('body', 7000)
       .assert.visible('h2.dashboard-h2')
@@ -62,6 +93,7 @@ module.exports = {
       .pause(1000)
       .setValue('#dropZoneID', recipe.imageUrl)
       .pause(1000)
+      .click('#category')
       .setValue('#category', recipe.category)
       .pause(1000)
       .setValue('#recipeingredients', recipe.ingredients)
@@ -121,8 +153,7 @@ module.exports = {
       .assert.elementPresent('.under-carousel-div')
       .assert.visible('.card')
       .click('#favbutton')
-      .pause(5000)
-      .assert.elementPresent('.toast')
+      .pause(9000)
       .click('#favoritesButton')
       .waitForElementPresent('#favorites-container', 7000)
       .assert.elementPresent('#favorites-container')
@@ -145,11 +176,7 @@ module.exports = {
       .assert.elementPresent('#favorites-container');
   },
   'Upvote a recipe and leave reviews as a logged-in user': (client) => {
-    client.url(`${URL}/dashboard`)
-      .waitForElementVisible('body', 7000)
-      .click('#home-button')
-      .waitForElementNotPresent('#dashbordBody', 7000)
-      .assert.elementNotPresent('#dashbordBody')
+    client.url(`${URL}`)
       .waitForElementPresent('.under-carousel-div', 7000)
       .assert.elementPresent('.under-carousel-div')
       .assert.visible('.card')
@@ -177,7 +204,16 @@ module.exports = {
       .pause(2000)
       .waitForElementPresent('.toast', 7000)
       .assert.elementPresent('.toast')
+      .click('#favoriteid')
+      .pause(4000)
+      .waitForElementPresent('.toast', 7000)
+      .assert.elementPresent('.toast')
+      .click('#favoriteid')
+      .pause(4000)
+      .waitForElementPresent('.toast', 7000)
+      .assert.elementPresent('.toast')
       .setValue('#reviewFormId', 'Amazing recipe you got man!')
+      .pause(2000)
       .click('#submit-review')
       .pause(5000)
       .waitForElementPresent('.custom-div', 5000)
@@ -186,6 +222,22 @@ module.exports = {
       .assert.elementPresent('.toast')
       .assert.visible('p.review-content')
       .assert.containsText('p.review-content', 'Amazing recipe you got man!')
-      .end();
+      .pause(2000);
   },
+  'Show client their profile page': (client) => {
+    client.url(`${URL}/dashboard`)
+      .waitForElementPresent('body', 5000)
+      .click('#profileID')
+      .waitForElementPresent('#profileContainer', 7000)
+      .assert.elementPresent('#profileContainer')
+      .assert.visible('.profile-card')
+      .assert.visible('.profile-title')
+      .assert.visible('.prop-username')
+      .assert.containsText('.prop-username', `${user.username}`)
+      .assert.visible('.profile-email')
+      .assert.visible('.prop-email')
+      .assert.containsText('.prop-email', `${user.email}`)
+      .pause(2000)
+      .end();
+  }
 };

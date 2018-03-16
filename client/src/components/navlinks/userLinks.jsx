@@ -38,6 +38,7 @@ const userLinks = props => (
     </li>
     <li className="nav-item">
       <Link
+        id="profileID"
         to="/profile"
         className="nav-link custom-link">
         My Profile

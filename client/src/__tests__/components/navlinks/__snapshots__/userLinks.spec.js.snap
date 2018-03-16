@@ -59,6 +59,7 @@ exports[`<UserLinks /> Should render the UserLinks component correctly 1`] = `
   >
     <Link
       className="nav-link custom-link"
+      id="profileID"
       replace={false}
       to="/profile"
     >

@@ -185,7 +185,6 @@ export class Homepage extends Component {
 }
 
 export const mapStateToProps = (state) => {
-  console.log('current state', state);
   return {
     popularRecipes: state.recipes.popularRecipes,
     recipes: state.recipes.recipes,

@@ -14,6 +14,7 @@ exports[`Should render the 404 page correctly 1`] = `
       />
        
       <Link
+        id="homepageLink"
         replace={false}
         to="/"
       >

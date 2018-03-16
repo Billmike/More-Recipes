@@ -8,7 +8,7 @@ html {
 
 body {
   background: whitesmoke !important;
-  margin-bottom: 120px !important;
+  margin-bottom: 60px !important;
 }
 
 .navbar {
@@ -317,6 +317,7 @@ h4 {
   background-color: brown;
   border-color: white;
   border-radius: 10px !important;
+  margin-bottom: 7pc;
 }
 
 .action-btn {
@@ -498,6 +499,7 @@ a:hover {
 .custom-pagination {
   justify-content: center;
   padding-top: 15px;
+  padding-bottom: 50px;
 }
 
 .page-item.active .page-link {
@@ -529,6 +531,7 @@ a:hover {
   border-radius: 15px;
   overflow-y: scroll;
   max-height: 700px;
+  margin-bottom: 7pc;
 }
 
 .reviewer-name {

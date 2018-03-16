@@ -77,7 +77,7 @@ describe('<RecipesForm/>', () => {
       url: 'link'
     });
   });
-  it('Should handle onDrop method', () => {
+  it('Should handle onDrop method that sets the imageUrl state', () => {
     const handleDrop = jest.fn();
     const wrapper = shallow(<RecipesForm>
       <DropZone

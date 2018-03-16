@@ -11,7 +11,7 @@ export class ProfilePage extends Component {
   render() {
     return (
       <div>
-        <main className="container">
+        <main id="profileContainer" className="container">
           <h1 className="profile-h1">My Profile</h1>
           <div className="profile-card">
             <img src={cool} alt="John" className="profile-image" />

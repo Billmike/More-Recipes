@@ -28,5 +28,9 @@ export const signupRequest = userData => (dispatch) => {
       toastr.success('Login Successful.');
       dispatch(setCurrentUser(jwt.decode(token)));
     })
-    .catch(error => error);
+    .catch((error) => {
+      if (error.response.data.message === 'Username must be unique.') {
+        toastr.error(error.response.data.message);
+      }
+    });
 };

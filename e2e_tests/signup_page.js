@@ -25,7 +25,23 @@ module.exports = {
       .assert.containsText(
         'span.has-errors',
         'Please provide a password greater than 8 characters.'
-      );
+      )
+      .pause(2000);
+  },
+  'Signup with a username that is already taken': (client) => {
+    client.url(`${URL}/register`)
+      .waitForElementVisible('body', 7000)
+      .assert.visible('.card-form')
+      .setValue('#username', 'jackbauer')
+      .pause(2000)
+      .setValue('#email', 'somerando@gmail.com')
+      .pause(2000)
+      .setValue('#password', 'qwertyuiop')
+      .pause(2000)
+      .click('#submitButton')
+      .waitForElementVisible('.toast', 7000)
+      .assert.elementPresent('.toast')
+      .pause(4000);
   },
   'Signup with valid credentials': (client) => {
     client.url(`${URL}/register`)
@@ -50,7 +66,23 @@ module.exports = {
         `Welcome to your Dashboard, ${user.username}!`
       )
       .assert.elementPresent('h4.dashboard-h4')
-      .assert.containsText('h4.dashboard-h4', 'My Recipes');
+      .assert.containsText('h4.dashboard-h4', 'My Recipes')
+      .click('#logoutButton');
+  },
+  'Sign-in with incomplete details': (client) => {
+    client.url(`${URL}/login`)
+      .waitForElementVisible('body', 7000)
+      .assert.visible('#loginContainer', 5000)
+      .setValue('#email', user.email)
+      .pause(2000)
+      .click('#submitButton')
+      .waitForElementVisible('span.has-errors', 4000)
+      .assert.visible('span.has-errors')
+      .assert.containsText(
+        'span.has-errors',
+        'Input a password to sign-in.'
+      )
+      .pause(2000);
   },
   'Sign-in a registered user': (client) => {
     client.url(`${URL}/login`)
@@ -72,7 +104,8 @@ module.exports = {
         `Welcome to your Dashboard, ${user.username}!`
       )
       .assert.elementPresent('h4.dashboard-h4')
-      .assert.containsText('h4.dashboard-h4', 'My Recipes');
+      .assert.containsText('h4.dashboard-h4', 'My Recipes')
+      .pause(2000);
   },
   'Sign-out a signed-in user': (client) => {
     client.url(`${URL}/dashboard`)
@@ -84,6 +117,7 @@ module.exports = {
       .assert.elementNotPresent('#dashboardBody')
       .waitForElementPresent('.card-form', 3000)
       .assert.elementPresent('.card-form')
+      .pause(2000)
       .end();
   }
 };

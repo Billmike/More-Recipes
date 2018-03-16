@@ -9,7 +9,7 @@ const NotFoundPage = () => (
       <p className="p-section">
         You've gone too far in search of a dessert, init?
         <Emoji text=":'(" />{' '}
-        <Link to="/"> Go back</Link>
+        <Link id="homepageLink" to="/"> Go back</Link>
       </p>
     </div>
     <Footer />

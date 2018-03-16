@@ -9,6 +9,7 @@
   "globals_path": "",
   "selenium": {
     "start_process": true,
+    "start_session": true,
     "server_path": "./bin/selenium-server-standalone-3.8.0.jar",
     "log_path": "./reports",
     "host": "127.0.0.1",
