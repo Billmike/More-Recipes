@@ -22,8 +22,8 @@
     "heroku-postbuild": "npm run migrate",
     "migrate": "node_modules/.bin/sequelize db:migrate",
     "nyc-local": "cross-env NODE_ENV=test npm run test-migrate && cross-env NODE_ENV=test npm run test",
-    "test-local": "cross-env NODE_ENV=test npm run test-migrate && npm run seed-testdb && cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit",
-    "test": "cross-env NODE_ENV=test npm run test-migrate && npm run seed-testdb && NODE_ENV=test nyc mocha --compilers js:babel-core/register server/__test__/*.spec.js --timeout 50000 --exit && npm run coverage",
+    "test-local": "cross-env NODE_ENV=test npm run test-migrate && npm run seed-testdb && cross-env NODE_ENV=test mocha --compilers js:babel-core/register server/__test__/index.spec.js --timeout 50000 --exit",
+    "test": "cross-env NODE_ENV=test npm run test-migrate && npm run seed-testdb && NODE_ENV=test nyc mocha --compilers js:babel-core/register server/__test__/index.spec.js --timeout 50000 --exit && npm run coverage",
     "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "client-test": "jest ./client/src/__tests__/**/** --config ./jest.config.js --coverage",
@@ -32,7 +32,8 @@
     "run-prod": "npm run build-client && node ./dist/bin/www.js",
     "run-dev": "npm run build-test && node ./dist/bin/www.js",
     "seed-testdb": "sequelize db:seed:all --env test",
-    "e2e": "./node_modules/.bin/nightwatch"
+    "e2e": "./node_modules/.bin/nightwatch",
+    "trial": "mocha --compilers js:babel-core/register server/__test__/validators/validatesignin.spec.js"
   },
   "nyc": {
     "require": [

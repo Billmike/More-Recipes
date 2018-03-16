@@ -1,5 +1,7 @@
-module.exports = (sequelize) => {
-  const Favorite = sequelize.define('Favorite', {});
+module.exports = (sequelize, DataTypes) => {
+  const Favorite = sequelize.define('Favorite', {
+    recipeId: DataTypes.INTEGER
+  });
 
   Favorite.associate = (models) => {
     Favorite.belongsTo(models.Recipe, {
