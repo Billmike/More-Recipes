@@ -25,14 +25,14 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   }, {
-    validate: {
-      validatePassword() {
-        if (this.password.length <= 6) {
-          throw new Error('Enter a password greater than 6 characters');
-        }
+      validate: {
+        validatePassword() {
+          if (this.password.length <= 8) {
+            throw new Error('Enter a password greater than 8 characters');
+          }
+        },
       },
-    },
-  });
+    });
 
   User.associate = (models) => {
     User.hasMany(models.Recipe, {
