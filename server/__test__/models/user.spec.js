@@ -14,8 +14,8 @@ describe('User model', () => {
         }).catch((error) => {
           expect(error.errors[0].message).to.equal('username cannot be null');
           expect(error.errors[0].type === 'notNull Violation');
-          done();
         });
+        done();
       }
     );
     it('should throw an error if no password is provided', (done) => {
@@ -25,8 +25,8 @@ describe('User model', () => {
       }).catch((error) => {
         expect(error.errors[0].message).to.equal('password cannot be null');
         expect(error.errors[0].type).to.equal('notNull Violation');
-        done();
       });
+      done();
     });
     it('it should throw an error if password length is less than 8', (done) => {
       User.create({
@@ -37,8 +37,8 @@ describe('User model', () => {
         expect(error.errors[0].message)
           .to.equal('Enter a password greater than 8 characters');
         expect(error.errors[0].type).to.equal('Validation error');
-        done();
       });
+      done();
     });
     it('Should throw an error if the email is of an invalid format', (done) => {
       User.create({
@@ -50,8 +50,8 @@ describe('User model', () => {
           .equal('Validation isEmail on email failed');
         expect(error.errors[0].type).to.equal('Validation error');
         expect(error.errors[0].value).to.equal('williamgates');
-        done();
       });
+      done();
     });
     it('should create a user if all information is valid', (done) => {
       User.create({
@@ -65,8 +65,8 @@ describe('User model', () => {
         expect(user.dataValues.username).to.equal('williamsshakespear');
         expect(user.dataValues.email).to.equal('williamsshakespear@gmail.com');
         expect(user.dataValues.password).to.equal('qwertyuiop');
-        done();
       });
+      done();
     });
     it('should throw an error if the username already exists', (done) => {
       User.create({
@@ -77,8 +77,8 @@ describe('User model', () => {
         expect(error.errors[0].message).to.equal('username must be unique');
         expect(error.errors[0].type).to.equal('unique violation');
         expect(error.errors[0].value).to.equal('williamsshakespear');
-        done();
       });
+      done();
     });
     it('Should throw an error if the email already exists', (done) => {
       User.create({
@@ -89,8 +89,8 @@ describe('User model', () => {
         expect(error.errors[0].message).to.equal('email must be unique');
         expect(error.errors[0].type).to.equal('unique violation');
         expect(error.errors[0].value).to.equal('williamsshakespear@gmail.com');
-        done();
       });
+      done();
     });
   });
 });

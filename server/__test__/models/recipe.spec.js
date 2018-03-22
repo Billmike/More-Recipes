@@ -15,8 +15,8 @@ describe('Recipe models', () => {
       }).catch((error) => {
         expect(error.errors[0].message).to.equal('name cannot be null');
         expect(error.errors[0].type).to.equal('notNull Violation');
-        done();
       });
+      done();
     });
     it('should fail to create a recipe if no category is picked', (done) => {
       Recipe.create({
@@ -28,8 +28,8 @@ describe('Recipe models', () => {
       }).catch((error) => {
         expect(error.errors[0].message).to.equal('category cannot be null');
         expect(error.errors[0].type).to.equal('notNull Violation');
-        done();
       });
+      done();
     });
     it('Should create a recipe succesfully', (done) => {
       Recipe.create({
@@ -47,8 +47,8 @@ describe('Recipe models', () => {
         expect(recipe.dataValues.ingredients).to.be.a('string');
         expect(recipe.dataValues.instructions).to.be.a('string');
         expect(recipe.dataValues).to.be.an('object');
-        done();
       });
+      done();
     });
   });
   describe('Get all recipes', () => {
@@ -56,8 +56,8 @@ describe('Recipe models', () => {
       Recipe.all()
         .then((recipes) => {
           expect(recipes).to.be.an('array');
-          done();
         });
+        done();
     });
   });
   describe('Edit a recipe', () => {
@@ -70,9 +70,9 @@ describe('Recipe models', () => {
             expect(updatedRecipe.dataValues.name)
               .to.equal('Amazing recipe here');
             expect(updatedRecipe.dataValues).to.be.an('object');
-            done();
           });
         });
+        done();
     });
   });
   describe('Delete a recipe', () => {
@@ -82,8 +82,8 @@ describe('Recipe models', () => {
           recipe.destroy()
             .then((deletedRecipe) => {
               expect(deletedRecipe.length).to.equal(0);
-              done();
             });
+            done();
         });
     });
   });

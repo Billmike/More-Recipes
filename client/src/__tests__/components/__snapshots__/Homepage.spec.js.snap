@@ -156,6 +156,7 @@ exports[`<Homepage /> Should render the homepage component correctly 1`] = `
       className="row"
     />
     <Pagination
+      forcePage={null}
       handlePaginationChange={[Function]}
     />
   </div>

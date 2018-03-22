@@ -3,7 +3,6 @@ import axios from 'axios';
 import DropZone from 'react-dropzone';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import LoaderComp from './LoaderComp';
 import Loader from './Loader';
 import validateRecipe from '../../../server/validators/validateRecipe';
 

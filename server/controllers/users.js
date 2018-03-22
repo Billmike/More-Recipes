@@ -74,7 +74,8 @@ class Users {
                 });
               }
             });
-          }).catch((error) => {
+          })
+          .catch((error) => {
             if (error.errors[0].message === 'username must be unique') {
               return res
                 .status(409)

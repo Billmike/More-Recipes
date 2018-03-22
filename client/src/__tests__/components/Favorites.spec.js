@@ -6,26 +6,26 @@ import auth from '../fixtures/authUser';
 import { FavoritesRecipeProps } from '../fixtures/recipes';
 import state from '../fixtures/state';
 
-const GetUserFavoritesAction = jest.fn();
-const getUserinfo = jest.fn();
+const getUserFavoritesAction = jest.fn();
+const getUserInformation = jest.fn();
 
 describe('<Favorites />', () => {
   it('Should render the Favorites component', () => {
     const wrapper = shallow(<Favorites
-      userDetails={auth}
-      getUserinfo={() => Promise.resolve()}
-      GetUserFavoritesAction={() => Promise.resolve()}
-    />);
+        userDetails={auth}
+        getUserInformation={() => Promise.resolve()}
+        getUserFavoritesAction={() => Promise.resolve()}
+      />);
     expect(wrapper).toMatchSnapshot();
     expect(wrapper.find('div').length).toBe(3);
   });
   it('Should call the selectFavorite method handler', () => {
     const wrapper = shallow(<Favorites
-      recipes={FavoritesRecipeProps}
-      getUserinfo={() => Promise.resolve()}
-      GetUserFavoritesAction={() => Promise.resolve()}
-      userDetails={auth}
-    />);
+        recipes={FavoritesRecipeProps}
+        getUserInformation={() => Promise.resolve()}
+        getUserFavoritesAction={() => Promise.resolve()}
+        userDetails={auth}
+      />);
     wrapper.find('#selectFavoriteButton').simulate('click');
   });
   it('Should call mapStateToProps', () => {

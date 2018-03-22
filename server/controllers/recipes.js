@@ -35,36 +35,39 @@ class Recipe {
       ingredients,
       instructions
     } = req.body;
-    recipes.findOne({
-      where: {
-        name,
-        owner: req.userId
-      }
-    }).then((foundRecipe) => {
-      if (foundRecipe) {
-        return res.status(409).json({
-          message: 'You already have a recipe with this name'
-        });
-      }
-      recipes
-        .create({
+    recipes
+      .findOne({
+        where: {
           name,
-          description,
-          imageUrl,
-          category,
-          ingredients,
-          instructions,
           owner: req.userId
-        })
-        .then(recipe =>
-          res.status(201).json({
-            message: 'Recipe created successfully',
-            recipeData: recipe
-          }));
-    }).catch(() =>
-      res.status(500).json({
-        message: errorMessage
-      }));
+        }
+      })
+      .then((foundRecipe) => {
+        if (foundRecipe) {
+          return res.status(409).json({
+            message: 'You already have a recipe with this name'
+          });
+        }
+        recipes
+          .create({
+            name,
+            description,
+            imageUrl,
+            category,
+            ingredients,
+            instructions,
+            owner: req.userId
+          })
+          .then(recipe =>
+            res.status(201).json({
+              message: 'Recipe created successfully',
+              recipeData: recipe
+            }));
+      })
+      .catch(() =>
+        res.status(500).json({
+          message: errorMessage
+        }));
   }
 
   /**
@@ -156,11 +159,11 @@ class Recipe {
               pages
             });
           });
-      }).catch(() =>
+      })
+      .catch(() =>
         res.status(500).json({
           message: errorMessage
         }));
-
   }
 
   /**
@@ -183,14 +186,13 @@ class Recipe {
           });
         } else if (recipe.owner !== req.userId) {
           return res.status(403).json({
-            message: 'You cannot delete this recipe' +
-              ' as it does not belong to you.'
+            message:
+              'You cannot delete this recipe' + ' as it does not belong to you.'
           });
         }
         return recipe.destroy().then(() =>
           res.status(201).json({
-            message:
-              'Recipe deleted successfully',
+            message: 'Recipe deleted successfully',
             recipeId: recipe.id
           }));
       })
@@ -217,66 +219,71 @@ class Recipe {
     const limit = 6;
     let singlePage;
     let pages;
-    recipes.findAndCountAll({
-      where: {
-        [Op.or]: {
-          name: {
-            [Op.iLike]: `%${search}`
-          },
-          ingredients: {
-            [Op.iLike]: `%${search}`
+    recipes
+      .findAndCountAll({
+        where: {
+          [Op.or]: {
+            name: {
+              [Op.iLike]: `%${search}`
+            },
+            ingredients: {
+              [Op.iLike]: `%${search}`
+            }
           }
-        }
-      },
-      include: [
-        {
-          model: favorites,
-          as: 'favorites'
-        }, {
-          model: reviews,
-          as: 'reviews'
-        }
-      ]
-    }).then((searchRecipesResult) => {
-      const { page } = req.query;
-      const pages = Math.ceil(searchRecipesResult.count / limit);
-      offset = limit * (page - 1);
-
-      return recipes
-        .findAll({
-          where: {
-            [Op.or]: {
-              name: {
-                [Op.iLike]: `%${search}`
-              },
-              ingredients: {
-                [Op.iLike]: `%${search}`
-              }
-            }
+        },
+        include: [
+          {
+            model: favorites,
+            as: 'favorites'
           },
-          include: [
-            {
-              model: favorites,
-              as: 'favorites'
-            }, {
-              model: reviews,
-              as: 'reviews'
-            }
-          ],
-          limit,
-          offset
-        }).then((returnedResult) => {
-          res.status(200).json({
-            recipeData: returnedResult,
-            pages
-          });
-        });
-    }).catch(() => {
-      return res.status(500).json({
-        message: errorMessage
-      });
-    });
+          {
+            model: reviews,
+            as: 'reviews'
+          }
+        ]
+      })
+      .then((searchRecipesResult) => {
+        const { page } = req.query;
+        const pages = Math.ceil(searchRecipesResult.count / limit);
+        offset = limit * (page - 1);
 
+        return recipes
+          .findAll({
+            where: {
+              [Op.or]: {
+                name: {
+                  [Op.iLike]: `%${search}`
+                },
+                ingredients: {
+                  [Op.iLike]: `%${search}`
+                }
+              }
+            },
+            include: [
+              {
+                model: favorites,
+                as: 'favorites'
+              },
+              {
+                model: reviews,
+                as: 'reviews'
+              }
+            ],
+            limit,
+            offset
+          })
+          .then((returnedResult) => {
+            res.status(200).json({
+              recipeData: returnedResult,
+              pages
+            });
+          });
+      })
+      .catch(() => {
+        return res.status(500).json({
+          message: errorMessage
+        });
+      });
 
     // recipes.findAll({
     //   where: {
@@ -317,35 +324,40 @@ class Recipe {
   }
 
   static popularRecipes(req, res) {
-    return recipes.findAll({
-      include: [{
-        model: favorites,
-        as: 'favorites',
-      },
-      {
-        model: reviews,
-        as: 'reviews'
-      }],
-      order: [
-        [
+    return recipes
+      .findAll({
+        include: [
           {
             model: favorites,
             as: 'favorites'
           },
-          'id',
-          'ASC'
-        ]
-      ],
-      limit: 6
-    }).then((theFoundrecipes) => {
-      return res.status(200).json({
-        theFoundrecipes
+          {
+            model: reviews,
+            as: 'reviews'
+          }
+        ],
+        order: [
+          [
+            {
+              model: favorites,
+              as: 'favorites'
+            },
+            'id',
+            'ASC'
+          ]
+        ],
+        limit: 6
+      })
+      .then((theFoundrecipes) => {
+        return res.status(200).json({
+          theFoundrecipes
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          message: err.message
+        });
       });
-    }).catch((err) => {
-      return res.status(400).json({
-        message: err.message
-      });
-    });
   }
 }
 

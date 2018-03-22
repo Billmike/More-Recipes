@@ -24,4 +24,12 @@ const users = [{
   tokens: jwt.sign({ id: userThree }, process.env.SECRET).toString(),
 }];
 
+export const reviewUser = {
+  id: userOneId,
+  email: 'drakethegoat@email.com',
+  password: 'somepassword',
+  username: 'drakethegoat',
+  tokens: jwt.sign({ id: userOneId }, process.env.SECRET).toString(),
+};
+
 export default users;

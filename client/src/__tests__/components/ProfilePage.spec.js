@@ -6,10 +6,11 @@ import state from '../fixtures/state';
 
 describe('<ProfilePage />', () => {
   it('Should render the profile page correctly', () => {
-    const getUserinfo = jest.fn();
+    const getUserInformation = jest.fn();
     const wrapper = shallow(<ProfilePage
-      getUserinfo={() => Promise.resolve()}
-      currentUserInfo={authuser} />);
+        getUserInformation={() => Promise.resolve()}
+        currentUserInfo={authuser}
+      />);
     expect(wrapper).toMatchSnapshot();
   });
   it('Should call mapStateToProps', () => {
