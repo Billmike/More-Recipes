@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import LoaderComp from './LoaderComp';
 import Modal from './Modal';
-import { RemoveRecipeAction, GetUserRecipesAction } from '../actions/recipes';
+import { removeRecipeAction, getUserRecipesAction } from '../actions/recipes';
 
 export class RecipeEdit extends Component {
   constructor(props) {
@@ -30,8 +29,8 @@ export class RecipeEdit extends Component {
   }
 
   onRemoveRecipe() {
-    this.props.RemoveRecipeAction(this.props.recipe.id).then(() => {
-      this.props.GetUserRecipesAction();
+    this.props.removeRecipeAction(this.props.recipe.id).then(() => {
+      this.props.getUserRecipesAction();
     });
   }
 
@@ -118,7 +117,7 @@ export class RecipeEdit extends Component {
   }
 }
 
-
 export default connect(null, {
-  RemoveRecipeAction, GetUserRecipesAction
+  removeRecipeAction,
+  getUserRecipesAction
 })(RecipeEdit);

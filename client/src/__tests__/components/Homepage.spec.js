@@ -3,50 +3,51 @@ import { shallow } from 'enzyme';
 import { Homepage, mapStateToProps } from '../../components/Hompage';
 import { RecipeList } from '../../components/RecipesList';
 import recipes, {
-  FavoritesRecipeProps, recipesLoading
+  FavoritesRecipeProps,
+  recipesLoading
 } from '../fixtures/recipes';
 import state from '../fixtures/state';
 import Loader from '../../components/Loader';
 
 describe('<Homepage />', () => {
   it('Should render the homepage component correctly', () => {
-    const GetAllRecipesAction = jest.fn();
-    const GetPopularRecipes = jest.fn();
-    const SearchRecipesAction = jest.fn();
+    const getAllRecipesAction = jest.fn();
+    const getPopularRecipes = jest.fn();
+    const searchRecipesAction = jest.fn();
     const wrapper = shallow(<Homepage
-      GetAllRecipesAction={() => Promise.resolve()}
-      GetPopularRecipes={() => Promise.resolve()}
-      SearchRecipesAction={() => Promise.resolve()}
-    />);
+        getAllRecipesAction={() => Promise.resolve()}
+        getPopularRecipes={() => Promise.resolve()}
+        searchRecipesAction={() => Promise.resolve()}
+      />);
     expect(wrapper).toMatchSnapshot();
     expect(wrapper.find('div').length).toBe(13);
   });
 
   it('Should render RecipesList as a child element', () => {
     const wrapper = shallow(<Homepage
-      recipes={FavoritesRecipeProps}
-      popularRecipes={FavoritesRecipeProps}
-      GetAllRecipesAction={() => Promise.resolve()}
-      GetPopularRecipes={() => Promise.resolve()}
-      SearchRecipesAction={() => Promise.resolve()}
-    >
-      <div>
-        <h2 className="homepage-h2"> Popular Recipes of the week</h2>
-        <div className="row">
-          <RecipeList recipe={recipes[0]} />
+        recipes={FavoritesRecipeProps}
+        popularRecipes={FavoritesRecipeProps}
+        getAllRecipesAction={() => Promise.resolve()}
+        getPopularRecipes={() => Promise.resolve()}
+        searchRecipesAction={() => Promise.resolve()}
+      >
+        <div>
+          <h2 className="homepage-h2"> Popular Recipes of the week</h2>
+          <div className="row">
+            <RecipeList recipe={recipes[0]} />
+          </div>
         </div>
-      </div>
-    </Homepage>);
+      </Homepage>);
   });
   it('Should set the value of the search parameter', () => {
     const value = 'Fried rice';
     const wrapper = shallow(<Homepage
-      recipes={FavoritesRecipeProps}
-      popularRecipes={FavoritesRecipeProps}
-      GetAllRecipesAction={() => Promise.resolve()}
-      GetPopularRecipes={() => Promise.resolve()}
-      SearchRecipesAction={() => Promise.resolve()}
-    />);
+        recipes={FavoritesRecipeProps}
+        popularRecipes={FavoritesRecipeProps}
+        getAllRecipesAction={() => Promise.resolve()}
+        getPopularRecipes={() => Promise.resolve()}
+        searchRecipesAction={() => Promise.resolve()}
+      />);
     wrapper.find('#searchParamId').simulate('change', {
       target: { name: 'searchQuery', value }
     });
@@ -55,15 +56,15 @@ describe('<Homepage />', () => {
 
   it('Should render the loader', () => {
     const wrapper = shallow(<Homepage
-      isLoading={recipesLoading}
-      recipes={FavoritesRecipeProps}
-      popularRecipes={FavoritesRecipeProps}
-      GetAllRecipesAction={() => Promise.resolve()}
-      GetPopularRecipes={() => Promise.resolve()}
-      SearchRecipesAction={() => Promise.resolve()}
-    >
-      <Loader />
-    </Homepage>);
+        isLoading={recipesLoading}
+        recipes={FavoritesRecipeProps}
+        popularRecipes={FavoritesRecipeProps}
+        getAllRecipesAction={() => Promise.resolve()}
+        getPopularRecipes={() => Promise.resolve()}
+        searchRecipesAction={() => Promise.resolve()}
+      >
+        <Loader />
+      </Homepage>);
   });
 
   it('Should call mapStateToProps', () => {

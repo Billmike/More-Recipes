@@ -5,11 +5,16 @@ import jwt from 'jsonwebtoken';
 import thunk from 'redux-thunk';
 import instance from '../../utils/axios';
 import {
-  SET_CURRENT_USER, GET_USER_INFORMATION, SIGNUP_REQUEST, GET_USER_REQUEST
+  SET_CURRENT_USER,
+  GET_USER_INFORMATION,
+  SIGNUP_REQUEST,
+  GET_USER_REQUEST
 } from '../../actions/types';
 import { signupRequest } from '../../actions/userSignupAction';
 import {
-  signinRequest, logout, getUserinfo
+  signinRequest,
+  logout,
+  getUserInformation
 } from '../../actions/signinRequest';
 import mockData from '../__mocks__/actions/auth';
 import mockLocalStorage from '../__mocks__/localStorage';
@@ -108,7 +113,7 @@ describe('Authentication action', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(getUserinfo());
+      await store.dispatch(getUserInformation());
       expect(store.getActions()).toEqual(returnedAction);
       done();
     });

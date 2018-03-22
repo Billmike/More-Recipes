@@ -17,6 +17,7 @@ const Pagination = props => (
       disabledClassName="disabled"
       pageClassName="page-item"
       previousClassName="page-item"
+      forcePage={props.forcePage}
       nextClassName="page-item"
       activeClassName="active"
       subContainerClassName="pages pagination"

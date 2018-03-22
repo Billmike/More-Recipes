@@ -11,8 +11,8 @@ const favoriteApi = '/api/v1/users';
 describe('Tests for Favorites API endpoint', () => {
   describe('Handle addition of user favorites', () => {
     it(
-      'Should return an error message when a user who is not' +
-      'signed in attempts to favorite a recipe',
+      `Should return an error message when a user who
+ is not signed in attempts to favorite a recipe`,
       (done) => {
         request.post(`${recipesApi}/${recipes[0].id}/favorites`)
           .set('Connection', 'keep alive')
@@ -68,8 +68,8 @@ describe('Tests for Favorites API endpoint', () => {
         });
     });
     it(
-      'Should return an empty array of favorites' +
-      ' for a logged in user without a favorite',
+      `Should return an empty array of favorites
+ for a logged in user without a favorite`,
       (done) => {
         const testUser = { ...users[0] };
         request.get(`${favoriteApi}/${testUser

@@ -11,8 +11,8 @@ const recipesApi = '/api/v1/recipes';
 describe('Recipes Endpoint Tests', () => {
   describe('Test Recipe Creation', () => {
     it(
-      'Should return an error message when a user' +
-      'tries to create a recipe without being logged in',
+      `Should return an error message when a user
+ tries to create a recipe without being logged in`,
       (done) => {
         request.post(recipesApi)
           .set('Connection', 'keep alive')
@@ -48,8 +48,7 @@ describe('Recipes Endpoint Tests', () => {
         });
     });
     it(
-      'Should return an error message if no name' +
-      'is provided for recipe.',
+      'Should return an error message if no name is provided for recipe.',
       (done) => {
         const testUser = { ...users[0] };
         const testRecipe = { ...recipes[0] };
@@ -67,8 +66,8 @@ describe('Recipes Endpoint Tests', () => {
       }
     );
     it(
-      'Should return an error message if no description' +
-      'is provided for recipe.',
+      `Should return an error message
+ if no description is provided for recipe.`,
       (done) => {
         const testUser = { ...users[0] };
         const testRecipe = { ...recipes[0] };
@@ -86,8 +85,7 @@ describe('Recipes Endpoint Tests', () => {
       }
     );
     it(
-      'Should return an error message if no category is' +
-      'provided for recipe.',
+      'Should return an error message if no category is provided for recipe.',
       (done) => {
         const testUser = { ...users[0] };
         const testRecipe = { ...recipes[0] };
@@ -105,8 +103,7 @@ describe('Recipes Endpoint Tests', () => {
       }
     );
     it(
-      'Should return an error message if no ingredient' +
-      'is provided for recipe.',
+      'Should return an error message if no ingredient is provided for recipe.',
       (done) => {
         const testUser = { ...users[0] };
         const testRecipe = { ...recipes[0] };
@@ -126,8 +123,8 @@ describe('Recipes Endpoint Tests', () => {
       }
     );
     it(
-      'Should return an error message if no instruction' +
-      'is provided for recipe.',
+      `Should return an error message if
+ no instruction is provided for recipe.`,
       (done) => {
         const testUser = { ...users[0] };
         const testRecipe = { ...recipes[0] };
@@ -148,8 +145,8 @@ describe('Recipes Endpoint Tests', () => {
 
     describe('Test Modify recipe', () => {
       it(
-        'Should return an error if a user tries to' +
-        'edit a recipe without being logged in',
+        `Should return an error if a user tries
+ to edit a recipe without being logged in`,
         (done) => {
           const testRecipe = { ...recipes[0] };
           const recipeId = recipes[0].id;
@@ -168,8 +165,8 @@ describe('Recipes Endpoint Tests', () => {
         }
       );
       it(
-        'Should return an error message if the' +
-        'recipe to be edited is not found',
+        `Should return an error message
+ if the recipe to be edited is not found`,
         (done) => {
           const testUser = { ...users[0] };
           const testRecipe = { ...recipes[0] };
@@ -222,8 +219,8 @@ describe('Recipes Endpoint Tests', () => {
           }
         );
         it(
-          'Should return an error message if the recipe' +
-          'to be deleted does not exist',
+          `Should return an error message
+ if the recipe to be deleted does not exist`,
           (done) => {
             const testUser = { ...users[0] };
             request.delete(`${recipesApi}/${recipes[1]
@@ -239,8 +236,8 @@ describe('Recipes Endpoint Tests', () => {
         );
         describe('Review Endpoint Test', () => {
           it(
-            'Should prevent a non-logged in user' +
-            'from posting a review on a recipe',
+            `Should prevent a non-logged in
+ user from posting a review on a recipe`,
             (done) => {
               request.post(`${recipesApi}/${recipes[0].id}/reviews`)
                 .set('Connection', 'keep alive')
@@ -275,8 +272,8 @@ describe('Recipes Endpoint Tests', () => {
               });
           });
           it(
-            'Should return an error when a user tries' +
-            'to access a recipe that does not exist',
+            `Should return an error when a user
+ tries to access a recipe that does not exist`,
             (done) => {
               request
                 .post(`${recipesApi}/100/reviews?token=${users[0]
@@ -347,7 +344,8 @@ describe('Recipes Endpoint Tests', () => {
                 });
             });
             it(
-              'Should return an error if an unauthenticated user attempts fo fetch recipes',
+              `Should return an error if an
+ unauthenticated user attempts fo fetch recipes`,
               (done) => {
                 request.get('/api/v1/users/recipes')
                   .set('Connection', 'keep alive')
@@ -385,8 +383,8 @@ describe('Recipes Endpoint Tests', () => {
                   });
               });
               it(
-                'Should return an error if no' +
-                'parameter is passed in the search',
+                `Should return an error if no
+ parameter is passed in the search`,
                 (done) => {
                   request.get(`${recipesApi}/search?name=`)
                     .set('Connection', 'keep alive')

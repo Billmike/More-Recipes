@@ -5,12 +5,11 @@ import Emoji from 'react-emoji-render';
 import uuid from 'uuid';
 import FavoriteModal from './FavoriteModal';
 import Footer from './Footer';
-import { getUserinfo } from '../actions/signinRequest';
+import { getUserInformation } from '../actions/signinRequest';
 import {
-  GetUserFavoritesAction,
-  AddFavoriteRecipesAction
+  getUserFavoritesAction,
+  addFavoriteRecipesAction
 } from '../actions/recipes';
-
 
 /**
  * Component that renders the User Favorites page
@@ -31,8 +30,8 @@ export class Favorites extends Component {
     this.removeFavorite = this.removeFavorite.bind(this);
   }
   componentDidMount() {
-    this.props.getUserinfo();
-    this.props.GetUserFavoritesAction(this.props.userDetails.id);
+    this.props.getUserInformation();
+    this.props.getUserFavoritesAction(this.props.userDetails.id);
   }
 
   handleClearFavoriteRecipe() {
@@ -42,7 +41,7 @@ export class Favorites extends Component {
   }
 
   componentDidUpdate() {
-    this.props.GetUserFavoritesAction(this.props.userDetails.id);
+    this.props.getUserFavoritesAction(this.props.userDetails.id);
   }
 
   selectFavorite() {
@@ -52,7 +51,7 @@ export class Favorites extends Component {
   }
 
   removeFavorite() {
-    this.props.AddFavoriteRecipesAction(this.state.selectedFavorite);
+    this.props.addFavoriteRecipesAction(this.state.selectedFavorite);
     this.setState(() => ({
       selectedFavorite: undefined
     }));
@@ -118,15 +117,15 @@ export class Favorites extends Component {
             {this.props.recipes !== undefined ? (
               favRecipes
             ) : (
-                <p className="no-recipes-p">
-                  {' '}
-                  You currently have no
-                  <Emoji text="<3" />. Checkout some recipes{' '}
-                  <Link
-                    id="addFavoritesLink"
-                    to="/">here.</Link>
-                </p>
-              )}
+              <p className="no-recipes-p">
+                {' '}
+                You currently have no
+                <Emoji text="<3" />. Checkout some recipes{' '}
+                <Link id="addFavoritesLink" to="/">
+                  here.
+                </Link>
+              </p>
+            )}
           </div>
         </div>
         <Footer />
@@ -144,7 +143,7 @@ export const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  getUserinfo,
-  GetUserFavoritesAction,
-  AddFavoriteRecipesAction
+  getUserInformation,
+  getUserFavoritesAction,
+  addFavoriteRecipesAction
 })(Favorites);

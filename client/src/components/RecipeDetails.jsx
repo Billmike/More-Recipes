@@ -8,12 +8,13 @@ import Footer from './Footer';
 import Loader from './Loader';
 import ReviewForm from './ReviewForm';
 import Review from './Review';
+import validateReview from '../utils/validateReview';
 import {
-  GetOneRecipeAction,
-  UpvoteRecipeAction,
-  DownVoteRecipeAction,
-  AddReviewAction,
-  AddFavoriteRecipesAction
+  getOneRecipeAction,
+  upvoteRecipeAction,
+  downVoteRecipeAction,
+  addReviewAction,
+  addFavoriteRecipesAction
 } from '../actions/recipes';
 
 export class RecipeDetail extends Component {
@@ -23,7 +24,8 @@ export class RecipeDetail extends Component {
       reviewText: '',
       reviews: [],
       recipe: {},
-      upVotes: 0
+      upVotes: 0,
+      errors: {}
     };
     this.upVoteRecipe = this.upVoteRecipe.bind(this);
     this.downVoteRecipe = this.downVoteRecipe.bind(this);
@@ -33,7 +35,7 @@ export class RecipeDetail extends Component {
   }
 
   componentDidMount() {
-    this.props.GetOneRecipeAction(this.props.match.params.id);
+    this.props.getOneRecipeAction(this.props.match.params.id);
   }
 
   onReviewFormChange(event) {
@@ -45,25 +47,36 @@ export class RecipeDetail extends Component {
 
   favoriteRecipes(event) {
     event.preventDefault();
-    this.props.AddFavoriteRecipesAction(this.props.match.params.id);
+    this.props.addFavoriteRecipesAction(this.props.match.params.id);
   }
 
   reviewRecipe(event) {
     event.preventDefault();
-    this.props.AddReviewAction(this.props.match.params.id, {
-      content: this.state.reviewText
-    });
-    document.getElementById('form').reset();
+    if (this.isValid()) {
+      this.setState({ errors: {} });
+      this.props.addReviewAction(this.props.match.params.id, {
+        content: this.state.reviewText
+      });
+      document.getElementById('form').reset();
+    }
+  }
+
+  isValid() {
+    const { errors, valid } = validateReview(this.state.reviewText);
+    if (!valid) {
+      this.setState({ errors });
+    }
+    return valid;
   }
 
   upVoteRecipe(event) {
     event.preventDefault();
-    this.props.UpvoteRecipeAction(this.props.match.params.id);
+    this.props.upvoteRecipeAction(this.props.match.params.id);
   }
 
   downVoteRecipe(event) {
     event.preventDefault();
-    this.props.DownVoteRecipeAction(this.props.match.params.id);
+    this.props.downVoteRecipeAction(this.props.match.params.id);
   }
 
   render() {
@@ -71,8 +84,9 @@ export class RecipeDetail extends Component {
     let splitIngredients;
     let splitInstructions;
     if (!this.props.singleRecipe.singleRecipe) {
-      return (<Loader />);
+      return <Loader />;
     }
+    const { errors } = this.state;
     if (this.props.recipe) {
       splitIngredients = this.props.recipe.ingredients
         .trim('\n')
@@ -101,29 +115,21 @@ export class RecipeDetail extends Component {
           this.props.recipe.reviews.map((review) => {
             return (
               <div className="review-div">
-                <Review
-                  key={review.id}
-                  review={review}
-                  user={review.user}
-                />
+                <Review key={review.id} review={review} user={review.user} />
               </div>
             );
           })
-        )
-          : (
-            <p className="center-emoji">
-              {' '}
-              No reviews for this recipe yet.
-              Want to be the first to review this?<Emoji text="B-)" />
-            </p>
-          );
+        ) : (
+          <p className="center-emoji">
+            {' '}
+            No reviews for this recipe yet. Want to be the first to review this?<Emoji text="B-)" />
+          </p>
+        );
     }
     return (
       <div id="recipe-detail-ID">
         <div>
-          <h4 className="recipe-detail-name">
-            {this.props.recipe.name}
-          </h4>
+          <h4 className="recipe-detail-name">{this.props.recipe.name}</h4>
           <div className="recipe-detail-category">
             Category: {this.props.recipe.category}
           </div>
@@ -165,12 +171,8 @@ export class RecipeDetail extends Component {
             </div>
             <div className="">
               <div>
-                <h4
-                  className="recipe-detail-description">
-                  Description
-                </h4>
-                <p
-                  className="recipe-description-paragraph">
+                <h4 className="recipe-detail-description">Description</h4>
+                <p className="recipe-description-paragraph">
                   {this.props.recipe.description}
                 </p>
               </div>
@@ -191,24 +193,25 @@ export class RecipeDetail extends Component {
             </div>
           </div>
           <div>
-            {this.props.auth ? <div>
-              <ReviewForm
-                onChange={this.onReviewFormChange}
-                reviewText={this.state.reviewText}
-                reviewRecipe={this.reviewRecipe}
-                isLoading={this.props.isLoading}
-              />
-            </div>
-              : <p className="auth-review">
+            {this.props.auth ? (
+              <div>
+                <ReviewForm
+                  onChange={this.onReviewFormChange}
+                  reviewText={this.state.reviewText}
+                  reviewRecipe={this.reviewRecipe}
+                  isLoading={this.props.isLoading}
+                  errors={errors}
+                />
+              </div>
+            ) : (
+              <p className="auth-review">
                 You have to be Logged in to post a review
-            </p>
-            }
+              </p>
+            )}
           </div>
           <br />
           <div>
-            <h6 className="text-center form-h6">
-              Reviews
-            </h6>
+            <h6 className="text-center form-h6">Reviews</h6>
           </div>
           <div className="review-back">{reviews}</div>
         </div>
@@ -229,9 +232,9 @@ export const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  GetOneRecipeAction,
-  UpvoteRecipeAction,
-  DownVoteRecipeAction,
-  AddReviewAction,
-  AddFavoriteRecipesAction
+  getOneRecipeAction,
+  upvoteRecipeAction,
+  downVoteRecipeAction,
+  addReviewAction,
+  addFavoriteRecipesAction
 })(RecipeDetail);

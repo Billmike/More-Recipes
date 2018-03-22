@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import pizza from '../assets/img/pizzza.jpg';
-import { AddFavoriteRecipesAction } from '../actions/recipes';
+import { addFavoriteRecipesAction } from '../actions/recipes';
 
 export class RecipeList extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ export class RecipeList extends Component {
 
   favoriteRecipes(event) {
     event.preventDefault();
-    this.props.AddFavoriteRecipesAction(this.props.recipe.id);
+    this.props.addFavoriteRecipesAction(this.props.recipe.id);
   }
 
   render() {
@@ -27,9 +27,7 @@ export class RecipeList extends Component {
             />
           </Link>
           <div className="card-body">
-            <Link
-              to={`/recipe/${this.props.recipe.id}`}
-            >
+            <Link to={`/recipe/${this.props.recipe.id}`}>
               <h4 className="card-title">{this.props.recipe.name}</h4>
             </Link>
             <p className="card-text">{this.props.recipe.description}</p>
@@ -73,4 +71,4 @@ export class RecipeList extends Component {
   }
 }
 
-export default connect(null, { AddFavoriteRecipesAction })(RecipeList);
+export default connect(null, { addFavoriteRecipesAction })(RecipeList);

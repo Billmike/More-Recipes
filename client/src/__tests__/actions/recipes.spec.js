@@ -6,19 +6,19 @@ import expect from 'expect';
 import instance from '../../utils/axios';
 import localStorage from '../__mocks__/localStorage';
 import {
-  AddRecipeAction,
-  EditRecipeAction,
-  RemoveRecipeAction,
-  GetAllRecipesAction,
-  GetOneRecipeAction,
-  GetPopularRecipes,
-  GetUserRecipesAction,
-  GetUserFavoritesAction,
-  AddFavoriteRecipesAction,
-  UpvoteRecipeAction,
-  DownVoteRecipeAction,
-  AddReviewAction,
-  SearchRecipesAction
+  addRecipeAction,
+  editRecipeAction,
+  removeRecipeAction,
+  getAllRecipesAction,
+  getOneRecipeAction,
+  getPopularRecipes,
+  getUserRecipesAction,
+  getUserFavoritesAction,
+  addFavoriteRecipesAction,
+  upvoteRecipeAction,
+  downVoteRecipeAction,
+  addReviewAction,
+  searchRecipesAction
 } from '../../actions/recipes';
 import {
   editRecipeResponse,
@@ -82,14 +82,15 @@ describe('Recipes actions', () => {
         ];
 
         const store = mockStore({});
-        await store.dispatch(AddRecipeAction({ ...recipeResponse.recipeData }));
+        await store.dispatch(addRecipeAction({ ...recipeResponse.recipeData }));
         expect(store.getActions()).toEqual(returnedAction);
       });
   });
 
   describe('Edit recipe action', () => {
-    it('Should edit a recipe and dispatch' +
-      ' the EDIT_RECIPE action', async () => {
+    it(
+      'Should edit a recipe and dispatch the EDIT_RECIPE action',
+      async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -105,15 +106,17 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({});
-        await store.dispatch(EditRecipeAction(editRecipeResponse
+        await store.dispatch(editRecipeAction(editRecipeResponse
           .recipeData.id, editRecipeResponse.recipeData));
         expect(store.getActions()).toEqual(returnedAction);
-      });
+      }
+    );
   });
 
   describe('Delete recipe action', () => {
-    it('Should delete recipe and dispatch' +
-      ' the REMOVE_RECIPE action', async () => {
+    it(
+      'Should delete recipe and dispatch the REMOVE_RECIPE action',
+      async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -130,15 +133,16 @@ describe('Recipes actions', () => {
         ];
 
         const store = mockStore({});
-        await store.dispatch(RemoveRecipeAction(recipeResponse.id));
+        await store.dispatch(removeRecipeAction(recipeResponse.id));
         expect(store.getActions()).toEqual(returnedAction);
-      });
+      }
+    );
   });
 
   describe('Get All recipes Action', () => {
     it(
-      'Should fetch all recipes in the application' +
-      ' and dispatch the GET_RECIPES action',
+      `Should fetch all recipes in the
+ application and dispatch the GET_RECIPES action`,
       async () => {
         const allRecipes = {
           recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
@@ -162,15 +166,17 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({});
-        await store.dispatch(GetAllRecipesAction());
+        await store.dispatch(getAllRecipesAction());
         expect(store.getActions()).toEqual(returnedAction);
       }
     );
   });
 
   describe('Get one recipe action', () => {
-    it('Should fetch on recipe from the application' +
-      ' and dispatch the GET_ONE_RECIPE action', async () => {
+    it(
+      `Should fetch on recipe from the
+ application and dispatch the GET_ONE_RECIPE action`,
+      async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -185,14 +191,16 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({});
-        await store.dispatch(GetOneRecipeAction());
+        await store.dispatch(getOneRecipeAction());
         expect(store.getActions()).toEqual(returnedAction);
-      });
+      }
+    );
   });
 
   describe("Get user's recipe action", () => {
-    it('Should return the users recipe and' +
-      ' dispatch the GET_USER_RECIPES action', async () => {
+    it(
+      'Should return the users recipe and dispatch the GET_USER_RECIPES action',
+      async () => {
         const userRecipes = {
           recipeData: [recipeResponse.recipeData, recipeResponse.recipeData]
         };
@@ -215,14 +223,16 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({});
-        await store.dispatch(GetUserRecipesAction());
+        await store.dispatch(getUserRecipesAction());
         expect(store.getActions()).toEqual(returnedAction);
-      });
+      }
+    );
   });
 
   describe('Get user favorites action', () => {
-    it('Should get users favorite and' +
-      ' dispatch the FETCH_FAVORITE_RECIPES', async () => {
+    it(
+      'Should get users favorite and dispatch the FETCH_FAVORITE_RECIPES',
+      async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -237,15 +247,16 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({});
-        await store.dispatch(GetUserFavoritesAction());
+        await store.dispatch(getUserFavoritesAction());
         expect(store.getActions()).toEqual(returnedAction);
-      });
+      }
+    );
   });
 
   describe('Toggle favorites action', () => {
     it(
-      'Should add/remove from a users favorite list and' +
-      ' dispatch the TOGGLE_FAVORITE action',
+      `Should add/remove from a users favorite
+ list and dispatch the TOGGLE_FAVORITE action`,
       async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
@@ -262,15 +273,16 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({ auth: { userDetails: { token: '' } } });
-        await store.dispatch(AddFavoriteRecipesAction());
+        await store.dispatch(addFavoriteRecipesAction());
         expect(store.getActions()).toEqual(returnedAction);
       }
     );
   });
 
   describe('Should upvote a recipe', () => {
-    it('Should upvote a recipe and dispatch the' +
-      ' UPVOTE_RECIPE action', async (done) => {
+    it(
+      'Should upvote a recipe and dispatch the UPVOTE_RECIPE action',
+      async (done) => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -285,15 +297,17 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({ auth: { userDetails: { token: '' } } });
-        await store.dispatch(UpvoteRecipeAction({}));
+        await store.dispatch(upvoteRecipeAction({}));
         expect(store.getActions()).toEqual(returnedAction);
         done();
-      });
+      }
+    );
   });
 
   describe('Should downvote a recipe', () => {
-    it('Should downvote a recipe and dispatch' +
-      ' the DOWNVOTE_RECIPE action', async () => {
+    it(
+      'Should downvote a recipe and dispatch the DOWNVOTE_RECIPE action',
+      async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -308,14 +322,15 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({ auth: { userDetails: { token: '' } } });
-        await store.dispatch(DownVoteRecipeAction({}));
+        await store.dispatch(downVoteRecipeAction({}));
         expect(store.getActions()).toEqual(returnedAction);
       });
   });
 
   describe('Review a recipe', () => {
-    it('Should add review to a recipe and' +
-      ' dispatch the ADD_REVIEW action', async () => {
+    it(
+      'Should add review to a recipe and dispatch the ADD_REVIEW action',
+      async () => {
         moxios.wait(() => {
           const request = moxios.requests.mostRecent();
           request.respondWith({
@@ -335,15 +350,15 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({});
-        await store.dispatch(AddReviewAction({}));
+        await store.dispatch(addReviewAction({}));
         expect(store.getActions()).toEqual(returnedAction);
       });
   });
 
   describe('Fetch popular recipes', () => {
     it(
-      'Should fetch the popular recipes' +
-      ' and dispatch the POPULAR_RECIPES action',
+      `Should fetch the popular recipes
+ and dispatch the POPULAR_RECIPES action`,
       async () => {
         const popularRecipes = {
           theFoundrecipes: [recipeResponse
@@ -361,14 +376,16 @@ describe('Recipes actions', () => {
           recipe: popularRecipes
         }];
         const store = mockStore({});
-        await store.dispatch(GetPopularRecipes({}));
+        await store.dispatch(getPopularRecipes({}));
         expect(store.getActions()).toEqual(returnedAction);
       }
     );
   });
   describe('Search recipes catalogue', () => {
-    it('Should search the recipe catlogue and return' +
-      ' a set of recipes matching the query', async (done) => {
+    it(
+      `Should search the recipe catlogue
+ and return a set of recipes matching the query`,
+      async (done) => {
         const popularRecipes = {
           theFoundrecipes: [recipeResponse
             .recipeData, recipeResponse.recipeData]
@@ -387,10 +404,11 @@ describe('Recipes actions', () => {
           }
         ];
         const store = mockStore({});
-        await store.dispatch(SearchRecipesAction('Fried rice', 1));
+        await store.dispatch(searchRecipesAction('Fried rice', 1));
         expect(store.getActions()).toEqual(returnedAction);
         done();
-      });
+      }
+    );
   });
   describe('Action errors', () => {
     it('Should handle ADD_RECIPE error', async (done) => {
@@ -417,8 +435,9 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(AddRecipeAction({ ...recipeResponse }));
-      expect(store.getActions()).toEqual([{ isLoading: true, type: ADD_RECIPE_REQUEST }]);
+      await store.dispatch(addRecipeAction({ ...recipeResponse }));
+      expect(store.getActions())
+        .toEqual([{ isLoading: true, type: ADD_RECIPE_REQUEST }]);
       done();
     });
     it('Should handle EDIT_RECIPE error', async (done) => {
@@ -441,7 +460,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(EditRecipeAction(editRecipeResponse
+      await store.dispatch(editRecipeAction(editRecipeResponse
         .recipeData.id, editRecipeResponse.recipeData));
       expect(store.getActions()).toEqual([]);
       done();
@@ -465,7 +484,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(RemoveRecipeAction(recipeResponse.id));
+      await store.dispatch(removeRecipeAction(recipeResponse.id));
       expect(store.getActions()).toEqual([]);
       done();
     });
@@ -492,7 +511,7 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(SearchRecipesAction());
+      await store.dispatch(searchRecipesAction());
       expect(store.getActions()).toEqual([]);
     });
     it('Should handle the fetch all recipes error', async () => {
@@ -522,9 +541,9 @@ describe('Recipes actions', () => {
         }
       ];
       const store = mockStore({});
-      await store.dispatch(GetAllRecipesAction());
+      await store.dispatch(getAllRecipesAction());
       expect(store.getActions())
         .toEqual([{ isLoading: true, type: GET_RECIPES_REQUEST }]);
-    })
+    });
   });
 });

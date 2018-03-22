@@ -4,59 +4,63 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = (env) => {
   const isProduction = env === 'production';
   return {
-    entry: './client/src/index.jsx',
+    entry: ['babel-polyfill', './client/src/index.jsx'],
     output: {
       path: path.join(__dirname, 'client/public'),
-      filename: 'bundle.js',
+      filename: 'bundle.js'
     },
     module: {
-      rules: [{
-        loaders: ['babel-loader?presets[]=react,presets[]=env,presets[]=stage-0'],
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-      }, {
-        test: /\.(png|jpg|jpeg|gif)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {},
-          },
-        ],
-      }, {
-        test: /\.s?css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
+      rules: [
+        {
+          loaders: [
+            'babel-loader?presets[]=react,presets[]=env,presets[]=stage-0'
+          ],
+          test: /\.jsx?$/,
+          exclude: /node_modules/
+        },
+        {
+          test: /\.(png|jpg|jpeg|gif)$/,
           use: [
             {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
+              loader: 'file-loader',
+              options: {}
+            }
+          ]
+        },
+        {
+          test: /\.s?css$/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  sourceMap: true
+                }
               },
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-              },
-            },
-          ],
-        }),
-      }],
+              {
+                loader: 'sass-loader',
+                options: {
+                  sourceMap: true
+                }
+              }
+            ]
+          })
+        }
+      ]
     },
-    plugins: [
-      new ExtractTextPlugin('style.css'),
-    ],
+    plugins: [new ExtractTextPlugin('style.css')],
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx']
     },
     node: {
       dns: 'empty',
-      net: 'empty',
+      net: 'empty'
     },
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'client/public'),
-      historyApiFallback: true,
-    },
+      historyApiFallback: true
+    }
   };
 };

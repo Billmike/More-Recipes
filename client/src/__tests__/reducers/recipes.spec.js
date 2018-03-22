@@ -133,8 +133,8 @@ describe('Recipes Reducer', () => {
     deepFreeze(action);
     expect(recipeReducers(stateBefore, action)).toEqual(stateAfter);
   });
-  it('Should dispatch the TOGGLE_FAVORITES' +
-    ' action and add recipe to favorites', () => {
+  it(`Should dispatch the TOGGLE_FAVORITES
+ action and add recipe to favorites`, () => {
       const stateBefore = { ...recipeDefaultState, recipes: removeRecipeMock };
       const action = {
         type: TOGGLE_FAVORITE,
@@ -142,15 +142,18 @@ describe('Recipes Reducer', () => {
         userId: 1,
         toggleType: 'add'
       };
-      const stateAfter = { ...recipeDefaultState, recipes: addFavoriteRecipeMock };
+      const stateAfter = {
+        ...recipeDefaultState,
+        recipes: addFavoriteRecipeMock
+      };
       deepFreeze(stateBefore);
       deepFreeze(action);
       const result = recipeReducers(stateBefore, action);
       expect(result.recipes[0].favorites.length).toEqual(2);
       expect(recipeReducers(stateBefore, action)).toEqual(stateAfter);
     });
-  it('Should dispatch the TOGGLE_FAVORITES' +
-    ' action and remove recipe from favorites', () => {
+  it(`Should dispatch the TOGGLE_FAVORITES
+ action and remove recipe from favorites`, () => {
       const stateBefore = { ...recipeDefaultState, recipes: removeRecipeMock };
       const action = {
         type: TOGGLE_FAVORITE,

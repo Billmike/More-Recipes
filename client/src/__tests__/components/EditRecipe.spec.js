@@ -13,26 +13,26 @@ describe('<EditRecipe />', () => {
   });
   it('Should render the nested RecipesForm component', () => {
     const wrapper = shallow(<EditRecipe>
-      <div>
-        <h1 className="container add-h1"> Edit Recipe</h1>
-        <RecipesForm />
-      </div>
-    </EditRecipe>);
+        <div>
+          <h1 className="container add-h1"> Edit Recipe</h1>
+          <RecipesForm />
+        </div>
+      </EditRecipe>);
   });
   it('Should handle onSubmit', (done) => {
-    const EditRecipeAction = jest.fn();
-    const history = { push: (() => { }) };
+    const editRecipeAction = jest.fn();
+    const history = { push: () => {} };
     const match = {
       params: {
         id: 1
       }
     };
     const wrapper = shallow(<EditRecipe
-      EditRecipeAction={() => Promise.resolve()}
-      history={history}
-      match={match}
-      recipe={recipes[0]}
-    />);
+        editRecipeAction={() => Promise.resolve()}
+        history={history}
+        match={match}
+        recipe={recipes[0]}
+      />);
 
     const onSubmitSpy = jest.spyOn(wrapper.instance(), 'onSubmit');
     wrapper.instance().onSubmit(recipes[0]);

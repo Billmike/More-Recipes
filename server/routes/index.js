@@ -28,7 +28,7 @@ module.exports = (app) => {
   app.post(
     '/api/v1/recipes',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     recipeAdd,
     recipeController.addRecipe
   );
@@ -36,14 +36,14 @@ module.exports = (app) => {
   app.put(
     '/api/v1/recipes/:recipeId',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     recipeController.modifyRecipe
   );
 
   app.post(
     '/api/v1/recipes/:recipeId/reviews',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     validateReview,
     reviewController.addReviews
   );
@@ -51,34 +51,34 @@ module.exports = (app) => {
   app.delete(
     '/api/v1/recipe/:recipeId',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     recipeController.deleteRecipe
   );
   app.post(
     '/api/v1/recipes/:recipeId/favorites',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     favorite.addFavorite
   );
 
   app.get(
     '/api/v1/users/:userId/favorites',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     favorite.getFavorites
   );
   app.post(
     '/api/v1/recipes/:recipeId/votes/:vote',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     vote.voteRecipe
   );
   app.get('/api/v1/recipes/:page', recipeController.getRecipes);
-  app.get('/api/v1/users/recipes', Login.hasToken, User.isuser, getUserRecipes);
+  app.get('/api/v1/users/recipes', Login.hasToken, User.isUser, getUserRecipes);
   app.put(
     '/api/v1/users/profile',
     Login.hasToken,
-    User.isuser,
+    User.isUser,
     userController.updateProfile
   );
 };
