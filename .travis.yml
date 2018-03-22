@@ -6,7 +6,7 @@ services:
 env:
   global:
     - NODE_ENV=test
-    - CC_TEST_REPORTER_ID=1944fd38c05bd77f1f23b769f5e0753618ad880b9317d37b6b8c985d37587594
+    - CC_TEST_REPORTER_ID=bee56f01164981a59f4a6d15b0bbff8b4b49953b954c700532edc7471d2036e7
 before_script:
   - psql -c 'create database recipes_testing_db;' -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
