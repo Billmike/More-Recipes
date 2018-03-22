@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken';
 import toastr from 'toastr';
-import { SET_CURRENT_USER, GET_USER_INFORMATION, GET_USER_REQUEST } from './types';
+import {
+  SET_CURRENT_USER,
+  GET_USER_INFORMATION,
+  GET_USER_REQUEST
+} from './types';
 import instance from '../utils/axios';
 import '../utils/toastrConfig';
 
@@ -49,10 +53,11 @@ export const getUserInformationActionCreator = (user) => {
  * @returns { object } The action type and a user object
  */
 
-export const getUserinfo = () => {
+export const getUserInformation = () => {
   return (dispatch) => {
-    dispatch(getUserRequest())
-    return instance.get('/users/get_user')
+    dispatch(getUserRequest());
+    return instance
+      .get('/users/get_user')
       .then((response) => {
         dispatch(getUserInformationActionCreator(response.data));
       })
@@ -68,7 +73,8 @@ export const getUserinfo = () => {
  * @returns { object } The signed in user and a token
  */
 export const signinRequest = userData => (dispatch) => {
-  return instance.post('/users/signin', userData)
+  return instance
+    .post('/users/signin', userData)
     .then((response) => {
       const { token } = response.data;
       localStorage.setItem('authToken', token);

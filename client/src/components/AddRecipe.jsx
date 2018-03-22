@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecipesForm from './RecipesForm';
 import Footer from './Footer';
-import { AddRecipeAction } from '../actions/recipes';
+import { addRecipeAction } from '../actions/recipes';
 
 /**
  * Component that renders the Add recipe form
@@ -20,7 +20,7 @@ export class AddRecipe extends Component {
    * @returns { void } void
    */
   onSubmit = (recipe) => {
-    this.props.AddRecipeAction(recipe).then(() => {
+    this.props.addRecipeAction(recipe).then(() => {
       this.props.history.push('/dashboard');
     });
   };
@@ -30,7 +30,7 @@ export class AddRecipe extends Component {
    *
    * @returns { jsx } JSX
    *
-  */
+   */
   render() {
     return (
       <div id="AddRecipeDiv">
@@ -42,4 +42,4 @@ export class AddRecipe extends Component {
   }
 }
 
-export default connect(undefined, { AddRecipeAction })(AddRecipe);
+export default connect(undefined, { addRecipeAction })(AddRecipe);

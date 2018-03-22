@@ -9,14 +9,14 @@ describe('<RecipesList />', () => {
     expect(wrapper).toMatchSnapshot();
   });
   it('Should handle the click event', () => {
-    const AddFavoriteRecipesAction = jest.fn();
+    const addFavoriteRecipesAction = jest.fn();
     const wrapper = shallow(<RecipeList
-      recipe={recipes[2]}
-      AddFavoriteRecipesAction={() => Promise.resolve()}
-    />);
+        recipe={recipes[2]}
+        addFavoriteRecipesAction={() => Promise.resolve()}
+      />);
     wrapper.find('#favbutton').simulate('click', {
       preventDefault: jest.fn()
     });
-    expect(AddFavoriteRecipesAction.mock.calls).toBeTruthy();
+    expect(addFavoriteRecipesAction.mock.calls).toBeTruthy();
   });
 });

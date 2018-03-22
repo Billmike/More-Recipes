@@ -5,8 +5,8 @@ import Emoji from 'react-emoji-render';
 import Footer from './Footer';
 import Loader from './Loader';
 import RecipeEdit from './RecipeEdit';
-import { GetUserRecipesAction } from '../actions/recipes';
-import { getUserinfo } from '../actions/signinRequest';
+import { getUserRecipesAction } from '../actions/recipes';
+import { getUserInformation } from '../actions/signinRequest';
 
 /**
  * Component that renders the Dashboard page
@@ -17,22 +17,19 @@ import { getUserinfo } from '../actions/signinRequest';
  */
 export class Dashboard extends Component {
   componentDidMount() {
-    this.props.GetUserRecipesAction();
-    this.props.getUserinfo();
+    this.props.getUserRecipesAction();
+    this.props.getUserInformation();
   }
 
   render() {
     let availableRecipes;
     if (this.props.isLoading) {
-      return (
-        <Loader />
-      );
+      return <Loader />;
     }
     if (this.props.recipes.length > 0) {
-      availableRecipes =
-        this.props.recipes.map((recipe) => {
-          return <RecipeEdit key={recipe.id} recipe={recipe} />;
-        });
+      availableRecipes = this.props.recipes.map((recipe) => {
+        return <RecipeEdit key={recipe.id} recipe={recipe} />;
+      });
     } else {
       availableRecipes = (
         <p className="no-recipes-p">
@@ -66,7 +63,7 @@ export const mapStateToProps = (state) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { getUserinfo, GetUserRecipesAction }
-)(Dashboard);
+export default connect(mapStateToProps, {
+  getUserInformation,
+  getUserRecipesAction
+})(Dashboard);

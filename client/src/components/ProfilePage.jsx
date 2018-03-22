@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Footer from './Footer';
-import { getUserinfo } from '../actions/signinRequest';
+import { getUserInformation } from '../actions/signinRequest';
 import cool from '../assets/img/strawberry.jpg';
 
 export class ProfilePage extends Component {
   componentDidMount() {
-    this.props.getUserinfo();
+    this.props.getUserInformation();
   }
   render() {
     return (
@@ -35,4 +35,4 @@ export const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getUserinfo })(ProfilePage);
+export default connect(mapStateToProps, { getUserInformation })(ProfilePage);

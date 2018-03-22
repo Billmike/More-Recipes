@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Emoji from 'react-emoji-render';
 import ReactPaginate from 'react-paginate';
-import '../assets/css/style.css';
-import LoaderComp from './LoaderComp';
+import '../assets/css/style.scss';
 import Loader from './Loader';
 import RecipesList from './RecipesList';
 import Footer from './Footer';
 import Pagination from './Pagination';
 import {
-  GetAllRecipesAction,
-  GetPopularRecipes, SearchRecipesAction
+  getAllRecipesAction,
+  getPopularRecipes,
+  searchRecipesAction
 } from '../actions/recipes';
 import strawberry from '../assets/img/strawberry.jpg';
 import dark from '../assets/img/dark.jpg';
 import noodles from '../assets/img/noodles.jpg';
-
 
 /**
  * Component that renders the Homepage
@@ -32,28 +31,30 @@ export class Homepage extends Component {
       searchQuery: '',
       loaded: true,
       page: 1,
+      selectedPage: null,
       search: false
     };
     this.onSearch = this.onSearch.bind(this);
     this.handlePaginationChange = this.handlePaginationChange.bind(this);
   }
-  componentDidMount() {
-    this.props.GetAllRecipesAction(this.state.page);
-    this.props.GetPopularRecipes();
+  async componentDidMount() {
+    await this.props.getAllRecipesAction(this.state.page);
+    await this.props.getPopularRecipes();
   }
 
   onSearch(event) {
     this.setState({ [event.target.name]: event.target.value, search: true });
-    this.props.SearchRecipesAction(event.target.value, this.state.page);
+    this.props.searchRecipesAction(event.target.value, this.state.page);
   }
 
-  handlePaginationChange(data) {
-    const currentView = data.selected;
-    this.setState({ page: currentView });
+  async handlePaginationChange(data) {
+    const currentPage = data.selected;
+    const currentView = data.selected + 1;
+    this.setState({ page: currentView, selectedPage: currentPage });
     if (this.state.search) {
-      this.props.SearchRecipesAction(this.state.searchQuery, currentView);
+      await this.props.searchRecipesAction(this.state.searchQuery, currentView);
     } else {
-      this.props.GetAllRecipesAction(currentView);
+      await this.props.getAllRecipesAction(currentView);
     }
   }
 
@@ -61,15 +62,15 @@ export class Homepage extends Component {
     let allRecipes;
     let popularRecipesList;
     if (this.props.isLoading) {
-      return (
-        <Loader />
-      );
+      return <Loader />;
     }
     if (this.props.recipes) {
-      allRecipes = this.props.recipes.length > 0 ?
-        this.props.recipes.map((recipe) => {
-          return <RecipesList key={recipe.id} recipe={recipe} />;
-        }) : (
+      allRecipes =
+        this.props.recipes.length > 0 ? (
+          this.props.recipes.map((recipe) => {
+            return <RecipesList key={recipe.id} recipe={recipe} />;
+          })
+        ) : (
           <div>
             <p className="search-text">
               No results found for your search <Emoji text=";(" />
@@ -158,9 +159,7 @@ export class Homepage extends Component {
           <div className="row">{popularRecipesList}</div>
           <hr className="frontpage-hr" />
           <div className="input-group search-button">
-            <span className="input-group-btn">
-
-            </span>
+            <span className="input-group-btn" />
             <input
               type="search"
               name="searchQuery"
@@ -176,6 +175,7 @@ export class Homepage extends Component {
           <Pagination
             handlePaginationChange={this.handlePaginationChange}
             pageCount={this.props.pages}
+            forcePage={this.state.selectedPage}
           />
         </div>
         <Footer />
@@ -193,9 +193,8 @@ export const mapStateToProps = (state) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    GetAllRecipesAction, GetPopularRecipes, SearchRecipesAction
-  }
-)(Homepage);
+export default connect(mapStateToProps, {
+  getAllRecipesAction,
+  getPopularRecipes,
+  searchRecipesAction
+})(Homepage);

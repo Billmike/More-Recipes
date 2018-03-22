@@ -24,7 +24,7 @@ import '../utils/toastrConfig';
  * @returns { object } - returns an object with an action type and all recipes
  */
 
-export const GetAllRecipesAction = (page) => {
+export const getAllRecipesAction = (page) => {
   return (dispatch) => {
     dispatch(getAllRecipesRequest());
     return instance.get(`/recipes/${page}`)
@@ -41,7 +41,7 @@ export const GetAllRecipesAction = (page) => {
   an action type and popular recipes
 */
 
-export const GetPopularRecipes = () => dispatch =>
+export const getPopularRecipes = () => dispatch =>
   instance.get('/recipes/popular')
     .then((response) => {
       dispatch(popularRecipe(response.data));
@@ -57,7 +57,7 @@ export const GetPopularRecipes = () => dispatch =>
  * an action type and the new recipe object
  */
 
-export const AddRecipeAction = recipeData => (dispatch) => {
+export const addRecipeAction = recipeData => (dispatch) => {
   dispatch(addRecipeRequest());
   return instance
     .post('/recipes', recipeData)
@@ -74,7 +74,14 @@ export const AddRecipeAction = recipeData => (dispatch) => {
 };
 
 
-export const GetUserRecipesAction = () => {
+/**
+ * Action to fecth user recipes
+ *
+ * @returns { object } - returns an object with an
+ * action type and the user recipe object
+ */
+
+export const getUserRecipesAction = () => {
   return (dispatch) => {
     dispatch(getUserRecipeRequest());
     return instance.get('/users/recipes')
@@ -84,20 +91,6 @@ export const GetUserRecipesAction = () => {
   };
 };
 
-/**
- * Action to fecth user recipes
- *
- * @returns { object } - returns an object with an
- * action type and the user recipe object
- */
-
-// export const GetUserRecipesAction = () => dispatch =>
-//   instance
-//     .get('/users/recipes')
-//     .then((response) => {
-//       dispatch(getUserRecipe(response.data.recipeData));
-//     })
-//     .catch(error => error);
 
 /**
  * Action to edit a recipe
@@ -109,7 +102,7 @@ export const GetUserRecipesAction = () => {
  * action type and the new recipe object
  */
 
-export const EditRecipeAction = (id, updates) => dispatch =>
+export const editRecipeAction = (id, updates) => dispatch =>
   instance
     .put(`/recipes/${id}`, updates)
     .then((response) => {
@@ -126,11 +119,11 @@ export const EditRecipeAction = (id, updates) => dispatch =>
  * @returns { object } - returns an object with an action type
  */
 
-export const RemoveRecipeAction = id => dispatch =>
+export const removeRecipeAction = id => dispatch =>
   instance
     .delete(`/recipe/${id}`)
     .then((response) => {
-      toastr.success('Recipe deleted successfully.');
+      toastr.info('Recipe deleted successfully.');
       dispatch(removeRecipe(response.data.recipeId));
     })
     .catch(error => error);
@@ -143,7 +136,7 @@ export const RemoveRecipeAction = id => dispatch =>
  * @returns { object } - returns an object with an action type
  */
 
-export const GetOneRecipeAction = id => dispatch =>
+export const getOneRecipeAction = id => dispatch =>
   instance
     .get(`/recipe/${id}`)
     .then((response) => {
@@ -159,12 +152,12 @@ export const GetOneRecipeAction = id => dispatch =>
  * @returns { object } - returns an object with an action type
  */
 
-export const AddFavoriteRecipesAction = id => (dispatch, getstate) =>
+export const addFavoriteRecipesAction = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/favorites`)
     .then((response) => {
       const authUserid = getstate().auth.userDetails.id;
-      toastr.success(response.data.message);
+      toastr.info(response.data.message);
       return dispatch(toggleFavorites(
         response.data,
         authUserid,
@@ -194,7 +187,7 @@ export const AddFavoriteRecipesAction = id => (dispatch, getstate) =>
  * @returns { object } - returns an object with an action type
  */
 
-export const GetUserFavoritesAction = id => dispatch =>
+export const getUserFavoritesAction = id => dispatch =>
   instance
     .get(`/users/${id}/favorites`)
     .then((response) => {
@@ -210,12 +203,12 @@ export const GetUserFavoritesAction = id => dispatch =>
  * @returns { object } - returns an object with an action type
  */
 
-export const UpvoteRecipeAction = id => (dispatch, getstate) =>
+export const upvoteRecipeAction = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/votes/upvote`)
     .then((response) => {
       const authUserid = getstate().auth.userDetails.id;
-      toastr.success(response.data.message);
+      toastr.info(response.data.message);
       dispatch(upVoteRecipe(response.data, authUserid));
     })
     .catch((err) => {
@@ -243,12 +236,12 @@ export const UpvoteRecipeAction = id => (dispatch, getstate) =>
  * @returns { object } - returns an object with an action type
  */
 
-export const DownVoteRecipeAction = id => (dispatch, getstate) =>
+export const downVoteRecipeAction = id => (dispatch, getstate) =>
   instance
     .post(`/recipes/${id}/votes/downvote`)
     .then((response) => {
       const authUserid = getstate().auth.userDetails.id;
-      toastr.success(response.data.message);
+      toastr.info(response.data.message);
       dispatch(downVote(response.data, authUserid));
     })
     .catch((err) => {
@@ -279,7 +272,7 @@ export const DownVoteRecipeAction = id => (dispatch, getstate) =>
  * with an action type and the new review object
  */
 
-export const AddReviewAction = (id, review) => {
+export const addReviewAction = (id, review) => {
   return (dispatch) => {
     dispatch(addReviewRequest());
     return instance.post(`/recipes/${id}/reviews`, review)
@@ -302,7 +295,7 @@ export const AddReviewAction = (id, review) => {
   };
 };
 
-export const SearchRecipesAction = (searchQuery, page) => dispatch =>
+export const searchRecipesAction = (searchQuery, page) => dispatch =>
   instance.get(`/recipes/search?search=${searchQuery}&page=${page}`)
     .then((response) => {
       dispatch(searchRecipes(response.data, response.data.pages));

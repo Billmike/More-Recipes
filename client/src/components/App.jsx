@@ -12,7 +12,7 @@ import LoginPage from './LoginPage';
 import RegistrationPage from './RegistrationPage';
 import RequireAuth from '../utils/RequireAuth';
 import NotFoundPage from './NotFoundPage';
-import '../assets/css/addRecipe.css';
+import '../assets/css/addRecipe.scss';
 
 const App = () => (
   <div>

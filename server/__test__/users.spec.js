@@ -9,8 +9,9 @@ const userSignin = '/api/v1/users/signin';
 
 describe('Authentication Test', () => {
   describe('User Signup Endpoint', () => {
-    it('Should create a new user when a user' +
-      'provides valid credentials', (done) => {
+    it(
+      'Should create a new user when a user provides valid credentials',
+      (done) => {
         request.post(userSignup)
           .set('Connection', 'keep alive')
           .set('Content-Type', 'application/json')
@@ -29,7 +30,8 @@ describe('Authentication Test', () => {
             expect(res.body).to.not.have.property('password');
             done();
           });
-      });
+      }
+    );
     it(
       'Should return an error when a user tries to signup without an email',
       (done) => {
@@ -66,8 +68,8 @@ describe('Authentication Test', () => {
       }
     );
     it(
-      'Should return an error when a user' +
-      'attempts to signup without a password',
+      `Should return an error when a
+ user attempts to signup without a password`,
       (done) => {
         const testUser = { ...users[0] };
         delete testUser.password;
@@ -85,8 +87,8 @@ describe('Authentication Test', () => {
       }
     );
     it(
-      'Should return an error when a user attempts to' +
-      'signup with a password less than 8 characters',
+      `Should return an error when a user attempts
+ to signup with a password less than 8 characters`,
       (done) => {
         const testUser = { ...users[0] };
         testUser.password = 'less';
@@ -103,8 +105,10 @@ describe('Authentication Test', () => {
           });
       }
     );
-    it('Should return a 409 when a user tries to' +
-      'signup with an email that already exists', (done) => {
+    it(
+      `Should return a 409 when a
+ user tries to signup with an email that already exists`,
+      (done) => {
         request.post(userSignup)
           .set('Connection', 'keep alive')
           .set('Content-Type', 'application/json')
@@ -115,7 +119,8 @@ describe('Authentication Test', () => {
             expect(res.body.message).to.equal('Email must be unique.');
             done();
           });
-      });
+      }
+    );
     it('Should return a 409 for a username that already exists', (done) => {
       const testUser = { ...users[0] };
       testUser.email = 'osx@gmail.com';
@@ -185,8 +190,8 @@ describe('Authentication Test', () => {
       }
     );
     it(
-      'Should return an error if a user tries to sign' +
-      'in with an invalid email or password',
+      `Should return an error if a user tries
+ to sign in with an invalid email or password`,
       (done) => {
         const dummyUser = {
           email: 'somethinginvalid',
@@ -205,8 +210,9 @@ describe('Authentication Test', () => {
       }
     );
     describe('Fetch User details Endpoint', () => {
-      it('Should get the details of a user' +
-        'that is already logged in', (done) => {
+      it(
+        'Should get the details of a user that is already logged in',
+        (done) => {
           const testUser = { ...users[0] };
           request.get(`/api/v1/users/get_user?token=${testUser.tokens}`)
             .set('Connection', 'keep alive')
@@ -215,9 +221,12 @@ describe('Authentication Test', () => {
               expect(res.statusCode).to.equal(200);
               done();
             });
-        });
-      it('Should return an error if an attempt is' +
-        'made to fetch a user detail without being signed in', (done) => {
+        }
+      );
+      it(
+        `Should return an error if an attempt is
+ made to fetch a user detail without being signed in`,
+        (done) => {
           request.get('/api/v1/users/get_user')
             .set('Connection', 'keep alive')
             .set('Content-Type', 'application/json')
@@ -225,7 +234,8 @@ describe('Authentication Test', () => {
               expect(res.statusCode).to.equal(401);
               done();
             });
-        });
+        }
+      );
 
       describe('Update user details Endpoint', () => {
         it('Should modify the email of a logged in user', (done) => {
@@ -277,8 +287,8 @@ describe('Authentication Test', () => {
         });
 
         it(
-          'Should return an error if no token is provided' +
-          'when trying to modify a user detail',
+          `Should return an error if no token
+ is provided when trying to modify a user detail`,
           (done) => {
             const testUser = { ...users[0] };
             testUser.password = 'mynewpassword';

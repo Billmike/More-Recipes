@@ -19,7 +19,7 @@ class SessionControl {
   * @returns { object } - The user details object
   */
 
-  static isuser(req, res, next) {
+  static isUser(req, res, next) {
     let verifiedJWT;
     try {
       verifiedJWT = jwt.verify(req.token, process.env.SECRET);

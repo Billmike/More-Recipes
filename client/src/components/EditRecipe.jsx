@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RecipesForm from './RecipesForm';
-import { EditRecipeAction } from '../actions/recipes';
-
+import { editRecipeAction } from '../actions/recipes';
 
 /**
  * Component that renders the Edit recipe page
@@ -14,7 +13,7 @@ import { EditRecipeAction } from '../actions/recipes';
 
 export class EditRecipe extends Component {
   onSubmit = (recipe) => {
-    this.props.EditRecipeAction(this.props.recipe.id, recipe).then(() => {
+    this.props.editRecipeAction(this.props.recipe.id, recipe).then(() => {
       this.props.history.push('/dashboard');
     });
   };
@@ -37,4 +36,4 @@ export const mapStateToProps = (state, props) => {
   };
 };
 
-export default connect(mapStateToProps, { EditRecipeAction })(EditRecipe);
+export default connect(mapStateToProps, { editRecipeAction })(EditRecipe);

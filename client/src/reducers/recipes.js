@@ -88,8 +88,8 @@ export default (state = recipeDefaultState, action) => {
             favorites:
               action.toggleType === 'add'
                 ? [...recipe.favorites, { userId: action.userId }]
-                : recipe.favorites.filter(favorite => favorite
-                  .userId !== action.userId)
+                : recipe.favorites
+                  .filter(favorite => favorite.userId !== action.userId)
           };
         }),
         popularRecipes: state.popularRecipes.map((recipe) => {
@@ -107,9 +107,10 @@ export default (state = recipeDefaultState, action) => {
         })
       };
     case 'UPVOTE_RECIPE':
-      state.singleRecipe.downVote = state.singleRecipe
-        .downVote > 0 ? state.singleRecipe
-          .downVote - 1 : state.singleRecipe.downVote;
+      state.singleRecipe.downVote =
+        state.singleRecipe.downVote > 0
+          ? state.singleRecipe.downVote - 1
+          : state.singleRecipe.downVote;
       return {
         ...state,
         singleRecipe: {
@@ -118,9 +119,10 @@ export default (state = recipeDefaultState, action) => {
         }
       };
     case 'DOWNVOTE_RECIPE':
-      state.singleRecipe.upVote = state.singleRecipe
-        .upVote > 0 ? state.singleRecipe
-          .upVote - 1 : state.singleRecipe.upVote;
+      state.singleRecipe.upVote =
+        state.singleRecipe.upVote > 0
+          ? state.singleRecipe.upVote - 1
+          : state.singleRecipe.upVote;
       return {
         ...state,
         singleRecipe: {
