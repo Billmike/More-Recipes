@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecipeDetails Component Should render the recipe details component properly 1`] = `
+<div
+  id="recipe-detail-ID"
+>
+  <div>
+    <h4
+      className="recipe-detail-name"
+    >
+      Amazing fried rice
+    </h4>
+    <div
+      className="recipe-detail-category"
+    >
+      Category: 
+      Lunch
+    </div>
+    <div
+      className="container image-name"
+    >
+      <div
+        className="img-fluid center-image"
+      >
+        <img
+          className="rounded recipe-detail-image"
+          src="https://somereallycoolimage.ly"
+        />
+      </div>
+      <div
+        className="recipe-detials-btn"
+      >
+        <Link
+          className="btn details-action-button thumbs-up brown-thumb"
+          id="upvoteid"
+          onClick={[Function]}
+          replace={false}
+          to="/"
+        >
+           
+          <i
+            aria-hidden="true"
+            className="fa fa-thumbs-up fa"
+          />
+        </Link>
+        <Link
+          className="btn details-action-button thumbs-down"
+          id="downvoteid"
+          onClick={[Function]}
+          replace={false}
+          to="/"
+        >
+           
+           
+          <i
+            aria-hidden="true"
+            className="fa fa-thumbs-down fa"
+          />
+        </Link>
+        <Link
+          className="btn details-action-button heart-button"
+          id="favoriteid"
+          onClick={[Function]}
+          replace={false}
+          to="/"
+        >
+          <i
+            aria-hidden="true"
+            className="fa fa-heart my-heart"
+          />
+        </Link>
+      </div>
+      <div
+        className=""
+      >
+        <div>
+          <h4
+            className="recipe-detail-description"
+          >
+            Description
+          </h4>
+          <p
+            className="recipe-description-paragraph"
+          >
+            A really amazing fried rice
+          </p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        className="container"
+      >
+        <div
+          className="ingredients-div"
+        >
+          <h4
+            className="detail-title"
+          >
+             Ingredients 
+          </h4>
+          <hr />
+          <li
+            className="split-items"
+            key="1"
+          >
+            Bread
+          </li>
+          <li
+            className="split-items"
+            key="1"
+          >
+            Samolina
+          </li>
+          <li
+            className="split-items"
+            key="1"
+          >
+            Beancake
+          </li>
+        </div>
+        <div
+          className="ingredients-div"
+        >
+          <h4
+            className="detail-title"
+          >
+             Instructions 
+          </h4>
+          <hr />
+          <li
+            className="split-items"
+            key="1"
+          >
+            Cook it really well
+          </li>
+          <li
+            className="split-items"
+            key="1"
+          >
+            Avoid mixing with water
+          </li>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p
+        className="auth-review"
+      >
+        You have to be Logged in to post a review
+      </p>
+    </div>
+    <br />
+    <div>
+      <h6
+        className="text-center form-h6"
+      >
+        Reviews
+      </h6>
+    </div>
+    <div
+      className="review-back"
+    >
+      <div
+        className="review-div"
+      >
+        <Review
+          key="1"
+          review={
+            Object {
+              "content": "Amazing recipe you got",
+              "createdAt": "19th-Jan-2018",
+              "id": 1,
+              "updatedAt": "19th-Jan-2018",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+  <Footer />
+</div>
+`;

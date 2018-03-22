@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecipesList /> Should mount the Recipe List component correctly 1`] = `
+<div
+  className="col-md-4"
+>
+  <div
+    className="card"
+  >
+    <Link
+      replace={false}
+      to="/recipe/3"
+    >
+      <img
+        alt="Pizza"
+        className="card-img-top"
+        src="https://somereallycoolimage.ly"
+      />
+    </Link>
+    <div
+      className="card-body"
+    >
+      <Link
+        replace={false}
+        to="/recipe/3"
+      >
+        <h4
+          className="card-title"
+        >
+          Amazing fried rice
+        </h4>
+      </Link>
+      <p
+        className="card-text"
+      >
+        A really amazing fried rice
+      </p>
+      <div
+        className="group-btn"
+      >
+        <Link
+          className="btn border border-secondary rounded"
+          id="viewButton"
+          replace={false}
+          to="/recipe/3"
+        >
+          <i
+            aria-hidden="true"
+            className="fa fa-eye"
+          />
+        </Link>
+        <Link
+          className="btn border border-secondary rounded"
+          id="favbutton"
+          onClick={[Function]}
+          replace={false}
+          to="/recipe/3"
+        >
+           
+          1
+          <i
+            aria-hidden="true"
+            className="fa fa-heart"
+          />
+        </Link>
+        <Link
+          className="btn border border-secondary rounded"
+          replace={false}
+          to="/recipe/3"
+        >
+           
+          1
+           
+          <i
+            aria-hidden="true"
+            className="fa fa-comments"
+          />
+        </Link>
+      </div>
+    </div>
+    <div
+      className="card-footer pad-footer"
+    >
+      <small
+        className="text-muted small-text category-text"
+      >
+        Recipe Category - 
+        Lunch
+      </small>
+    </div>
+  </div>
+</div>
+`;

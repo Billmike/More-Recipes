@@ -1,12 +1,28 @@
 /**
-  * @returns { Object } validateReview
+  * Validate the user input prior to adding a review
   *
   *
+  * @param { object } req - The request object
+  * @param { object } res - The response object
+  * @param { callback } next - The callback function
+  *
+  * @returns { object } an object of user reviews
   */
 
-const validateReview = ({ review }) => {
-  if (review === undefined || review === '') return { valid: false, message: 'You cannot post an empty review. Are you sure you want to post a review?' };
-  return { valid: true };
+const validateReview = (req, res, next) => {
+  const { content } = req.body;
+  if (content === undefined || content.trim() === '') {
+    const err = res
+      .status(403)
+      .send({
+        status: 'Denied.',
+        message: 'You can\'t post an empty review.' +
+          'Please, enter a happy review for this recipe.'
+      });
+    return next(err);
+  }
+  return next();
 };
 
 export default validateReview;
+

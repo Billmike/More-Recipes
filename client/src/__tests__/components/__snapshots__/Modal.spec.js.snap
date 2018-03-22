@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Modal /> Should render the Modal correctly 1`] = `
+<Modal
+  ariaHideApp={false}
+  bodyOpenClassName="ReactModal__Body--open"
+  className="modal-class"
+  closeTimeoutMS={300}
+  contentLabel="Delete Recipe?"
+  isOpen={false}
+  parentSelector={[Function]}
+  portalClassName="ReactModalPortal"
+  shouldCloseOnEsc={true}
+  shouldCloseOnOverlayClick={true}
+  shouldFocusAfterRender={true}
+  shouldReturnFocusAfterClose={true}
+>
+  <h3
+    className="modal-ptag"
+  >
+     Delete Recipe 
+  </h3>
+  <p
+    className="modal-ptag"
+  >
+     Are you sure want to delete this recipe?
+  </p>
+  <div
+    className="group-btn"
+  >
+    <button
+      className="btn btn-danger user-btn modal-btn-red"
+    >
+      Yes
+    </button>
+    <button
+      className="btn user-btn modal-btn-white"
+    >
+      No
+    </button>
+  </div>
+</Modal>
+`;

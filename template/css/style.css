@@ -1,6 +1,12 @@
+html {
+    position: relative;
+  min-height: 100%;
+}
+
 body {
     background: #F0EDED;
     color: #575252; 
+    margin-bottom: 60px;
 }
 
 body .navbar {
@@ -13,6 +19,15 @@ body .navbar {
     margin-top: 20px;
     margin-bottom: 30px;
     font-family: Ubuntu;
+}
+
+.border {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.border :hover {
+    text-decoration: none;
 }
 
 .title-h3 {
@@ -65,12 +80,6 @@ h4 {
 
 .recipe-search {
     margin-top: 20px;
-}
-
-.footer{
-    text-align: center;
-    margin: 10px;
-    padding: 10px;
 }
 
 .navbar-brand {
@@ -168,3 +177,23 @@ h4 {
       height: 450px;
       margin-bottom: 30px;
   }
+
+  .instruction-padd {
+      padding-left: 70px;
+      padding-bottom: 40px;
+  }
+
+  .recipe-padd {
+    padding-left: 70px;
+    padding-bottom: 40px;
+  }
+
+  .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
+}

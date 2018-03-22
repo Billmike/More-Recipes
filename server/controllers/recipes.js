@@ -1,153 +1,364 @@
-import recipes from '../models/recipes';
-import validators from '../validators/validateinput';
-import validateReview from '../validators/validateReview';
+import Sequelize from 'sequelize';
+import db from '../models/index';
+import errorMessage from '../errorHandler/errorMessage';
 
-const recipesDB = [...recipes];
+const { Op } = Sequelize;
+const recipes = db.Recipe;
+const reviews = db.Review;
+const favorites = db.Favorite;
+const votes = db.Vote;
 
 /**
- *Represents a Recipe class.
+ * Represents the Recipe class
+ *
+ * @class
+ *
  */
 
-class Recipes {
+class Recipe {
   /**
-   * @returns { Object } getRecipes
-   * @param { String } req - The request being passed.
-   * @param { String } res - The response being returned.
+   * Creates a new recipe by an logged-in user
+   *
+   *
+   * @param { object } req - The request object
+   * @param { object } res - The response object
+   *
+   * @returns { object } The new recipe object
+   */
+
+  static addRecipe(req, res) {
+    const {
+      name,
+      description,
+      imageUrl,
+      category,
+      ingredients,
+      instructions
+    } = req.body;
+    recipes
+      .findOne({
+        where: {
+          name,
+          owner: req.userId
+        }
+      })
+      .then((foundRecipe) => {
+        if (foundRecipe) {
+          return res.status(409).json({
+            message: 'You already have a recipe with this name'
+          });
+        }
+        recipes
+          .create({
+            name,
+            description,
+            imageUrl,
+            category,
+            ingredients,
+            instructions,
+            owner: req.userId
+          })
+          .then(recipe =>
+            res.status(201).json({
+              message: 'Recipe created successfully',
+              recipeData: recipe
+            }));
+      })
+      .catch(() =>
+        res.status(500).json({
+          message: errorMessage
+        }));
+  }
+
+  /**
+   * Modifies an existing recipe by the user who created the recipe
+   *
+   *
+   * @param { object } res - The response object
+   * @param { object } req - The request object
+   *
+   * @returns { object } the modified recipe object
+   */
+
+  static modifyRecipe(req, res) {
+    return recipes
+      .findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).json({
+            message: 'It seems this recipe does not exist.'
+          });
+        } else if (recipe.owner !== req.userId) {
+          return res.status(403).json({
+            message: 'Sorry. You cannot perform this action.'
+          });
+        }
+
+        return recipe
+          .update({
+            name: req.body.name || recipe.name,
+            description: req.body.description || recipe.description,
+            imageUrl: req.body.imageUrl || recipe.imageUrl,
+            category: req.body.category || recipe.category,
+            ingredients: req.body.ingredients || recipe.ingredients,
+            instructions: req.body.instructions || recipe.instructions
+          })
+          .then(() =>
+            res
+              .status(201)
+              .json({ message: 'Update successful.', recipeData: recipe }));
+      })
+      .catch(() =>
+        res.status(500).json({
+          message: errorMessage
+        }));
+  }
+
+  /**
+   * Fetches all the recipes in the database
+   * and limits them to six recipes per page
+   *
+   *
+   * @param { object } req - the request object
+   * @param { object } res - the response object
+   *
+   * @returns { object } All recipes in the application
    */
 
   static getRecipes(req, res) {
-    if (req.query.sort == 'upVotes') {
-      if (req.query.order == 'desc') {
-        recipesDB.sort((recipe1, recipe2) => recipe2.upVote - recipe1.upVote);
-      } else {
-        recipesDB.sort((recipe1, recipe2) => recipe1.upVote - recipe2.upVote);
-      }
-    }
-    return res.status(200).json({
-      feed: { recipes: recipesDB },
-    });
-  }
+    let offset = 0;
+    const limit = 6;
+    let singlePage;
+    let pages;
+    recipes
+      .findAndCountAll()
+      .then((foundRecipes) => {
+        const { page } = req.params;
+        const pages = Math.ceil(foundRecipes.count / limit);
+        offset = limit * (page - 1);
 
-  /**
-   * @returns { Object } createRecipe
-   * @param { String } req - The request being passed.
-   * @param { String } res - The response being returned.
-   */
-
-  static createRecipe(req, res) {
-    const validate = validators(req.body);
-    const recipe = Object.assign({}, req.body, {
-      id: recipesDB.length + 1,
-      upVote: 0,
-      downVote: 0,
-      favorite: 0,
-      reviews: [{
-        review: '',
-      }],
-    });
-    if (validate.valid) {
-      recipesDB.push(recipe);
-      res.status(201).send({ status: 'Successful.', feed: recipesDB[recipesDB.length - 1] });
-    } else {
-      res.status(400).send({ status: false, message: validate.message });
-    }
-  }
-
-  /**
-   * @returns { Object } updateRecipe
-   * @param { String } req - The request being passed.
-   * @param { String } res - The response being returned.
-   */
-
-  static updateRecipe(req, res) {
-    for (let i = 0; i <= recipesDB.length; i += 1) {
-      if (recipesDB[i].id == req.params.recipeId) {
-        const validate = validators(req.body);
-        if (validate.valid) {
-          recipesDB[i].name = req.body.name;
-          recipesDB[i].description = req.body.description;
-          recipesDB[i].category = req.body.category;
-          recipesDB[i].ingredients = req.body.ingredients;
-          recipesDB[i].instructions = req.body.instructions;
-
-          return res.status(201).json({
-            message: 'Success',
-            recipes: { recipes: recipesDB[i] },
+        return recipes
+          .findAll({
+            limit,
+            offset,
+            include: [
+              {
+                model: favorites,
+                as: 'favorites',
+                attributes: ['userId']
+              },
+              {
+                model: reviews,
+                as: 'reviews'
+              }
+            ]
+          })
+          .then((allRecipes) => {
+            res.status(200).json({
+              recipeData: allRecipes,
+              pages
+            });
           });
-        } else {
-          res.status(401).send({ status: 'Update failed.', message: validate.message });
-        }
-      }
-    }
+      })
+      .catch(() =>
+        res.status(500).json({
+          message: errorMessage
+        }));
   }
 
   /**
-   * @returns { Object } deleteRecipe
-   * @param { String } req - The request being passed.
-   * @param { String } res - The response being returned.
+   * Deletes a single recipe in the application
+   *
+   *
+   * @param { object } req - the request object
+   * @param { object } res - the response object
+   *
+   * @returns { object } A response with either a success or failure message
    */
 
   static deleteRecipe(req, res) {
-    for (let i = 0; i <= recipesDB.length; i += 1) {
-      if (recipesDB[i].id == req.params.recipeId) {
-        recipesDB.splice(i, 1);
-        return res.status(201).json({ status: 'Success', message: 'Successfully deleted recipe' });
-      }
-    }
-  }
-
-  /**
-   * @returns { Object } upVote
-   * @param { String } req - The request being passed.
-   * @param { String } res - The response being returned.
-   */
-
-  static upVote(req, res) {
-    for (let i = 0; i <= recipesDB.length; i += 1) {
-      if (recipesDB[i].id == req.params.recipeId) {
-        const counter = parseInt(req.body.upVote, 10);
-        recipesDB[i].upVote += counter;
-        return res.status(201).send({ status: 'Success.', message: 'Upvote successful.' });
-      }
-    }
-  }
-
-  /**
-   * @returns { Object } downVote
-   * @param { String } req - The request being passed.
-   * @param { String } res - The response being returned.
-   */
-
-  static downVote(req, res) {
-    for (let i = 0; i <= recipesDB.length; i += 1) {
-      if (recipesDB[i].id == req.params.recipeId) {
-        const counter = parseInt(req.body.downVote, 10);
-        recipesDB[i].downVote += counter;
-        return res.status(201).send({ status: 'Success.', message: 'Thanks for your feedback!' });
-      }
-    }
-  }
-
-  /**
-   * @returns { Object } reviews
-   * @param { String } req - The request being passed.
-   * @param { String } res - The response being returned.
-   */
-
-  static reviews(req, res) {
-    for (let i = 0; i <= recipesDB.length; i += 1) {
-      if (recipesDB[i].id == req.params.recipeId) {
-        const reviewValidate = validateReview(req.body);
-        if (reviewValidate.valid) {
-          recipesDB[i].reviews.push({
-            review: req.body.review,
+    return recipes
+      .findById(req.params.recipeId)
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).json({
+            message: 'The recipe you are looking for does not exist.'
           });
-          return res.status(201).send({ status: 'Success', message: 'Your review has been recorded. Our moderators would have a look at it.' });
+        } else if (recipe.owner !== req.userId) {
+          return res.status(403).json({
+            message:
+              'You cannot delete this recipe' + ' as it does not belong to you.'
+          });
         }
-        res.status(400).send({ status: false, message: reviewValidate.message });
-      }
-    }
+        return recipe.destroy().then(() =>
+          res.status(201).json({
+            message: 'Recipe deleted successfully',
+            recipeId: recipe.id
+          }));
+      })
+      .catch(() =>
+        res.status(500).json({
+          message: errorMessage
+        }));
+  }
+
+  /**
+   * Searches the database for recipe(s) using either name or ingredient
+   *
+   *
+   * @param { object } req - The request object
+   * @param { object } res - The response object
+   *
+   * @returns { object } An array of recipes
+   * object that matches the request parameter
+   */
+
+  static searchRecipes(req, res) {
+    const { search } = req.query;
+    let offset = 0;
+    const limit = 6;
+    let singlePage;
+    let pages;
+    recipes
+      .findAndCountAll({
+        where: {
+          [Op.or]: {
+            name: {
+              [Op.iLike]: `%${search}`
+            },
+            ingredients: {
+              [Op.iLike]: `%${search}`
+            }
+          }
+        },
+        include: [
+          {
+            model: favorites,
+            as: 'favorites'
+          },
+          {
+            model: reviews,
+            as: 'reviews'
+          }
+        ]
+      })
+      .then((searchRecipesResult) => {
+        const { page } = req.query;
+        const pages = Math.ceil(searchRecipesResult.count / limit);
+        offset = limit * (page - 1);
+
+        return recipes
+          .findAll({
+            where: {
+              [Op.or]: {
+                name: {
+                  [Op.iLike]: `%${search}`
+                },
+                ingredients: {
+                  [Op.iLike]: `%${search}`
+                }
+              }
+            },
+            include: [
+              {
+                model: favorites,
+                as: 'favorites'
+              },
+              {
+                model: reviews,
+                as: 'reviews'
+              }
+            ],
+            limit,
+            offset
+          })
+          .then((returnedResult) => {
+            res.status(200).json({
+              recipeData: returnedResult,
+              pages
+            });
+          });
+      })
+      .catch(() => {
+        return res.status(500).json({
+          message: errorMessage
+        });
+      });
+
+    // recipes.findAll({
+    //   where: {
+    //     [Op.or]: {
+    //       name: {
+    //         [Op.iLike]: `%${search}`
+    //       },
+    //       ingredients: {
+    //         [Op.iLike]: `%${search}`
+    //       }
+    //     }
+    //   },
+    //   include: [
+    //     {
+    //       model: favorites,
+    //       as: 'favorites'
+    //     }, {
+    //       model: reviews,
+    //       as: 'reviews'
+    //     }
+    //   ]
+    // }).then((foundRecipes) => {
+    //   const numberOfRecipesFound = foundRecipes.length;
+    //   if (foundRecipes.length <= 0) {
+    //     return res.status(200).json({
+    //       message: 'No recipes found with this name or ingredient'
+    //     });
+    //   }
+    //   res.status(200).json({
+    //     message: `Found ${numberOfRecipesFound} recipe(s)`,
+    //     recipeData: foundRecipes
+    //   });
+    // }).catch(() => {
+    //   res.status(500).json({
+    //     message: errorMessage
+    //   });
+    // });
+  }
+
+  static popularRecipes(req, res) {
+    return recipes
+      .findAll({
+        include: [
+          {
+            model: favorites,
+            as: 'favorites'
+          },
+          {
+            model: reviews,
+            as: 'reviews'
+          }
+        ],
+        order: [
+          [
+            {
+              model: favorites,
+              as: 'favorites'
+            },
+            'id',
+            'ASC'
+          ]
+        ],
+        limit: 6
+      })
+      .then((theFoundrecipes) => {
+        return res.status(200).json({
+          theFoundrecipes
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          message: err.message
+        });
+      });
   }
 }
 
-export default Recipes;
+export default Recipe;

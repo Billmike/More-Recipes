@@ -1,0 +1,1498 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "More-Recipes API",
+    "description": "# Introduction\nWelcome to the More-Recipes (v1) API. More-Recipes is an application that enables users from across the globe share insightful and amazing recipes.\n\n# Overview\nThe More-Recipes API was built using NodeJS (v8.9.1) and ExpressJS (v4.16.2). To begin consuming this API, it is strongly recommended that you create a dummy user (or users) which would be authenticated by the API.\n\n# Authentication\nThe More-Recipes API makes use of JSON Web Tokens (JWT) for authentication.\n\n# Status Codes in use\n-  200 - OK\n-  201 - Created\n-  400 - Bad Request\n-  401 - Unauthorized\n-  403 - Forbidden\n-  404 - Not Found\n- 409 - Conflict\n-  500 - Internal Server Error\n\n# Rate limit\n-  No rate limit employed for now."
+  },
+  "servers": [
+    {
+      "url": "https://more-recipes-app1.herokuapp.com",
+      "variables": {}
+    },
+    {
+      "url": "http://localhost:8000",
+      "variables": {}
+    }
+  ],
+  "basePath": "/api/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "description": "Signs up a  new user and returns a JSON Web Token.",
+        "summary": "Sign-up a new User",
+        "tags": [
+          "User"
+        ],
+        "operationId": "UsersSignupPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User sign-up success",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SignupSuccessResponse"
+            },
+            "examples": {}
+          },
+          "400": {
+            "description": "User sign-up error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SignupValidationError"
+            }
+          },
+          "409": {
+            "description": "User sign-up conflict",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SignupConflictErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/signup"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/users/signup",
+            "x-testDescription": "Signs up a  new user and returns a JSON Web Token."
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/signin": {
+      "post": {
+        "description": "Signs in an existing user and issues a JSON Web Token on successful sign-in",
+        "summary": "Sign-in a registered user",
+        "tags": [
+          "User"
+        ],
+        "operationId": "UsersSigninPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User sign-in success",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginSuccessResponse"
+            },
+            "examples": {}
+          },
+          "401": {
+            "description": "User sign-in error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/LoginValidationError"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/signin"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/users/signin",
+            "x-testDescription": "Signs in an existing user and issues a JSON Web Token on successful sign-in"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{page}": {
+      "get": {
+        "description": "Gets all the recipes in the application",
+        "summary": "Fetches all recipes in the application",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "page",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetRecipeSuccess"
+            },
+            "examples": {}
+          },
+          "500": {
+            "description": "Recipe error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes1",
+            "x-testDescription": "Gets all the recipes in the application"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/popular": {
+      "get": {
+        "description": "Gets the popular recipes based on favorites",
+        "summary": "Get popular recipes in the application",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesFetch",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Success Response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetRecipeSuccess"
+            },
+            "examples": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes/popular"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/popular",
+            "x-testDescription": "Fetch popular recipes"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes": {
+      "post": {
+        "description": "Creates a new recipe",
+        "summary": "Create a new recipe by an authenticated user",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Recipe"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success Response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/AddRecipeSuccess"
+            },
+            "examples": {}
+          },
+          "400": {
+            "description": "Error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/AddRecipeFailure"
+            }
+          },
+          "409": {
+            "description": "Conflict response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/AddRecipeConflict"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes",
+            "x-testDescription": "Creates a new recipe"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipe/{recipeId}": {
+      "get": {
+        "description": "Gets on recipe in the application",
+        "summary": "Fetch a single recipe in the application",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesByRecipeIdGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetRecipeSuccess"
+            },
+            "examples": {}
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/recipes/"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/:recipeId",
+            "x-testDescription": "Gets on recipe in the application"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      },
+      "delete": {
+        "description": "Deletes an existing recipe in the application",
+        "summary": "Delete a single recipe from the application",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesByRecipeIdDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete recipe success response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DeleteRecipeSuccess"
+            },
+            "examples": {}
+          },
+          "403": {
+            "description": "Delete recipe error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DeleteRecipeFailure"
+            }
+          },
+          "404": {
+            "description": "Delete recipe error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DeleteRecipeFailure"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "DELETE",
+              "uri": "/recipes/"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/:recipeId1",
+            "x-testDescription": "Deletes an existing recipe in the application"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}": {
+      "put": {
+        "description": "Modify an existing recipe in the application",
+        "summary": "Edit a recipe in the application",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesModifyByRecipeIdPut",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "token",
+            "in": "body",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/SignupSuccessResponse"
+            },
+            "examples": {}
+          },
+          "403": {
+            "description": "edit recipe error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DeleteRecipeFailure"
+            }
+          },
+          "404": {
+            "description": "Edit recipe error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/DeleteRecipeFailure"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "PUT",
+              "uri": "/recipes//modify"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/:recipeId/modify",
+            "x-testDescription": "Modify an existing recipe in the application"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/get_user": {
+      "get": {
+        "description": "Gets a logged-in user",
+        "summary": "Fetch a user detail",
+        "tags": [
+          "User"
+        ],
+        "operationId": "UsersGetUserPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/GetUserSuccess"
+            },
+            "examples": {}
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/get_user"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/users/get_user",
+            "x-testDescription": "Gets a logged-in user"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/profile": {
+      "put": {
+        "description": "Enable a user edit their details",
+        "summary": "Edit the details of an existing user",
+        "tags": [
+          "User"
+        ],
+        "operationId": "UsersProfilePost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "User details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpdateProfileSuccess"
+            },
+            "examples": {}
+          },
+          "401": {
+            "description": "Update profile error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteError"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/users/profile"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/users/profile",
+            "x-testDescription": "Enable a user edit their details"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/reviews": {
+      "post": {
+        "description": "Post reviews on a particular recipe",
+        "summary": "Post a review on a recipe",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesReviewsByRecipeIdPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "review",
+            "in": "body",
+            "required": true,
+            "type": "string",
+            "schema": {
+              "$ref": "#/definitions/Review"
+            }
+          },
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "in": "header",
+            "name": "token",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Review Success",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ReviewSuccess"
+            },
+            "examples": {}
+          },
+          "403": {
+            "description": "Review Error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ReviewError"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes//reviews"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/:recipeId/reviews",
+            "x-testDescription": "Post reviews on a particular recipe"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/favorites": {
+      "post": {
+        "description": "Favorite a single recipe by an authenticated user",
+        "summary": "Add a recipe to your list of favorites",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesFavoritesByRecipeIdPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Favorite recipe success",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FavoriteRecipesSuccess"
+            },
+            "examples": {}
+          },
+          "403": {
+            "description": "Favorite recipe error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FavoriteRecipesError"
+            }
+          },
+          "404": {
+            "description": "Favorite recipe error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FavoriteRecipesError"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes//favorites"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/:recipeId/favorites",
+            "x-testDescription": "Favorite a single recipe by an authenticated user"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/users/{userId}/favorites": {
+      "get": {
+        "description": "Get all the favorites for a particular user",
+        "summary": "Fetch the favorites for a particular user",
+        "tags": [
+          "User"
+        ],
+        "operationId": "UsersFavoritesByUserIdGet",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FetchFavoritesSuccess"
+            },
+            "examples": {}
+          },
+          "401": {
+            "description": "Favorite recipe error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FavoriteRecipesError"
+            }
+          },
+          "403": {
+            "description": "Favorite recipe error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/FavoriteRecipesError"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "GET",
+              "uri": "/users//favorites"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/users/:userId/favorites",
+            "x-testDescription": "Get all the favorites for a particular user"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/upvote": {
+      "post": {
+        "description": "Upvote a single recipe",
+        "summary": "Up-vote a recipe by a signed-in User",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesUpvoteByRecipeIdPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteSuccess"
+            },
+            "examples": {}
+          },
+          "401": {
+            "description": "Upvote error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteError"
+            }
+          },
+          "403": {
+            "description": "Upvote error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteError"
+            }
+          },
+          "404": {
+            "description": "Upvote error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteError"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes//upvote"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/:recipeId/upvote",
+            "x-testDescription": "Upvote a single recipe"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/recipes/{recipeId}/downvote": {
+      "post": {
+        "description": "Downvote a particular recipe",
+        "summary": "Down-vote a recipe by a signed-in user",
+        "tags": [
+          "Recipe"
+        ],
+        "operationId": "RecipesDownvoteByRecipeIdPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteSuccess"
+            },
+            "examples": {}
+          },
+          "401": {
+            "description": "Upvote error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteError"
+            }
+          },
+          "403": {
+            "description": "Upvote error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteError"
+            }
+          },
+          "404": {
+            "description": "Upvote error response",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/UpvoteError"
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/ServerErrorResponse"
+            }
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/recipes//downvote"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "/api/v1/recipes/:recipeId/downvote",
+            "x-testDescription": "Downvote a particular recipe"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "Billmike"
+        },
+        "email": {
+          "type": "string",
+          "example": "qwertyuoip@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "qwertyuiop"
+        }
+      }
+    },
+    "SignupSuccessResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Signup Successful"
+        },
+        "username": {
+          "type": "string",
+          "example": "Billmike"
+        },
+        "email": {
+          "type": "string",
+          "example": "qwertyuoip@gmail.com"
+        },
+        "token": {
+          "type": "string",
+          "example": "qwertyuiopasd.fghjklzxnm.qwertyyuu"
+        }
+      }
+    },
+    "SignupValidationError": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "example": "Username is required"
+        },
+        "email": {
+          "type": "string",
+          "example": "Invalid email address"
+        },
+        "password": {
+          "type": "string",
+          "example": "Password must be greater than 8 characters"
+        }
+      }
+    },
+    "SignupConflictErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Email must be uniques"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "example": "qwertyuoip@gmail.com"
+        },
+        "password": {
+          "type": "string",
+          "example": "qwertyuiop"
+        }
+      }
+    },
+    "LoginSuccessResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Signin Successful"
+        },
+        "email": {
+          "type": "string",
+          "example": "qwertyuiop@gmail.com"
+        },
+        "username": {
+          "type": "string",
+          "example": "Billmike"
+        },
+        "token": {
+          "type": "string",
+          "example": "qwertyuiopasd.fghjklzxnm.qwertyyuu"
+        }
+      }
+    },
+    "LoginValidationError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Invalid email or password"
+        }
+      }
+    },
+    "GetUserSuccess": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "username": {
+          "type": "string",
+          "example": "Billmike"
+        },
+        "email": {
+          "type": "string",
+          "example": "qwertyuiop@gmail.com"
+        }
+      }
+    },
+    "UpdateProfileSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "userData": {
+          "type": "object"
+        }
+      }
+    },
+    "Recipe": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Fried Rice"
+        },
+        "description": {
+          "type": "string",
+          "example": "Amazing fried rice for y'all"
+        },
+        "category": {
+          "type": "string",
+          "example": "Lunch"
+        },
+        "ingredients": {
+          "type": "string",
+          "example": "Rice\n Water\n Beans"
+        },
+        "instructions": {
+          "type": "string",
+          "example": "Cook for 10mins \n Dry well"
+        }
+      }
+    },
+    "AddRecipeSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Recipe created successfully"
+        },
+        "recipeData": {
+          "type": "object",
+          "example": {
+            "name": "Fried rice",
+            "description": "A short description of my recipe",
+            "imageUrl": "http://somehighresimagehere.com",
+            "category": "Lunch",
+            "ingredients": "Rice\nBeans\nRice",
+            "instructions": "Cook for long\nAll aboard!!",
+            "owner": 2,
+            "viewCount": 0
+          }
+        }
+      }
+    },
+    "AddRecipeFailure": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "AddRecipeConflict": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Recipe name exists"
+        }
+      }
+    },
+    "GetRecipeSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "recipeData": {
+          "type": "object"
+        }
+      }
+    },
+    "DeleteRecipeSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "DeleteRecipeFailure": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "example": "Amazing recipe you've got there man!"
+        }
+      }
+    },
+    "ReviewSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Review successfully posted"
+        },
+        "reviewData": {
+          "type": "object"
+        }
+      }
+    },
+    "ReviewError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "FavoriteRecipesSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "favoritedRecipe": {
+          "type": "object"
+        }
+      }
+    },
+    "FetchFavoritesSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "recipe": {
+          "type": "object"
+        }
+      }
+    },
+    "FavoriteRecipesError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "UpvoteSuccess": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "votedRecipe": {
+          "type": "object"
+        }
+      }
+    },
+    "UpvoteError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ServerErrorResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

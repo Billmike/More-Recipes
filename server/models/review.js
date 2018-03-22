@@ -1,12 +1,19 @@
-const review = [
-  {
-    id: 1,
-    content: 'An Amazing recipe. Really can\'t wait to try out this recipe with my family',
-  },
-  {
-    id: 2,
-    content: 'An Amazing recipe. Really can\'t wait to try out this recipe with my family',
-  },
-];
+module.exports = (sequelize, DataTypes) => {
+  const Review = sequelize.define('Review', {
+    content: DataTypes.TEXT,
+    user: DataTypes.STRING
+  });
 
-export default review;
+  Review.associate = (models) => {
+    Review.belongsTo(models.Recipe, {
+      foreignKey: 'recipeId',
+      onDelete: 'CASCADE',
+    });
+    Review.belongsTo(models.User, {
+      foreignKey: 'userId',
+      onDelete: 'CASCADE',
+    });
+  };
+
+  return Review;
+};

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Favorites /> Should render the Favorites component 1`] = `
+<div
+  id="favorites-container"
+>
+  <div
+    className="container"
+  >
+    <h2
+      className="dashboard-h2"
+    >
+       
+      Welcome to your Dashboard, 
+      annabelle
+      !
+    </h2>
+    <h4
+      className="dashboard-h4"
+    >
+       My favorites 
+    </h4>
+    <div
+      className="row"
+    >
+      <p
+        className="no-recipes-p"
+      >
+         
+        You currently have no
+        <Emoji
+          text="<3"
+        />
+        . Checkout some recipes
+         
+        <Link
+          id="addFavoritesLink"
+          replace={false}
+          to="/"
+        >
+          here.
+        </Link>
+      </p>
+    </div>
+  </div>
+  <Footer />
+</div>
+`;

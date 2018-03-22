@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProfilePage /> Should render the profile page correctly 1`] = `
+<div>
+  <main
+    className="container"
+    id="profileContainer"
+  >
+    <h1
+      className="profile-h1"
+    >
+      My Profile
+    </h1>
+    <div
+      className="profile-card"
+    >
+      <img
+        alt="John"
+        className="profile-image"
+        src="test-file-stub"
+      />
+      <p
+        className="profile-title"
+      >
+        Username
+      </p>
+      <p
+        className="prop-username"
+      >
+        annabelle
+      </p>
+      <p
+        className="profile-email"
+      >
+        Email Address
+      </p>
+      <p
+        className="prop-email"
+      >
+         
+        annabelle@gmail.com
+         
+      </p>
+    </div>
+  </main>
+  <Footer />
+</div>
+`;

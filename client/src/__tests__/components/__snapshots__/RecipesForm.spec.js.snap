@@ -1,0 +1,592 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RecipesForm/> Should render error for an invalid form submission 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      className="formsubmit"
+      id="recipe-form-ID"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className="recipe-form-values"
+          htmlFor="recipename"
+        >
+          Recipe Name
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          name="name"
+          onChange={[Function]}
+          value=""
+        />
+        <small
+          className="form-text"
+          id="recipeNameHelp"
+        >
+          Enter a name for your recipe
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            name="description"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text"
+            id="descriptionHelp"
+          >
+            Enter a short description for your recipe.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <t
+            accept="image/*"
+            className="dropzone"
+            disableClick={false}
+            disablePreview={false}
+            disabled={false}
+            id="dropZoneID"
+            maxSize={Infinity}
+            minSize={0}
+            multiple={false}
+            onDrop={[Function]}
+            preventDropOnDocument={true}
+          />
+          <button
+            className="drop-button"
+            id="dropZoneButton"
+            onClick={[Function]}
+            type="button"
+          >
+            Click to upload image
+          </button>
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="category"
+        >
+          Category
+        </label>
+        <select
+          className="form-control custom-select"
+          id="category"
+          name="category"
+          onChange={[Function]}
+          value="Lunch"
+        >
+          <option
+            value="lunch"
+          >
+            Lunch
+          </option>
+          <option
+            value="breakfast"
+          >
+            Breakfast
+          </option>
+          <option
+            value="dessert"
+          >
+            Dessert
+          </option>
+          <option
+            value="dinner"
+          >
+            Dinner
+          </option>
+          <option
+            value="snacks"
+          >
+            Snacks
+          </option>
+        </select>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="recipename"
+          >
+            Ingredients
+          </label>
+          <textarea
+            aria-describedby="recipeNameHelp"
+            className="form-control large-text"
+            id="recipeingredients"
+            name="ingredients"
+            onChange={[Function]}
+            value=""
+          />
+          <small
+            className="form-text"
+            id="recipeNameHelp"
+          >
+            Enter your recipe ingredients, separated by Commas.
+          </small>
+        </div>
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control large-text"
+            id="recipeDesc"
+            name="instructions"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <button
+          className="btn btn-primary my-btn button-font btn-lg btn-block"
+          id="recipe-submit-button"
+        >
+          Submit Recipe
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`<RecipesForm/> Should render the RecipesForm with recipes 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      className="formsubmit"
+      id="recipe-form-ID"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className="recipe-form-values"
+          htmlFor="recipename"
+        >
+          Recipe Name
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          name="name"
+          onChange={[Function]}
+          value="Amazing fried rice"
+        />
+        <small
+          className="form-text"
+          id="recipeNameHelp"
+        >
+          Enter a name for your recipe
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            name="description"
+            onChange={[Function]}
+            rows="3"
+            value="A really amazing fried rice"
+          />
+          <small
+            className="form-text"
+            id="descriptionHelp"
+          >
+            Enter a short description for your recipe.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <t
+            accept="image/*"
+            className="dropzone"
+            disableClick={false}
+            disablePreview={false}
+            disabled={false}
+            id="dropZoneID"
+            maxSize={Infinity}
+            minSize={0}
+            multiple={false}
+            onDrop={[Function]}
+            preventDropOnDocument={true}
+          />
+          <button
+            className="drop-button"
+            id="dropZoneButton"
+            onClick={[Function]}
+            type="button"
+          >
+            Click to upload image
+          </button>
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="category"
+        >
+          Category
+        </label>
+        <select
+          className="form-control custom-select"
+          id="category"
+          name="category"
+          onChange={[Function]}
+          value="Lunch"
+        >
+          <option
+            value="lunch"
+          >
+            Lunch
+          </option>
+          <option
+            value="breakfast"
+          >
+            Breakfast
+          </option>
+          <option
+            value="dessert"
+          >
+            Dessert
+          </option>
+          <option
+            value="dinner"
+          >
+            Dinner
+          </option>
+          <option
+            value="snacks"
+          >
+            Snacks
+          </option>
+        </select>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="recipename"
+          >
+            Ingredients
+          </label>
+          <textarea
+            aria-describedby="recipeNameHelp"
+            className="form-control large-text"
+            id="recipeingredients"
+            name="ingredients"
+            onChange={[Function]}
+            value="Bread
+Samolina
+Beancake"
+          />
+          <small
+            className="form-text"
+            id="recipeNameHelp"
+          >
+            Enter your recipe ingredients, separated by Commas.
+          </small>
+        </div>
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control large-text"
+            id="recipeDesc"
+            name="instructions"
+            onChange={[Function]}
+            rows="3"
+            value="Cook it really well
+Avoid mixing with water"
+          />
+          <small
+            className="form-text"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <button
+          className="btn btn-primary my-btn button-font btn-lg btn-block"
+          id="recipe-submit-button"
+        >
+          Submit Recipe
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
+`;
+
+exports[`<RecipesForm/> Should render the recipe form correctly 1`] = `
+<div>
+  <main
+    className="container"
+  >
+    <form
+      className="formsubmit"
+      id="recipe-form-ID"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className="recipe-form-values"
+          htmlFor="recipename"
+        >
+          Recipe Name
+        </label>
+        <input
+          aria-describedby="recipeNameHelp"
+          className="form-control"
+          id="recipename"
+          name="name"
+          onChange={[Function]}
+          value=""
+        />
+        <small
+          className="form-text"
+          id="recipeNameHelp"
+        >
+          Enter a name for your recipe
+        </small>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-8"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="inputDescription"
+          >
+            Description
+          </label>
+          <textarea
+            className="form-control"
+            id="descriptionTextArea"
+            name="description"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text"
+            id="descriptionHelp"
+          >
+            Enter a short description for your recipe.
+          </small>
+        </div>
+        <div
+          className="form-group col-4 upload-btn-wrapper"
+        >
+          <t
+            accept="image/*"
+            className="dropzone"
+            disableClick={false}
+            disablePreview={false}
+            disabled={false}
+            id="dropZoneID"
+            maxSize={Infinity}
+            minSize={0}
+            multiple={false}
+            onDrop={[Function]}
+            preventDropOnDocument={true}
+          />
+          <button
+            className="drop-button"
+            id="dropZoneButton"
+            onClick={[Function]}
+            type="button"
+          >
+            Click to upload image
+          </button>
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          htmlFor="category"
+        >
+          Category
+        </label>
+        <select
+          className="form-control custom-select"
+          id="category"
+          name="category"
+          onChange={[Function]}
+          value="Lunch"
+        >
+          <option
+            value="lunch"
+          >
+            Lunch
+          </option>
+          <option
+            value="breakfast"
+          >
+            Breakfast
+          </option>
+          <option
+            value="dessert"
+          >
+            Dessert
+          </option>
+          <option
+            value="dinner"
+          >
+            Dinner
+          </option>
+          <option
+            value="snacks"
+          >
+            Snacks
+          </option>
+        </select>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="recipename"
+          >
+            Ingredients
+          </label>
+          <textarea
+            aria-describedby="recipeNameHelp"
+            className="form-control large-text"
+            id="recipeingredients"
+            name="ingredients"
+            onChange={[Function]}
+            value=""
+          />
+          <small
+            className="form-text"
+            id="recipeNameHelp"
+          >
+            Enter your recipe ingredients, separated by Commas.
+          </small>
+        </div>
+        <div
+          className="form-group col-md-6"
+        >
+          <label
+            className="recipe-form-values"
+            htmlFor="inputDescription"
+          >
+            Instructions
+          </label>
+          <textarea
+            className="form-control large-text"
+            id="recipeDesc"
+            name="instructions"
+            onChange={[Function]}
+            rows="3"
+            value=""
+          />
+          <small
+            className="form-text"
+            id="descriptionHelp"
+          >
+            Enter your step-by-step Instructions.
+          </small>
+        </div>
+      </div>
+      <div
+        className="form-group"
+      >
+        <button
+          className="btn btn-primary my-btn button-font btn-lg btn-block"
+          id="recipe-submit-button"
+        >
+          Submit Recipe
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
+`;

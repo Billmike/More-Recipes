@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navbar /> Should render the Navbar component correctly 1`] = `
+<nav
+  className="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top"
+>
+  <button
+    aria-controls="navbarTogglerDemo01"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    className="navbar-toggler"
+    data-target="#startupNavbar"
+    data-toggle="collapse"
+    type="button"
+  >
+    <span
+      className="navbar-toggler-icon"
+    />
+  </button>
+  <Link
+    className="navbar-brand"
+    replace={false}
+    to="/"
+  >
+    <img
+      alt="More-Recipes"
+      height="80"
+      src="test-file-stub"
+      width="120"
+    />
+  </Link>
+  <div
+    className="collapse navbar-collapse navbar-expand"
+    id="startupNavbar"
+  >
+    <guestLinks />
+  </div>
+</nav>
+`;
