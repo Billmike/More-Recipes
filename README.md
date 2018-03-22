@@ -1,11 +1,14 @@
-[![Build Status](https://travis-ci.org/Billmike/More-Recipes.svg?branch=develop)](https://travis-ci.org/Billmike/More-Recipes)  [![Test Coverage](https://api.codeclimate.com/v1/badges/4eec654ff50f54688b72/test_coverage)](https://codeclimate.com/github/Billmike/More-Recipes/test_coverage)  [![Coverage Status](https://coveralls.io/repos/github/Billmike/More-Recipes/badge.svg?branch=chore%2Ffix-all-tests)](https://coveralls.io/github/Billmike/More-Recipes?branch=chore%2Ffix-all-tests)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1edfdfe474ad69a6dccc/maintainability)](https://codeclimate.com/github/Billmike/More-Recipes/maintainability)
+[![Build Status](https://travis-ci.org/Billmike/More-Recipes.svg?branch=develop)](https://travis-ci.org/Billmike/More-Recipes) [![Test Coverage](https://api.codeclimate.com/v1/badges/4eec654ff50f54688b72/test_coverage)](https://codeclimate.com/github/Billmike/More-Recipes/test_coverage) [![Coverage Status](https://coveralls.io/repos/github/Billmike/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Billmike/More-Recipes?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/49c250c64c46d991a656/maintainability)](https://codeclimate.com/github/Billmike/More-Recipes/maintainability)
 
 # More-Recipes
+
 ## Introduction
+
 > **More Recipes** is an application built using React, Redux, and Node that enables users create, share and vote on insightful recipes from around the world.
 
 ## Features currently available in the application
+
 * Users can see a catalogue of recipes well paginated
 * Users can see the most popular recipes in the application.
 * Users can create accounts by signing up with a valid email address and username
@@ -18,6 +21,7 @@
 * Registered users can review a recipe and leave their thoughts
 
 ## Technology Stack used
+
 * NodeJS
 * ExpressJS
 * PostgreSQL
@@ -26,69 +30,88 @@
 * Redux
 
 ## Getting Started
+
 * Before cloning the repo, make sure you have Node and PostgresQL installed on your local machine
 * Clone the repo to your local machine
+
 ```sh
 > $ git clone https://github.com/billmike/more-recipes.git
 ```
+
 * Change directory into the more-recipes directory
+
 ```sh
 > $ cd more-recipes
 ```
+
 * Install all required dependencies by running
+
 ```sh
 > $ npm install
 ```
-* Once installation is done, create a ```.env``` file and fill it with the neccessary environment variables (**see ```.env.example``` for the neccessary environment variables required**)
+
+* Once installation is done, create a `.env` file and fill it with the neccessary environment variables (**see `.env.example` for the neccessary environment variables required**)
 * Create a database to be used with the application
-* Migrate database by running 
+* Migrate database by running
+
 ```sh
 > $ sequelize db:migrate
 ```
-* To start the application, run 
+
+* To start the application, run
+
 ```sh
 > $ npm run dev
 ```
 
-##  API docs
+## API docs
+
 For an indepth look at the API build and up-to-date documentation, visit the [api doumentation website](https://more-recipes-app1.herokuapp.com/api-docs) to get started.
 
-  -  POST ```localhost:8080/api/v1/recipes/:recipeId/testVote```
-    -  To vote on a recipe, enter the url above and replace ```recipeId``` with a numeric value of a recipe that currently exists.
-  
-  -  PUT ```localhost:8080/api/v1/recipe/:recipeId```
-    -  To update a recipe, enter the url above and replace ```recipeId``` with the id of the recipe you want to update.
-  -  POST ```localhost:8080/api/v1/recipes?sort=upVotes&order=desc```
-    -  Enter the url above to get the reipes based on their number of votes.
+* POST `localhost:8080/api/v1/recipes/:recipeId/testVote`
 
-##  Running tests
+  * To vote on a recipe, enter the url above and replace `recipeId` with a numeric value of a recipe that currently exists.
+
+* PUT `localhost:8080/api/v1/recipe/:recipeId`
+  * To update a recipe, enter the url above and replace `recipeId` with the id of the recipe you want to update.
+* POST `localhost:8080/api/v1/recipes?sort=upVotes&order=desc`
+  * Enter the url above to get the reipes based on their number of votes.
+
+## Running tests
+
 #### Server-side tests
-*  Create a test database
+
+* Create a test database
 * run
+
 ```sh
 > $ npm run test-local
 ```
 
 #### Client-side tests
+
 * To run the client-side tests, run
+
 ```sh
 > $ npm run client-test
 ```
 
 #### End-to-end tests
-* To run the end-to-end tests, make sure you have selenium and chrome-driver downloaded on your local machine. (See the ```nightwatch.json``` file for paths and how to set it up).
+
+* To run the end-to-end tests, make sure you have selenium and chrome-driver downloaded on your local machine. (See the `nightwatch.json` file for paths and how to set it up).
 * run
+
 ```sh
 > $ npm run e2e
 ```
 
 ## Current limitations in the application
+
 * Users cannot signup/sign-in with their social media accounts
 
 ## How To Contribute
+
 * Fork the repository
 * Create a feature branch with a feature.md file
 * Write tests and make them pass
 * Open a pull request
-
-
