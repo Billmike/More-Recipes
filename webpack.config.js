@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = (env) => {
@@ -49,7 +50,12 @@ module.exports = (env) => {
         }
       ]
     },
-    plugins: [new ExtractTextPlugin('style.css')],
+    plugins: [
+      new ExtractTextPlugin('style.css'),
+      new Dotenv({
+        systemvars: true
+      })
+    ],
     resolve: {
       extensions: ['.js', '.jsx']
     },

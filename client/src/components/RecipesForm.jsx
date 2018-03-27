@@ -12,13 +12,14 @@ class RecipesForm extends Component {
     this.state = {
       name: this.props.recipe ? this.props.recipe.name : '',
       description: this.props.recipe ? this.props.recipe.description : '',
-      imageUrl: this.props.recipe ? this.props.recipe
-        .imageUrl : 'https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg',
+      imageUrl: this.props.recipe
+        ? this.props.recipe.imageUrl
+        : 'https://res.cloudinary.com/andela-nigeria/image/upload/v1519633786/salad.jpg',
       category: this.props.recipe ? this.props.recipe.category : 'Lunch',
       ingredients: this.props.recipe ? this.props.recipe.ingredients : '',
       instructions: this.props.recipe ? this.props.recipe.instructions : '',
       errors: {},
-      loaded: true,
+      loaded: true
     };
     this.onFormValueChange = this.onFormValueChange.bind(this);
     this.uploadToCloudinary = this.uploadToCloudinary.bind(this);
@@ -27,13 +28,10 @@ class RecipesForm extends Component {
   uploadToCloudinary() {
     const formData = new FormData();
     formData.append('file', this.state.imageUrl);
-    formData.append('upload_preset', 'gw9enn9u');
-    formData.append('api_key', '757874753524889');
+    formData.append('upload_preset', process.env.UPLOAD_PRESET);
+    formData.append('api_key', process.env.UPLOAD_API_KEY);
 
-    return axios.post(
-      'https://api.cloudinary.com/v1_1/andela-nigeria/image/upload',
-      formData
-    );
+    return axios.post(process.env.UPLOAD_URL, formData);
   }
 
   onFormValueChange(event) {
@@ -45,7 +43,7 @@ class RecipesForm extends Component {
 
   handleDrop = (file) => {
     this.setState({ imageUrl: file[0] });
-  }
+  };
 
   onSubmit = (event) => {
     event.preventDefault();
@@ -82,24 +80,25 @@ class RecipesForm extends Component {
   render() {
     let dropzoneRef;
     if (!this.state.loaded) {
-      return (
-        <Loader />
-      );
+      return <Loader />;
     }
     const { errors } = this.state;
     return (
       <div>
         <main className="container">
-          <form id="recipe-form-ID" className="formsubmit" onSubmit={this.onSubmit}>
+          <form
+            id="recipe-form-ID"
+            className="formsubmit"
+            onSubmit={this.onSubmit}
+          >
             <div className="form-group">
               <label className="recipe-form-values" htmlFor="recipename">
                 Recipe Name
               </label>
               <input
-                className={classNames(
-                  'form-control',
-                  { 'has-errors': errors.name }
-                )}
+                className={classNames('form-control', {
+                  'has-errors': errors.name
+                })}
                 id="recipename"
                 aria-describedby="recipeNameHelp"
                 name="name"
@@ -107,7 +106,8 @@ class RecipesForm extends Component {
                 onChange={this.onFormValueChange}
               />
               {errors.name && (
-                <span className="help-block has-errors">{errors.name}</span>)}
+                <span className="help-block has-errors">{errors.name}</span>
+              )}
               <small id="recipeNameHelp" className="form-text">
                 Enter a name for your recipe
               </small>
@@ -121,10 +121,9 @@ class RecipesForm extends Component {
                   Description
                 </label>
                 <textarea
-                  className={classNames(
-                    'form-control',
-                    { 'has-errors': errors.description }
-                  )}
+                  className={classNames('form-control', {
+                    'has-errors': errors.description
+                  })}
                   id="descriptionTextArea"
                   rows="3"
                   name="description"
@@ -132,9 +131,7 @@ class RecipesForm extends Component {
                   onChange={this.onFormValueChange}
                 />
                 {errors.description && (
-                  <span
-                    className="help-block has-errors"
-                  >
+                  <span className="help-block has-errors">
                     {errors.description}
                   </span>
                 )}
@@ -145,14 +142,16 @@ class RecipesForm extends Component {
               <div className="form-group col-4 upload-btn-wrapper">
                 <DropZone
                   id="dropZoneID"
-                  ref={(node) => { dropzoneRef = node; }}
+                  ref={(node) => {
+                    dropzoneRef = node;
+                  }}
                   onDrop={this.handleDrop}
                   accept="image/*"
                   multiple={false}
                   className="dropzone"
                   disablePreview={false}
                 >
-                  {this.state.imageUrl.preview &&
+                  {this.state.imageUrl.preview && (
                     <div>
                       <img
                         src={this.state.imageUrl.preview}
@@ -160,12 +159,14 @@ class RecipesForm extends Component {
                       />
                       <p className="dropzone-tag"> Click to upload an Image </p>
                     </div>
-                  }
+                  )}
                 </DropZone>
                 <button
                   id="dropZoneButton"
                   type="button"
-                  onClick={() => { dropzoneRef.open(); }}
+                  onClick={() => {
+                    dropzoneRef.open();
+                  }}
                   className="drop-button"
                 >
                   Click to upload image
@@ -194,21 +195,19 @@ class RecipesForm extends Component {
                   Ingredients
                 </label>
                 <textarea
-                  className={classNames(
-                    'form-control large-text',
-                    { 'has-errors': errors.ingredients }
-                  )}
+                  className={classNames('form-control large-text', {
+                    'has-errors': errors.ingredients
+                  })}
                   id="recipeingredients"
                   name="ingredients"
                   aria-describedby="recipeNameHelp"
                   value={this.state.ingredients}
                   onChange={this.onFormValueChange}
-
                 />
-                {errors.ingredients && (<span
-                  className="help-block has-errors">
-                  {errors.ingredients}
-                </span>
+                {errors.ingredients && (
+                  <span className="help-block has-errors">
+                    {errors.ingredients}
+                  </span>
                 )}
                 <small id="recipeNameHelp" className="form-text">
                   Enter your recipe ingredients, separated by Commas.
@@ -222,31 +221,30 @@ class RecipesForm extends Component {
                   Instructions
                 </label>
                 <textarea
-                  className={classNames(
-                    'form-control large-text',
-                    { 'has-errors': errors.instructions }
-                  )}
+                  className={classNames('form-control large-text', {
+                    'has-errors': errors.instructions
+                  })}
                   id="recipeDesc"
                   rows="3"
                   name="instructions"
                   value={this.state.instructions}
                   onChange={this.onFormValueChange}
-
                 />
-                {errors.instructions && (<span
-                  className="help-block has-errors">
-                  {errors.instructions}
-                </span>)}
+                {errors.instructions && (
+                  <span className="help-block has-errors">
+                    {errors.instructions}
+                  </span>
+                )}
                 <small id="descriptionHelp" className="form-text">
                   Enter your step-by-step Instructions.
                 </small>
               </div>
-
             </div>
             <div className="form-group">
               <button
                 id="recipe-submit-button"
-                className="btn btn-primary my-btn button-font btn-lg btn-block">
+                className="btn btn-primary my-btn button-font btn-lg btn-block"
+              >
                 Submit Recipe
               </button>
             </div>

@@ -67,4 +67,5 @@ client/bundle.js
 
 .DS_Store
 
-e2e_test_reports
+e2e_test_reports/
+server/.DS_Store
