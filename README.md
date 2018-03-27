@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Billmike/More-Recipes.svg?branch=develop)](https://travis-ci.org/Billmike/More-Recipes) [![Test Coverage](https://api.codeclimate.com/v1/badges/4eec654ff50f54688b72/test_coverage)](https://codeclimate.com/github/Billmike/More-Recipes/test_coverage) [![Coverage Status](https://coveralls.io/repos/github/Billmike/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Billmike/More-Recipes?branch=develop)
+[![Build Status](https://travis-ci.org/Billmike/More-Recipes.svg?branch=develop)](https://travis-ci.org/Billmike/More-Recipes) [![Coverage Status](https://coveralls.io/repos/github/Billmike/More-Recipes/badge.svg?branch=develop)](https://coveralls.io/github/Billmike/More-Recipes?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/49c250c64c46d991a656/maintainability)](https://codeclimate.com/github/Billmike/More-Recipes/maintainability)
 
 # More-Recipes
