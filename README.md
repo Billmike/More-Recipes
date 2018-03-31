@@ -9,19 +9,29 @@
 
 ## Table of Content
 - [Features in the application](#features-in-the-application)
+- [Technology stack used](#technology-stack-used)
+- [Getting Started](#getting-started)
+- [API Docs](#api-docs)
+- [Running Tests](#running-tests)
+- [How To Contribute](#how-to-contribute) 
 
 ## Features in the application
 
-* Users can see a catalogue of recipes well paginated
+* Users can see a catalogue of recipes well paginated.
 * Users can see the most popular recipes in the application.
-* Users can create accounts by signing up with a valid email address and username
-* Registered users can login with verified details
-* Registered users can add recipes to the application
-* Registered users can edit their recipes in the application
-* Registered users can delete their recipes in the application
-* Registered users can add and remove recipes from their list of favorite recipes
+* Users can create accounts by signing up with a valid email address and username.
+* User can search a catalogue of recipes.
+* Registered users can login with verified details.
+* Registered users can add recipes to the application.
+* Registered users can edit their recipes in the application.
+* Registered users can delete their recipes in the application.
+* Registered users can add and remove recipes from their list of favorite recipes.
 * Registered users can upvote on a particular recipe, and also downvote.
-* Registered users can review a recipe and leave their thoughts
+* Registered users can review a recipe and leave their thoughts.
+* Users receive email notification when they sign-up
+* Users get email notification when their recipe is reviewed
+* Users can see the number of times their recipe has been viewed
+* Users can see the number of favorites their recipe currently has
 
 ## Technology Stack used
 
