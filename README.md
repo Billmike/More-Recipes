@@ -8,7 +8,7 @@
 > **More Recipes** is an application built using React, Redux, and Node that enables users create, share and vote on insightful recipes from around the world.
 
 ## Table of Content
-- [Features in the application] (##features)
+- [Features in the application](##features)
 
 ## Features in the application
 
