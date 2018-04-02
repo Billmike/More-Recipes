@@ -146,7 +146,7 @@ export class SignupForm extends Component {
                 className="account"
                 to="/login"
               >
-                Sign in
+              {' '}  Sign in
           </Link>
             </p>
           </div>

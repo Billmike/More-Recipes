@@ -65,7 +65,8 @@ exports[`<LoginForm /> Should render the form correctly 1`] = `
           replace={false}
           to="/register"
         >
-          Let's hook you up with an account.
+           
+            Let's hook you up with an account.
         </Link>
       </p>
     </div>

@@ -75,7 +75,8 @@ exports[`<SignupForm component /> Should render the sign-up form correctly 1`] =
           replace={false}
           to="/login"
         >
-          Sign in
+           
+            Sign in
         </Link>
       </p>
     </div>

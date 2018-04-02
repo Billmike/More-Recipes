@@ -124,7 +124,7 @@ class LoginForm extends Component {
                 className="account"
                 to="/register"
               >
-                Let's hook you up with an account.
+              {' '}  Let's hook you up with an account.
             </Link>
             </p>
           </div>

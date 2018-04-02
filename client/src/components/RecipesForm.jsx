@@ -210,7 +210,7 @@ class RecipesForm extends Component {
                   </span>
                 )}
                 <small id="recipeNameHelp" className="form-text">
-                  Enter your recipe ingredients, separated by Commas.
+                  Enter your list of recipe ingredients.
                 </small>
               </div>
               <div className="form-group col-md-6">
