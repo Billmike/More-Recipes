@@ -17,6 +17,7 @@
     "start-webpack": "webpack --watch",
     "start:web": "webpack-dashboard -- webpack-dev-server",
     "start:dev": "npm run apidoc && nodemon --exec babel-node ./server/bin/www.js",
+    "start:netlify": "npm run build-client && npm run build:prod",
     "apidoc": "apidoc -i server/routes -o public/apidoc",
     "start": "node ./dist/bin/www.js",
     "heroku-postbuild": "npm run build-client && npm run build:prod && npm run migrate",
